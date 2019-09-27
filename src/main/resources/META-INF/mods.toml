@@ -1,6 +1,6 @@
 modLoader="javafml" #mandatory
 loaderVersion="[28,)" #mandatory (26 is current forge version)
-updateJSONURL="" #optional
+updateJSONURL="https://github.com/andrew0030/Pandoras-Creatures/blob/master/src/main/resources/assets/pandoras_creatures/update.json" #optional
 [[mods]] #mandatory
 modId="pandoras_creatures" #mandatory
 version="0.8" #mandatory

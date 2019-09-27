@@ -1,7 +1,6 @@
 {
-  "homepage": "<homepage/download page for your mod>",
+  "homepage": "https://www.curseforge.com/minecraft/mc-mods/pandoras-creatures/files",
   "promos": {
-  		"1.14.4-latest": "1.14.4-0.9.0",
 		"1.14.4-recommended": "1.14.4-0.9.0"
 	},
 	"1.14.4": {
