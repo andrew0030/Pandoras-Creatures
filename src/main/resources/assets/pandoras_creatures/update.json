@@ -1,0 +1,10 @@
+{
+  "homepage": "<homepage/download page for your mod>",
+  "promos": {
+  		"1.14.4-latest": "1.14.4-0.9.0",
+		"1.14.4-recommended": "1.14.4-0.9.0"
+	},
+	"1.14.4": {
+		"1.14.4-0.9.0": "Added Update Checker\nAdded rehosted Mod warning\nAdded Seahorse Entity"
+	}
+}
