@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient":
+  {
+    "item": "pandoras_creatures:crab_meat"
+  },
+  "result": "pandoras_creatures:crab_meat_cooked",
+  "experience": 0.35,
+  "cookingtime": 200
+}

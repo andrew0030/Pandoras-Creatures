@@ -1,0 +1,14 @@
+{
+  "parent": "item/generated",
+  "textures":
+   {
+      "layer0": "pandoras_creatures:item/crab_meat"
+   },
+  "display":
+  {
+    "gui":
+    {
+      "scale":  [ 0.8, 0.8, 0.0001 ]
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+	"itemGroup.pandoras_creatures": "Pandoras Creatures",
+
+	"item.pandoras_creatures.arachnon_spawn_egg": "Arachnon Spawn Egg",
+	"item.pandoras_creatures.hellhound_spawn_egg": "Hellhound Spawn Egg",
+	"item.pandoras_creatures.crab_spawn_egg": "Crab Spawn Egg",
+	"item.pandoras_creatures.seahorse_spawn_egg": "Seahorse Spawn Egg",
+	
+	"item.pandoras_creatures.arachnon_crystal": "Arachnon Crystal",
+	"item.pandoras_creatures.arachnon_hammer": "Arachnon Hammer",
+	"item.pandoras_creatures.crab_meat": "Crab Meat",
+	"item.pandoras_creatures.crab_meat_cooked": "Cooked Crab Meat",
+	"item.pandoras_creatures.crab_bucket": "Bucket of Crab",
+	"item.pandoras_creatures.seahorse_bucket": "Bucket of Seahorse",
+	
+	"entity.pandoras_creatures.arachnon": "Arachnon",
+	"entity.pandoras_creatures.hellhound": "Hellhound",
+	"entity.pandoras_creatures.crab": "Crab",
+	"entity.pandoras_creatures.seahorse": "Seahorse",
+	
+	"chat.pandoras_creatures.invalidJarDownload": "[here]",
+	"chat.pandoras_creatures.invalidJarDownloadTooltip": "Click to open the download page.",
+	"chat.pandoras_creatures.invalidJarStopModReposts": "[here]",
+	"chat.pandoras_creatures.invalidJarStopModRepostsTooltip": "Click to open Stop Mod Reposts page.",
+	"chat.pandoras_creatures.invalidJar": "Pandoras Creatures has detected an invalid jar file. Please click %s to open the official download page or click %s to learn more about illegal mod reposts.",
+	"chat.pandoras_creatures.newVersionDownload": "[here]",
+	"chat.pandoras_creatures.newVersionDownloadTooltip": "Click to open the download page.",
+	"chat.pandoras_creatures.newVersion": "There is a new version of Pandoras Creatures available. Please click %s to open the official download page."
+}

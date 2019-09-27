@@ -1,0 +1,33 @@
+modLoader="javafml" #mandatory
+loaderVersion="[28,)" #mandatory (26 is current forge version)
+updateJSONURL="" #optional
+[[mods]] #mandatory
+modId="pandoras_creatures" #mandatory
+version="0.8" #mandatory
+displayName="Pandoras Creatures" #mandatory
+logoFile="logo.png" #optional
+credits="Igrek: For making amazing textures" #optional
+authors="andrew0030" #optional
+# The description text for the mod (multi line!) (#mandatory)
+description='''
+Pandoras Creatures is a Mod that aims to make your game experience harder. If you got bored of the normal mobs or just want to walk around and enjoy exploring the new creatures and how they affect the world, then this Mod is exactly what you need.
+'''
+# A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
+[[dependencies.pandoras_creatures]] #optional
+    # the modid of the dependency
+    modId="forge" #mandatory
+    # Does this dependency have to exist - if not, ordering below must be specified
+    mandatory=true #mandatory
+    # The version range of the dependency
+    versionRange="[28,)" #mandatory
+    # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
+    ordering="NONE"
+    # Side this dependency is applied on - BOTH, CLIENT or SERVER
+    side="BOTH"
+# Here's another dependency
+[[dependencies.pandoras_creatures]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.14.4]"
+    ordering="NONE"
+    side="BOTH"

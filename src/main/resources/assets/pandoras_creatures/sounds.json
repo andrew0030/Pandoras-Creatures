@@ -1,0 +1,69 @@
+{
+	"entity.arachnon.ambient":
+    {
+        "category": "entity",
+        "subtitle": "Arachnon Roar",
+        "sounds": [
+        	{ "name": "pandoras_creatures:entity/arachnon_ambient_0", "stream": true},
+        	{ "name": "pandoras_creatures:entity/arachnon_ambient_1", "stream": true}
+        ]
+    },
+    "entity.arachnon.hurt":
+    {
+        "category": "entity",
+        "subtitle": "Arachnon Hurt",
+        "sounds": [
+        	{ "name": "pandoras_creatures:entity/arachnon_hurt_0", "stream": true},
+        	{ "name": "pandoras_creatures:entity/arachnon_hurt_1", "stream": true}
+        ]
+    },
+    "entity.arachnon.death":
+    {
+        "category": "entity",
+        "subtitle": "Arachnon Death",
+        "sounds": [
+        	{ "name": "pandoras_creatures:entity/arachnon_death_0", "stream": true}
+        ]
+    },
+    "entity.hellhound.ambient":
+    {
+        "category": "entity",
+        "subtitle": "Hellhound Bark",
+        "sounds": [
+        	{ "name": "pandoras_creatures:entity/hellhound_ambient_0", "stream": true}
+        ]
+    },
+    "entity.hellhound.hurt":
+    {
+        "category": "entity",
+        "subtitle": "Hellhound Hurt",
+        "sounds": [
+        	{ "name": "pandoras_creatures:entity/hellhound_hurt_0", "stream": true}
+        ]
+    },
+    "entity.hellhound.death":
+    {
+        "category": "entity",
+        "subtitle": "Hellhound Death",
+        "sounds": [
+        	{ "name": "pandoras_creatures:entity/hellhound_death_0", "stream": true}
+        ]
+    },
+    "entity.crab.hurt":
+    {
+        "category": "entity",
+        "subtitle": "Crab Hurt",
+        "sounds": [
+        	{ "name": "pandoras_creatures:entity/crab_hurt_0", "stream": true}
+        ]
+    },
+    "entity.crab.death":
+    {
+        "category": "entity",
+        "subtitle": "Crab Death",
+        "sounds": [
+        	{ "name": "pandoras_creatures:entity/crab_death_0", "stream": true},
+        	{ "name": "pandoras_creatures:entity/crab_death_1", "stream": true}
+        ]
+    }
+}
