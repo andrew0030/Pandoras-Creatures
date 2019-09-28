@@ -62,7 +62,8 @@ public class ItemSeahorseBucket extends ItemMobBucket
 			int size = compoundnbt.getInt("BucketSizeTag");
 			TextFormatting[] atextformatting = new TextFormatting[] {TextFormatting.ITALIC, TextFormatting.GRAY};
 			
-			tooltip.add((new TranslationTextComponent(SeahorseEntity.getSizeById(size) + " " + SeahorseEntity.getNameById(i)).applyTextStyles(atextformatting)));
+			tooltip.add((new TranslationTextComponent(SeahorseEntity.getNameById(i)).applyTextStyles(atextformatting)));
+			tooltip.add((new TranslationTextComponent(SeahorseEntity.getSizeById(size)).applyTextStyles(atextformatting)));
 		}
 	}
 }

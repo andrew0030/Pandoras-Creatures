@@ -12,6 +12,8 @@
 	"item.pandoras_creatures.crab_meat_cooked": "Cooked Crab Meat",
 	"item.pandoras_creatures.crab_bucket": "Bucket of Crab",
 	"item.pandoras_creatures.seahorse_bucket": "Bucket of Seahorse",
+	"item.pandoras_creatures.seahorse": "Raw Seahorse",
+	"item.pandoras_creatures.seahorse_cooked": "Cooked Seahorse",
 	
 	"entity.pandoras_creatures.arachnon": "Arachnon",
 	"entity.pandoras_creatures.hellhound": "Hellhound",
@@ -25,5 +27,25 @@
 	"chat.pandoras_creatures.invalidJar": "Pandoras Creatures has detected an invalid jar file. Please click %s to open the official download page or click %s to learn more about illegal mod reposts.",
 	"chat.pandoras_creatures.newVersionDownload": "[here]",
 	"chat.pandoras_creatures.newVersionDownloadTooltip": "Click to open the download page.",
-	"chat.pandoras_creatures.newVersion": "There is a new version of Pandoras Creatures available. Please click %s to open the official download page."
+	"chat.pandoras_creatures.newVersion": "There is a new version of Pandoras Creatures available. Please click %s to open the official download page.",
+	
+	"chat.pandoras_creatures.crabBucketTooltip.sea": "Sea Crab",
+	"chat.pandoras_creatures.crabBucketTooltip.tropical": "Tropical Crab",
+	
+	"chat.pandoras_creatures.seahorseBucketTooltip.verySmall": "Size: Very Small",
+	"chat.pandoras_creatures.seahorseBucketTooltip.small": "Size: Small",
+	"chat.pandoras_creatures.seahorseBucketTooltip.normal": "Size: Normal",
+	"chat.pandoras_creatures.seahorseBucketTooltip.big": "Size: Big",
+	"chat.pandoras_creatures.seahorseBucketTooltip.veryBig": "Size: Very Big",
+	
+	"chat.pandoras_creatures.seahorseBucketTooltip.orange": "Orange Seahorse",
+	"chat.pandoras_creatures.seahorseBucketTooltip.green": "Green Seahorse",	
+	"chat.pandoras_creatures.seahorseBucketTooltip.red": "Red Seahorse",
+	"chat.pandoras_creatures.seahorseBucketTooltip.yellow": "Yellow Seahorse",
+	"chat.pandoras_creatures.seahorseBucketTooltip.chromatic": "Chromatic Seahorse",
+	"chat.pandoras_creatures.seahorseBucketTooltip.cyan": "Cyan Seahorse",
+	"chat.pandoras_creatures.seahorseBucketTooltip.purple": "Purple Seahorse",
+	"chat.pandoras_creatures.seahorseBucketTooltip.pink": "Pink Seahorse",
+	"chat.pandoras_creatures.seahorseBucketTooltip.lime": "Lime Seahorse",
+	"chat.pandoras_creatures.seahorseBucketTooltip.ghost": "Ghost Seahorse"
 }

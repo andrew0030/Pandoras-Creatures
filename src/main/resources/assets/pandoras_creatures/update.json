@@ -4,6 +4,6 @@
 		"1.14.4-recommended": "1.14.4-0.9.0"
 	},
 	"1.14.4": {
-		"1.14.4-0.9.0": "Added Update Checker\nAdded rehosted Mod warning\nAdded Seahorse Entity"
+		"1.14.4-0.9.0": "Added Seahorses.\n - Seahorses come in 11 variants and 5 sizes.\nAdded forge update checker.\nStarted working on rehosted file warning.\nAdded German translation.\nAdded Italian translation.\nAdded Item Seahorse.\n - Its an Item that can be consumed.\nAdded Bucket of Seahorse Item.\n - Obtained by interacting with a Seahorse while holding a water bucket.\n"
 	}
 }

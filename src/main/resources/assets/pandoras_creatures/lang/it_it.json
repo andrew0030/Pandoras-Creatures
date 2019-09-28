@@ -1,0 +1,51 @@
+{
+	"itemGroup.pandoras_creatures": "Pandoras Creatures",
+
+	"item.pandoras_creatures.arachnon_spawn_egg": "Uovo di spawn Arachnon",
+	"item.pandoras_creatures.hellhound_spawn_egg": "Uovo di spawn Hellhound",
+	"item.pandoras_creatures.crab_spawn_egg": "Uovo di spawn Granchio",
+	"item.pandoras_creatures.seahorse_spawn_egg": "Uovo di spawn Cavallucio Marino",
+	
+	"item.pandoras_creatures.arachnon_crystal": "Cristallo di Arachnon",
+	"item.pandoras_creatures.arachnon_hammer": "Martello di Arachnon",
+	"item.pandoras_creatures.crab_meat": "Carne di Granchio",
+	"item.pandoras_creatures.crab_meat_cooked": "Carne di Granchio Cotta",
+	"item.pandoras_creatures.crab_bucket": "Secchiello con Granchio",
+	"item.pandoras_creatures.seahorse_bucket": "Secchiello con Cavallucio Marino",
+	"item.pandoras_creatures.seahorse": "Cavalluccio Marino Crudo",
+	"item.pandoras_creatures.seahorse_cooked": "Cavalluccio Carino Cotto",
+	
+	"entity.pandoras_creatures.arachnon": "Arachnon",
+	"entity.pandoras_creatures.hellhound": "Hellhound",
+	"entity.pandoras_creatures.crab": "Granchio",
+	"entity.pandoras_creatures.seahorse": "Cavallucio Marino",
+	
+	"chat.pandoras_creatures.invalidJarDownload": "[qui]",
+	"chat.pandoras_creatures.invalidJarDownloadTooltip": "Premi per aprire la pagina del download.",
+	"chat.pandoras_creatures.invalidJarStopModReposts": "[qui]",
+	"chat.pandoras_creatures.invalidJarStopModRepostsTooltip": "Premi per aprire la pagina Stop Mod Repost.",
+	"chat.pandoras_creatures.invalidJar": "Pandoras Creatures ha trovato un file jar non valido. Perfavore premi %s per aprire la pagina ufficiale di download o premi %s per saperne di più riguardo al repost illegale di mod.",
+	"chat.pandoras_creatures.newVersionDownload": "[qui]",
+	"chat.pandoras_creatures.newVersionDownloadTooltip": "Premi per aprire la pagina di download ufficiale.",
+	"chat.pandoras_creatures.newVersion": "C'è una nuova versione di Pandoras Creatures disponibile. Per favore premi %s per apire la pagina di download ufficiale.",
+	
+	"chat.pandoras_creatures.crabBucketTooltip.sea": "Granchio di mare",
+	"chat.pandoras_creatures.crabBucketTooltip.tropical": "Granchio tropicale",
+	
+	"chat.pandoras_creatures.seahorseBucketTooltip.verySmall": "Dimensione: Molto Piccolo",
+	"chat.pandoras_creatures.seahorseBucketTooltip.small": "Dimensione: Piccolo",
+	"chat.pandoras_creatures.seahorseBucketTooltip.normal": "Dimensione: Normale",
+	"chat.pandoras_creatures.seahorseBucketTooltip.big": "Dimensione: Grande",
+	"chat.pandoras_creatures.seahorseBucketTooltip.veryBig": "Dimensione: Molto Grande",
+	
+	"chat.pandoras_creatures.seahorseBucketTooltip.orange": "Cavalluccio marino arancione",
+	"chat.pandoras_creatures.seahorseBucketTooltip.green": "Cavallucio marino verde",	
+	"chat.pandoras_creatures.seahorseBucketTooltip.red": "Cavalluccio marino rosso",
+	"chat.pandoras_creatures.seahorseBucketTooltip.yellow": "Cavallucio marino giallo",
+	"chat.pandoras_creatures.seahorseBucketTooltip.chromatic": "Cavallucio marino cromatico",
+	"chat.pandoras_creatures.seahorseBucketTooltip.cyan": "Cavalluccio marino ciano",
+	"chat.pandoras_creatures.seahorseBucketTooltip.purple": "Cavallucio marino viola",
+	"chat.pandoras_creatures.seahorseBucketTooltip.pink": "Cavallucio marino rosa",
+	"chat.pandoras_creatures.seahorseBucketTooltip.lime": "Cavallucio marino lime",
+	"chat.pandoras_creatures.seahorseBucketTooltip.ghost": "Cavallucio marino fantasma"
+}

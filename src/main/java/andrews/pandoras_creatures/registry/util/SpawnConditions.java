@@ -61,4 +61,16 @@ public class SpawnConditions
     		return true;
     	}
     }
+    
+    public static boolean waterCondition(EntityType<? extends MobEntity> entityType, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random)
+    {
+    	if(world.getDimension().getType() != DimensionType.OVERWORLD)
+    	{
+    		return false;
+    	}
+    	else
+    	{
+    		return true;
+    	}
+    }
 }

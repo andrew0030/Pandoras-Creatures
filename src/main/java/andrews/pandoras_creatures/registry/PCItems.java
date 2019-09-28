@@ -20,6 +20,8 @@ public class PCItems
 	public static Item CRAB_MEAT_COOKED             		  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.CRAB_MEAT(true))).setRegistryName(Reference.MODID, "crab_meat_cooked");
 	public static Item CRAB_BUCKET                			  = new ItemCrabBucket(PCEntities.CRAB, Fluids.WATER).setRegistryName(Reference.MODID, "crab_bucket");
 	public static Item SEAHORSE_BUCKET                		  = new ItemSeahorseBucket(PCEntities.SEAHORSE, Fluids.WATER).setRegistryName(Reference.MODID, "seahorse_bucket");
+	public static Item SEAHORSE               	   			  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.SEAHORSE(false))).setRegistryName(Reference.MODID, "seahorse");
+	public static Item SEAHORSE_COOKED             		 	  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.CRAB_MEAT(true))).setRegistryName(Reference.MODID, "seahorse_cooked");
 	
 	@SubscribeEvent
 	public static void onRegisterItems(RegistryEvent.Register<Item> event)
@@ -31,7 +33,9 @@ public class PCItems
 			CRAB_MEAT,
 			CRAB_MEAT_COOKED,
 			CRAB_BUCKET,
-			SEAHORSE_BUCKET
+			SEAHORSE_BUCKET,
+			SEAHORSE,
+			SEAHORSE_COOKED
 		};
 		event.getRegistry().registerAll(items);
 	}

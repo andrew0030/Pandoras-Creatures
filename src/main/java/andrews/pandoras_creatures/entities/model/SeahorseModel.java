@@ -243,12 +243,14 @@ public class SeahorseModel<T extends SeahorseEntity> extends PCEntityModel<T>
     	}
     	else
     	{
-	    	if(entity.prevPosX != entity.posX || entity.prevPosY != entity.posY || entity.prevPosZ != entity.posZ) //Move Animation
+	    	if(entity.prevPosX != entity.posX || entity.prevPosZ != entity.posZ) //Move Animation
 	    	{
-				float globalSpeed = 0.8F;
-				float globalDegree = 1.0F;
+				float globalSpeed = 5.0F;
+				float globalDegree = 2.0F;
 				
 				loadDefaultPose();
+				
+				this.head.rotateAngleY = (netHeadYaw * ((float)Math.PI / 180) / 1.8F);
 				
 				swing(body, 0.3F * globalSpeed, 0.2F * globalDegree, false, 0.0F, 0.2F, limbSwing, limbSwingAmount);
 				
@@ -283,6 +285,8 @@ public class SeahorseModel<T extends SeahorseEntity> extends PCEntityModel<T>
 				float globalHeight = 1.0F;
 				
 				loadDefaultPose();
+				
+				this.head.rotateAngleY = (netHeadYaw * ((float)Math.PI / 180) / 1.8F);
 	    		
 	        	bounce(body, 0.4F * globalSpeed, 0.4F * globalHeight, false, limbSwing, limbSwingAmount);
 	        	

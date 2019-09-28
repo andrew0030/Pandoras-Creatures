@@ -85,7 +85,7 @@ public class PCEntities
     	EntitySpawnPlacementRegistry.register(ARACHNON, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PCEntities::noDayLightMobCondition);
     	EntitySpawnPlacementRegistry.register(HELLHOUND, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PCEntities::netherCondition);
     	EntitySpawnPlacementRegistry.register(CRAB, EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS, Heightmap.Type.OCEAN_FLOOR, PCEntities::amphibianstMobCondition);
-    	EntitySpawnPlacementRegistry.register(SEAHORSE, EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PCEntities::amphibianstMobCondition);
+    	EntitySpawnPlacementRegistry.register(SEAHORSE, EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PCEntities::waterCondition);
     }
     
     //Entity Spawn Egg Registry
@@ -110,5 +110,9 @@ public class PCEntities
     private static boolean netherCondition(EntityType<? extends MobEntity> entityType, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random)
     {
     	return SpawnConditions.netherCondition(entityType, world, spawnReason, pos, random);
+    }
+    private static boolean waterCondition(EntityType<? extends MobEntity> entityType, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random)
+    {
+    	return SpawnConditions.waterCondition(entityType, world, spawnReason, pos, random);
     }
 }

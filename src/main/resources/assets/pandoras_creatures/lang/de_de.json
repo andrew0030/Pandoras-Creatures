@@ -1,0 +1,51 @@
+{
+	"itemGroup.pandoras_creatures": "Pandoras Kreaturen",
+
+	"item.pandoras_creatures.arachnon_spawn_egg": "Arachnon-Spawn-Ei",
+	"item.pandoras_creatures.hellhound_spawn_egg": "Höllenhund-Spawn-Ei",
+	"item.pandoras_creatures.crab_spawn_egg": "Krabben-Spawn-Ei",
+	"item.pandoras_creatures.seahorse_spawn_egg": "Seepferdchen-Spawn-Ei",
+	
+	"item.pandoras_creatures.arachnon_crystal": "Arachnon-Kristall",
+	"item.pandoras_creatures.arachnon_hammer": "Arachnon-Hammer",
+	"item.pandoras_creatures.crab_meat": "Krabben-Fleisch",
+	"item.pandoras_creatures.crab_meat_cooked": "Gekochtes Krabben Fleisch",
+	"item.pandoras_creatures.crab_bucket": "Krabben-Eimer",
+	"item.pandoras_creatures.seahorse_bucket": "Seepferdchen-Eimer",
+	"item.pandoras_creatures.seahorse": "Rohes Seepferdchen",
+	"item.pandoras_creatures.seahorse_cooked": "Gekochtes Seepferdchen",
+	
+	"entity.pandoras_creatures.arachnon": "Arachnon",
+	"entity.pandoras_creatures.hellhound": "Höllenhund",
+	"entity.pandoras_creatures.crab": "Krabbe",
+	"entity.pandoras_creatures.seahorse": "Seepferdchen",
+	
+	"chat.pandoras_creatures.invalidJarDownload": "[hier]",
+	"chat.pandoras_creatures.invalidJarDownloadTooltip": "Klicke um die Download-Seite zu öffnen.",
+	"chat.pandoras_creatures.invalidJarStopModReposts": "[hier]",
+	"chat.pandoras_creatures.invalidJarStopModRepostsTooltip": "Klicke um die Stoppe Mod Neuveröffentlichungen-Seite zu öffnen.",
+	"chat.pandoras_creatures.invalidJar": "Pandoras Kreaturen hat eine ungültige jar Datei entdeckt. Bitte klicke %s um die offizielle download Seite zu öffnen oder klicke %s um etwas über illegale Mod Neuveröffentlichungen zu lernen.",
+	"chat.pandoras_creatures.newVersionDownload": "[hier]",
+	"chat.pandoras_creatures.newVersionDownloadTooltip": "Klicke um die Download-Seite zu öffnen.",
+	"chat.pandoras_creatures.newVersion": "Es gibt eine neue Pandoras Creatures version. Bitte klicke %s um die offizielle download Seite zu öffnen.",
+	
+	"chat.pandoras_creatures.crabBucketTooltip.sea": "See-Krabbe",
+	"chat.pandoras_creatures.crabBucketTooltip.tropical": "Tropische-Krabbe",
+	
+	"chat.pandoras_creatures.seahorseBucketTooltip.verySmall": "Größe: Sehr Klein",
+	"chat.pandoras_creatures.seahorseBucketTooltip.small": "Größe: Klein",
+	"chat.pandoras_creatures.seahorseBucketTooltip.normal": "Größe: Normal",
+	"chat.pandoras_creatures.seahorseBucketTooltip.big": "Größe: Groß",
+	"chat.pandoras_creatures.seahorseBucketTooltip.veryBig": "Größe: Sehr Groß",
+	
+	"chat.pandoras_creatures.seahorseBucketTooltip.orange": "Oranges Seepferdchen",
+	"chat.pandoras_creatures.seahorseBucketTooltip.green": "Grünes Seepferdchen",	
+	"chat.pandoras_creatures.seahorseBucketTooltip.red": "Rotes Seepferdchen",
+	"chat.pandoras_creatures.seahorseBucketTooltip.yellow": "Gelbes Seepferdchen",
+	"chat.pandoras_creatures.seahorseBucketTooltip.chromatic": "Chromatisches Seepferdchen",
+	"chat.pandoras_creatures.seahorseBucketTooltip.cyan": "Cyan Seepferdchen",
+	"chat.pandoras_creatures.seahorseBucketTooltip.purple": "Violettes Seepferdchen",
+	"chat.pandoras_creatures.seahorseBucketTooltip.pink": "Pinkes Seepferdchen",
+	"chat.pandoras_creatures.seahorseBucketTooltip.lime": "Lindgrünes Seepferdchen",
+	"chat.pandoras_creatures.seahorseBucketTooltip.ghost": "Geister Seepferdchen"
+}

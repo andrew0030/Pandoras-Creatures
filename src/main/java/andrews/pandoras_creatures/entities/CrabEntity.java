@@ -215,9 +215,9 @@ public class CrabEntity extends BucketableMobEntity
 		switch(id)
 		{
 			case 1:
-				return "Sea Crab";
+				return "chat.pandoras_creatures.crabBucketTooltip.sea";
 			case 2:
-				return "Tropical Crab";
+				return "chat.pandoras_creatures.crabBucketTooltip.tropical";
 		}
 		return "";
 	}

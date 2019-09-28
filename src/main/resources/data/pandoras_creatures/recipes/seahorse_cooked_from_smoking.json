@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient":
+  {
+    "item": "pandoras_creatures:seahorse"
+  },
+  "result": "pandoras_creatures:seahorse_cooked",
+  "experience": 0.35,
+  "cookingtime": 100
+}

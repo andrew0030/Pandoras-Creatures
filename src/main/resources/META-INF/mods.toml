@@ -1,17 +1,44 @@
+# The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
 modLoader="javafml" #mandatory
+
+# A version range to match for said mod loader - for regular FML @Mod it will be the forge version
 loaderVersion="[28,)" #mandatory (26 is current forge version)
-updateJSONURL="https://github.com/andrew0030/Pandoras-Creatures/blob/master/src/main/resources/assets/pandoras_creatures/update.json" #optional
+
+# A URL to refer people to when problems occur with this mod
+issueTrackerURL="https://www.curseforge.com/minecraft/mc-mods/pandoras-creatures/issues" #optional
+
+# A list of mods - how many allowed here is determined by the individual mod loader
 [[mods]] #mandatory
+
+# The modid of the mod
 modId="pandoras_creatures" #mandatory
-version="0.8" #mandatory
+
+# The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
+version="1.14.4-0.9.0" #mandatory
+
+ # A display name for the mod
 displayName="Pandoras Creatures" #mandatory
+
+# A URL to query for updates for this mod. See the JSON update specification <here>
+updateJSONURL="https://raw.githubusercontent.com/andrew0030/Pandoras-Creatures/master/src/main/resources/assets/pandoras_creatures/update.json" #optional
+
+# A URL for the "homepage" for this mod, displayed in the mod UI
+displayURL="https://www.curseforge.com/minecraft/mc-mods/pandoras-creatures" #optional
+
+# A file name (in the root of the mod JAR) containing a logo for display
 logoFile="logo.png" #optional
-credits="Igrek: For making amazing textures" #optional
-authors="andrew0030" #optional
+
+# A text field displayed in the mod UI
+credits="\nIgrek, for his amazing textures.\nFlummie2000 for translating and textures.\nGdG_Metiu19 for translating.\n" #optional
+
+# A text field displayed in the mod UI
+authors="andrew0030\n" #optional
+
 # The description text for the mod (multi line!) (#mandatory)
 description='''
 Pandoras Creatures is a Mod that aims to make your game experience harder. If you got bored of the normal mobs or just want to walk around and enjoy exploring the new creatures and how they affect the world, then this Mod is exactly what you need.
 '''
+
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.pandoras_creatures]] #optional
     # the modid of the dependency
