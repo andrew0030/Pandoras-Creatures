@@ -14,7 +14,7 @@ issueTrackerURL="https://www.curseforge.com/minecraft/mc-mods/pandoras-creatures
 modId="pandoras_creatures" #mandatory
 
 # The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
-version="1.14.4-0.9.0" #mandatory
+version="1.14.4-0.9.1" #mandatory
 
  # A display name for the mod
 displayName="Pandoras Creatures" #mandatory
@@ -46,7 +46,7 @@ Pandoras Creatures is a Mod that aims to make your game experience harder. If yo
     # Does this dependency have to exist - if not, ordering below must be specified
     mandatory=true #mandatory
     # The version range of the dependency
-    versionRange="[28,)" #mandatory
+    versionRange="[28.1.1,)" #mandatory
     # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
     ordering="NONE"
     # Side this dependency is applied on - BOTH, CLIENT or SERVER

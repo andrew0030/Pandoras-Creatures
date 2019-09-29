@@ -7,7 +7,6 @@ import javax.annotation.Nullable;
 
 import andrews.pandoras_creatures.registry.PCEntities;
 import andrews.pandoras_creatures.registry.PCItems;
-import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
@@ -184,14 +183,6 @@ public class SeahorseEntity extends BucketableMobEntity
     }
     
     @Override
-    public void baseTick()
-    {
-    	int i = this.getAir();
-        super.baseTick();
-        this.updateAir(i);
-    }
-    
-    @Override
     protected SoundEvent getSwimSound()
     {
     	return SoundEvents.ENTITY_FISH_SWIM;
@@ -228,7 +219,7 @@ public class SeahorseEntity extends BucketableMobEntity
 	@Nullable
 	@Override
 	public ILivingEntityData onInitialSpawn(IWorld world, DifficultyInstance difficulty, SpawnReason reason, ILivingEntityData spawnData, CompoundNBT dataTag)
-	{
+	{	
 		spawnData = super.onInitialSpawn(world, difficulty, reason, spawnData, dataTag);
 		Random rand = new Random();
 		int type = rand.nextInt(10) + 1;
@@ -245,12 +236,6 @@ public class SeahorseEntity extends BucketableMobEntity
 	}
     
     @Override
-    public boolean canBreatheUnderwater()
-    {
-    	return true;
-    }
-    
-    @Override
     protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn)
     {
         return sizeIn.height * 0.8F;
@@ -262,38 +247,9 @@ public class SeahorseEntity extends BucketableMobEntity
 		return new ItemStack(PCItems.SEAHORSE_BUCKET);
 	}
     
-    @Override
-    public CreatureAttribute getCreatureAttribute()
-    {
-    	return CreatureAttribute.WATER;
-    }
-    
-    @Override
-    protected int getExperiencePoints(PlayerEntity player)
-    {
-    	return 1 + this.world.rand.nextInt(3);
-    }
-    
     protected boolean func_212800_dy()
     {
         return true;
-    }
-    
-    protected void updateAir(int air)
-    {
-        if(this.isAlive() && !this.isInWaterOrBubbleColumn())
-        {
-           this.setAir(air - 1);
-           if(this.getAir() == -20)
-           {
-              this.setAir(0);
-              this.attackEntityFrom(DamageSource.DROWN, 2.0F);
-           }
-        }
-        else
-        {
-           this.setAir(300);
-        }
     }
     
     public static String getNameById(int id)

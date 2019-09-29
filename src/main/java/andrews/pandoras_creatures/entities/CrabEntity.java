@@ -9,7 +9,6 @@ import andrews.pandoras_creatures.registry.PCEntities;
 import andrews.pandoras_creatures.registry.PCItems;
 import andrews.pandoras_creatures.registry.PCSounds;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
@@ -118,12 +117,9 @@ public class CrabEntity extends BucketableMobEntity
 		this.setCrabType(type);
 		return spawnData;
 	}
-    
-    @Override
-    public boolean canBreatheUnderwater()
-    {
-    	return true;
-    }
+	
+	@Override
+	protected void updateAir(int air) {}
     
     @Override
     public boolean handleWaterMovement()
@@ -174,12 +170,6 @@ public class CrabEntity extends BucketableMobEntity
            this.jukeboxPosition = null;
         }
         super.livingTick();
-    }
-    
-    @Override
-    public CreatureAttribute getCreatureAttribute()
-    {
-    	return CreatureAttribute.WATER;
     }
     
     /**
