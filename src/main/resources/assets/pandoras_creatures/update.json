@@ -1,9 +1,10 @@
 {
   "homepage": "https://www.curseforge.com/minecraft/mc-mods/pandoras-creatures/files",
   "promos": {
-		"1.14.4-recommended": "1.14.4-0.9.1"
+		"1.14.4-recommended": "1.14.4-0.9.2"
 	},
 	"1.14.4": {
+		"1.14.4-0.9.2": "Made water mobs also spawn in versions before 2.8.1 and removed the need to use 2.8.1 and above",
 		"1.14.4-0.9.1": "Fixed mob water spawning not working, in any forge version above 2.8.0",
 		"1.14.4-0.9.0": "Added Seahorses.\n - Seahorses come in 11 variants and 5 sizes.\nAdded forge update checker.\nStarted working on rehosted file warning.\nAdded German translation.\nAdded Italian translation.\nAdded Item Seahorse.\n - Its an Item that can be consumed.\nAdded Bucket of Seahorse Item.\n - Obtained by interacting with a Seahorse while holding a water bucket.\n"
 	}
