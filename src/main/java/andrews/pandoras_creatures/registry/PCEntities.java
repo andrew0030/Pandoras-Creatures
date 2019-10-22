@@ -6,6 +6,7 @@ import java.util.Random;
 import com.google.common.collect.Lists;
 
 import andrews.pandoras_creatures.Main;
+import andrews.pandoras_creatures.entities.AcidicArchvineEntity;
 import andrews.pandoras_creatures.entities.ArachnonEntity;
 import andrews.pandoras_creatures.entities.CrabEntity;
 import andrews.pandoras_creatures.entities.HellhoundEntity;
@@ -22,6 +23,8 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraftforge.event.RegistryEvent;
@@ -39,7 +42,10 @@ public class PCEntities
 	public static final EntityType<HellhoundEntity> HELLHOUND = createNetherEntity(HellhoundEntity.class, HellhoundEntity::new, EntityClassification.CREATURE, "hellhound", 0.9F, 1.3F, 0xf5f3f0, 0xfc750d);
 	public static final EntityType<CrabEntity> CRAB = createEntity(CrabEntity.class, CrabEntity::new, EntityClassification.AMBIENT, "crab", 0.8F, 0.3F, 0xf79811, 0xffde3b);
 	public static final EntityType<SeahorseEntity> SEAHORSE = createEntity(SeahorseEntity.class, SeahorseEntity::new, EntityClassification.AMBIENT, "seahorse", 0.4F, 0.8F, 0x38d1d1, 0xd98f27);
+	public static final EntityType<AcidicArchvineEntity> ACIDIC_ARCHVINE = createAcidicArchvineEntity(AcidicArchvineEntity.class, AcidicArchvineEntity::new, EntityClassification.CREATURE, "acidic_archvine", 1.0F, 1.5F, 0x14661f, 0x7b34ad);
 	
+	//=========================================================================================================================================================================================================================================
+	//=========================================================================================================================================================================================================================================
 	//Entity Creation Method
 	private static <T extends Entity> EntityType<T> createEntity(Class<T> entityClass, EntityType.IFactory<T> factory, EntityClassification entityClassification, String name, float width, float height, int eggPrimary, int eggSecondary)
 	{
@@ -73,7 +79,30 @@ public class PCEntities
         spawnEggs.add(RegistryUtils.createSpawnEggForEntity(entity, eggPrimary, eggSecondary, Main.PANDORAS_CREATURES_GROUP));
         return entity;
 	}
-    
+	//Acidic Archvine Entity Creation Method
+	private static <T extends Entity> EntityType<T> createAcidicArchvineEntity(Class<T> entityClass, EntityType.IFactory<T> factory, EntityClassification entityClassification, String name, float width, float height, int eggPrimary, int eggSecondary)
+	{
+        ResourceLocation location = new ResourceLocation(Reference.MODID, name);
+      
+        EntityType<T> entity = EntityType.Builder.create(factory, entityClassification)
+        	.size(width, height)
+        	.setTrackingRange(60)
+        	.build(location.toString());
+        
+        entity.setRegistryName(location);
+        
+        entities.add(entity);
+        
+    	TranslationTextComponent tooltip = new TranslationTextComponent("item.pandoras_creatures.acidic_archvine_spawn_egg.tooltip", (Object) null);
+        tooltip.getStyle().setColor(TextFormatting.GRAY);
+        
+    	spawnEggs.add(RegistryUtils.createSpawnEggWithTooltipForEntity(entity, eggPrimary, eggSecondary, tooltip, Main.PANDORAS_CREATURES_GROUP));
+        return entity;
+	}
+	
+	//=========================================================================================================================================================================================================================================
+	//=========================================================================================================================================================================================================================================
+	
 	//Entity Registry
     @SubscribeEvent
     public static void registerEntities(RegistryEvent.Register<EntityType<?>> event)
@@ -86,6 +115,7 @@ public class PCEntities
     	EntitySpawnPlacementRegistry.register(HELLHOUND, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PCEntities::netherCondition);
     	EntitySpawnPlacementRegistry.register(CRAB, EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS, Heightmap.Type.OCEAN_FLOOR, PCEntities::amphibianstMobCondition);
     	EntitySpawnPlacementRegistry.register(SEAHORSE, EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PCEntities::waterCondition);
+    	EntitySpawnPlacementRegistry.register(ACIDIC_ARCHVINE, EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PCEntities::acidicArchvineCondition);
     }
     
     //Entity Spawn Egg Registry
@@ -114,5 +144,9 @@ public class PCEntities
     private static boolean waterCondition(EntityType<? extends MobEntity> entityType, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random)
     {
     	return SpawnConditions.waterCondition(entityType, world, spawnReason, pos, random);
+    }
+    private static boolean acidicArchvineCondition(EntityType<? extends MobEntity> entityType, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random)
+    {
+    	return SpawnConditions.acidicArchvineCondition(entityType, world, spawnReason, pos, random);
     }
 }

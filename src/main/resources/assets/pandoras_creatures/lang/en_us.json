@@ -5,6 +5,9 @@
 	"item.pandoras_creatures.hellhound_spawn_egg": "Hellhound Spawn Egg",
 	"item.pandoras_creatures.crab_spawn_egg": "Crab Spawn Egg",
 	"item.pandoras_creatures.seahorse_spawn_egg": "Seahorse Spawn Egg",
+	"item.pandoras_creatures.acidic_archvine_spawn_egg": "Acidic Archvine Spawn Egg",
+	
+	"item.pandoras_creatures.acidic_archvine_spawn_egg.tooltip": "Needs to be placed under Jungle Leaves or Netherrack",
 	
 	"item.pandoras_creatures.arachnon_crystal": "Arachnon Crystal",
 	"item.pandoras_creatures.arachnon_hammer": "Arachnon Hammer",
@@ -14,11 +17,13 @@
 	"item.pandoras_creatures.seahorse_bucket": "Bucket of Seahorse",
 	"item.pandoras_creatures.seahorse": "Raw Seahorse",
 	"item.pandoras_creatures.seahorse_cooked": "Cooked Seahorse",
+	"item.pandoras_creatures.acidic_archvine_tongue": "Acidic Archvine Tongue",
 	
 	"entity.pandoras_creatures.arachnon": "Arachnon",
 	"entity.pandoras_creatures.hellhound": "Hellhound",
 	"entity.pandoras_creatures.crab": "Crab",
 	"entity.pandoras_creatures.seahorse": "Seahorse",
+	"entity.pandoras_creatures.acidic_archvine": "Acidic Archvine",
 	
 	"chat.pandoras_creatures.invalidJarDownload": "[here]",
 	"chat.pandoras_creatures.invalidJarDownloadTooltip": "Click to open the download page.",
@@ -28,6 +33,7 @@
 	"chat.pandoras_creatures.newVersionDownload": "[here]",
 	"chat.pandoras_creatures.newVersionDownloadTooltip": "Click to open the download page.",
 	"chat.pandoras_creatures.newVersion": "There is a new version of Pandoras Creatures available. Please click %s to open the official download page.",
+	"chat.pandoras_creatures.failedCheck": "Pandoras Creatures was not able to check for new versions.",
 	
 	"chat.pandoras_creatures.crabBucketTooltip.sea": "Sea Crab",
 	"chat.pandoras_creatures.crabBucketTooltip.tropical": "Tropical Crab",

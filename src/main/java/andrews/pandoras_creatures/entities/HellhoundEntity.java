@@ -68,7 +68,6 @@ public class HellhoundEntity extends MonsterEntity
     @OnlyIn(Dist.CLIENT)
     public void handleStatusUpdate(byte id)
     {
-    	System.out.println(id);
     	if(id == 4)
     	{
     		this.isCharging = 1;

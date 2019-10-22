@@ -26,6 +26,7 @@ public class PCSounds
 	public static final SoundEvent HELLHOUND_DEATH = createSound("entity.hellhound.death");
 	public static final SoundEvent CRAB_HURT = createSound("entity.crab.hurt");
 	public static final SoundEvent CRAB_DEATH = createSound("entity.crab.death");
+	public static final SoundEvent ACIDIC_ARCHVINE_ATTACK = createSound("entity.acidic_archvine.attack");
 	
 	public static SoundEvent createSound(String name)
 	{

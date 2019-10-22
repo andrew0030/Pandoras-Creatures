@@ -65,5 +65,13 @@
         	{ "name": "pandoras_creatures:entity/crab_death_0", "stream": true},
         	{ "name": "pandoras_creatures:entity/crab_death_1", "stream": true}
         ]
+    },
+    "entity.acidic_archvine.attack":
+    {
+        "category": "entity",
+        "subtitle": "Acidic Archvine Attack",
+        "sounds": [
+        	{ "name": "pandoras_creatures:entity/acidic_archvine_attack_0", "stream": true}
+        ]
     }
 }

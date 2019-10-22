@@ -1,9 +1,11 @@
 package andrews.pandoras_creatures.proxy;
 
+import andrews.pandoras_creatures.entities.AcidicArchvineEntity;
 import andrews.pandoras_creatures.entities.ArachnonEntity;
 import andrews.pandoras_creatures.entities.CrabEntity;
 import andrews.pandoras_creatures.entities.HellhoundEntity;
 import andrews.pandoras_creatures.entities.SeahorseEntity;
+import andrews.pandoras_creatures.entities.render.AcidicArchvineRenderer;
 import andrews.pandoras_creatures.entities.render.ArachnonRenderer;
 import andrews.pandoras_creatures.entities.render.CrabRenderer;
 import andrews.pandoras_creatures.entities.render.HellhoundRenderer;
@@ -24,5 +26,6 @@ public class ClientProxy extends ServerProxy
 		RenderingRegistry.registerEntityRenderingHandler(HellhoundEntity.class, manager -> new HellhoundRenderer(manager));
 		RenderingRegistry.registerEntityRenderingHandler(CrabEntity.class, manager -> new CrabRenderer(manager));
 		RenderingRegistry.registerEntityRenderingHandler(SeahorseEntity.class, manager -> new SeahorseRenderer(manager));
+		RenderingRegistry.registerEntityRenderingHandler(AcidicArchvineEntity.class, manager -> new AcidicArchvineRenderer(manager));
 	}
 }

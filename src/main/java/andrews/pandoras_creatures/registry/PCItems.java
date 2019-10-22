@@ -22,6 +22,7 @@ public class PCItems
 	public static Item SEAHORSE_BUCKET                		  = new ItemSeahorseBucket(PCEntities.SEAHORSE, Fluids.WATER).setRegistryName(Reference.MODID, "seahorse_bucket");
 	public static Item SEAHORSE               	   			  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.SEAHORSE(false))).setRegistryName(Reference.MODID, "seahorse");
 	public static Item SEAHORSE_COOKED             		 	  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.CRAB_MEAT(true))).setRegistryName(Reference.MODID, "seahorse_cooked");
+	public static Item ACIDIC_ARCHVINE_TONGUE                 = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP)).setRegistryName(Reference.MODID, "acidic_archvine_tongue");
 	
 	@SubscribeEvent
 	public static void onRegisterItems(RegistryEvent.Register<Item> event)
@@ -35,7 +36,8 @@ public class PCItems
 			CRAB_BUCKET,
 			SEAHORSE_BUCKET,
 			SEAHORSE,
-			SEAHORSE_COOKED
+			SEAHORSE_COOKED,
+			ACIDIC_ARCHVINE_TONGUE
 		};
 		event.getRegistry().registerAll(items);
 	}

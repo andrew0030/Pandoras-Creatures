@@ -73,4 +73,42 @@ public class SpawnConditions
     		return true;
     	}
     }
+    
+    public static boolean acidicArchvineCondition(EntityType<? extends MobEntity> entityType, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random)
+    {	
+    	if(world.getDimension().getType() == DimensionType.OVERWORLD && pos.getY() < 62)
+    	{
+    		return false;
+    	}
+    	if(world.getDimension().getType() == DimensionType.THE_NETHER && pos.getY() < 40)
+    	{
+    		return false;
+    	}
+    	if(!world.getBlockState(pos).getBlock().equals(Blocks.AIR))
+    	{
+    		return false;
+    	}
+    	if(!(world.getBlockState(pos.up()).getBlock().equals(Blocks.AIR) && (world.getBlockState(pos.up(2)).getBlock().equals(Blocks.JUNGLE_LEAVES) || world.getBlockState(pos.up(2)).getBlock().equals(Blocks.NETHERRACK))))
+    	{
+    		return false;
+    	}
+    	//Checks for 8 Air Blocks
+    	int airBlocks = 0;
+    	for(int i = 0; i < 8; i++)
+    	{
+    		if(world.getBlockState(pos.down(i)).getBlock().equals(Blocks.AIR))
+    		{
+    			airBlocks++;
+    		}
+    		else
+    		{
+    			airBlocks--;
+    		}
+    	}
+    	if(airBlocks < 8)
+    	{
+    		return false;
+    	}
+    	return true;
+    }
 }
