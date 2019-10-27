@@ -1,0 +1,130 @@
+// Notes for translators, please read before starting.
+//
+// If you read this thank you for considering localising Pandoras Creatures.
+// Before you start consider messaging me (mod author) or one of my Discord moderators,
+// so you can get the Translator Role and have acces to the newest lang file.
+// This lang file will often have localisations for the next version of the mod,
+// that contains content that has not been released yet.
+//
+// When the localisation file is done send it to me, preferably in the discord channel made
+// for it, or by sending me a direct message.
+//
+// If you want a name other then your Discord name to be inside the credits, let me know.
+//
+// 					  <#########> Localising Tools <#########>
+//
+// By putting \n in the text the mod will split the text at that position, when spliting text
+// keep in mind that you have to add a color code again, if you used one in the line before
+// (see color codes bellow), as its a new line and the color will reset itself to default.
+//
+// The following color codes can be added to the start of text to color it:
+//
+// #c0 Black
+// #c1 Dark Blue
+// #c2 Dark Green
+// #c3 Dark Aqua
+// #c4 Dark Red
+// #c5 Dark Purple
+// #c6 Gold
+// #c7 Gray
+// #c8 Dark Gray
+// #c9 Blue
+// #ca Green
+// #cb Aqua
+// #cc Red
+// #cd Light Purple
+// #ce Yellow
+// #cf White
+//
+// The following color codes can be added to the start of text to apply some effects:
+//
+// #cl Bold
+// #cm Strikethrough
+// #cn Underline
+// #co Italic
+// #cr Reset the default color
+//
+// Feel free to add or remove new lines, in order to make the text look good in the language youre working on.
+// You should use a text editor that has JSON formating in order to avoid invalid files.
+// The text %s will be replace with text. Example: "Author: %s" could become "Author: andrew0030".  
+// The text %d will be replace with a number. Example: "Radius: %d*%d*%d" could become "Radius: 3*3*3"
+//
+// IMPORTANT: The [Localising Tools] will only work on the Item Tooltips Category, as the ingame chat splits
+// lines on its own when needed, and the colors are not ment to be changed!
+//
+// That's all have "fun" translating!
+
+{
+//	 Item Groups
+	"itemGroup.pandoras_creatures": "sǝɹnʇɐǝɹƆ sɐɹopuɐԀ",
+
+//	 Spawn Eggs
+	"item.pandoras_creatures.arachnon_spawn_egg": "ƃƃƎ uʍɐdS uouɥɔɐɹ∀",
+	"item.pandoras_creatures.hellhound_spawn_egg": "ƃƃƎ uʍɐdS punoɥllǝH",
+	"item.pandoras_creatures.crab_spawn_egg": "ƃƃƎ uʍɐdS qɐɹƆ",
+	"item.pandoras_creatures.seahorse_spawn_egg": "ƃƃƎ uʍɐdS ǝsɹoɥɐǝS",
+	"item.pandoras_creatures.acidic_archvine_spawn_egg": "ƃƃƎ uʍɐdS ǝuᴉʌɥɔɹ∀ ɔᴉpᴉɔ∀",
+	
+//	 Item Tooltips, [Localising Tools] can be used here.
+	"item.pandoras_creatures.acidic_archvine_spawn_egg.tooltip": "#c7ɹǝpun pǝɔɐld ǝq oʇ spǝǝN\n#c7ʞɔɐɹɹǝɥʇǝN ɹo sǝʌɐǝ˥ ǝlƃunſ",
+	"item.pandoras_creatures.arachnon_hammer.tooltip": "#c7ʞɐǝɹq llᴉʍ looʇ sᴉɥ┴\n#c7snᴉpɐɹ ƐxƐ ɐ uᴉ sʞɔolq",
+	
+//	 Items
+	"item.pandoras_creatures.arachnon_crystal": "lɐʇsʎɹƆ uouɥɔɐɹ∀",
+	"item.pandoras_creatures.arachnon_hammer": "ɹǝɯɯɐH uouɥɔɐɹ∀",
+	"item.pandoras_creatures.crab_meat": "ʇɐǝW qɐɹƆ",
+	"item.pandoras_creatures.crab_meat_cooked": "ʇɐǝW qɐɹƆ pǝʞooƆ",
+	"item.pandoras_creatures.crab_bucket": "qɐɹƆ ɟo ʇǝʞɔnq",
+	"item.pandoras_creatures.seahorse_bucket": "ǝsɹoɥɐǝS ɟo ʇǝʞɔnq",
+	"item.pandoras_creatures.seahorse": "ǝsɹoɥɐǝS ʍɐɹ",
+	"item.pandoras_creatures.seahorse_cooked": "ǝsɹoɥɐǝS pǝʞooƆ",
+	"item.pandoras_creatures.acidic_archvine_tongue": "ǝnƃuo┴ ǝuᴉʌɥɔɹ∀ ɔᴉpᴉɔ∀",
+	
+//	 Entities
+	"entity.pandoras_creatures.arachnon": "uouɥɔɐɹ∀",
+	"entity.pandoras_creatures.hellhound": "punoɥllǝH",
+	"entity.pandoras_creatures.crab": "qɐɹƆ",
+	"entity.pandoras_creatures.seahorse": "ǝsɹoɥɐǝS",
+	"entity.pandoras_creatures.acidic_archvine": "ǝuᴉʌɥɔɹ∀ ɔᴉpᴉɔ∀",
+	
+//  Button Tool Tips
+    "gui.button.pandoras_creatures.discord": "pɹoɔsᴉp",
+    "gui.button.pandoras_creatures.curseforge": "ǝƃɹoℲǝsɹnƆ",
+    "gui.button.pandoras_creatures.youtube": "ǝqn┴no⅄",
+    "gui.button.pandoras_creatures.twitch": "ɥɔʇᴉʍ┴",
+    "gui.button.pandoras_creatures.patreon": "uoǝɹʇɐԀ",
+
+//  Chat Messages
+    "chat.pandoras_creatures.invalidJarDownload": "[ǝɹǝɥ]",
+    "chat.pandoras_creatures.invalidJarDownloadTooltip": "˙ǝƃɐd pɐoluʍop ǝɥʇ uǝdo oʇ ʞɔᴉlƆ",
+    "chat.pandoras_creatures.invalidJarStopModReposts": "[ǝɹǝɥ]",
+    "chat.pandoras_creatures.invalidJarStopModRepostsTooltip": "˙ǝƃɐd sʇsodǝɹ poW doʇS uǝdo oʇ ʞɔᴉlƆ",
+    "chat.pandoras_creatures.invalidJar": "˙sʇsodǝɹ poɯ lɐƃǝllᴉ ʇnoqɐ ǝɹoɯ uɹɐǝl oʇ s% ʞɔᴉlɔ ɹo ǝƃɐd pɐoluʍop lɐᴉɔᴉɟɟo ǝɥʇ uǝdo oʇ s% ʞɔᴉlɔ ǝsɐǝlԀ ˙ǝlᴉɟ ɹɐɾ pᴉlɐʌuᴉ uɐ pǝʇɔǝʇǝp sɐɥ sǝɹnʇɐǝɹƆ sɐɹopuɐԀ",
+    "chat.pandoras_creatures.newVersionDownload": "[ǝɹǝɥ]",
+    "chat.pandoras_creatures.newVersionDownloadTooltip": "˙ǝƃɐd pɐoluʍop ǝɥʇ uǝdo oʇ ʞɔᴉlƆ",
+    "chat.pandoras_creatures.newVersion": "˙ǝƃɐd pɐoluʍop lɐᴉɔᴉɟɟo ǝɥʇ uǝdo oʇ s% ʞɔᴉlɔ ǝsɐǝlԀ ˙ǝlqɐlᴉɐʌɐ sǝɹnʇɐǝɹƆ sɐɹopuɐԀ ɟo uoᴉsɹǝʌ ʍǝu ɐ sᴉ ǝɹǝɥ┴",
+    "chat.pandoras_creatures.failedCheck": "˙suoᴉsɹǝʌ ʍǝu ɹoɟ ʞɔǝɥɔ oʇ ǝlqɐ ʇou sɐʍ sǝɹnʇɐǝɹƆ sɐɹopuɐԀ",
+	
+//  Crab Types
+    "chat.pandoras_creatures.crabBucketTooltip.sea": "qɐɹƆ ɐǝS",
+    "chat.pandoras_creatures.crabBucketTooltip.tropical": "qɐɹƆ lɐɔᴉdoɹ┴",
+
+//  Seahorse Sizes
+    "chat.pandoras_creatures.seahorseBucketTooltip.verySmall": "llɐɯS ʎɹǝΛ :ǝzᴉS",
+    "chat.pandoras_creatures.seahorseBucketTooltip.small": "llɐɯS :ǝzᴉS",
+    "chat.pandoras_creatures.seahorseBucketTooltip.normal": "lɐɯɹoN :ǝzᴉS",
+    "chat.pandoras_creatures.seahorseBucketTooltip.big": "ƃᴉq :ǝzᴉS",
+    "chat.pandoras_creatures.seahorseBucketTooltip.veryBig": "ƃᴉq ʎɹǝΛ :ǝzᴉS",
+
+//  Seahorse Types
+    "chat.pandoras_creatures.seahorseBucketTooltip.orange": "ǝsɹoɥɐǝS ǝƃuɐɹO",
+    "chat.pandoras_creatures.seahorseBucketTooltip.green": "ǝsɹoɥɐǝS uǝǝɹפ",
+    "chat.pandoras_creatures.seahorseBucketTooltip.red": "ǝsɹoɥɐǝS pǝɹ",
+    "chat.pandoras_creatures.seahorseBucketTooltip.yellow": "ǝsɹoɥɐǝS ʍollǝ⅄",
+    "chat.pandoras_creatures.seahorseBucketTooltip.chromatic": "ǝsɹoɥɐǝS ɔᴉʇɐɯoɹɥƆ",
+    "chat.pandoras_creatures.seahorseBucketTooltip.cyan": "ǝsɹoɥɐǝS uɐʎƆ",
+    "chat.pandoras_creatures.seahorseBucketTooltip.purple": "ǝsɹoɥɐǝS ǝldɹnԀ",
+    "chat.pandoras_creatures.seahorseBucketTooltip.pink": "ǝsɹoɥɐǝS ʞuᴉԀ",
+    "chat.pandoras_creatures.seahorseBucketTooltip.lime": "ǝsɹoɥɐǝS ǝɯᴉ˥",
+    "chat.pandoras_creatures.seahorseBucketTooltip.ghost": "ǝsɹoɥɐǝS ʇsoɥפ"
+}

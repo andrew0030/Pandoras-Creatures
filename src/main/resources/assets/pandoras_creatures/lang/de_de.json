@@ -1,25 +1,100 @@
+// Notes for translators, please read before starting.
+//
+// If you read this thank you for considering localising Pandoras Creatures.
+// Before you start consider messaging me (mod author) or one of my Discord moderators,
+// so you can get the Translator Role and have acces to the newest lang file.
+// This lang file will often have localisations for the next version of the mod,
+// that contains content that has not been released yet.
+//
+// When the localisation file is done send it to me, preferably in the discord channel made
+// for it, or by sending me a direct message.
+//
+// If you want a name other then your Discord name to be inside the credits, let me know.
+//
+// 					  <#########> Localising Tools <#########>
+//
+// By putting \n in the text the mod will split the text at that position, when spliting text
+// keep in mind that you have to add a color code again, if you used one in the line before
+// (see color codes bellow), as its a new line and the color will reset itself to default.
+//
+// The following color codes can be added to the start of text to color it:
+//
+// #c0 Black
+// #c1 Dark Blue
+// #c2 Dark Green
+// #c3 Dark Aqua
+// #c4 Dark Red
+// #c5 Dark Purple
+// #c6 Gold
+// #c7 Gray
+// #c8 Dark Gray
+// #c9 Blue
+// #ca Green
+// #cb Aqua
+// #cc Red
+// #cd Light Purple
+// #ce Yellow
+// #cf White
+//
+// The following color codes can be added to the start of text to apply some effects:
+//
+// #cl Bold
+// #cm Strikethrough
+// #cn Underline
+// #co Italic
+// #cr Reset the default color
+//
+// Feel free to add or remove new lines, in order to make the text look good in the language youre working on.
+// You should use a text editor that has JSON formating in order to avoid invalid files.
+// The text %s will be replace with text. Example: "Author: %s" could become "Author: andrew0030".  
+// The text %d will be replace with a number. Example: "Radius: %d*%d*%d" could become "Radius: 3*3*3"
+//
+// IMPORTANT: The [Localising Tools] will only work on the Item Tooltips Category, as the ingame chat splits
+// lines on its own when needed, and the colors are not ment to be changed!
+//
+// That's all have "fun" translating!
+
 {
+//	 Item Groups
 	"itemGroup.pandoras_creatures": "Pandoras Kreaturen",
 
+//	 Spawn Eggs
 	"item.pandoras_creatures.arachnon_spawn_egg": "Arachnon-Spawn-Ei",
 	"item.pandoras_creatures.hellhound_spawn_egg": "Höllenhund-Spawn-Ei",
 	"item.pandoras_creatures.crab_spawn_egg": "Krabben-Spawn-Ei",
 	"item.pandoras_creatures.seahorse_spawn_egg": "Seepferdchen-Spawn-Ei",
+	"item.pandoras_creatures.acidic_archvine_spawn_egg": "ätzende-Teufelsranke-Spawn-Ei",
 	
-	"item.pandoras_creatures.arachnon_crystal": "Arachnon-Kristall",
-	"item.pandoras_creatures.arachnon_hammer": "Arachnon-Hammer",
-	"item.pandoras_creatures.crab_meat": "Krabben-Fleisch",
-	"item.pandoras_creatures.crab_meat_cooked": "Gekochtes Krabben Fleisch",
-	"item.pandoras_creatures.crab_bucket": "Krabben-Eimer",
-	"item.pandoras_creatures.seahorse_bucket": "Seepferdchen-Eimer",
-	"item.pandoras_creatures.seahorse": "Rohes Seepferdchen",
-	"item.pandoras_creatures.seahorse_cooked": "Gekochtes Seepferdchen",
+//	 Item Tooltips, [Localising Tools] can be used here.
+	"item.pandoras_creatures.acidic_archvine_spawn_egg.tooltip": "#c7Muss unter Dschungel Blättern\n#c7oder Netherstein platziert werden",
+	"item.pandoras_creatures.arachnon_hammer.tooltip": "#c7Beim zerstören von\n#c7Blöcken mit diesem\n#c7Werkzeug, wird ein\n#c73x3 Radius abgebaut.",
 	
+//	 Items
+	"item.pandoras_creatures.arachnon_crystal": "Arachnon Kristall",
+	"item.pandoras_creatures.arachnon_hammer": "Arachnon Hammer",
+	"item.pandoras_creatures.crab_meat": "Krabben Fleisch",
+	"item.pandoras_creatures.crab_meat_cooked": "gekochtes Krabben Fleisch",
+	"item.pandoras_creatures.crab_bucket": "Eimer mit Krabbe",
+	"item.pandoras_creatures.seahorse_bucket": "Eimer mit Seepferdchen",
+	"item.pandoras_creatures.seahorse": "totes Seepferdchen",
+	"item.pandoras_creatures.seahorse_cooked": "gebackenes Seepferdchen",
+	"item.pandoras_creatures.acidic_archvine_tongue": "ätzende Teufelsranken-Zunge",
+	
+//	 Entities
 	"entity.pandoras_creatures.arachnon": "Arachnon",
 	"entity.pandoras_creatures.hellhound": "Höllenhund",
 	"entity.pandoras_creatures.crab": "Krabbe",
 	"entity.pandoras_creatures.seahorse": "Seepferdchen",
+	"entity.pandoras_creatures.acidic_archvine": "ätzende Teufelsranke",
 	
+//	 Button Tool Tips
+	"gui.button.pandoras_creatures.discord": "Discord",
+	"gui.button.pandoras_creatures.curseforge": "CurseForge",
+	"gui.button.pandoras_creatures.youtube": "YouTube",
+	"gui.button.pandoras_creatures.twitch": "Twitch",
+	"gui.button.pandoras_creatures.patreon": "Patreon",
+	
+//	 Chat Messages
 	"chat.pandoras_creatures.invalidJarDownload": "[hier]",
 	"chat.pandoras_creatures.invalidJarDownloadTooltip": "Klicke um die Download-Seite zu öffnen.",
 	"chat.pandoras_creatures.invalidJarStopModReposts": "[hier]",
@@ -27,25 +102,29 @@
 	"chat.pandoras_creatures.invalidJar": "Pandoras Kreaturen hat eine ungültige jar Datei entdeckt. Bitte klicke %s um die offizielle download Seite zu öffnen oder klicke %s um etwas über illegale Mod Neuveröffentlichungen zu lernen.",
 	"chat.pandoras_creatures.newVersionDownload": "[hier]",
 	"chat.pandoras_creatures.newVersionDownloadTooltip": "Klicke um die Download-Seite zu öffnen.",
-	"chat.pandoras_creatures.newVersion": "Es gibt eine neue Pandoras Creatures version. Bitte klicke %s um die offizielle download Seite zu öffnen.",
+	"chat.pandoras_creatures.newVersion": "Es gibt eine neue Pandoras Kreaturen version. Bitte klicke %s um die offizielle download Seite zu öffnen.",
+	"chat.pandoras_creatures.failedCheck": "Pandoras Kreaturen konnte nich nach neuen Versionen prüfen.",
 	
-	"chat.pandoras_creatures.crabBucketTooltip.sea": "See-Krabbe",
-	"chat.pandoras_creatures.crabBucketTooltip.tropical": "Tropische-Krabbe",
+//	 Crab Types
+	"chat.pandoras_creatures.crabBucketTooltip.sea": "Meeres-Krabbe",
+	"chat.pandoras_creatures.crabBucketTooltip.tropical": "tropische Krabbe",
 	
-	"chat.pandoras_creatures.seahorseBucketTooltip.verySmall": "Größe: Sehr Klein",
-	"chat.pandoras_creatures.seahorseBucketTooltip.small": "Größe: Klein",
-	"chat.pandoras_creatures.seahorseBucketTooltip.normal": "Größe: Normal",
-	"chat.pandoras_creatures.seahorseBucketTooltip.big": "Größe: Groß",
-	"chat.pandoras_creatures.seahorseBucketTooltip.veryBig": "Größe: Sehr Groß",
+//	Seahorse Sizes
+	"chat.pandoras_creatures.seahorseBucketTooltip.verySmall": "Größe: sehr klein",
+	"chat.pandoras_creatures.seahorseBucketTooltip.small": "Größe: klein",
+	"chat.pandoras_creatures.seahorseBucketTooltip.normal": "Größe: normal",
+	"chat.pandoras_creatures.seahorseBucketTooltip.big": "Größe: groß",
+	"chat.pandoras_creatures.seahorseBucketTooltip.veryBig": "Größe: sehr groß",
 	
-	"chat.pandoras_creatures.seahorseBucketTooltip.orange": "Oranges Seepferdchen",
-	"chat.pandoras_creatures.seahorseBucketTooltip.green": "Grünes Seepferdchen",	
-	"chat.pandoras_creatures.seahorseBucketTooltip.red": "Rotes Seepferdchen",
-	"chat.pandoras_creatures.seahorseBucketTooltip.yellow": "Gelbes Seepferdchen",
-	"chat.pandoras_creatures.seahorseBucketTooltip.chromatic": "Chromatisches Seepferdchen",
-	"chat.pandoras_creatures.seahorseBucketTooltip.cyan": "Cyan Seepferdchen",
-	"chat.pandoras_creatures.seahorseBucketTooltip.purple": "Violettes Seepferdchen",
-	"chat.pandoras_creatures.seahorseBucketTooltip.pink": "Pinkes Seepferdchen",
-	"chat.pandoras_creatures.seahorseBucketTooltip.lime": "Lindgrünes Seepferdchen",
-	"chat.pandoras_creatures.seahorseBucketTooltip.ghost": "Geister Seepferdchen"
+// 	Seahorse Types
+	"chat.pandoras_creatures.seahorseBucketTooltip.orange": "oranges Seepferdchen",
+	"chat.pandoras_creatures.seahorseBucketTooltip.green": "grünes Seepferdchen",	
+	"chat.pandoras_creatures.seahorseBucketTooltip.red": "rotes Seepferdchen",
+	"chat.pandoras_creatures.seahorseBucketTooltip.yellow": "gelbes Seepferdchen",
+	"chat.pandoras_creatures.seahorseBucketTooltip.chromatic": "chromatisches Seepferdchen",
+	"chat.pandoras_creatures.seahorseBucketTooltip.cyan": "cyan Seepferdchen",
+	"chat.pandoras_creatures.seahorseBucketTooltip.purple": "violettes Seepferdchen",
+	"chat.pandoras_creatures.seahorseBucketTooltip.pink": "pinkes Seepferdchen",
+	"chat.pandoras_creatures.seahorseBucketTooltip.lime": "lindgrünes Seepferdchen",
+	"chat.pandoras_creatures.seahorseBucketTooltip.ghost": "Geister-Seepferdchen"
 }

@@ -15,6 +15,6 @@ public class PCItemGroup extends ItemGroup
 	@Override
 	public ItemStack createIcon()
 	{
-		return new ItemStack(PCItems.ARACHNON_CRYSTAL);
+		return new ItemStack(PCItems.SEAHORSE);
 	}
 }

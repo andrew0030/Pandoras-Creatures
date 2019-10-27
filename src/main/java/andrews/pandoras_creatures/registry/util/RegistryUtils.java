@@ -5,7 +5,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.SpawnEggItem;
-import net.minecraft.util.text.TranslationTextComponent;
 
 public class RegistryUtils
 {
@@ -26,9 +25,9 @@ public class RegistryUtils
 		return new SpawnEggItem(entityType, eggColor1, eggColor2, new Item.Properties().group(itemGroup)).setRegistryName(entityType.getRegistryName() + "_spawn_egg");
 	}
 
-	public static Item createSpawnEggWithTooltipForEntity(@SuppressWarnings("rawtypes") EntityType entityType, int eggColor1, int eggColor2, TranslationTextComponent text, ItemGroup itemGroup)
+	public static Item createSpawnEggWithTooltipForEntity(@SuppressWarnings("rawtypes") EntityType entityType, int eggColor1, int eggColor2, String langPath, ItemGroup itemGroup)
 	{
-		return new SpawnEggItemWithTooltip(entityType, eggColor1, eggColor2, text, new Item.Properties().group(itemGroup)).setRegistryName(entityType.getRegistryName() + "_spawn_egg");
+		return new SpawnEggItemWithTooltip(entityType, eggColor1, eggColor2, langPath, new Item.Properties().group(itemGroup)).setRegistryName(entityType.getRegistryName() + "_spawn_egg");
 	}
 	
 //	public static BlockItem createSimpleItemBlock(Block block, ItemGroup itemGroup) {

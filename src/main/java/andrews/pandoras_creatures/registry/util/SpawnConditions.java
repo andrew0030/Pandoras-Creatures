@@ -7,6 +7,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.dimension.DimensionType;
 
@@ -14,6 +15,10 @@ public class SpawnConditions
 {
 	public static boolean noDayLightMobCondition(EntityType<? extends MobEntity> entityType, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random)
     {
+		if(world.getDifficulty() == Difficulty.PEACEFUL)
+		{
+			return false;
+		}
     	if(world.getDimension().getType() != DimensionType.OVERWORLD)
     	{
     		return false;
@@ -52,6 +57,10 @@ public class SpawnConditions
     
     public static boolean netherCondition(EntityType<? extends MobEntity> entityType, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random)
     {
+    	if(world.getDifficulty() == Difficulty.PEACEFUL)
+		{
+			return false;
+		}
     	if(world.getDimension().getType() != DimensionType.THE_NETHER)
     	{
     		return false;
@@ -76,6 +85,10 @@ public class SpawnConditions
     
     public static boolean acidicArchvineCondition(EntityType<? extends MobEntity> entityType, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random)
     {	
+    	if(world.getDifficulty() == Difficulty.PEACEFUL)
+		{
+			return false;
+		}
     	if(world.getDimension().getType() == DimensionType.OVERWORLD && pos.getY() < 62)
     	{
     		return false;

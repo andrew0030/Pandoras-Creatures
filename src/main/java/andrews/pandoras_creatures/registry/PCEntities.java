@@ -23,8 +23,6 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraftforge.event.RegistryEvent;
@@ -38,11 +36,11 @@ public class PCEntities
 	private static List<EntityType> entities = Lists.newArrayList();
 	private static List<Item> spawnEggs = Lists.newArrayList();
 	
-	public static final EntityType<ArachnonEntity> ARACHNON = createEntity(ArachnonEntity.class, ArachnonEntity::new, EntityClassification.CREATURE, "arachnon", 2.8F, 1.8F, 5394534, 12257023);
-	public static final EntityType<HellhoundEntity> HELLHOUND = createNetherEntity(HellhoundEntity.class, HellhoundEntity::new, EntityClassification.CREATURE, "hellhound", 0.9F, 1.3F, 0xf5f3f0, 0xfc750d);
+	public static final EntityType<ArachnonEntity> ARACHNON = createEntity(ArachnonEntity.class, ArachnonEntity::new, EntityClassification.MONSTER, "arachnon", 2.8F, 1.8F, 5394534, 12257023);
+	public static final EntityType<HellhoundEntity> HELLHOUND = createNetherEntity(HellhoundEntity.class, HellhoundEntity::new, EntityClassification.MONSTER, "hellhound", 0.9F, 1.3F, 0xf5f3f0, 0xfc750d);
 	public static final EntityType<CrabEntity> CRAB = createEntity(CrabEntity.class, CrabEntity::new, EntityClassification.AMBIENT, "crab", 0.8F, 0.3F, 0xf79811, 0xffde3b);
 	public static final EntityType<SeahorseEntity> SEAHORSE = createEntity(SeahorseEntity.class, SeahorseEntity::new, EntityClassification.AMBIENT, "seahorse", 0.4F, 0.8F, 0x38d1d1, 0xd98f27);
-	public static final EntityType<AcidicArchvineEntity> ACIDIC_ARCHVINE = createAcidicArchvineEntity(AcidicArchvineEntity.class, AcidicArchvineEntity::new, EntityClassification.CREATURE, "acidic_archvine", 1.0F, 1.5F, 0x14661f, 0x7b34ad);
+	public static final EntityType<AcidicArchvineEntity> ACIDIC_ARCHVINE = createAcidicArchvineEntity(AcidicArchvineEntity.class, AcidicArchvineEntity::new, EntityClassification.MONSTER, "acidic_archvine", 1.0F, 1.5F, 0x14661f, 0x7b34ad);
 	
 	//=========================================================================================================================================================================================================================================
 	//=========================================================================================================================================================================================================================================
@@ -93,10 +91,9 @@ public class PCEntities
         
         entities.add(entity);
         
-    	TranslationTextComponent tooltip = new TranslationTextComponent("item.pandoras_creatures.acidic_archvine_spawn_egg.tooltip", (Object) null);
-        tooltip.getStyle().setColor(TextFormatting.GRAY);
+    	String langPath = "item.pandoras_creatures.acidic_archvine_spawn_egg.tooltip";
         
-    	spawnEggs.add(RegistryUtils.createSpawnEggWithTooltipForEntity(entity, eggPrimary, eggSecondary, tooltip, Main.PANDORAS_CREATURES_GROUP));
+    	spawnEggs.add(RegistryUtils.createSpawnEggWithTooltipForEntity(entity, eggPrimary, eggSecondary, langPath, Main.PANDORAS_CREATURES_GROUP));
         return entity;
 	}
 	
@@ -128,6 +125,10 @@ public class PCEntities
         }
     }
     
+    //=========================================================================================================================================================================================================================================
+    //=========================================================================================================================================================================================================================================
+  	
+  	//Entity Spawn Conditions
     private static boolean noDayLightMobCondition(EntityType<? extends MobEntity> entityType, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random)
     {
     	return SpawnConditions.noDayLightMobCondition(entityType, world, spawnReason, pos, random);

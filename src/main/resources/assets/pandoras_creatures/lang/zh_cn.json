@@ -1,11 +1,75 @@
+// Notes for translators, please read before starting.
+//
+// If you read this thank you for considering localising Pandoras Creatures.
+// Before you start consider messaging me (mod author) or one of my Discord moderators,
+// so you can get the Translator Role and have acces to the newest lang file.
+// This lang file will often have localisations for the next version of the mod,
+// that contains content that has not been released yet.
+//
+// When the localisation file is done send it to me, preferably in the discord channel made
+// for it, or by sending me a direct message.
+//
+// If you want a name other then your Discord name to be inside the credits, let me know.
+//
+// 					  <#########> Localising Tools <#########>
+//
+// By putting \n in the text the mod will split the text at that position, when spliting text
+// keep in mind that you have to add a color code again, if you used one in the line before
+// (see color codes bellow), as its a new line and the color will reset itself to default.
+//
+// The following color codes can be added to the start of text to color it:
+//
+// #c0 Black
+// #c1 Dark Blue
+// #c2 Dark Green
+// #c3 Dark Aqua
+// #c4 Dark Red
+// #c5 Dark Purple
+// #c6 Gold
+// #c7 Gray
+// #c8 Dark Gray
+// #c9 Blue
+// #ca Green
+// #cb Aqua
+// #cc Red
+// #cd Light Purple
+// #ce Yellow
+// #cf White
+//
+// The following color codes can be added to the start of text to apply some effects:
+//
+// #cl Bold
+// #cm Strikethrough
+// #cn Underline
+// #co Italic
+// #cr Reset the default color
+//
+// Feel free to add or remove new lines, in order to make the text look good in the language youre working on.
+// You should use a text editor that has JSON formating in order to avoid invalid files.
+// The text %s will be replace with text. Example: "Author: %s" could become "Author: andrew0030".  
+// The text %d will be replace with a number. Example: "Radius: %d*%d*%d" could become "Radius: 3*3*3"
+//
+// IMPORTANT: The [Localising Tools] will only work on the Item Tooltips Category, as the ingame chat splits
+// lines on its own when needed, and the colors are not ment to be changed!
+//
+// That's all have "fun" translating!
+
 {
+//	 Item Groups
 	"itemGroup.pandoras_creatures": "潘多拉生物",
 
+//	 刷怪蛋
 	"item.pandoras_creatures.arachnon_spawn_egg": "巨型蜘蛛刷怪蛋",
 	"item.pandoras_creatures.hellhound_spawn_egg": "地狱犬刷怪蛋",
 	"item.pandoras_creatures.crab_spawn_egg": "螃蟹刷怪蛋",
 	"item.pandoras_creatures.seahorse_spawn_egg": "海马刷怪蛋",
+	"item.pandoras_creatures.acidic_archvine_spawn_egg": "藤壶怪刷怪蛋",
 	
+//	 Item Tooltips, [Localising Tools] can be used here.
+	"item.pandoras_creatures.acidic_archvine_spawn_egg.tooltip": "#c7藤壶怪只能在丛林树叶和地狱岩下面生长",
+	"item.pandoras_creatures.arachnon_hammer.tooltip": "#c7当你使用这个工具破坏方块时，\n#c7它会破坏玩家前方\n#c73x3范围内的方块。",
+	
+//	 物品
 	"item.pandoras_creatures.arachnon_crystal": "巨型蜘蛛结晶",
 	"item.pandoras_creatures.arachnon_hammer": "巨型蜘蛛之锤",
 	"item.pandoras_creatures.crab_meat": "蟹肉",
@@ -14,30 +78,45 @@
 	"item.pandoras_creatures.seahorse_bucket": "一桶海马",
 	"item.pandoras_creatures.seahorse": "生海马",
 	"item.pandoras_creatures.seahorse_cooked": "熟海马",
+	"item.pandoras_creatures.acidic_archvine_tongue": "藤壶怪之舌",
 	
+//	 实体
 	"entity.pandoras_creatures.arachnon": "巨型蜘蛛",
 	"entity.pandoras_creatures.hellhound": "地狱犬",
 	"entity.pandoras_creatures.crab": "螃蟹",
 	"entity.pandoras_creatures.seahorse": "海马",
+	"entity.pandoras_creatures.acidic_archvine": "藤壶怪",
 	
-	"chat.pandoras_creatures.invalidJarDownload": "[这里]",
+//	 按钮工具提示
+	"gui.button.pandoras_creatures.discord": "Discord",
+	"gui.button.pandoras_creatures.curseforge": "CurseForge",
+	"gui.button.pandoras_creatures.youtube": "YouTube",
+	"gui.button.pandoras_creatures.twitch": "Twitch",
+	"gui.button.pandoras_creatures.patreon": "Patreon",
+	
+//	 聊天消息
+	"chat.pandoras_creatures.invalidJarDownload": "[点击这里]",
 	"chat.pandoras_creatures.invalidJarDownloadTooltip": "点击打开下载页面。",
-	"chat.pandoras_creatures.invalidJarStopModReposts": "[这里]",
+	"chat.pandoras_creatures.invalidJarStopModReposts": "[点击这里]",
 	"chat.pandoras_creatures.invalidJarStopModRepostsTooltip": "点击打开禁止模块转载页面。",
 	"chat.pandoras_creatures.invalidJar": "潘多拉生物检测到无效的jar文件。请点击%s打开官方下载页面或点击%s了解非法转载模组的信息。",
-	"chat.pandoras_creatures.newVersionDownload": "[这里]",
+	"chat.pandoras_creatures.newVersionDownload": "[点击这里]",
 	"chat.pandoras_creatures.newVersionDownloadTooltip": "点击打开下载页面。",
 	"chat.pandoras_creatures.newVersion": "已有新版本的潘多拉生物可供使用。请点击打开官方下载页面。",
+	"chat.pandoras_creatures.failedCheck": "潘多拉生物模组无法检测版本的更新.",
 	
+//	 螃蟹类型
 	"chat.pandoras_creatures.crabBucketTooltip.sea": "海蟹",
 	"chat.pandoras_creatures.crabBucketTooltip.tropical": "热带蟹",
 	
+// 	海马大小
 	"chat.pandoras_creatures.seahorseBucketTooltip.verySmall": "大小: 微小",
 	"chat.pandoras_creatures.seahorseBucketTooltip.small": "大小: 小",
 	"chat.pandoras_creatures.seahorseBucketTooltip.normal": "大小: 中",
 	"chat.pandoras_creatures.seahorseBucketTooltip.big": "大小: 大",
 	"chat.pandoras_creatures.seahorseBucketTooltip.veryBig": "大小: 巨大",
 	
+// 	海马类型
 	"chat.pandoras_creatures.seahorseBucketTooltip.orange": "橙色海马",
 	"chat.pandoras_creatures.seahorseBucketTooltip.green": "绿色海马",	
 	"chat.pandoras_creatures.seahorseBucketTooltip.red": "红色海马",
