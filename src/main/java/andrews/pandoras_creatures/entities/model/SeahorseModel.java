@@ -3,8 +3,8 @@ package andrews.pandoras_creatures.entities.model;
 import com.mojang.blaze3d.platform.GlStateManager;
 
 import andrews.pandoras_creatures.entities.SeahorseEntity;
-import andrews.pandoras_creatures.util.entities.PCEntityModel;
-import andrews.pandoras_creatures.util.entities.PCRendererModel;
+import andrews.pandoras_creatures.util.animation.PCEntityModel;
+import andrews.pandoras_creatures.util.animation.PCRendererModel;
 import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;

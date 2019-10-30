@@ -8,6 +8,7 @@ import com.google.common.collect.Lists;
 import andrews.pandoras_creatures.Main;
 import andrews.pandoras_creatures.entities.AcidicArchvineEntity;
 import andrews.pandoras_creatures.entities.ArachnonEntity;
+import andrews.pandoras_creatures.entities.BufflonEntity;
 import andrews.pandoras_creatures.entities.CrabEntity;
 import andrews.pandoras_creatures.entities.HellhoundEntity;
 import andrews.pandoras_creatures.entities.SeahorseEntity;
@@ -41,6 +42,7 @@ public class PCEntities
 	public static final EntityType<CrabEntity> CRAB = createEntity(CrabEntity.class, CrabEntity::new, EntityClassification.AMBIENT, "crab", 0.8F, 0.3F, 0xf79811, 0xffde3b);
 	public static final EntityType<SeahorseEntity> SEAHORSE = createEntity(SeahorseEntity.class, SeahorseEntity::new, EntityClassification.AMBIENT, "seahorse", 0.4F, 0.8F, 0x38d1d1, 0xd98f27);
 	public static final EntityType<AcidicArchvineEntity> ACIDIC_ARCHVINE = createAcidicArchvineEntity(AcidicArchvineEntity.class, AcidicArchvineEntity::new, EntityClassification.MONSTER, "acidic_archvine", 1.0F, 1.5F, 0x14661f, 0x7b34ad);
+	public static final EntityType<BufflonEntity> BUFFLON = createEntity(BufflonEntity.class, BufflonEntity::new, EntityClassification.CREATURE, "bufflon", 1.0F, 1.0F, 0x4f3914, 0x1a1d29);
 	
 	//=========================================================================================================================================================================================================================================
 	//=========================================================================================================================================================================================================================================
@@ -113,6 +115,7 @@ public class PCEntities
     	EntitySpawnPlacementRegistry.register(CRAB, EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS, Heightmap.Type.OCEAN_FLOOR, PCEntities::amphibianstMobCondition);
     	EntitySpawnPlacementRegistry.register(SEAHORSE, EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PCEntities::waterCondition);
     	EntitySpawnPlacementRegistry.register(ACIDIC_ARCHVINE, EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PCEntities::acidicArchvineCondition);
+    	EntitySpawnPlacementRegistry.register(BUFFLON, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PCEntities::bufflonCondition);
     }
     
     //Entity Spawn Egg Registry
@@ -149,5 +152,12 @@ public class PCEntities
     private static boolean acidicArchvineCondition(EntityType<? extends MobEntity> entityType, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random)
     {
     	return SpawnConditions.acidicArchvineCondition(entityType, world, spawnReason, pos, random);
+    }
+    private static boolean bufflonCondition(EntityType<? extends MobEntity> entityType, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random)
+    {
+    	//CHANGE!!!!!!!!!!!!!!!!!!!!
+    	//IMPORTANT !!!!!!!!!!!!!!!!
+    	//CHANGE!!!!!!!!!!!!!!!!!!!!
+    	return SpawnConditions.amphibianstMobCondition(entityType, world, spawnReason, pos, random);
     }
 }

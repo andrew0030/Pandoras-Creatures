@@ -46,6 +46,10 @@ public class EventHandler
 		}
 	}
 	
+	/**
+	 * Sends a message to the player that the Mod found a new version
+	 * @param player - The player the message will be sent to
+	 */
 	private static void outdatedMessage(PlayerEntity player)
 	{	
 		TranslationTextComponent downloadLink = new TranslationTextComponent("chat.pandoras_creatures.newVersionDownload", (Object)null);
@@ -59,6 +63,10 @@ public class EventHandler
         player.sendMessage(warning);
 	}
 	
+	/**
+	 * Sends a message to the player that the Mod failed to check for a new version
+	 * @param player - The player the message will be sent to
+	 */
 	private static void failedMessage(PlayerEntity player)
 	{	
         TranslationTextComponent warning = new TranslationTextComponent("chat.pandoras_creatures.failedCheck");

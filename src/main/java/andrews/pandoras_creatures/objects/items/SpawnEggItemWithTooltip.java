@@ -16,6 +16,14 @@ public class SpawnEggItemWithTooltip extends SpawnEggItem
 {
 	private String langPath;
 	
+	/**
+	 * Creates a spawn egg with a tooltip
+	 * @param typeIn - The entity type this egg belongs to
+	 * @param primaryColorIn - The eggs primary color
+	 * @param secondaryColorIn - The eggs secondary color
+	 * @param langPath - The path to the lang file
+	 * @param builder - The Item properties
+	 */
 	public SpawnEggItemWithTooltip(EntityType<?> typeIn, int primaryColorIn, int secondaryColorIn, String langPath, Properties builder)
 	{
 		super(typeIn, primaryColorIn, secondaryColorIn, builder);

@@ -1,4 +1,4 @@
-package andrews.pandoras_creatures.entities;
+package andrews.pandoras_creatures.entities.bases;
 
 import andrews.pandoras_creatures.util.interfaces.IBucketableEntity;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -25,12 +25,19 @@ public abstract class BucketableMobEntity extends WaterMobEntity implements IBuc
         super(type, world);
     }
 
+    /**
+     * Registers the data of the DataManager
+     */
     protected void registerData()
     {
         super.registerData();
         this.dataManager.register(FROM_BUCKET, false);
     }
 
+    /**
+     * Sets the name of the bucket to the mobs name, if it had a custom one
+     * @param bucket - The ItemBucket used
+     */
     protected void setBucketData(ItemStack bucket)
     {
         if(this.hasCustomName())
@@ -51,16 +58,28 @@ public abstract class BucketableMobEntity extends WaterMobEntity implements IBuc
         this.setFromBucket(compound.getBoolean("FromBucket"));
     }
 
+    /**
+     * @return - Returns whether or not this entity is from a bucket
+     */
     public boolean isFromBucket()
     {
         return this.dataManager.get(FROM_BUCKET);
     }
 
+    /**
+     * Sets if this entity should come from a bucket
+     * @param value - True = Yes | False = No
+     */
     public void setFromBucket(boolean value)
     {
         this.dataManager.set(FROM_BUCKET, value);
     }
 
+    /**
+     * Used to process all things that happen when this entity is interacted with
+     * @param player - The player that interacted with this entity
+     * @param hand - The players hand that got used to interact
+     */
     @Override
     protected boolean processInteract(PlayerEntity player, Hand hand)
     {
@@ -93,12 +112,21 @@ public abstract class BucketableMobEntity extends WaterMobEntity implements IBuc
         }
     }
 
+    /**
+     * Checks whether or not this entity can despawn
+     * @param distanceToClosestPlayer - The distance to the closest player
+     * @return - Returns if this entity can despawn
+     */
     @Override
     public boolean canDespawn(double distanceToClosestPlayer)
     {
         return !this.isFromBucket() && !this.hasCustomName();
     }
 
+    /**
+     * Prevents this entity from despawning
+     * @return - True if this entity is prevented from despawning
+     */
     @Override
     public boolean preventDespawn()
     {

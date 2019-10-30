@@ -5,6 +5,7 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
+import andrews.pandoras_creatures.entities.bases.BucketableMobEntity;
 import andrews.pandoras_creatures.registry.PCEntities;
 import andrews.pandoras_creatures.registry.PCItems;
 import net.minecraft.entity.EntityClassification;

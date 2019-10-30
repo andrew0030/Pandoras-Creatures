@@ -1,0 +1,130 @@
+// Notes for translators, please read before starting.
+//
+// If you read this thank you for considering localising Pandoras Creatures.
+// Before you start consider messaging me (mod author) or one of my Discord moderators,
+// so you can get the Translator Role and have acces to the newest lang file.
+// This lang file will often have localisations for the next version of the mod,
+// that contains content that has not been released yet.
+//
+// When the localisation file is done send it to me, preferably in the discord channel made
+// for it, or by sending me a direct message.
+//
+// If you want a name other then your Discord name to be inside the credits, let me know.
+//
+// 					  <#########> Localising Tools <#########>
+//
+// By putting \n in the text the mod will split the text at that position, when spliting text
+// keep in mind that you have to add a color code again, if you used one in the line before
+// (see color codes bellow), as its a new line and the color will reset itself to default.
+//
+// The following color codes can be added to the start of text to color it:
+//
+// #c0 Black
+// #c1 Dark Blue
+// #c2 Dark Green
+// #c3 Dark Aqua
+// #c4 Dark Red
+// #c5 Dark Purple
+// #c6 Gold
+// #c7 Gray
+// #c8 Dark Gray
+// #c9 Blue
+// #ca Green
+// #cb Aqua
+// #cc Red
+// #cd Light Purple
+// #ce Yellow
+// #cf White
+//
+// The following color codes can be added to the start of text to apply some effects:
+//
+// #cl Bold
+// #cm Strikethrough
+// #cn Underline
+// #co Italic
+// #cr Reset the default color
+//
+// Feel free to add or remove new lines, in order to make the text look good in the language youre working on.
+// You should use a text editor that has JSON formating in order to avoid invalid files.
+// The text %s will be replace with text. Example: "Author: %s" could become "Author: andrew0030".  
+// The text %d will be replace with a number. Example: "Radius: %d*%d*%d" could become "Radius: 3*3*3"
+//
+// IMPORTANT: The [Localising Tools] will only work on the Item Tooltips Category, as the ingame chat splits
+// lines on its own when needed, and the colors are not ment to be changed!
+//
+// That's all have "fun" translating!
+
+{
+//	 Item Groups
+	"itemGroup.pandoras_creatures": "Pandoras Creatures",
+
+//	 Spawn Eggs
+	"item.pandoras_creatures.arachnon_spawn_egg": "œuf d'Apparition d'Arachnon",
+	"item.pandoras_creatures.hellhound_spawn_egg": "œuf d'Apparition de Chien d'Enfer",
+	"item.pandoras_creatures.crab_spawn_egg": "œuf d'Apparition de Crabe",
+	"item.pandoras_creatures.seahorse_spawn_egg": "œuf d'Apparition d'Hippocampe",
+	"item.pandoras_creatures.acidic_archvine_spawn_egg": "œuf d'Apparition d'Archvine d'Acide",
+	
+//	 Item Tooltips, [Localising Tools] can be used here.
+	"item.pandoras_creatures.acidic_archvine_spawn_egg.tooltip": "#c7Doit être placé sous Feuilles de\n#c7la jungle ou sentier du Néant",
+	"item.pandoras_creatures.arachnon_hammer.tooltip": "#c7Cet outil va casser\n#c7des blocs dans un\n#c7rayon de 3x3",
+	
+//	 Items
+	"item.pandoras_creatures.arachnon_crystal": "Cristal d'Arachnon",
+	"item.pandoras_creatures.arachnon_hammer": "Marteau d'Arachnon",
+	"item.pandoras_creatures.crab_meat": "La chair de crabe",
+	"item.pandoras_creatures.crab_meat_cooked": "Chair de Crabe Cuite",
+	"item.pandoras_creatures.crab_bucket": "Seau de Crabe",
+	"item.pandoras_creatures.seahorse_bucket": "Seau d'Hippocampe",
+	"item.pandoras_creatures.seahorse": "Hippocrampe Cru",
+	"item.pandoras_creatures.seahorse_cooked": "Hippocrampe Cuite",
+	"item.pandoras_creatures.acidic_archvine_tongue": "Langue d'Archvine d'Acide",
+	
+//	 Entities
+	"entity.pandoras_creatures.arachnon": "Arachnon",
+	"entity.pandoras_creatures.hellhound": "Hellhound",
+	"entity.pandoras_creatures.crab": "Crabe",
+	"entity.pandoras_creatures.seahorse": "Hippocrampe",
+	"entity.pandoras_creatures.acidic_archvine": "Archvine d'Acide",
+	
+//	 Button Tool Tips
+	"gui.button.pandoras_creatures.discord": "Discord",
+	"gui.button.pandoras_creatures.curseforge": "CurseForge",
+	"gui.button.pandoras_creatures.youtube": "YouTube",
+	"gui.button.pandoras_creatures.twitch": "Twitch",
+	"gui.button.pandoras_creatures.patreon": "Patreon",
+	
+//	 Chat Messages
+	"chat.pandoras_creatures.invalidJarDownload": "[here]",
+	"chat.pandoras_creatures.invalidJarDownloadTooltip": "Cliquez pour ouvrir la page de téléchargement.",
+	"chat.pandoras_creatures.invalidJarStopModReposts": "[here]",
+	"chat.pandoras_creatures.invalidJarStopModRepostsTooltip": "Cliquez pour ouvrir la page Stop Mod Reposts.",
+	"chat.pandoras_creatures.invalidJar": "Pandoras Creatures a détecté un fichier JAR non valide. Cliquez sur% s pour ouvrir la page de téléchargement officielle ou cliquez sur% s pour en savoir plus sur les modifications de mode illégales.",
+	"chat.pandoras_creatures.newVersionDownload": "[here]",
+	"chat.pandoras_creatures.newVersionDownloadTooltip": "Cliquez pour ouvrir la page de téléchargement.",
+	"chat.pandoras_creatures.newVersion": "Une nouvelle version de Pandoras Creatures est disponible. Veuillez cliquer sur% s pour ouvrir la page de téléchargement officielle.",
+	"chat.pandoras_creatures.failedCheck": "Pandoras Creatures n'a pas été en mesure de rechercher de nouvelles versions.",
+	
+//	 Crab Types
+	"chat.pandoras_creatures.crabBucketTooltip.sea": "Crabe de Mer",
+	"chat.pandoras_creatures.crabBucketTooltip.tropical": "Crabe Tropical",
+	
+//	Seahorse Sizes
+	"chat.pandoras_creatures.seahorseBucketTooltip.verySmall": "Taille: Très Petit",
+	"chat.pandoras_creatures.seahorseBucketTooltip.small": "Taille: Petit",
+	"chat.pandoras_creatures.seahorseBucketTooltip.normal": "Taille: Normal",
+	"chat.pandoras_creatures.seahorseBucketTooltip.big": "Taille: Grand",
+	"chat.pandoras_creatures.seahorseBucketTooltip.veryBig": "Taille: Très Grand",
+	
+// 	Seahorse Types
+	"chat.pandoras_creatures.seahorseBucketTooltip.orange": "Hippocampe Orange",
+	"chat.pandoras_creatures.seahorseBucketTooltip.green": "Hippocampe Vert",	
+	"chat.pandoras_creatures.seahorseBucketTooltip.red": "Hippocampe Rouge",
+	"chat.pandoras_creatures.seahorseBucketTooltip.yellow": "Hippocampe Jaune",
+	"chat.pandoras_creatures.seahorseBucketTooltip.chromatic": "Hippocampe Chromatic",
+	"chat.pandoras_creatures.seahorseBucketTooltip.cyan": "Hippocampe Bleu Ciel",
+	"chat.pandoras_creatures.seahorseBucketTooltip.purple": "Hippocampe Violet",
+	"chat.pandoras_creatures.seahorseBucketTooltip.pink": "Hippocampe Rose",
+	"chat.pandoras_creatures.seahorseBucketTooltip.lime": "Hippocampe Lime",
+	"chat.pandoras_creatures.seahorseBucketTooltip.ghost": "Hippocampe Phontomme"
+}

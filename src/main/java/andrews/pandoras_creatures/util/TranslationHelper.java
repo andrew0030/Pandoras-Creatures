@@ -10,8 +10,11 @@ import net.minecraft.util.text.TranslationTextComponent;
 
 public class TranslationHelper
 {
-	/*
-	 * This will add the lines it gets to the tool tips list, used for Item tool tips
+	/**
+	 * Adds the lines it gets to the tool tip list, used for Item tool tips
+	 * @param tooltip - An ITextComponent List, simply put in the one from the method
+	 * @param langPath - The path for the lang file 
+	 * @param stack - The ItemStack
 	 */
 	public static void getTooltipFromLang(List<ITextComponent> tooltip, String langPath, ItemStack stack)
 	{

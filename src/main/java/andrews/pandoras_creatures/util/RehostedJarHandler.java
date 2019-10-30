@@ -28,11 +28,21 @@ public final class RehostedJarHandler
     private static long lastMessagePost = 0;
     private static long messagePostRate = 1000 * 30;
     
+    /**
+     * The constructor of this class, it performs a jar check upon getting called
+     * @param jarFile - The Mod jar file
+     * @param originalName - The proper name of the Mods jar file
+     */
     public RehostedJarHandler(ModFile jarFile, String originalName)
     {
         checkIfJarIsValid(jarFile, originalName);
     }
     
+    /**
+     * Checks if the given file is valid
+     * @param jarFile - The Mod jar file
+     * @param originalName - The proper name of the Mods jar file
+     */
     private void checkIfJarIsValid(ModFile jarFile, String originalName)
     {
         if(jarFile == null)

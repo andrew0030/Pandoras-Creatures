@@ -39,7 +39,9 @@ public class ItemArachnonHammer extends PickaxeItem
 		super(PCToolMaterials.arachnon_material, 0, -3.0F, getProperties());
 	}
 	
-	//Returns the Properties of the Item
+	/**
+	 * @return - The properties for this Item
+	 */
 	private static Properties getProperties()
 	{
 		Properties properties = new Properties();
@@ -68,7 +70,7 @@ public class ItemArachnonHammer extends PickaxeItem
 				{
 					BlockPos blockPos = new BlockPos(pos.getX(), pos.getY() + y, pos.getZ() + z);
 					BlockState stateIn = player.getEntityWorld().getBlockState(blockPos);
-					if(canHarvestBlock(stateIn))
+					if(canHarvestBlock(player.getEntityWorld(), blockPos, stateIn))
 					{
 						processHarvest(player.getEntityWorld(), blockPos, stateIn, itemstack, player);
 					}
@@ -82,7 +84,7 @@ public class ItemArachnonHammer extends PickaxeItem
 				{
 					BlockPos blockPos = new BlockPos(pos.getX() + x, pos.getY(), pos.getZ() + z);
 					BlockState stateIn = player.getEntityWorld().getBlockState(blockPos);
-					if(canHarvestBlock(stateIn))
+					if(canHarvestBlock(player.getEntityWorld(), blockPos, stateIn))
 					{
 						processHarvest(player.getEntityWorld(), blockPos, stateIn, itemstack, player);
 					}
@@ -96,7 +98,7 @@ public class ItemArachnonHammer extends PickaxeItem
 				{
 					BlockPos blockPos = new BlockPos(pos.getX() + x, pos.getY() + y, pos.getZ());
 					BlockState stateIn = player.getEntityWorld().getBlockState(blockPos);
-					if(canHarvestBlock(stateIn))
+					if(canHarvestBlock(player.getEntityWorld(), blockPos, stateIn))
 					{
 						processHarvest(player.getEntityWorld(), blockPos, stateIn, itemstack, player);
 					}
@@ -110,7 +112,7 @@ public class ItemArachnonHammer extends PickaxeItem
 				{
 					BlockPos blockPos = new BlockPos(pos.getX() + x, pos.getY() + y, pos.getZ());
 					BlockState stateIn = player.getEntityWorld().getBlockState(blockPos);
-					if(canHarvestBlock(stateIn))
+					if(canHarvestBlock(player.getEntityWorld(), blockPos, stateIn))
 					{
 						processHarvest(player.getEntityWorld(), blockPos, stateIn, itemstack, player);
 					}
@@ -124,7 +126,7 @@ public class ItemArachnonHammer extends PickaxeItem
 				{
 					BlockPos blockPos = new BlockPos(pos.getX(), pos.getY() + y, pos.getZ() + z);
 					BlockState stateIn = player.getEntityWorld().getBlockState(blockPos);
-					if(canHarvestBlock(stateIn))
+					if(canHarvestBlock(player.getEntityWorld(), blockPos, stateIn))
 					{
 						processHarvest(player.getEntityWorld(), blockPos, stateIn, itemstack, player);
 					}
@@ -138,7 +140,7 @@ public class ItemArachnonHammer extends PickaxeItem
 				{
 					BlockPos blockPos = new BlockPos(pos.getX() + x, pos.getY(), pos.getZ() + z);
 					BlockState stateIn = player.getEntityWorld().getBlockState(blockPos);
-					if(canHarvestBlock(stateIn))
+					if(canHarvestBlock(player.getEntityWorld(), blockPos, stateIn))
 					{
 						processHarvest(player.getEntityWorld(), blockPos, stateIn, itemstack, player);
 					}
@@ -151,10 +153,22 @@ public class ItemArachnonHammer extends PickaxeItem
 		return super.onBlockStartBreak(itemstack, pos, player);
 	}
 	
-	//Used to determine if the blocks can be broken
-	public boolean canHarvestBlock(BlockState blockIn)
+	/**
+	 * Used to check if the blockIn can be broken by this tool
+	 * @param world - The world the player is in
+	 * @param position - The position of the block that is being checked
+	 * @param blockIn - The block that is being checked
+	 * @return - Returns true if the block can be harvested
+	 */
+	public boolean canHarvestBlock(World world, BlockPos position, BlockState blockIn)
 	{
 	    int i = this.getTier().getHarvestLevel();
+	    //Makes sure the Block isn't unbreakable
+	    if(blockIn.getBlockHardness(world, position) == -1)
+	    {
+	    	return false;
+	    }
+	    //Checks if the effective tool is a Pick Axe and makes sure the mining level is met
 	    if(blockIn.getHarvestTool() == ToolType.PICKAXE)
 	    {
 	    	return i >= blockIn.getHarvestLevel();
@@ -163,7 +177,14 @@ public class ItemArachnonHammer extends PickaxeItem
 	    return material == Material.ROCK || material == Material.IRON || material == Material.ANVIL;
 	}
 	
-	//Used to destroy all blocks and drop the loot
+	/**
+	 * Used to "mine" a block
+	 * @param world - The world the player is in
+	 * @param pos - The block position
+	 * @param state - The block state
+	 * @param stack - The tool used
+	 * @param player - The player using the tool
+	 */
 	private void processHarvest(World world, BlockPos pos, BlockState state, ItemStack stack, PlayerEntity player)
 	{
 		//Break the block
@@ -189,6 +210,11 @@ public class ItemArachnonHammer extends PickaxeItem
 		block.dropXpOnBlockBreak(player.getEntityWorld(), pos, exp);
 	}	
 	
+	/**
+	 * Used to get the side of the block that got harvested
+	 * @param player - The player that uses the tool
+	 * @return - The direction of the side of the block that got harvested
+	 */
 	private Direction getBlockSideHit(PlayerEntity player)
 	{
 		RayTraceResult raycast = rayTraceFromPlayer(player.getEntityWorld(), player, FluidMode.NONE);
@@ -200,6 +226,13 @@ public class ItemArachnonHammer extends PickaxeItem
 		return null;
 	}
 	
+	/**
+	 * Casts a ray from the player towards the harvested Block
+	 * @param worldIn - The world the player is in
+	 * @param player - The player that used the tool to harvest the block
+	 * @param fluidMode - The FluidMode
+	 * @return - A RayTraceResult
+	 */
 	private RayTraceResult rayTraceFromPlayer(World worldIn, PlayerEntity player, RayTraceContext.FluidMode fluidMode)
 	{
 		float f = player.rotationPitch;

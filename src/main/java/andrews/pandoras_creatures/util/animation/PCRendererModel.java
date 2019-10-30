@@ -1,4 +1,4 @@
-package andrews.pandoras_creatures.util.entities;
+package andrews.pandoras_creatures.util.animation;
 
 import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.client.renderer.model.ModelBox;
@@ -9,9 +9,16 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class PCRendererModel extends RendererModel
 {
+	//Used for Keyframe Animations
+	public float defaultRotationPointX, defaultRotationPointY, defaultRotationPointZ;
+	public float defaultRotateAngleX, defaultRotateAngleY, defaultRotateAngleZ;
+	public float defaultOffsetX, defaultOffsetY, defaultOffsetZ;
+	
+	//Used for Looped Animations
     public float defaultRotationX, defaultRotationY, defaultRotationZ;
     public float defaultdelayX, defaultdelayY, defaultdelayZ;
     public float defaultPositionX, defaultPositionY, defaultPositionZ;
+    
     public float scaleX = 1.0F, scaleY = 1.0F, scaleZ = 1.0F;
     public int texturedelayX, texturedelayY;
     public boolean scaleChildren;
@@ -63,6 +70,42 @@ public class PCRendererModel extends RendererModel
     {
         this.cubeList.add(new ModelBox(this, this.texturedelayX, this.texturedelayY, offX, offY, offZ, width, height, depth, scaleFactor));
     }
+    
+    /**
+     * Sets this ModelRenderer's default box values to the current box values.
+     */
+    public void saveDefaultBoxValues()
+    {
+		this.defaultRotationPointX = this.rotationPointX;
+		this.defaultRotationPointY = this.rotationPointY;
+		this.defaultRotationPointZ = this.rotationPointZ;
+		
+		this.defaultRotateAngleX = this.rotateAngleX;
+		this.defaultRotateAngleY = this.rotateAngleY;
+		this.defaultRotateAngleZ = this.rotateAngleZ;
+		
+		this.defaultOffsetX = this.offsetX;
+		this.defaultOffsetY = this.offsetY;
+		this.defaultOffsetZ = this.offsetZ;
+	}
+	
+    /**
+     * Sets the current box values to the previously set box values.
+     */
+	public void loadDefaultBoxValues()
+	{
+		this.rotationPointX = this.defaultRotationPointX;
+		this.rotationPointY = this.defaultRotationPointY;
+		this.rotationPointZ = this.defaultRotationPointZ;
+		
+		this.rotateAngleX = this.defaultRotateAngleX;
+		this.rotateAngleY = this.defaultRotateAngleY;
+		this.rotateAngleZ = this.defaultRotateAngleZ;
+		
+		this.offsetX = this.defaultOffsetX;
+		this.offsetY = this.defaultOffsetY;
+		this.offsetZ = this.defaultOffsetZ;
+	}
 
     /**
      * Sets this ModelRenderer's default pose to the current pose.
@@ -153,95 +196,5 @@ public class PCRendererModel extends RendererModel
         	bounce = (float) -Math.abs((Math.sin(limbSwing * speed) * limbSwingAmount * height));
         }
         this.rotationPointY += bounce;
-    }
-    
-    /**
-     * Rotates this box on the X axis until it reached the target
-     */
-    public void moveOnAxisX(float speed, float targetRotation)
-    {
-    	if(Math.toDegrees(this.rotateAngleX) < targetRotation)
-    	{
-    		this.rotateAngleX += Math.toRadians(speed);
-    	}
-    	else
-    	{
-    		this.rotateAngleX -= Math.toRadians(speed);
-    	}
-    }
-    
-    /**
-     * Rotates this box on the X axis until it reached the default rotation
-     */
-    public void moveAxisXToDefault(float speed)
-    {
-    	if(this.rotateAngleX < this.defaultRotationX)
-    	{
-    		this.rotateAngleX += Math.toRadians(speed);
-    	}
-    	else
-    	{
-    		this.rotateAngleX -= Math.toRadians(speed);
-    	}
-    }
-    
-    /**
-     * Rotates this box on the Y axis until it reached the target
-     */
-    public void moveOnAxisY(float speed, float targetRotation)
-    {
-    	if(Math.toDegrees(this.rotateAngleY) < targetRotation)
-    	{
-    		this.rotateAngleY += Math.toRadians(speed);
-    	}
-    	else
-    	{
-    		this.rotateAngleY -= Math.toRadians(speed);
-    	}
-    }
-    
-    /**
-     * Rotates this box on the Y axis until it reached the default rotation
-     */
-    public void moveAxisYToDefault(float speed)
-    {
-    	if(this.rotateAngleY < this.defaultRotationY)
-    	{
-    		this.rotateAngleY += Math.toRadians(speed);
-    	}
-    	else
-    	{
-    		this.rotateAngleY -= Math.toRadians(speed);
-    	}
-    }
-    
-    /**
-     * Rotates this box on the Z axis until it reached the target
-     */
-    public void moveOnAxisZ(float speed, float targetRotation)
-    {
-    	if(Math.toDegrees(this.rotateAngleZ) < targetRotation)
-    	{
-    		this.rotateAngleZ += Math.toRadians(speed);
-    	}
-    	else
-    	{
-    		this.rotateAngleZ -= Math.toRadians(speed);
-    	}
-    }
-    
-    /**
-     * Rotates this box on the Z axis until it reached the default rotation
-     */
-    public void moveAxisZToDefault(float speed)
-    {
-    	if(this.rotateAngleZ < this.defaultRotationZ)
-    	{
-    		this.rotateAngleZ += Math.toRadians(speed);
-    	}
-    	else
-    	{
-    		this.rotateAngleZ -= Math.toRadians(speed);
-    	}
     }
 }

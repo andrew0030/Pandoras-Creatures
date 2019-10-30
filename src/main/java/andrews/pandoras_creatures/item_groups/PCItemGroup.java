@@ -6,12 +6,17 @@ import net.minecraft.item.ItemStack;
 
 public class PCItemGroup extends ItemGroup
 {
-
+	/**
+	 * The Pandoras Creatures Creative Tab
+	 */
 	public PCItemGroup()
 	{
 		super("pandoras_creatures");
 	}
 
+	/**
+	 * Used to get the ItemStack that will be rendered as tab icon
+	 */
 	@Override
 	public ItemStack createIcon()
 	{

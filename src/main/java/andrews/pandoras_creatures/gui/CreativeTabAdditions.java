@@ -52,7 +52,12 @@ public class CreativeTabAdditions
 		}
 	}
 	
-	//calculates the offset and makes sure there aren't any 1 pixel disturbances because of an uneven screen size
+	/**
+	 * Calculates the offset and makes sure there aren't any 1 pixel disturbances because of an uneven screen size
+	 * @param screenWidth - The screen width
+	 * @param offset - The amount of offset that should be applied to the buttons position (in pixel)
+	 * @return - The position with applied offset
+	 */
 	private static int calculateOffsetX(int screenWidth, int offset)
 	{
 		if((screenWidth % 2) != 0)
@@ -63,7 +68,12 @@ public class CreativeTabAdditions
 		return screenWidth += offset;
 	}
 	
-	//calculates the offset and makes sure there aren't any 1 pixel disturbances because of an uneven screen size
+	/**
+	 * Calculates the offset and makes sure there aren't any 1 pixel disturbances because of an uneven screen size
+	 * @param screenWidth - The screen width
+	 * @param offset - The amount of offset that should be applied to the buttons position (in pixel)
+	 * @return - The position with applied offset
+	 */
 	private static int calculateOffsetY(int screenHeight, int offset)
 	{
 		if((screenHeight % 2) != 0)
@@ -74,7 +84,9 @@ public class CreativeTabAdditions
 		return screenHeight += offset;
 	}
 	
-	//Shows the button if it has been hidden before
+	/**
+	 * Used to show all buttons
+	 */
 	private static void showAllButtons()
 	{
 		for(Button button : buttons)
@@ -87,7 +99,9 @@ public class CreativeTabAdditions
 		}
 	}
 	
-	//Hides the button when swapping to a different creative tab page
+	/**
+	 * Used to hide all buttons
+	 */
 	private static void hideAllButtons()
 	{
 		for(Button button : buttons)
@@ -99,7 +113,12 @@ public class CreativeTabAdditions
 		}
 	}
 	
-	//Makes sure the button gets only added once to the creative tab
+	/**
+	 * This stores the buttons when called and ensures they don't get stored again if already stored
+	 * @param creativeTab - The CreativeScreen
+	 * @param screenWidth - The screen width
+	 * @param screenHeight - The screen height
+	 */
 	private static void createAndStoreAllButtons(CreativeScreen creativeTab, int screenWidth, int screenHeight)
 	{
 		//Discord Button
@@ -149,6 +168,10 @@ public class CreativeTabAdditions
 		}
 	}
 	
+	/**
+	 * This sets the button alpha back to its start value
+	 * @param button - The button that should be modified
+	 */
 	private static void setButtonAlphaToStart(Button button)
 	{
 		//Discord Button
