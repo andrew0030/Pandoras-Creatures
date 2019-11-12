@@ -8,8 +8,11 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.event.ClickEvent;
 import net.minecraft.util.text.event.HoverEvent;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.TickEvent.Phase;
+import net.minecraftforge.event.TickEvent.Type;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.VersionChecker;
 import net.minecraftforge.fml.common.Mod;
@@ -17,34 +20,48 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = Reference.MODID)
 public class EventHandler
 {	
+	private static boolean hasAllreadySentMessage = false;
+	
 	@SubscribeEvent
-	public static void onPlayerJoin(EntityJoinWorldEvent event)
-	{	
-		if(event.getEntity() instanceof PlayerEntity)
+    public static void onPlayerTick(TickEvent.PlayerTickEvent event)
+    {	
+        if(hasAllreadySentMessage == true)
+        {
+            return;
+        }
+        if(event.side != LogicalSide.CLIENT)
+        {
+            return;
+        }
+        if(event.type != Type.PLAYER)
+        {
+            return;
+        }
+        if(event.phase != Phase.END)
+        {
+            return;
+        }
+        
+        PlayerEntity player = event.player;
+        
+        switch(VersionChecker.getResult(ModList.get().getModFileById(Reference.MODID).getMods().get(0)).status)
 		{
-			PlayerEntity player = (PlayerEntity) event.getEntity();
-			
-			if(player.getEntityWorld().isRemote)
+		case OUTDATED: //Found new Version
+			if(Config.CLIENT.shouldShowUpdateMessage.get())
 			{
-				switch(VersionChecker.getResult(ModList.get().getModFileById(Reference.MODID).getMods().get(0)).status)
-				{
-				case OUTDATED: //Found new Version
-					if(Config.CLIENT.shouldShowUpdateMessage.get())
-					{
-						outdatedMessage(player);
-					}
-					break;
-				case FAILED: //Not able to check for new Version
-					if(Config.CLIENT.shouldShowUpdateCheckFailedMessage.get())
-					{
-						failedMessage(player);
-					}
-					break;
-				default: //Do Nothing
-				}
+				outdatedMessage(player);
 			}
+			break;
+		case FAILED: //Not able to check for new Version
+			if(Config.CLIENT.shouldShowUpdateCheckFailedMessage.get())
+			{
+				failedMessage(player);
+			}
+			break;
+		default: //Do Nothing
 		}
-	}
+        hasAllreadySentMessage = true;
+    }
 	
 	/**
 	 * Sends a message to the player that the Mod found a new version

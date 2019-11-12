@@ -1,0 +1,6 @@
+{
+    "parent": "block/cross",
+    "textures": {
+        "cross": "pandoras_creatures:block/hill_bloom"
+    }
+}

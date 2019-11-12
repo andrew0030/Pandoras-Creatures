@@ -14,12 +14,12 @@ public class BufflonRenderer extends MobRenderer<BufflonEntity, BufflonModel<Buf
 {
 	public BufflonRenderer(EntityRendererManager renderManager)
 	{
-        super(renderManager, new BufflonModel<>(), 0.3F);
+        super(renderManager, new BufflonModel<>(), 1.8F);
     }
 	
 	@Override
 	protected ResourceLocation getEntityTexture(BufflonEntity entity)
 	{
-		return new ResourceLocation(Reference.MODID, "textures/entity/bufflon/bufflon_1.png");
+		return new ResourceLocation(Reference.MODID, "textures/entity/bufflon/bufflon_" + entity.getBufflonType() + ".png");
 	}
 }

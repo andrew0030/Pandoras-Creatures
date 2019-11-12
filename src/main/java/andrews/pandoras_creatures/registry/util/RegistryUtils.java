@@ -1,7 +1,9 @@
 package andrews.pandoras_creatures.registry.util;
 
 import andrews.pandoras_creatures.objects.items.SpawnEggItemWithTooltip;
+import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.SpawnEggItem;
@@ -30,10 +32,11 @@ public class RegistryUtils
 		return new SpawnEggItemWithTooltip(entityType, eggColor1, eggColor2, langPath, new Item.Properties().group(itemGroup)).setRegistryName(entityType.getRegistryName() + "_spawn_egg");
 	}
 	
-//	public static BlockItem createSimpleItemBlock(Block block, ItemGroup itemGroup) {
-//		return (BlockItem) new BlockItem(block, new Item.Properties().group(itemGroup)).setRegistryName(block.getRegistryName());
-//	}
-//
+	public static Item createSimpleItemBlock(Block block, ItemGroup itemGroup)
+	{
+		return new BlockItem(block, new Item.Properties().group(itemGroup)).setRegistryName(block.getRegistryName());
+	}
+
 //	public static Item createItemBlockWithRarity(Block blockForInput, ItemGroup itemGroup, Rarity rarity) {
 //		return (BlockItem) new BlockItem(blockForInput, new Item.Properties().group(itemGroup).rarity(rarity)).setRegistryName(blockForInput.getRegistryName());
 //	}

@@ -10,8 +10,13 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+/**
+ * Copied Library Functions and Classes from Endergetic
+ * see {@link <a href="https://www.curseforge.com/minecraft/mc-mods/endergetic"> Mod Page</a>}.
+ * @author SmellyModder(Luke Tonon)
+ */
 @OnlyIn(Dist.CLIENT)
-public class ModelAnimator
+public class Animator
 {
 	private int tempTick;
 	private int prevTempTick;
@@ -20,7 +25,7 @@ public class ModelAnimator
 	private Map<PCRendererModel, float[]> boxValues;
 	private Map<PCRendererModel, float[]> prevBoxValues;
     
-	public ModelAnimator()
+	public Animator()
 	{
 		this.tempTick = 0;
 		this.prevTempTick = 0;
@@ -30,7 +35,7 @@ public class ModelAnimator
 	}
     
 	/**
-	 * Sets the Animation that should play for this animatedEntity instance
+	 * Sets the animation for this Animator instance to play
 	 * @param animationToPlay - The animation to play
 	 * @return - Is this the correct animation to play
 	 */
@@ -42,7 +47,7 @@ public class ModelAnimator
 	}
     
 	/**
-	 * Updates the entity for this animatedEntity instance
+	 * Updates the entity for this Animator instance
 	 * @param animatedEntity - The entity to update
 	 */
 	public void updateAnimations(AnimatedCreatureEntity animatedEntity)
@@ -52,85 +57,15 @@ public class ModelAnimator
 	
 	/**
 	 * Starts a Keyframe for a set amount of ticks
-	 * @param duration - The duration of the Keyframe (measured in ticks)
+	 * @param tickDuration - The duration of the keyframe; measured in ticks
 	 */
-	public void startKeyframe(int duration)
+	public void startKeyframe(int tickDuration)
 	{
-		if(!this.correctAnimation)
-		{
-			return;
-		}
+		if(!this.correctAnimation) return;
 		this.prevTempTick = this.tempTick;
-		this.tempTick += duration;
-	}
-	
-	/**
-	 * Starts a Keyframe that holds the most recent box values for a set duration
-	 * @param duration - The duration of the Keyframe (measured in ticks)
-	 */
-	public void setStaticKeyframe(int duration)
-	{
-		this.startKeyframe(duration);
-		this.endKeyframe(true);
+		this.tempTick += tickDuration;
 	}
     
-	/**
-	 * Resets the current Keyframe to its default values
-	 * @param duration - The duration of the Keyfram (measured in ticks)
-	 */
-	public void resetKeyframe(int duration)
-	{
-		this.startKeyframe(duration);
-		this.endKeyframe();
-	}
-	
-	/**
-	 * Moves an PCRendererModel box in the current Keyframe
-	 * @param model - PCRendererModel to move
-	 * @param x - The x point
-	 * @param y - The y point
-	 * @param z - The z point
-	 */
-	public void move(PCRendererModel model, float x, float y, float z)
-	{
-		if(!this.correctAnimation)
-		{
-			return;
-		}
-		this.getBoxValues(model)[0] = (x / 10);
-		this.getBoxValues(model)[1] = (y / 10);
-		this.getBoxValues(model)[2] = (z / 10);
-	}
-	
-	/**
-	 * Rotates an PCRendererModel box in the current Keyframe
-	 * @param model - PCRendererModel to rotate
-	 * @param x - The x rotation
-	 * @param y - The y rotation
-	 * @param z - The z rotation
-	 */
-	public void rotate(PCRendererModel model, float x, float y, float z)
-	{
-		if(!this.correctAnimation)
-		{
-			return;
-		}
-		this.getBoxValues(model)[3] = (x / 10);
-		this.getBoxValues(model)[4] = (y / 10);
-		this.getBoxValues(model)[5] = (z / 10);
-	}
-	
-	/**
-	 * Gets the values of a box stored from a map
-	 * @param model - The PCRendererModel to look up in the box values map
-	 * @return - The PCRendererModel float array of box values from the box values map
-	 */
-	public float[] getBoxValues(PCRendererModel model)
-	{
-		float[] empty = {0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F};
-		return this.boxValues.computeIfAbsent(model, a -> empty);
-	}
-	
 	/**
 	 * Ends the current Keyframe
 	 */
@@ -139,13 +74,73 @@ public class ModelAnimator
 		this.endKeyframe(false);
 	}
 	
+	/**
+	 * Starts a Keyframe that holds the most recent box values for a set duration
+	 * @param tickDuration - The duration of the Keyframe; measured in ticks
+	 */
+	public void setStaticKeyframe(int tickDuration)
+	{
+		this.startKeyframe(tickDuration);
+		this.endKeyframe(true);
+	}
+    
+	/**
+	 * Resets the current Keyframe to its default values
+	 * @param tickDuration - The duration of the Keyframe; measured in ticks
+	 */
+	public void resetKeyframe(int tickDuration)
+	{
+		this.startKeyframe(tickDuration);
+		this.endKeyframe();
+	}
+	
+	/**
+	 * Gets the values of a box stored from a map
+	 * @param model - The PCRendererModel to look up in the box values map
+	 * @return - The PCRendererModel's float array of box values from the box values map
+	 */
+	public float[] getBoxValues(PCRendererModel model)
+	{
+		float[] empty = {0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F};
+		return this.boxValues.computeIfAbsent(model, a -> empty);
+	}
+	
+	/**
+	 * Moves an PCRendererModel in the current Keyframe
+	 * @param model - EndimatorRendererModel to move
+	 * @param x - The x point
+	 * @param y - The y point
+	 * @param z - The z point
+	 */
+	public void move(PCRendererModel model, float x, float y, float z)
+	{
+		if(!this.correctAnimation) return;
+		this.getBoxValues(model)[0] = x;
+		this.getBoxValues(model)[1] = y;
+		this.getBoxValues(model)[2] = z;
+	}
+	
+	/**
+	 * Rotates an PCRendererModel in the current Keyframe
+	 * @param model - EndimatorRendererModel to rotate
+	 * @param x - The x rotation
+	 * @param y - The y rotation
+	 * @param z - The z rotation
+	 */
+	public void rotate(PCRendererModel model, float x, float y, float z)
+	{
+		if(!this.correctAnimation) return;
+		this.getBoxValues(model)[3] = x;
+		this.getBoxValues(model)[4] = y;
+		this.getBoxValues(model)[5] = z;
+	}
+	
 	private void endKeyframe(boolean stationary)
-	{	
-		if(!this.correctAnimation)
-		{
-			return;
-		}
+	{
+		if(!this.correctAnimation) return;
+        
 		int animationTick = this.animatedEntity.getAnimationTick();
+		
 		if(animationTick >= this.prevTempTick && animationTick < this.tempTick)
 		{
 			if(stationary)
@@ -165,7 +160,7 @@ public class ModelAnimator
 			{
 				float tick = (animationTick - this.prevTempTick + getPartialTicks()) / (this.tempTick - this.prevTempTick);
 				float increment = MathHelper.sin((float) (tick * Math.PI / 2.0F));
-				float decrement = 1.0F - increment;						//0.658 Seems to work better
+				float decrement = 1.0F - increment;	
 				for(PCRendererModel box : this.prevBoxValues.keySet())
 				{
 					float[] transform = this.prevBoxValues.get(box);

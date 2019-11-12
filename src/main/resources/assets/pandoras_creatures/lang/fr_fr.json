@@ -70,7 +70,6 @@
 	"item.pandoras_creatures.arachnon_hammer.tooltip": "#c7Cet outil va casser\n#c7des blocs dans un\n#c7rayon de 3x3",
 	
 //	 Items
-	"item.pandoras_creatures.arachnon_crystal": "Cristal d'Arachnon",
 	"item.pandoras_creatures.arachnon_hammer": "Marteau d'Arachnon",
 	"item.pandoras_creatures.crab_meat": "La chair de crabe",
 	"item.pandoras_creatures.crab_meat_cooked": "Chair de Crabe Cuite",
@@ -79,6 +78,9 @@
 	"item.pandoras_creatures.seahorse": "Hippocrampe Cru",
 	"item.pandoras_creatures.seahorse_cooked": "Hippocrampe Cuite",
 	"item.pandoras_creatures.acidic_archvine_tongue": "Langue d'Archvine d'Acide",
+	
+//	 Blocks
+	"block.pandoras_creatures.arachnon_crystal": "Cristal d'Arachnon",
 	
 //	 Entities
 	"entity.pandoras_creatures.arachnon": "Arachnon",

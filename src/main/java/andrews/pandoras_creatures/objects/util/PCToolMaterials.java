@@ -1,13 +1,13 @@
 package andrews.pandoras_creatures.objects.util;
 
-import andrews.pandoras_creatures.registry.PCItems;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 
 public enum PCToolMaterials implements IItemTier
 {
-	arachnon_material(5.0F, 8.0F, 2000, 3, 10, PCItems.ARACHNON_CRYSTAL);
+	arachnon_material(5.0F, 8.0F, 2000, 3, 10, Items.DIAMOND);
 	
 	private float attackDamage, efficiency;
 	private int durability, harvestLevel, enchantability;

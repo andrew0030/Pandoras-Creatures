@@ -10,6 +10,11 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.world.World;
 
+/**
+ * Copied Library Functions and Classes from Endergetic
+ * see {@link <a href="https://www.curseforge.com/minecraft/mc-mods/endergetic"> Mod Page</a>}.
+ * @author SmellyModder(Luke Tonon)
+ */
 public class AnimatedCreatureEntity extends CreatureEntity
 {
 	private static final DataParameter<Integer> ANIMATION_TICK = EntityDataManager.createKey(AnimatedCreatureEntity.class, DataSerializers.VARINT);
@@ -45,7 +50,7 @@ public class AnimatedCreatureEntity extends CreatureEntity
 			this.setAnimationTick(this.getAnimationTick() + 1);
 			if(this.getEntityWorld().isRemote)
 			{
-				if(this.getAnimationTick() >= this.getPlayingAnimation().getDuration())
+				if(this.getAnimationTick() >= this.getPlayingAnimation().getAnimationTickDuration())
 				{
 					this.setAnimationToBlank();
 				}

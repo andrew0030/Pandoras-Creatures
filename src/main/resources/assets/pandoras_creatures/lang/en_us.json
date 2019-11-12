@@ -64,13 +64,13 @@
 	"item.pandoras_creatures.crab_spawn_egg": "Crab Spawn Egg",
 	"item.pandoras_creatures.seahorse_spawn_egg": "Seahorse Spawn Egg",
 	"item.pandoras_creatures.acidic_archvine_spawn_egg": "Acidic Archvine Spawn Egg",
+	"item.pandoras_creatures.bufflon_spawn_egg": "Bufflon Spawn Egg",
 	
 //	 Item Tooltips, [Localising Tools] can be used here.
 	"item.pandoras_creatures.acidic_archvine_spawn_egg.tooltip": "#c7Needs to be placed under\n#c7Jungle Leaves or Netherrack",
 	"item.pandoras_creatures.arachnon_hammer.tooltip": "#c7This tool will break\n#c7blocks in a 3x3 radius",
 	
 //	 Items
-	"item.pandoras_creatures.arachnon_crystal": "Arachnon Crystal",
 	"item.pandoras_creatures.arachnon_hammer": "Arachnon Hammer",
 	"item.pandoras_creatures.crab_meat": "Crab Meat",
 	"item.pandoras_creatures.crab_meat_cooked": "Cooked Crab Meat",
@@ -79,6 +79,13 @@
 	"item.pandoras_creatures.seahorse": "Raw Seahorse",
 	"item.pandoras_creatures.seahorse_cooked": "Cooked Seahorse",
 	"item.pandoras_creatures.acidic_archvine_tongue": "Acidic Archvine Tongue",
+	"item.pandoras_creatures.herb_bundle": "Herb Bundle",
+	
+//	 Blocks
+	"block.pandoras_creatures.arachnon_crystal": "Arachnon Crystal",
+	"block.pandoras_creatures.horsetail": "Horsetail",
+	"block.pandoras_creatures.dhania": "Dhania",
+	"block.pandoras_creatures.hill_bloom": "Hill Bloom",
 	
 //	 Entities
 	"entity.pandoras_creatures.arachnon": "Arachnon",
@@ -86,6 +93,7 @@
 	"entity.pandoras_creatures.crab": "Crab",
 	"entity.pandoras_creatures.seahorse": "Seahorse",
 	"entity.pandoras_creatures.acidic_archvine": "Acidic Archvine",
+	"entity.pandoras_creatures.bufflon": "Bufflon",
 	
 //	 Button Tool Tips
 	"gui.button.pandoras_creatures.discord": "Discord",

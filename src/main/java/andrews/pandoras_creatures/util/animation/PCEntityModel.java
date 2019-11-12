@@ -24,6 +24,15 @@ public class PCEntityModel<entity extends Entity> extends EntityModel<entity>
 	}
 	
 	/**
+	 * Loads all needed information for both the loop animation system and the keyframe system
+	 */
+	public void loadAllDefaultValues()
+	{
+		loadDefaultBoxValues();
+		loadDefaultPose();
+	}
+	
+	/**
 	 * This will go through all body parts saved in the bodyParts array, and then save their information (rotation point. rotation angle, offset) as the default options
 	 */
 	public void saveDefaultBoxValues()
@@ -82,6 +91,11 @@ public class PCEntityModel<entity extends Entity> extends EntityModel<entity>
     {
         this.movementScale = movementScale;
     }
+    
+    public void animateModel(entity animatedEntity, float f, float f1, float f2, float f3, float f4, float f5)
+    {
+		this.setRotationAngles(animatedEntity, f, f1, f2, f3, f4, f5);
+	}
 
     //##########################################################################################################################################
     //##########################################################################################################################################

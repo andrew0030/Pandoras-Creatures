@@ -70,7 +70,6 @@
 	"item.pandoras_creatures.arachnon_hammer.tooltip": "#c7ʞɐǝɹq llᴉʍ looʇ sᴉɥ┴\n#c7snᴉpɐɹ ƐxƐ ɐ uᴉ sʞɔolq",
 	
 //	 Items
-	"item.pandoras_creatures.arachnon_crystal": "lɐʇsʎɹƆ uouɥɔɐɹ∀",
 	"item.pandoras_creatures.arachnon_hammer": "ɹǝɯɯɐH uouɥɔɐɹ∀",
 	"item.pandoras_creatures.crab_meat": "ʇɐǝW qɐɹƆ",
 	"item.pandoras_creatures.crab_meat_cooked": "ʇɐǝW qɐɹƆ pǝʞooƆ",
@@ -79,6 +78,9 @@
 	"item.pandoras_creatures.seahorse": "ǝsɹoɥɐǝS ʍɐɹ",
 	"item.pandoras_creatures.seahorse_cooked": "ǝsɹoɥɐǝS pǝʞooƆ",
 	"item.pandoras_creatures.acidic_archvine_tongue": "ǝnƃuo┴ ǝuᴉʌɥɔɹ∀ ɔᴉpᴉɔ∀",
+	
+//	 Blocks
+	"block.pandoras_creatures.arachnon_crystal": "lɐʇsʎɹƆ uouɥɔɐɹ∀",
 	
 //	 Entities
 	"entity.pandoras_creatures.arachnon": "uouɥɔɐɹ∀",

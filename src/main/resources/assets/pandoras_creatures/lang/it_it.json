@@ -70,7 +70,6 @@
 	"item.pandoras_creatures.arachnon_hammer.tooltip": "#c7Questo strumento rompe\n#c7i blocchi in un'area 3x3",
 	
 //	 Items
-	"item.pandoras_creatures.arachnon_crystal": "Cristallo di Arachnon",
 	"item.pandoras_creatures.arachnon_hammer": "Martello di Arachnon",
 	"item.pandoras_creatures.crab_meat": "Carne di Granchio",
 	"item.pandoras_creatures.crab_meat_cooked": "Carne di Granchio Cotta",
@@ -79,6 +78,9 @@
 	"item.pandoras_creatures.seahorse": "Cavalluccio Marino Crudo",
 	"item.pandoras_creatures.seahorse_cooked": "Cavalluccio Marino Cotto",
 	"item.pandoras_creatures.acidic_archvine_tongue": "Lingua di Archvine Acida",
+	
+//	 Blocks
+	"block.pandoras_creatures.arachnon_crystal": "Cristallo di Arachnon",
 	
 //	 Entities
 	"entity.pandoras_creatures.arachnon": "Arachnon",

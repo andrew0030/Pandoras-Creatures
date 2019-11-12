@@ -13,6 +13,6 @@ public class PCFoods
 	//The Seahorse ItemFood
 	public static final Food SEAHORSE(boolean cooked)
 	{
-		return cooked ? new Food.Builder().hunger(7).saturation(1.0F).build() : new Food.Builder().hunger(3).saturation(0.4F).build();
+		return cooked ? new Food.Builder().hunger(7).saturation(0.8F).build() : new Food.Builder().hunger(3).saturation(0.3F).build();
 	}
 }

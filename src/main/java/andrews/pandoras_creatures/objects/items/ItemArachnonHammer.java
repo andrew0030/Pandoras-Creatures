@@ -61,94 +61,97 @@ public class ItemArachnonHammer extends PickaxeItem
 	@Override
 	public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, PlayerEntity player)
 	{
-		switch(getBlockSideHit(player))
+		if(player != null && !player.getEntityWorld().isRemote)
 		{
-		case WEST:
-			for(int z = -1; z < 2; z++)
+			switch(getBlockSideHit(player))
 			{
-				for(int y = -1; y < 2; y++)
-				{
-					BlockPos blockPos = new BlockPos(pos.getX(), pos.getY() + y, pos.getZ() + z);
-					BlockState stateIn = player.getEntityWorld().getBlockState(blockPos);
-					if(canHarvestBlock(player.getEntityWorld(), blockPos, stateIn))
-					{
-						processHarvest(player.getEntityWorld(), blockPos, stateIn, itemstack, player);
-					}
-				}
-			}
-		break;
-		case UP:
-			for(int x = -1; x < 2; x++)
-			{
+			case WEST:
 				for(int z = -1; z < 2; z++)
 				{
-					BlockPos blockPos = new BlockPos(pos.getX() + x, pos.getY(), pos.getZ() + z);
-					BlockState stateIn = player.getEntityWorld().getBlockState(blockPos);
-					if(canHarvestBlock(player.getEntityWorld(), blockPos, stateIn))
+					for(int y = -1; y < 2; y++)
 					{
-						processHarvest(player.getEntityWorld(), blockPos, stateIn, itemstack, player);
+						BlockPos blockPos = new BlockPos(pos.getX(), pos.getY() + y, pos.getZ() + z);
+						BlockState stateIn = player.getEntityWorld().getBlockState(blockPos);
+						if(canHarvestBlock(player.getEntityWorld(), blockPos, stateIn))
+						{
+							processHarvest(player.getEntityWorld(), blockPos, stateIn, itemstack, player);
+						}
 					}
 				}
-			}
-		break;
-		case SOUTH:	
-			for(int x = -1; x < 2; x++)
-			{
-				for(int y = -1; y < 2; y++)
+			break;
+			case UP:
+				for(int x = -1; x < 2; x++)
 				{
-					BlockPos blockPos = new BlockPos(pos.getX() + x, pos.getY() + y, pos.getZ());
-					BlockState stateIn = player.getEntityWorld().getBlockState(blockPos);
-					if(canHarvestBlock(player.getEntityWorld(), blockPos, stateIn))
+					for(int z = -1; z < 2; z++)
 					{
-						processHarvest(player.getEntityWorld(), blockPos, stateIn, itemstack, player);
+						BlockPos blockPos = new BlockPos(pos.getX() + x, pos.getY(), pos.getZ() + z);
+						BlockState stateIn = player.getEntityWorld().getBlockState(blockPos);
+						if(canHarvestBlock(player.getEntityWorld(), blockPos, stateIn))
+						{
+							processHarvest(player.getEntityWorld(), blockPos, stateIn, itemstack, player);
+						}
 					}
 				}
-			}
-		break;
-		case NORTH:	
-			for(int x = -1; x < 2; x++)
-			{
-				for(int y = -1; y < 2; y++)
+			break;
+			case SOUTH:	
+				for(int x = -1; x < 2; x++)
 				{
-					BlockPos blockPos = new BlockPos(pos.getX() + x, pos.getY() + y, pos.getZ());
-					BlockState stateIn = player.getEntityWorld().getBlockState(blockPos);
-					if(canHarvestBlock(player.getEntityWorld(), blockPos, stateIn))
+					for(int y = -1; y < 2; y++)
 					{
-						processHarvest(player.getEntityWorld(), blockPos, stateIn, itemstack, player);
+						BlockPos blockPos = new BlockPos(pos.getX() + x, pos.getY() + y, pos.getZ());
+						BlockState stateIn = player.getEntityWorld().getBlockState(blockPos);
+						if(canHarvestBlock(player.getEntityWorld(), blockPos, stateIn))
+						{
+							processHarvest(player.getEntityWorld(), blockPos, stateIn, itemstack, player);
+						}
 					}
 				}
-			}
-		break;
-		case EAST:
-			for(int z = -1; z < 2; z++)
-			{
-				for(int y = -1; y < 2; y++)
+			break;
+			case NORTH:	
+				for(int x = -1; x < 2; x++)
 				{
-					BlockPos blockPos = new BlockPos(pos.getX(), pos.getY() + y, pos.getZ() + z);
-					BlockState stateIn = player.getEntityWorld().getBlockState(blockPos);
-					if(canHarvestBlock(player.getEntityWorld(), blockPos, stateIn))
+					for(int y = -1; y < 2; y++)
 					{
-						processHarvest(player.getEntityWorld(), blockPos, stateIn, itemstack, player);
+						BlockPos blockPos = new BlockPos(pos.getX() + x, pos.getY() + y, pos.getZ());
+						BlockState stateIn = player.getEntityWorld().getBlockState(blockPos);
+						if(canHarvestBlock(player.getEntityWorld(), blockPos, stateIn))
+						{
+							processHarvest(player.getEntityWorld(), blockPos, stateIn, itemstack, player);
+						}
 					}
 				}
-			}
-		break;
-		case DOWN:
-			for(int x = -1; x < 2; x++)
-			{
+			break;
+			case EAST:
 				for(int z = -1; z < 2; z++)
 				{
-					BlockPos blockPos = new BlockPos(pos.getX() + x, pos.getY(), pos.getZ() + z);
-					BlockState stateIn = player.getEntityWorld().getBlockState(blockPos);
-					if(canHarvestBlock(player.getEntityWorld(), blockPos, stateIn))
+					for(int y = -1; y < 2; y++)
 					{
-						processHarvest(player.getEntityWorld(), blockPos, stateIn, itemstack, player);
+						BlockPos blockPos = new BlockPos(pos.getX(), pos.getY() + y, pos.getZ() + z);
+						BlockState stateIn = player.getEntityWorld().getBlockState(blockPos);
+						if(canHarvestBlock(player.getEntityWorld(), blockPos, stateIn))
+						{
+							processHarvest(player.getEntityWorld(), blockPos, stateIn, itemstack, player);
+						}
 					}
 				}
+			break;
+			case DOWN:
+				for(int x = -1; x < 2; x++)
+				{
+					for(int z = -1; z < 2; z++)
+					{
+						BlockPos blockPos = new BlockPos(pos.getX() + x, pos.getY(), pos.getZ() + z);
+						BlockState stateIn = player.getEntityWorld().getBlockState(blockPos);
+						if(canHarvestBlock(player.getEntityWorld(), blockPos, stateIn))
+						{
+							processHarvest(player.getEntityWorld(), blockPos, stateIn, itemstack, player);
+						}
+					}
+				}
+			break;
+			default:
+			break;
 			}
-		break;
-		default:
-		break;
 		}
 		return super.onBlockStartBreak(itemstack, pos, player);
 	}
@@ -245,6 +248,7 @@ public class ItemArachnonHammer extends PickaxeItem
 		float f6 = f3 * f4;
 		float f7 = f2 * f4;
 		double d0 = player.getAttribute(PlayerEntity.REACH_DISTANCE).getValue();;
+		d0 = (d0 * 2);
 		Vec3d vec3d1 = vec3d.add((double)f6 * d0, (double)f5 * d0, (double)f7 * d0);
 		return worldIn.rayTraceBlocks(new RayTraceContext(vec3d, vec3d1, RayTraceContext.BlockMode.OUTLINE, fluidMode, player));
 	}

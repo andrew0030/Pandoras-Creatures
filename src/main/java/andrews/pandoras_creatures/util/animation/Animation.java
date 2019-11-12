@@ -1,34 +1,69 @@
 package andrews.pandoras_creatures.util.animation;
 
 /**
- * The Animation Class
+ * Copied Library Functions and Classes from Endergetic
+ * see {@link <a href="https://www.curseforge.com/minecraft/mc-mods/endergetic"> Mod Page</a>}.
+ * @author SmellyModder(Luke Tonon)
  */
 public class Animation
 {
-	private int duration; //The duration for an Animation (measured in ticks)
+	private int tickDuration;
+	private int loopCycles;
+	private boolean doesLoop = false;
 	
 	/**
-	 * Simple constructor for creating an Animation with a given duration
-	 * @param duration - The duration of the Animation (measured in ticks)
+	 * Simple constructor for an Animation
+	 * @param tickDuration - Duration of how long the animation plays for; measured in ticks
 	 */
-	public Animation(int duration)
+	public Animation(int tickDuration)
 	{
-		this.duration = duration;
+		this.tickDuration = tickDuration;
+		this.loopCycles = 0;
 	}
 	
 	/**
-	 * Empty constructor, used to make blank Animations (Animations that do nothing)
+	 * Constructor for looped animations
+	 * @param tickDuration - Duration of how long the animation plays for; measured in ticks
+	 * @param doesLoop - Does this animation loop
+	 * @param loopCycles- How many times does this animation loop
+	 */
+	public Animation(int tickDuration, boolean doesLoop, int loopCycles)
+	{
+		this(tickDuration);
+		this.doesLoop = doesLoop;
+		this.loopCycles = loopCycles;
+	}
+	
+	/**
+	 * Empty constructor; used for making animations that do nothing
 	 */
 	public Animation()
 	{
-		this(0);
+		this(0, false, 0);
 	}
 	
 	/**
-	 * @return - The duration of this Animation (measured in ticks)
+	 * @return - The duration of this animation; measured in ticks
 	 */
-	public int getDuration()
+	public int getAnimationTickDuration()
 	{
-		return this.duration;
+		return this.tickDuration;
+	}
+	
+	/**
+	 * @return - Does this animation loop
+	 */
+	public boolean doesAnimationLoop()
+	{
+		return this.doesLoop;
+	}
+	
+	/**
+	 * @return - Loop cycles for this animations
+	 */
+	public int getLoopCycles()
+	{
+		if(!this.doesLoop) return 0;
+		return this.loopCycles;
 	}
 }

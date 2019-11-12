@@ -14,7 +14,6 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = Reference.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class PCItems
 {
-	public static Item ARACHNON_CRYSTAL                       = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP)).setRegistryName(Reference.MODID, "arachnon_crystal");
 	public static Item ARACHNON_HAMMER                        = new ItemArachnonHammer().setRegistryName(Reference.MODID, "arachnon_hammer");
 	public static Item CRAB_MEAT               	   			  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.CRAB_MEAT(false))).setRegistryName(Reference.MODID, "crab_meat");
 	public static Item CRAB_MEAT_COOKED             		  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.CRAB_MEAT(true))).setRegistryName(Reference.MODID, "crab_meat_cooked");
@@ -23,13 +22,13 @@ public class PCItems
 	public static Item SEAHORSE               	   			  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.SEAHORSE(false))).setRegistryName(Reference.MODID, "seahorse");
 	public static Item SEAHORSE_COOKED             		 	  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.CRAB_MEAT(true))).setRegistryName(Reference.MODID, "seahorse_cooked");
 	public static Item ACIDIC_ARCHVINE_TONGUE                 = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP)).setRegistryName(Reference.MODID, "acidic_archvine_tongue");
+	public static Item HERB_BUNDLE                 			  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP)).setRegistryName(Reference.MODID, "herb_bundle");
 	
 	@SubscribeEvent
 	public static void onRegisterItems(RegistryEvent.Register<Item> event)
 	{
 		final Item[] items =
 		{
-			ARACHNON_CRYSTAL,
 			ARACHNON_HAMMER,
 			CRAB_MEAT,
 			CRAB_MEAT_COOKED,
@@ -37,7 +36,8 @@ public class PCItems
 			SEAHORSE_BUCKET,
 			SEAHORSE,
 			SEAHORSE_COOKED,
-			ACIDIC_ARCHVINE_TONGUE
+			ACIDIC_ARCHVINE_TONGUE,
+			HERB_BUNDLE
 		};
 		event.getRegistry().registerAll(items);
 	}

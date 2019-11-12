@@ -70,7 +70,6 @@
 	"item.pandoras_creatures.arachnon_hammer.tooltip": "#c7Beim zerstören von\n#c7Blöcken mit diesem\n#c7Werkzeug, wird ein\n#c73x3 Radius abgebaut.",
 	
 //	 Items
-	"item.pandoras_creatures.arachnon_crystal": "Arachnon Kristall",
 	"item.pandoras_creatures.arachnon_hammer": "Arachnon Hammer",
 	"item.pandoras_creatures.crab_meat": "Krabben Fleisch",
 	"item.pandoras_creatures.crab_meat_cooked": "gekochtes Krabben Fleisch",
@@ -79,6 +78,9 @@
 	"item.pandoras_creatures.seahorse": "totes Seepferdchen",
 	"item.pandoras_creatures.seahorse_cooked": "gebackenes Seepferdchen",
 	"item.pandoras_creatures.acidic_archvine_tongue": "ätzende Teufelsranken-Zunge",
+	
+//	 Blocks
+	"block.pandoras_creatures.arachnon_crystal": "Arachnon Kristall",
 	
 //	 Entities
 	"entity.pandoras_creatures.arachnon": "Arachnon",

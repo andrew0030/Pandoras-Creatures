@@ -70,7 +70,6 @@
 	"item.pandoras_creatures.arachnon_hammer.tooltip": "#c7Esta herramienta rompe\n#c7bloques en un radio de 3x3",
 	
 //	 Items
-	"item.pandoras_creatures.arachnon_crystal": "Cristal de Arachnon",
 	"item.pandoras_creatures.arachnon_hammer": "Martillo de Arachnon",
 	"item.pandoras_creatures.crab_meat": "Carne de Cangrejo",
 	"item.pandoras_creatures.crab_meat_cooked": "Carne de Cangrejo Cocinada",
@@ -79,6 +78,9 @@
 	"item.pandoras_creatures.seahorse": "Caballito de Mar Crudo",
 	"item.pandoras_creatures.seahorse_cooked": "Caballito de Mar Cocinado",
 	"item.pandoras_creatures.acidic_archvine_tongue": "Lengua de Archidina Ácida",
+	
+//	 Blocks
+	"block.pandoras_creatures.arachnon_crystal": "Cristal de Arachnon",
 	
 //	 Entities
 	"entity.pandoras_creatures.arachnon": "Arachnon",

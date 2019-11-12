@@ -70,7 +70,6 @@
 	"item.pandoras_creatures.arachnon_hammer.tooltip": "#c7当你使用这个工具破坏方块时，\n#c7它会破坏玩家前方\n#c73x3范围内的方块。",
 	
 //	 物品
-	"item.pandoras_creatures.arachnon_crystal": "巨型蜘蛛结晶",
 	"item.pandoras_creatures.arachnon_hammer": "巨型蜘蛛之锤",
 	"item.pandoras_creatures.crab_meat": "蟹肉",
 	"item.pandoras_creatures.crab_meat_cooked": "熟蟹肉",
@@ -79,6 +78,9 @@
 	"item.pandoras_creatures.seahorse": "生海马",
 	"item.pandoras_creatures.seahorse_cooked": "熟海马",
 	"item.pandoras_creatures.acidic_archvine_tongue": "藤壶怪之舌",
+	
+//	 Blocks
+	"block.pandoras_creatures.arachnon_crystal": "巨型蜘蛛结晶",
 	
 //	 实体
 	"entity.pandoras_creatures.arachnon": "巨型蜘蛛",
