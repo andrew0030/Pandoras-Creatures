@@ -1,10 +1,14 @@
 package andrews.pandoras_creatures.entities.model;
 
+import java.util.List;
+
 import andrews.pandoras_creatures.entities.BufflonEntity;
 import andrews.pandoras_creatures.util.animation.Animator;
 import andrews.pandoras_creatures.util.animation.PCEntityModel;
 import andrews.pandoras_creatures.util.animation.PCRendererModel;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.model.RendererModel;
+import net.minecraft.entity.Entity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -1008,7 +1012,7 @@ public class BufflonModel<T extends BufflonEntity> extends PCEntityModel<T>
     @Override
     public void render(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
     {
-    	this.front_seat_base.showModel = true;
+    	this.front_seat_base.showModel = entity.isSaddled();
     	this.storage_base.showModel = false;
     	this.seats_base.showModel = false;
     	this.smallstorage_base.showModel = false;
@@ -1074,6 +1078,48 @@ public class BufflonModel<T extends BufflonEntity> extends PCEntityModel<T>
             	swing(tail_3, globalSpeed * 0.3F, globalDegree * 0.02F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
             	swing(tail_4, globalSpeed * 0.3F, globalDegree * 0.02F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
         	}
+    		else
+    		{
+    			float globalSpeed = 3.6F;
+    			if(entityIn.isBeingRidden()) //Reduces the animation speed for the riding entity as the speed does not need to be as much TODO test multiple passengers
+    			{
+    				List<Entity> passengers = entityIn.getPassengers();
+    				if(passengers.contains(Minecraft.getInstance().player))
+    				{
+    					globalSpeed = 1.5F;
+    				}
+    			}
+            	float globalHeight = 1.0F;
+            	float globalDegree = 1.0F;
+            	
+            	bounce(body, globalSpeed * 0.3F, globalHeight * 0.5F, false, limbSwing, limbSwingAmount);
+            	swing(body, globalSpeed * 0.3F, globalDegree * 0.01F, true, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+            	swing(body_back, globalSpeed * 0.3F, globalDegree * 0.01F, true, -1.0F, 0.0F, limbSwing, limbSwingAmount);
+            	
+            	swing(neck, globalSpeed * 0.3F, globalDegree * 0.03F, true, 2.0F, 0.0F, limbSwing, limbSwingAmount);
+            	swing(head_base, globalSpeed * 0.3F, globalDegree * 0.02F, false, 2.0F, 0.0F, limbSwing, limbSwingAmount);
+            	
+            	swing(leg_front_left_1, globalSpeed * 0.15F, globalDegree * 0.35F, true, 1.7F, 0.05F, limbSwing, limbSwingAmount);
+            	swing(leg_front_left_2, globalSpeed * 0.15F, globalDegree * 0.3F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+            	swing(foot_front_left_base, globalSpeed * 0.15F, globalDegree * 0.25F, false, 1.5F, -0.25F, limbSwing, limbSwingAmount);
+            	
+            	swing(leg_front_right_1, globalSpeed * 0.15F, globalDegree * 0.35F, false, 1.7F, 0.05F, limbSwing, limbSwingAmount);
+            	swing(leg_front_right_2, globalSpeed * 0.15F, globalDegree * 0.3F, true, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+            	swing(foot_front_right_base, globalSpeed * 0.15F, globalDegree * 0.25F, true, 1.5F, -0.25F, limbSwing, limbSwingAmount);
+            	
+            	swing(leg_back_right_1, globalSpeed * 0.15F, globalDegree * 0.3F, false, -3.0F, -0.1F, limbSwing, limbSwingAmount);
+            	swing(leg_back_right_2, globalSpeed * 0.15F, globalDegree * 0.3F, true, -2.0F, 0.2F, limbSwing, limbSwingAmount);
+            	swing(foot_back_right_base, globalSpeed * 0.15F, globalDegree * 0.35F, false, 0.0F, 0.1F, limbSwing, limbSwingAmount);
+            	
+            	swing(leg_back_left_1, globalSpeed * 0.15F, globalDegree * 0.3F, true, -3.0F, -0.1F, limbSwing, limbSwingAmount);
+            	swing(leg_back_left_2, globalSpeed * 0.15F, globalDegree * 0.3F, false, -2.0F, 0.2F, limbSwing, limbSwingAmount);
+            	swing(foot_back_left_base, globalSpeed * 0.15F, globalDegree * 0.35F, true, 0.0F, 0.1F, limbSwing, limbSwingAmount);
+            	
+            	swing(tail_1, globalSpeed * 0.3F, globalDegree * 0.03F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+            	swing(tail_2, globalSpeed * 0.3F, globalDegree * 0.03F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+            	swing(tail_3, globalSpeed * 0.3F, globalDegree * 0.03F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+            	swing(tail_4, globalSpeed * 0.3F, globalDegree * 0.03F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+    		}
     	}
     }
     
@@ -1084,32 +1130,7 @@ public class BufflonModel<T extends BufflonEntity> extends PCEntityModel<T>
     	
     	this.animator.updateAnimations(animatedEntity);
     	
-    	if(animatedEntity.isAnimationPlaying(BufflonEntity.TEST_ANIMATION))
-    	{
-    		this.animator.setAnimationToPlay(BufflonEntity.TEST_ANIMATION);
-    		
-    		this.animator.startKeyframe(0);
-    		this.animator.endKeyframe();
-    		
-    		this.animator.startKeyframe(8);
-    		this.animator.move(body, -1.2F, -20.0F, 0.0F);
-    		this.animator.rotate(body, -0.8F, 0F, 0F);
-    		this.animator.rotate(leg_front_left_1, -1.2F, 0.0F, 0.0F);
-    		this.animator.rotate(leg_front_right_1, -1.2F, 0.0F, 0.0F);
-    		this.animator.rotate(leg_back_left_1, 1.2F, 0.0F, 0.0F);
-    		this.animator.rotate(leg_back_right_1, 1.2F, 0.0F, 0.0F);
-    		this.animator.endKeyframe();
-    		
-    		this.animator.startKeyframe(20);
-    		this.animator.rotate(body, -6.2F, 0F, 0F);
-    		this.animator.endKeyframe();
-    		
-    		this.animator.startKeyframe(72);
-    		this.animator.move(body, 0, -80.0F, 0);
-    		this.animator.rotate(body, 0.0F, 30.0F, 0F);
-    		this.animator.endKeyframe();
-    	}
-    	else if(animatedEntity.isAnimationPlaying(BufflonEntity.THROW_ANIMATION))
+    	if(animatedEntity.isAnimationPlaying(BufflonEntity.THROW_ANIMATION))
     	{
     		this.animator.setAnimationToPlay(BufflonEntity.THROW_ANIMATION);
     		this.animator.startKeyframe(0);

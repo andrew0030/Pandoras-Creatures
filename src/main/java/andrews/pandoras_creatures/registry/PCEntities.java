@@ -42,7 +42,7 @@ public class PCEntities
 	public static final EntityType<CrabEntity> CRAB = createEntity(CrabEntity.class, CrabEntity::new, EntityClassification.AMBIENT, "crab", 0.8F, 0.3F, 0xf79811, 0xffde3b);
 	public static final EntityType<SeahorseEntity> SEAHORSE = createEntity(SeahorseEntity.class, SeahorseEntity::new, EntityClassification.AMBIENT, "seahorse", 0.4F, 0.8F, 0x38d1d1, 0xd98f27);
 	public static final EntityType<AcidicArchvineEntity> ACIDIC_ARCHVINE = createAcidicArchvineEntity(AcidicArchvineEntity.class, AcidicArchvineEntity::new, EntityClassification.MONSTER, "acidic_archvine", 1.0F, 1.5F, 0x14661f, 0x7b34ad);
-	public static final EntityType<BufflonEntity> BUFFLON = createEntity(BufflonEntity.class, BufflonEntity::new, EntityClassification.CREATURE, "bufflon", 2.0F, 3.0F, 0x4f3914, 0x1a1d29);
+	public static final EntityType<BufflonEntity> BUFFLON = createEntity(BufflonEntity.class, BufflonEntity::new, EntityClassification.CREATURE, "bufflon", 2.4F, 3.0F, 0x4f3914, 0x1a1d29);
 	
 	//=========================================================================================================================================================================================================================================
 	//=========================================================================================================================================================================================================================================

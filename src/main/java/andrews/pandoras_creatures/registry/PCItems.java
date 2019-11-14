@@ -23,6 +23,7 @@ public class PCItems
 	public static Item SEAHORSE_COOKED             		 	  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.CRAB_MEAT(true))).setRegistryName(Reference.MODID, "seahorse_cooked");
 	public static Item ACIDIC_ARCHVINE_TONGUE                 = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP)).setRegistryName(Reference.MODID, "acidic_archvine_tongue");
 	public static Item HERB_BUNDLE                 			  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP)).setRegistryName(Reference.MODID, "herb_bundle");
+	public static Item BUFFLON_SADDLE                 		  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP)).setRegistryName(Reference.MODID, "bufflon_saddle");
 	
 	@SubscribeEvent
 	public static void onRegisterItems(RegistryEvent.Register<Item> event)
@@ -37,7 +38,8 @@ public class PCItems
 			SEAHORSE,
 			SEAHORSE_COOKED,
 			ACIDIC_ARCHVINE_TONGUE,
-			HERB_BUNDLE
+			HERB_BUNDLE,
+			BUFFLON_SADDLE
 		};
 		event.getRegistry().registerAll(items);
 	}

@@ -12,6 +12,9 @@ import andrews.pandoras_creatures.entities.render.BufflonRenderer;
 import andrews.pandoras_creatures.entities.render.CrabRenderer;
 import andrews.pandoras_creatures.entities.render.HellhoundRenderer;
 import andrews.pandoras_creatures.entities.render.SeahorseRenderer;
+import andrews.pandoras_creatures.registry.util.ModContainerTypes;
+import andrews.pandoras_creatures.screen.BufflonScreen;
+import net.minecraft.client.gui.ScreenManager;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
 public class ClientProxy extends ServerProxy
@@ -30,5 +33,8 @@ public class ClientProxy extends ServerProxy
 		RenderingRegistry.registerEntityRenderingHandler(SeahorseEntity.class, manager -> new SeahorseRenderer(manager));
 		RenderingRegistry.registerEntityRenderingHandler(AcidicArchvineEntity.class, manager -> new AcidicArchvineRenderer(manager));
 		RenderingRegistry.registerEntityRenderingHandler(BufflonEntity.class, manager -> new BufflonRenderer(manager));
+		
+		//Screens
+		ScreenManager.registerFactory(ModContainerTypes.BUFFLON, BufflonScreen::new);
 	}
 }

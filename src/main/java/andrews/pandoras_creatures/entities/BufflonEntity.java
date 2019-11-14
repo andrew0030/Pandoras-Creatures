@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import andrews.pandoras_creatures.container.BufflonContainer;
 import andrews.pandoras_creatures.entities.bases.AnimatedCreatureEntity;
 import andrews.pandoras_creatures.registry.PCEntities;
 import andrews.pandoras_creatures.registry.PCItems;
@@ -21,8 +22,17 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Pose;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.passive.IFlyingAnimal;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.IInventoryChangedListener;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
@@ -35,7 +45,10 @@ import net.minecraft.scoreboard.Team;
 import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.GameRules;
@@ -46,9 +59,10 @@ import net.minecraft.world.biome.Biomes;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.Constants.NBT;
+import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class BufflonEntity extends AnimatedCreatureEntity
+public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryChangedListener
 {
 	private static Biome[] biomes = new Biome[] {Biomes.TAIGA, Biomes.TAIGA_HILLS, Biomes.SNOWY_TAIGA, Biomes.SNOWY_TAIGA_HILLS};
 	
@@ -57,16 +71,22 @@ public class BufflonEntity extends AnimatedCreatureEntity
 	//Stores whether or not the Bufflon is tamed and the UUID of the owner
 	private static final DataParameter<Byte> TAMED = EntityDataManager.createKey(BufflonEntity.class, DataSerializers.BYTE);
 	private static final DataParameter<Optional<UUID>> OWNER_UNIQUE_ID = EntityDataManager.createKey(BufflonEntity.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+	//Store the information of the attachments
+	private static final DataParameter<Boolean> IS_SADDLED = EntityDataManager.createKey(BufflonEntity.class, DataSerializers.BOOLEAN);
+	
+	Item saddleItem = PCItems.BUFFLON_SADDLE;
 	
 	private int thinkTime;
 	private int feedingCooldown;
+	public Inventory bufflonStorage;
 	
 	public static final Animation THROW_ANIMATION = new Animation(12);
-	public static final Animation TEST_ANIMATION = new Animation(100);
 	
     public BufflonEntity(EntityType<? extends BufflonEntity> type, World worldIn)
     {
         super(type, worldIn);
+        this.stepHeight = 1.0F;
+        this.initBufflonStorage();
     }
 
     public BufflonEntity(World world, double posX, double posY, double posZ)
@@ -78,7 +98,8 @@ public class BufflonEntity extends AnimatedCreatureEntity
     @Override
     protected void registerGoals()
     {
-    	
+    	this.goalSelector.addGoal(1, new SwimGoal(this));
+//    	this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, 1.8D));
     }
 
     @Override
@@ -95,6 +116,7 @@ public class BufflonEntity extends AnimatedCreatureEntity
 		this.dataManager.register(BUFFLON_TYPE, 0);
 		this.dataManager.register(TAMED, (byte)0);
 		this.dataManager.register(OWNER_UNIQUE_ID, Optional.empty());
+		this.dataManager.register(IS_SADDLED, false);
     }
     
     @Override
@@ -103,6 +125,8 @@ public class BufflonEntity extends AnimatedCreatureEntity
 		super.writeAdditional(compound);
 		//The Bufflon Variant
 		compound.putInt("BufflonType", this.getBufflonType());
+		//If this entity is saddled
+		compound.putBoolean("IsSaddled", this.isSaddled());
 		//The Owner of the Bufflon
 		if(this.getOwnerId() == null)
 		{
@@ -120,6 +144,8 @@ public class BufflonEntity extends AnimatedCreatureEntity
 		super.readAdditional(compound);
 		//The Bufflon Variant
 		this.setBufflonType(compound.getInt("BufflonType"));
+		//If this entity is saddled
+		this.setSaddled(compound.getBoolean("IsSaddled"));
 		//The Owner of the Bufflon
 		String s;
 	    if(compound.contains("OwnerUUID", NBT.TAG_STRING))
@@ -162,13 +188,10 @@ public class BufflonEntity extends AnimatedCreatureEntity
 		return spawnData;
 	}
 	
-	/**
-	 * Makes sure to only allow leashing to the owner of the Bufflon
-	 */
 	@Override
 	public boolean canBeLeashedTo(PlayerEntity player)
 	{
-		return this.isTamed() && this.isOwner(player);
+		return false;
 	}
     
     @Override
@@ -179,7 +202,6 @@ public class BufflonEntity extends AnimatedCreatureEntity
         {
         	if(this.isAnimationPlaying(BLANK_ANIMATION) && !this.getEntityWorld().isRemote())
         	{
-        		System.out.println("Interacted");
         		NetworkUtil.setPlayingAnimationMessage(this, THROW_ANIMATION);
         	}
         	return true;
@@ -193,6 +215,7 @@ public class BufflonEntity extends AnimatedCreatureEntity
         		{
         			player.sendMessage(new StringTextComponent("Entity owner is: " + this.getOwner().getName().getString()));
         		}
+        		player.sendMessage(new StringTextComponent("Is entity saddled: " + this.isSaddled()));
         	}
         	return true;
         }
@@ -218,6 +241,26 @@ public class BufflonEntity extends AnimatedCreatureEntity
 		    			this.world.setEntityState(this, (byte)6);
 		            }
         		}
+        	}
+        	return true;
+        }
+        else if(itemstack.getItem() == this.saddleItem)
+        {
+        	if(!world.isRemote && this.isTamed() && !this.isSaddled())
+        	{
+                this.setSaddled(true);
+        	}
+        	return true;
+        }
+        else if(itemstack.getItem() == Items.AIR)
+        {
+        	if(this.isTamed() && player.isSneaking())
+        	{
+                this.openGUI(player);
+        	}
+        	else if(this.isTamed() && !player.isSneaking())
+        	{
+        		mountTo(player);
         	}
         	return true;
         }
@@ -273,7 +316,7 @@ public class BufflonEntity extends AnimatedCreatureEntity
     @Override
 	public Animation[] getAnimations()
     {
-		return new Animation[] {TEST_ANIMATION, THROW_ANIMATION};
+		return new Animation[] {THROW_ANIMATION};
 	}
     
     @Override
@@ -299,7 +342,7 @@ public class BufflonEntity extends AnimatedCreatureEntity
             	int i = this.getPassengers().indexOf(passenger);
             	if(i == 0)
             	{
-            		offsetX = 1.1F;
+            		offsetX = 0.95F;
             		offsetY = 2.3F;
             	}
             	else if(i == 1)
@@ -341,6 +384,167 @@ public class BufflonEntity extends AnimatedCreatureEntity
     {
     	return this.isTamed();
     } 
+    
+    
+    //======================================================================================================================================================
+    
+    protected void initBufflonStorage()
+    {
+    	Inventory inventory = this.bufflonStorage;
+    	this.bufflonStorage = new Inventory(this.getInventorySize());
+        if(inventory != null)
+        {
+        	inventory.removeListener(this);
+        	int i = Math.min(inventory.getSizeInventory(), this.bufflonStorage.getSizeInventory());
+
+        	for(int j = 0; j < i; ++j)
+        	{
+        		ItemStack itemstack = inventory.getStackInSlot(j);
+        		if(!itemstack.isEmpty())
+        		{
+        			this.bufflonStorage.setInventorySlotContents(j, itemstack.copy());
+        		}
+        	}
+        }
+        this.bufflonStorage.addListener(this);
+        this.updateBufflonSlots();
+        this.itemHandler = net.minecraftforge.common.util.LazyOptional.of(() -> new net.minecraftforge.items.wrapper.InvWrapper(this.bufflonStorage));
+	}
+    
+    /**
+     * @return - The size of the inventory this Entity has
+     */
+    protected int getInventorySize()
+    {
+    	return 56;
+	}
+    
+    /**
+     * TODO
+     * Updates the items in the slots of the Bufflon's inventory.
+     */
+    protected void updateBufflonSlots()
+    {
+    	if (!this.world.isRemote)
+    	{
+//    		this.setHorseSaddled(!this.horseChest.getStackInSlot(0).isEmpty() && this.canBeSaddled());
+    	}
+	}
+    
+	/**
+     * Called by InventoryBasic.onInventoryChanged() on a array that is never filled.
+     */
+    public void onInventoryChanged(IInventory invBasic)
+    {
+//    	boolean flag = this.isHorseSaddled();
+    	this.updateBufflonSlots();
+    	if(this.ticksExisted > 20)// && !flag && this.isHorseSaddled())
+    	{
+    		this.playSound(SoundEvents.ENTITY_HORSE_SADDLE, 0.5F, 1.0F);
+    	}
+	}
+    
+    @Override
+    protected void dropInventory()
+    {
+    	super.dropInventory();
+        if(this.bufflonStorage != null)
+        {
+        	for(int i = 0; i < this.bufflonStorage.getSizeInventory(); ++i)
+        	{
+        		ItemStack itemstack = this.bufflonStorage.getStackInSlot(i);
+        		if(!itemstack.isEmpty())
+        		{
+        			this.entityDropItem(itemstack);
+        		}
+        	}
+        }
+	}
+    
+    //======================================================================================================================================================
+    
+    @Override
+    public void travel(Vec3d p_213352_1_)
+    {
+    	if(this.isAlive())
+    	{
+    		if(this.isBeingRidden() && this.canBeSteered() && this.isSaddled())
+    		{
+    			LivingEntity livingentity = (LivingEntity)this.getControllingPassenger();
+    			this.rotationYaw = livingentity.rotationYaw;
+    			this.prevRotationYaw = this.rotationYaw;
+    			this.rotationPitch = livingentity.rotationPitch * 0.5F;
+    			this.setRotation(this.rotationYaw, this.rotationPitch);
+    			this.renderYawOffset = this.rotationYaw;
+    			this.rotationYawHead = this.renderYawOffset;
+    			float f = livingentity.moveStrafing * 0.5F;
+    			float f1 = livingentity.moveForward;
+    			if(f1 <= 0.0F)
+    			{
+    				f1 *= 0.25F;;
+    			}
+    			
+    			if(this.canPassengerSteer())
+    			{
+    				this.setAIMoveSpeed(0.2F);
+    				super.travel(new Vec3d((double)f, p_213352_1_.y, (double)f1));
+    			}
+    			else if(livingentity instanceof PlayerEntity)
+    			{
+    				this.setMotion(Vec3d.ZERO);
+    			}
+    			
+    			//Some code so other people see the walk animation
+    			this.prevLimbSwingAmount = this.limbSwingAmount;
+    		  	double finalPosX = this.posX - this.prevPosX;
+    			double finalPosZ = this.posZ - this.prevPosZ;
+    			double finalPosY = this instanceof IFlyingAnimal ? this.posY - this.prevPosY : 0.0D;
+    			float swingAmountModifier = MathHelper.sqrt(finalPosX * finalPosX + finalPosY * finalPosY + finalPosZ * finalPosZ) * 4.0F;
+    		   	if(swingAmountModifier > 1.0F)
+    		   	{
+    		   		swingAmountModifier = 1.0F;
+    			}
+    		   	
+    		   	this.limbSwingAmount += (swingAmountModifier - this.limbSwingAmount) * 0.4F;
+    		   	this.limbSwing += this.limbSwingAmount;
+    		}
+    		else
+    		{
+    			super.travel(p_213352_1_);
+            }
+    	}
+    }
+    
+    /**
+     * Wether or not this entity can be riden in water
+     */
+    @Override
+    public boolean canBeRiddenInWater()
+    {
+    	return false;
+    }
+    
+    /**
+     * returns true if all the conditions for steering the entity are met. For pigs, this is true if it is being ridden
+     * by a player and the player is holding a carrot-on-a-stick
+     */
+    @Override
+    public boolean canBeSteered()
+    {
+    	return this.getControllingPassenger() instanceof LivingEntity;
+    }
+    
+    /**
+     * For vehicles, the first passenger is generally considered the controller and "drives" the vehicle. For example,
+     * Pigs, Horses, and Boats are generally "steered" by the controlling passenger.
+     */
+    @Override
+    public Entity getControllingPassenger()
+    {
+    	return this.getPassengers().isEmpty() ? null : this.getPassengers().get(0);
+    }
+    
+    //======================================================================================================================================================
     
     /**
      * Play the taming effect, will either be hearts or smoke depending on status
@@ -392,6 +596,42 @@ public class BufflonEntity extends AnimatedCreatureEntity
         	this.thinkTime = 40;
         }
     }
+    
+    public boolean isSaddled()
+    {
+       return this.dataManager.get(IS_SADDLED);
+    }
+    
+    public void setSaddled(boolean value)
+    {
+    	this.dataManager.set(IS_SADDLED, value);
+    }
+    
+    public void openGUI(PlayerEntity playerEntity)
+    {
+        if(!this.world.isRemote && (!this.isBeingRidden() || this.isPassenger(playerEntity)) && this.isTamed())
+        {
+        	if(playerEntity instanceof ServerPlayerEntity)
+        	{
+        		int id = this.getEntityId();
+                NetworkHooks.openGui((ServerPlayerEntity) playerEntity, new INamedContainerProvider()
+                {
+                	@Override
+                    public ITextComponent getDisplayName()
+                	{
+                        return null;
+                    }
+
+                    @Nullable
+                    @Override
+                    public Container createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity)
+                    {
+                    	return new BufflonContainer(i, playerInventory, id);
+                    }
+                }, buf -> buf.writeInt(id));
+        	}
+        }
+	}
     
     /**
      * @return - Wether or not the Bufflon it is tamed
@@ -572,5 +812,28 @@ public class BufflonEntity extends AnimatedCreatureEntity
 		{
 			biome.addSpawn(EntityClassification.AMBIENT, new Biome.SpawnListEntry(PCEntities.BUFFLON, 40, 2, 5));
 		}
+    }
+    
+    private net.minecraftforge.common.util.LazyOptional<?> itemHandler = null;
+
+    @Override
+    public <T> net.minecraftforge.common.util.LazyOptional<T> getCapability(net.minecraftforge.common.capabilities.Capability<T> capability, @Nullable net.minecraft.util.Direction facing)
+    {
+    	if(this.isAlive() && capability == net.minecraftforge.items.CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && itemHandler != null)
+    	{
+    		return itemHandler.cast();
+    	}
+    	return super.getCapability(capability, facing);
+    }
+
+    @Override
+    public void remove(boolean keepData)
+    {
+    	super.remove(keepData);
+    	if(!keepData && itemHandler != null)
+    	{
+    		itemHandler.invalidate();
+    		itemHandler = null;
+    	}
     }
 }
