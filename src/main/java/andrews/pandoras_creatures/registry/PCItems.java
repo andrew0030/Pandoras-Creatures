@@ -23,7 +23,13 @@ public class PCItems
 	public static Item SEAHORSE_COOKED             		 	  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.CRAB_MEAT(true))).setRegistryName(Reference.MODID, "seahorse_cooked");
 	public static Item ACIDIC_ARCHVINE_TONGUE                 = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP)).setRegistryName(Reference.MODID, "acidic_archvine_tongue");
 	public static Item HERB_BUNDLE                 			  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP)).setRegistryName(Reference.MODID, "herb_bundle");
-	public static Item BUFFLON_SADDLE                 		  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP)).setRegistryName(Reference.MODID, "bufflon_saddle");
+	public static Item BUFFLON_BEEF                 		  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.BUFFLON_BEEF(false))).setRegistryName(Reference.MODID, "bufflon_beef");
+	public static Item BUFFLON_BEEF_COOKED                 	  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.BUFFLON_BEEF(true))).setRegistryName(Reference.MODID, "bufflon_beef_cooked");
+	public static Item BUFFLON_HIDE                			  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP)).setRegistryName(Reference.MODID, "bufflon_hide");
+	public static Item BUFFLON_SADDLE                 		  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).maxStackSize(1)).setRegistryName(Reference.MODID, "bufflon_saddle");
+	public static Item BUFFLON_PLAYER_SEATS                   = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).maxStackSize(1)).setRegistryName(Reference.MODID, "bufflon_player_seats");
+	public static Item BUFFLON_SMALL_STORAGE                  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).maxStackSize(1)).setRegistryName(Reference.MODID, "bufflon_small_storage");
+	public static Item BUFFLON_LARGE_STORAGE                  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).maxStackSize(1)).setRegistryName(Reference.MODID, "bufflon_large_storage");
 	
 	@SubscribeEvent
 	public static void onRegisterItems(RegistryEvent.Register<Item> event)
@@ -39,7 +45,13 @@ public class PCItems
 			SEAHORSE_COOKED,
 			ACIDIC_ARCHVINE_TONGUE,
 			HERB_BUNDLE,
-			BUFFLON_SADDLE
+			BUFFLON_BEEF,
+			BUFFLON_BEEF_COOKED,
+			BUFFLON_HIDE,
+			BUFFLON_SADDLE,
+			BUFFLON_PLAYER_SEATS,
+			BUFFLON_SMALL_STORAGE,
+			BUFFLON_LARGE_STORAGE
 		};
 		event.getRegistry().registerAll(items);
 	}

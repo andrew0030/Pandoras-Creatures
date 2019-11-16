@@ -80,7 +80,13 @@
 	"item.pandoras_creatures.seahorse_cooked": "Cooked Seahorse",
 	"item.pandoras_creatures.acidic_archvine_tongue": "Acidic Archvine Tongue",
 	"item.pandoras_creatures.herb_bundle": "Herb Bundle",
+	"item.pandoras_creatures.bufflon_beef": "Bufflon Beef",
+	"item.pandoras_creatures.bufflon_beef_cooked": "Cooked Bufflon Beef",
+	"item.pandoras_creatures.bufflon_hide": "Bufflon Hide",
 	"item.pandoras_creatures.bufflon_saddle": "Bufflon Saddle",
+	"item.pandoras_creatures.bufflon_player_seats": "Bufflon Player Seats",
+	"item.pandoras_creatures.bufflon_small_storage": "Bufflon Small Storage",
+	"item.pandoras_creatures.bufflon_large_storage": "Bufflon Large Storage",
 	
 //	 Blocks
 	"block.pandoras_creatures.arachnon_crystal": "Arachnon Crystal",

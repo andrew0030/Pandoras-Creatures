@@ -1012,11 +1012,7 @@ public class BufflonModel<T extends BufflonEntity> extends PCEntityModel<T>
     @Override
     public void render(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
     {
-    	this.front_seat_base.showModel = entity.isSaddled();
-    	this.storage_base.showModel = false;
-    	this.seats_base.showModel = false;
-    	this.smallstorage_base.showModel = false;
-    	this.largestorage_base.showModel = true;
+    	processShouldShowModelParts(entity);
     	
     	this.animateModel(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
         this.body.render(scale);
@@ -1039,7 +1035,7 @@ public class BufflonModel<T extends BufflonEntity> extends PCEntityModel<T>
     	
     	if(entityIn.isAnimationPlaying(BufflonEntity.BLANK_ANIMATION))
     	{
-    		if(entityIn.prevPosX == entityIn.posX || entityIn.prevPosZ == entityIn.posZ) //Idle Animation
+    		if(!entityIn.isMoving()) //Idle Animation
         	{
         		float globalSpeed = 0.8F;
             	float globalHeight = 1.0F;
@@ -1160,6 +1156,38 @@ public class BufflonModel<T extends BufflonEntity> extends PCEntityModel<T>
     		this.animator.endKeyframe();
     		
     		this.animator.resetKeyframe(6);
+    	}
+    }
+    
+    /**
+     * Determines which model parts to show and which not
+     */
+    private void processShouldShowModelParts(BufflonEntity entity)
+    {
+    	this.front_seat_base.showModel = entity.isSaddled();
+    	this.storage_base.showModel = entity.hasBackAttachment(); 
+    	//Sets all back attachment parts invisible before selecting which one to show
+    	this.seats_base.showModel = false;
+    	this.smallstorage_base.showModel = false;
+    	this.largestorage_base.showModel = false;
+    	
+    	if(entity.hasBackAttachment())
+    	{
+    		switch(entity.getBackAttachmentType())
+    		{
+    			case 1:
+    				this.seats_base.showModel = true;
+    				break;
+    			case 2:
+    				this.smallstorage_base.showModel = true;
+    				break;
+    			case 3:
+    				this.largestorage_base.showModel = true;
+    				break;
+    			default:
+    				//Nothing as all model parts are hidden
+    				break;
+    		}
     	}
     }
 }

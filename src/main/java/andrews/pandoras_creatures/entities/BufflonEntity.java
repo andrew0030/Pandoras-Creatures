@@ -36,6 +36,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -73,8 +74,11 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
 	private static final DataParameter<Optional<UUID>> OWNER_UNIQUE_ID = EntityDataManager.createKey(BufflonEntity.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	//Store the information of the attachments
 	private static final DataParameter<Boolean> IS_SADDLED = EntityDataManager.createKey(BufflonEntity.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Integer> BACK_ATTACHMENT_TYPE = EntityDataManager.createKey(BufflonEntity.class, DataSerializers.VARINT);
 	
-	Item saddleItem = PCItems.BUFFLON_SADDLE;
+	//The Items that can be used in given slots;
+	public static final Item SADDLE_ITEM = PCItems.BUFFLON_SADDLE;
+	public static final Item[] VALID_BACK_ATTACHMENTS = {PCItems.BUFFLON_PLAYER_SEATS, PCItems.BUFFLON_SMALL_STORAGE, PCItems.BUFFLON_LARGE_STORAGE};
 	
 	private int thinkTime;
 	private int feedingCooldown;
@@ -117,6 +121,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
 		this.dataManager.register(TAMED, (byte)0);
 		this.dataManager.register(OWNER_UNIQUE_ID, Optional.empty());
 		this.dataManager.register(IS_SADDLED, false);
+		this.dataManager.register(BACK_ATTACHMENT_TYPE, 0);
     }
     
     @Override
@@ -127,6 +132,8 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
 		compound.putInt("BufflonType", this.getBufflonType());
 		//If this entity is saddled
 		compound.putBoolean("IsSaddled", this.isSaddled());
+		//The back attachment type this Entity has
+		compound.putInt("BackAttachmentType", this.getBackAttachmentType());
 		//The Owner of the Bufflon
 		if(this.getOwnerId() == null)
 		{
@@ -136,6 +143,24 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
 		{
 			compound.putString("OwnerUUID", this.getOwnerId().toString());
 	   	}
+		
+		//Storing the Items inside the Bufflons Inventory
+		if(this.isTamed())													 //TODO
+		{
+			ListNBT listnbt = new ListNBT();
+			for(int i = 0; i < this.bufflonStorage.getSizeInventory(); ++i)
+			{
+				ItemStack itemstack = this.bufflonStorage.getStackInSlot(i);
+				if(!itemstack.isEmpty())
+				{
+					CompoundNBT compoundnbt = new CompoundNBT();
+					compoundnbt.putByte("Slot", (byte)i);
+					itemstack.write(compoundnbt);
+					listnbt.add(compoundnbt);
+				}
+			}
+			compound.put("Items", listnbt);
+		}
 	}
 	
 	@Override
@@ -146,6 +171,8 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
 		this.setBufflonType(compound.getInt("BufflonType"));
 		//If this entity is saddled
 		this.setSaddled(compound.getBoolean("IsSaddled"));
+		//The back attachment type this Entity has
+		this.setBackAttachment(compound.getInt("BackAttachmentType"));
 		//The Owner of the Bufflon
 		String s;
 	    if(compound.contains("OwnerUUID", NBT.TAG_STRING))
@@ -170,6 +197,24 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
 				this.setTamed(false);
 	        }
 		}
+		
+		//Loading the stored Items inside the Bufflons Inventory
+		if(this.isTamed())											//TODO
+		{
+			ListNBT listnbt = compound.getList("Items", 10);
+	     	this.initBufflonStorage();
+	     	for(int i = 0; i < listnbt.size(); ++i)
+	     	{
+	     		CompoundNBT compoundnbt = listnbt.getCompound(i);
+	            int j = compoundnbt.getByte("Slot") & 255;
+	            if(j >= 0 && j < this.bufflonStorage.getSizeInventory())
+	            {
+	            	this.bufflonStorage.setInventorySlotContents(j, ItemStack.read(compoundnbt));
+	            }
+	     	}
+		}
+		
+		this.updateBufflonSlots();
 	}
 	
 	@Nullable
@@ -244,13 +289,10 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
         	}
         	return true;
         }
-        else if(itemstack.getItem() == this.saddleItem)
+        else if(this.isTamed() && !this.isSaddled() && itemstack.getItem() == SADDLE_ITEM)
         {
-        	if(!world.isRemote && this.isTamed() && !this.isSaddled())
-        	{
-                this.setSaddled(true);
-        	}
-        	return true;
+        	this.openGUI(player);
+            return true;
         }
         else if(itemstack.getItem() == Items.AIR)
         {
@@ -342,8 +384,12 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
             	int i = this.getPassengers().indexOf(passenger);
             	if(i == 0)
             	{
+            		if(!this.isSaddled())
+            		{
+            			offsetY = -0.08F;
+            		}
             		offsetX = 0.95F;
-            		offsetY = 2.3F;
+            		offsetY += 2.3F - getPassengerMovement();
             	}
             	else if(i == 1)
             	{
@@ -420,14 +466,32 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
 	}
     
     /**
-     * TODO
      * Updates the items in the slots of the Bufflon's inventory.
      */
     protected void updateBufflonSlots()
     {
     	if (!this.world.isRemote)
     	{
-//    		this.setHorseSaddled(!this.horseChest.getStackInSlot(0).isEmpty() && this.canBeSaddled());
+    		//Sets the Bufflon to being Saddled
+    		this.setSaddled(!this.bufflonStorage.getStackInSlot(0).isEmpty());
+    		
+    		//Sets the Bufflon back attachments
+    		if(!this.bufflonStorage.getStackInSlot(1).isEmpty())
+    		{
+    			Item itemInSlot = this.bufflonStorage.getStackInSlot(1).getItem();
+    			if(Arrays.asList(VALID_BACK_ATTACHMENTS).contains(itemInSlot))
+    			{
+    				this.setBackAttachment(this.getItemBackAttachmentType(itemInSlot));
+    			}
+    		}
+    		else
+    		{
+    			//If no Saddle item is in the slot it updates the value to match it
+    			if(this.getBackAttachmentType() != 0)
+    			{
+    				this.setBackAttachment(0);
+    			}
+    		}
     	}
 	}
     
@@ -436,9 +500,19 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
      */
     public void onInventoryChanged(IInventory invBasic)
     {
-//    	boolean flag = this.isHorseSaddled();
+    	//The Bufflon Gear Slots Flags
+    	boolean flagIsSaddled = this.isSaddled();
+    	boolean flagHasBackAttachment = this.hasBackAttachment();
+    	
     	this.updateBufflonSlots();
-    	if(this.ticksExisted > 20)// && !flag && this.isHorseSaddled())
+    	
+    	//The Bufflon Saddle Sound
+    	if(this.ticksExisted > 20 && !flagIsSaddled && this.isSaddled())
+    	{
+    		this.playSound(SoundEvents.ENTITY_HORSE_SADDLE, 0.5F, 1.0F);
+    	}
+    	//The Bufflon Back Attachments Sound
+    	if(this.ticksExisted > 20 && !flagHasBackAttachment && this.hasBackAttachment())
     	{
     		this.playSound(SoundEvents.ENTITY_HORSE_SADDLE, 0.5F, 1.0F);
     	}
@@ -546,6 +620,35 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
     
     //======================================================================================================================================================
     
+    public float getPassengerMovement()
+    {
+        float height = 0.06F;
+        float bounce = 0;
+        if(!isMoving())
+        {
+        	height = 0.03F;
+        	float speed = 0.24F;
+        	bounce = (float) (Math.sin(this.ticksExisted * speed) * 1 * height - 1 * height);
+        }
+        else
+        {
+        	height = 0.05F;
+        	float speed = 0.45F;
+        	bounce = (float) (Math.sin(limbSwing * speed - 0.04F) * limbSwingAmount * height - limbSwingAmount * height);
+        }
+        
+        return bounce + 0.08F;
+    }
+    
+    public boolean isMoving()
+    {
+    	if(this.posX != prevPosX || this.posZ != this.prevPosZ)
+    	{
+    		return true;
+    	}
+    	return false;
+    }
+    
     /**
      * Play the taming effect, will either be hearts or smoke depending on status
      */
@@ -586,6 +689,9 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
     	}
 	}
     
+    /**
+     * Mounts the given player to this entity
+     */
     private void mountTo(PlayerEntity player)
     {
     	if(!this.world.isRemote)
@@ -597,14 +703,85 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
         }
     }
     
+    /**
+     * @return - Wether or not this Entity has a Saddle
+     */
     public boolean isSaddled()
     {
        return this.dataManager.get(IS_SADDLED);
     }
     
+    /**
+     * Sets the entity to Saddled true or false
+     * @param value - Should be saddled
+     */
     public void setSaddled(boolean value)
     {
     	this.dataManager.set(IS_SADDLED, value);
+    }
+    
+    /**
+     * @return - Wether or not this Entity has a back attachment
+     */
+    public boolean hasBackAttachment()
+    {
+       return (this.dataManager.get(BACK_ATTACHMENT_TYPE) != 0);
+    }
+    
+    /**
+     * [0] = Nothing.
+     * [1] = Player Seats.
+     * [2] = Small Storage.
+     * [3] = Large Storage.
+     * @return - The attachment type the given item is
+     */
+    public int getItemBackAttachmentType(Item item)
+    {
+    	if(!Arrays.asList(VALID_BACK_ATTACHMENTS).contains(item))
+    	{
+    		return 0;
+    	}
+    	else
+    	{
+    		if(item == PCItems.BUFFLON_PLAYER_SEATS)
+    		{
+    			return 1;
+    		}
+    		else if(item == PCItems.BUFFLON_SMALL_STORAGE)
+    		{
+    			return 2;
+    		}
+    		else if(item == PCItems.BUFFLON_LARGE_STORAGE)
+    		{
+    			return 3;
+    		}
+    		else
+    		{
+    			//In case all checks fail it returns nothing
+    			return 0;
+    		}
+    	}
+    }
+    
+    /**
+     * [0] = Nothing.
+     * [1] = Player Seats.
+     * [2] = Small Storage.
+     * [3] = Large Storage.
+     * @return - The attachment type this Entity has on its back
+     */
+    public int getBackAttachmentType()
+    {
+    	return this.dataManager.get(BACK_ATTACHMENT_TYPE);
+    }
+    
+    /**
+     * Set the back attachment to given type
+     * @param value - Back attachment type
+     */
+    public void setBackAttachment(int backAttachmentType)
+    {
+    	this.dataManager.set(BACK_ATTACHMENT_TYPE, backAttachmentType);
     }
     
     public void openGUI(PlayerEntity playerEntity)
@@ -613,13 +790,14 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
         {
         	if(playerEntity instanceof ServerPlayerEntity)
         	{
+        		ITextComponent bufflonDisplayName = this.getName();
         		int id = this.getEntityId();
                 NetworkHooks.openGui((ServerPlayerEntity) playerEntity, new INamedContainerProvider()
                 {
                 	@Override
                     public ITextComponent getDisplayName()
                 	{
-                        return null;
+                        return bufflonDisplayName;
                     }
 
                     @Nullable

@@ -1,4 +1,4 @@
-package andrews.pandoras_creatures.gui;
+package andrews.pandoras_creatures.gui.screen;
 
 import java.util.ArrayList;
 import java.util.List;
