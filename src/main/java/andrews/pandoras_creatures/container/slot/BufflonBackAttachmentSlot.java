@@ -32,6 +32,9 @@ public class BufflonBackAttachmentSlot extends Slot
 		return Arrays.asList(BufflonEntity.VALID_BACK_ATTACHMENTS).contains(stack.getItem());
 	}
 	
+	/**
+	 * Return whether this slot's stack can be taken from this slot.
+	 */
 	@Override
 	public boolean canTakeStack(PlayerEntity playerIn)
 	{

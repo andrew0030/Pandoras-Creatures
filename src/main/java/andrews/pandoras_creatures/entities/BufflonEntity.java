@@ -23,6 +23,7 @@ import net.minecraft.entity.Pose;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.passive.IFlyingAnimal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -44,6 +45,7 @@ import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.scoreboard.Team;
 import net.minecraft.server.management.PreYggdrasilConverter;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
@@ -103,7 +105,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
     protected void registerGoals()
     {
     	this.goalSelector.addGoal(1, new SwimGoal(this));
-//    	this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, 1.8D));
+    	this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, 0.5D));
     }
 
     @Override
@@ -261,6 +263,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
         			player.sendMessage(new StringTextComponent("Entity owner is: " + this.getOwner().getName().getString()));
         		}
         		player.sendMessage(new StringTextComponent("Is entity saddled: " + this.isSaddled()));
+        		player.sendMessage(new StringTextComponent("Has entity back attachment: " + this.hasBackAttachment()));
         	}
         	return true;
         }
@@ -290,6 +293,11 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
         	return true;
         }
         else if(this.isTamed() && !this.isSaddled() && itemstack.getItem() == SADDLE_ITEM)
+        {
+        	this.openGUI(player);
+            return true;
+        }
+        else if(this.isTamed() && !this.hasBackAttachment() && Arrays.asList(VALID_BACK_ATTACHMENTS).contains(itemstack.getItem()))
         {
         	this.openGUI(player);
             return true;
@@ -378,11 +386,10 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
     	{
     		float offsetX = 0F;
     		float offsetY = 0F;
-//    		float f1 = (float)((this.isAlive() ? (double)0.01F : this.getMountedYOffset()) + passenger.getYOffset());
             if(this.getPassengers().size() > 0)
             {
             	int i = this.getPassengers().indexOf(passenger);
-            	if(i == 0)
+            	if(i == 0) //The first passenger
             	{
             		if(!this.isSaddled())
             		{
@@ -391,23 +398,54 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
             		offsetX = 0.95F;
             		offsetY += 2.3F - getPassengerMovement();
             	}
-            	else if(i == 1)
+            	else if(i == 1) //The second passenger
             	{
-            		//TODO Change values to make fit for other people
-            		offsetX = 0.5F;
-            		offsetY = 1.4F;
+            		offsetX = -0.9F;
+            		if(this.isMoving())
+            		{
+            			offsetY += 2.1F - (getPassengerMovement() * 1.4F);
+            		}
+            		else
+            		{
+            			offsetY += 2.1F - getPassengerMovement();
+            		}
+            		//Locks the player head rotation to a certain amount of degrees so he cant rotate his head 360 degrees
+                    passenger.setRotationYawHead(passenger.getRotationYawHead());
+                    this.applyYawToEntity(passenger);
             	}
-            	else
+            	else //The third passenger
             	{
-            		//TODO Change values to make fit for other people
-            		offsetX = 0.5F;
-            		offsetY = 1.4F;
+            		offsetX = -1.59F;
+            		if(this.isMoving())
+            		{
+            			offsetY += 2.0F - (getPassengerMovement() * 1.4F);
+            		}
+            		else
+            		{
+            			offsetY += 2.0F - getPassengerMovement();
+            		}
+            		//Locks the player head rotation to a certain amount of degrees so he cant rotate his head 360 degrees
+                    passenger.setRotationYawHead(passenger.getRotationYawHead());
+                    this.applyYawToEntity(passenger);
             	}
             }
 
             Vec3d vec3d = (new Vec3d((double)offsetX, 0.0D, 0.0D)).rotateYaw(-this.rotationYaw * ((float)Math.PI / 180F) - ((float)Math.PI / 2F));
             passenger.setPosition(this.posX + vec3d.x, this.posY + (double)offsetY, this.posZ + vec3d.z);
          }
+    }
+    
+    /**
+     * Applies this Bufflons's yaw to the given entity. Used to update the orientation of its passenger.
+     */
+    private void applyYawToEntity(Entity entityToUpdate)
+    {
+    	entityToUpdate.setRenderYawOffset(this.rotationYaw);
+    	float f = MathHelper.wrapDegrees(entityToUpdate.rotationYaw - this.rotationYaw);
+    	float f1 = MathHelper.clamp(f, -105.0F, 105.0F);
+    	entityToUpdate.prevRotationYaw += f1 - f;
+    	entityToUpdate.rotationYaw += f1 - f;
+    	entityToUpdate.setRotationYawHead(entityToUpdate.rotationYaw);
     }
     
     /**
@@ -616,6 +654,34 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
     public Entity getControllingPassenger()
     {
     	return this.getPassengers().isEmpty() ? null : this.getPassengers().get(0);
+    }
+    
+    /**
+     * Used by the entity to determine how many passengers it can have
+     */
+    @Override
+    protected boolean canFitPassenger(Entity passenger)
+    {
+    	//Makes sure the Entity is not under water
+    	if(!this.areEyesInFluid(FluidTags.WATER))
+    	{
+    		if(this.hasBackAttachment() && this.getBackAttachmentType() == 1) //The Bufflon Player Seats attachment
+    		{
+    			return this.getPassengers().size() < 3;
+    		}
+    		else if(this.hasBackAttachment() && this.getBackAttachmentType() == 2) //The Bufflon Small Storage attachment
+    		{
+    			return this.getPassengers().size() < 2;
+    		}
+    		else
+    		{
+    			return this.getPassengers().size() < 1;
+    		}
+    	}
+    	else
+    	{
+    		return false;
+    	}
     }
     
     //======================================================================================================================================================

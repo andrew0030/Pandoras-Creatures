@@ -4,10 +4,13 @@ import com.mojang.blaze3d.platform.GlStateManager;
 
 import andrews.pandoras_creatures.container.BufflonContainer;
 import andrews.pandoras_creatures.entities.BufflonEntity;
+import andrews.pandoras_creatures.registry.PCItems;
 import andrews.pandoras_creatures.util.Reference;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
@@ -17,6 +20,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class BufflonScreen extends ContainerScreen<BufflonContainer>
 {
 	private static final ResourceLocation BUFFLON_GUI_TEXTURES = new ResourceLocation(Reference.MODID, "textures/gui/menus/bufflon_menu.png");
+	
+	private int attachmentToRender = 1;
 	
 	private int xSize = 256;
 	private int ySize = 226;
@@ -61,8 +66,47 @@ public class BufflonScreen extends ContainerScreen<BufflonContainer>
 				renderBufflonInventorySlots(x, y, 6);
 			}
 		}
-	    
+	    //The Bufflon Entity inside the Menu
 	    InventoryScreen.drawEntityOnScreen(x + 46, y + 76, 15, (float)(x + 46) - this.mousePosx, (float)(y + 50) - this.mousePosY, this.bufflonEntity);
+	    //The Saddle slot previews
+	    if(!bufflonEntity.isSaddled())
+	    {
+	    	Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(new ItemStack(PCItems.BUFFLON_SADDLE), x + 23, y + 102);
+	    }
+	    
+	    if(!bufflonEntity.hasBackAttachment())
+	    {
+		    switch(attachmentToRender) {
+			case 1:
+				Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(new ItemStack(PCItems.BUFFLON_PLAYER_SEATS), x + 51, y + 102);
+				break;
+			case 2:
+				Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(new ItemStack(PCItems.BUFFLON_SMALL_STORAGE), x + 51, y + 102);
+				break;
+			case 3:
+				Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(new ItemStack(PCItems.BUFFLON_LARGE_STORAGE), x + 51, y + 102);
+				break;
+			default:
+				break;
+		    }
+		}
+	}
+	
+	@Override
+	public void tick()
+	{
+		super.tick();
+		if((bufflonEntity.ticksExisted % 60) == 0)//Updates the attachment type that should be rendered every 60 ticks / 3 seconds
+	    {
+			if(attachmentToRender < 3)
+			{
+				attachmentToRender++;
+			}
+			else
+			{
+				attachmentToRender = 1;
+			}
+	    }
 	}
 	
 	@Override

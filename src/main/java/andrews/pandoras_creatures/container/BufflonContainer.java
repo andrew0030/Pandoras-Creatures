@@ -5,6 +5,7 @@ import andrews.pandoras_creatures.container.slot.BufflonSaddleSlot;
 import andrews.pandoras_creatures.container.slot.BufflonStorageSlot;
 import andrews.pandoras_creatures.entities.BufflonEntity;
 import andrews.pandoras_creatures.registry.PCContainers;
+import andrews.pandoras_creatures.registry.PCItems;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -36,7 +37,7 @@ public class BufflonContainer extends Container
         bufflonStorge.openInventory(playerInventory.player);
 
         //The Bufflon Saddle Slot
-        this.addSlot(new BufflonSaddleSlot(bufflonStorge, 0, -17, 72));
+        this.addSlot(new BufflonSaddleSlot(bufflonEntity, bufflonStorge, 0, -17, 72));
         //The Bufflon Back Attachment Slot
         this.addSlot(new BufflonBackAttachmentSlot(bufflonStorge, 1, 11, 72));
         
@@ -80,33 +81,64 @@ public class BufflonContainer extends Container
 	{
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = this.inventorySlots.get(index);
-	      if(slot != null && slot.getHasStack())
-	      {
-	    	  ItemStack itemstack1 = slot.getStack();
-	    	  itemstack = itemstack1.copy();
-	    	  if(index < (6 * 9) + 2)
-	    	  {
-	    		  if(!this.mergeItemStack(itemstack1, 9 * 9, this.inventorySlots.size(), true))
-	    		  {
-	    			  return ItemStack.EMPTY;
-	    		  }
-	    	  }
-	    	  else if(!this.mergeItemStack(itemstack1, 0, 9 * 9, false))
-	    	  {
-	    		  return ItemStack.EMPTY;
-	    	  }
+	 	if(slot != null && slot.getHasStack())
+	 	{
+	 		ItemStack itemstackInSlot = slot.getStack();
+	 		itemstack = itemstackInSlot.copy();
+	 		
+	    	if(index < (6 * 9) + 2)
+	    	{
+	    		if(!this.mergeItemStack(itemstackInSlot, (6 * 9) + 2, this.inventorySlots.size(), true))
+	    		{
+	    			return ItemStack.EMPTY;
+	    		}
+	    	}
+	    	else if(!this.mergeItemStack(itemstackInSlot, 0, getInventorySizeForAttachments(), false))
+	    	{
+	    		return ItemStack.EMPTY;
+	    	}
 
-	    	  if(itemstack1.isEmpty())
-	    	  {
-	    		  slot.putStack(ItemStack.EMPTY);
-	    	  }
-	    	  else
-	    	  {
-	    		  slot.onSlotChanged();
-	    	  }
-	      }
-
-	      return itemstack;
+	    	//Some Slot update code
+	    	if(itemstackInSlot.isEmpty())
+	    	{
+	    		slot.putStack(ItemStack.EMPTY);
+	    	}
+	    	else
+	    	{
+	    		slot.onSlotChanged();
+	    	}
+	 	}
+	 	return itemstack;
+	}
+	
+	/**
+	 * @return - The inventory size depending on the type of attachment the Bufflon Entity has
+	 */
+	private int getInventorySizeForAttachments()
+	{
+		if(this.inventorySlots.get(1).getHasStack() == false)
+		{
+			return 2;
+		}
+		else
+		{
+			if(this.inventorySlots.get(1).getStack().getItem() == PCItems.BUFFLON_PLAYER_SEATS)
+			{
+				return 2;
+			}
+			else if(this.inventorySlots.get(1).getStack().getItem() == PCItems.BUFFLON_SMALL_STORAGE)
+			{
+				return (3 * 9) + 2;
+			}
+			else if(this.inventorySlots.get(1).getStack().getItem() == PCItems.BUFFLON_LARGE_STORAGE)
+			{
+				return (6 * 9) + 2;
+			}
+			else
+			{
+				return 2;
+			}
+		}
 	}
 	
 	/**

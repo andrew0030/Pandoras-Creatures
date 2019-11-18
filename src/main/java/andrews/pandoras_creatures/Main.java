@@ -9,9 +9,9 @@ import andrews.pandoras_creatures.entities.HellhoundEntity;
 import andrews.pandoras_creatures.entities.SeahorseEntity;
 import andrews.pandoras_creatures.item_groups.PCItemGroup;
 import andrews.pandoras_creatures.network.client.MessageClientAnimation;
+import andrews.pandoras_creatures.network.server.MessageServerBufflonInventory;
 import andrews.pandoras_creatures.proxy.ClientProxy;
 import andrews.pandoras_creatures.proxy.ServerProxy;
-import andrews.pandoras_creatures.util.FeatureInjector;
 import andrews.pandoras_creatures.util.Reference;
 import andrews.pandoras_creatures.util.RehostedJarHandler;
 import net.minecraft.item.ItemGroup;
@@ -76,16 +76,21 @@ public class Main
 		CrabEntity.addSpawn();
 		SeahorseEntity.addSpawn();
 		AcidicArchvineEntity.addSpawn();
-		
-		FeatureInjector.addFeaturesToBiomes();
 	}
 	
 	void setupMessages()
 	{
 		int id = -1;
+		//Client Messages
 		CHANNEL.messageBuilder(MessageClientAnimation.class, id++)
 		.encoder(MessageClientAnimation::serialize)
 		.decoder(MessageClientAnimation::deserialize)
 		.consumer(MessageClientAnimation::handle).add();
+		
+		//Server Messages
+		CHANNEL.messageBuilder(MessageServerBufflonInventory.class, id++)
+		.encoder(MessageServerBufflonInventory::serialize).decoder(MessageServerBufflonInventory::deserialize)
+		.consumer(MessageServerBufflonInventory::handle)
+		.add();
 	}
 }
