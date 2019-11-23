@@ -1,4 +1,4 @@
-package andrews.pandoras_creatures.gui.buttons;
+package andrews.pandoras_creatures.gui.buttons.creative_tab;
 
 import java.util.Arrays;
 import java.util.List;

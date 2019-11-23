@@ -1049,86 +1049,163 @@ public class BufflonModel<T extends BufflonEntity> extends PCEntityModel<T>
     	
     	if(entityIn.isAnimationPlaying(BufflonEntity.BLANK_ANIMATION))
     	{
-    		if(!entityIn.isMoving()) //Idle Animation
-        	{
-        		float globalSpeed = 0.8F;
+    		if(entityIn.isSitting() && !entityIn.isBeingRidden())
+    		{
+    			//Some adjustments so the entity pose is sitting
+    			body.offsetY += Math.toRadians(8);
+    			body.rotateAngleX += Math.toRadians(-8);
+    			body_back.rotateAngleX += Math.toRadians(-25);
+    			
+    			leg_back_right_1.rotateAngleX += Math.toRadians(-50);
+    			leg_back_right_2.rotateAngleX += Math.toRadians(50);
+    			foot_back_right_base.rotateAngleX += Math.toRadians(28);
+    			leg_back_left_1.rotateAngleX += Math.toRadians(-50);
+    			leg_back_left_2.rotateAngleX += Math.toRadians(50);
+    			foot_back_left_base.rotateAngleX += Math.toRadians(28);
+    			
+    			tail_1.rotateAngleX += Math.toRadians(10);
+    			tail_2.rotateAngleX += Math.toRadians(10);
+    			tail_3.rotateAngleX += Math.toRadians(10);
+    			
+    			leg_front_left_1.rotateAngleX += Math.toRadians(5);
+    			leg_front_right_1.rotateAngleX += Math.toRadians(5);
+    			foot_front_left_base.rotateAngleX += Math.toRadians(3);
+    			foot_front_right_base.rotateAngleX += Math.toRadians(3);
+    			
+    			if(netHeadYaw < -180)
+    			{
+    				netHeadYaw += 360;
+    			}
+    			else if(netHeadYaw > 180)
+    			{
+    				netHeadYaw -= 360;
+    			}
+	    		neck.rotateAngleY = (netHeadYaw * ((float)Math.PI / 180) / 2);
+    			
+    			float globalSpeed = 1.0F;
             	float globalHeight = 1.0F;
             	float globalDegree = 1.0F;
             	
             	limbSwing = entityIn.ticksExisted;
             	limbSwingAmount = 1;
             	
-            	bounce(body, globalSpeed * 0.3F, globalHeight * 0.5F, false, limbSwing, limbSwingAmount);
+            	bounce(body, globalSpeed * 0.3F, globalHeight * 0.3F, false, limbSwing, limbSwingAmount);
+            	swing(body_back, globalSpeed * 0.3F, globalDegree * 0.005F, true, 1.0F, 0.0F, limbSwing, limbSwingAmount);
             	
-            	swing(neck, globalSpeed * 0.3F, globalDegree * 0.03F, true, -0.5F, 0.0F, limbSwing, limbSwingAmount);
-            	swing(body_back, globalSpeed * 0.3F, globalDegree * 0.01F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+            	swing(neck, globalSpeed * 0.3F, globalDegree * 0.01F, true, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+            	swing(head_base, globalSpeed * 0.3F, globalDegree * 0.01F, true, 0.0F, 0.0F, limbSwing, limbSwingAmount);
             	
-            	bounce(leg_front_left_1, globalSpeed * 0.3F, globalHeight * -0.3F, false, limbSwing, limbSwingAmount);
-            	swing(leg_front_left_1, globalSpeed * 0.3F, globalDegree * 0.01F, false, 1.0F, 0.0F, limbSwing, limbSwingAmount);
-            	swing(leg_front_left_2, globalSpeed * 0.3F, globalDegree * 0.02F, false, 1.0F, 0.0F, limbSwing, limbSwingAmount);
-            	swing(foot_front_left_base, globalSpeed * 0.3F, globalDegree * 0.04F, true, 1.0F, 0.0F, limbSwing, limbSwingAmount);
+            	swing(tail_1, globalSpeed * 0.3F, globalDegree * 0.02F, true, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+            	swing(tail_2, globalSpeed * 0.3F, globalDegree * 0.02F, true, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+            	swing(tail_3, globalSpeed * 0.3F, globalDegree * 0.02F, true, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+            	swing(tail_4, globalSpeed * 0.3F, globalDegree * 0.02F, true, 0.0F, 0.0F, limbSwing, limbSwingAmount);
             	
-            	bounce(leg_front_right_1, globalSpeed * 0.3F, globalHeight * -0.3F, false, limbSwing, limbSwingAmount);
-            	swing(leg_front_right_1, globalSpeed * 0.3F, globalDegree * 0.01F, false, 1.0F, 0.0F, limbSwing, limbSwingAmount);
-            	swing(leg_front_right_2, globalSpeed * 0.3F, globalDegree * 0.02F, false, 1.0F, 0.0F, limbSwing, limbSwingAmount);
-            	swing(foot_front_right_base, globalSpeed * 0.3F, globalDegree * 0.04F, true, 1.0F, 0.0F, limbSwing, limbSwingAmount);
+            	swing(leg_back_right_1, globalSpeed * 0.3F, globalDegree * 0.03F, false, 1.0F, 0.0F, limbSwing, limbSwingAmount);
+            	swing(leg_back_right_2, globalSpeed * 0.3F, globalDegree * 0.01F, true, 1.0F, 0.0F, limbSwing, limbSwingAmount);
+            	swing(leg_back_left_1, globalSpeed * 0.3F, globalDegree * 0.03F, false, 1.0F, 0.0F, limbSwing, limbSwingAmount);
+            	swing(leg_back_left_2, globalSpeed * 0.3F, globalDegree * 0.01F, true, 1.0F, 0.0F, limbSwing, limbSwingAmount);
             	
-            	bounce(leg_back_left_1, globalSpeed * 0.3F, globalHeight * -0.4F, false, limbSwing, limbSwingAmount);
-            	swing(leg_back_left_1, globalSpeed * 0.3F, globalDegree * 0.01F, true, 1.0F, 0.0F, limbSwing, limbSwingAmount);
-            	swing(leg_back_left_2, globalSpeed * 0.3F, globalDegree * 0.02F, true, 1.0F, 0.0F, limbSwing, limbSwingAmount);
-            	swing(foot_back_left_base, globalSpeed * 0.3F, globalDegree * 0.04F, true, 0.0F, 0.0F, limbSwing, limbSwingAmount);
-            	
-            	bounce(leg_back_right_1, globalSpeed * 0.3F, globalHeight * -0.4F, false, limbSwing, limbSwingAmount);
-            	swing(leg_back_right_1, globalSpeed * 0.3F, globalDegree * 0.01F, true, 1.0F, 0.0F, limbSwing, limbSwingAmount);
-            	swing(leg_back_right_2, globalSpeed * 0.3F, globalDegree * 0.02F, true, 1.0F, 0.0F, limbSwing, limbSwingAmount);
-            	swing(foot_back_right_base, globalSpeed * 0.3F, globalDegree * 0.04F, true, 0.0F, 0.0F, limbSwing, limbSwingAmount);
-            	
-            	swing(tail_1, globalSpeed * 0.3F, globalDegree * 0.02F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
-            	swing(tail_2, globalSpeed * 0.3F, globalDegree * 0.02F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
-            	swing(tail_3, globalSpeed * 0.3F, globalDegree * 0.02F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
-            	swing(tail_4, globalSpeed * 0.3F, globalDegree * 0.02F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
-        	}
+            	swing(leg_front_left_1, globalSpeed * 0.3F, globalDegree * 0.03F, true, 2.1F, 0.0F, limbSwing, limbSwingAmount);
+            	swing(leg_front_left_2, globalSpeed * 0.3F, globalDegree * 0.03F, false, 2.1F, 0.0F, limbSwing, limbSwingAmount);
+            	swing(foot_front_left_base, globalSpeed * 0.3F, globalDegree * 0.01F, false, 2.1F, 0.0F, limbSwing, limbSwingAmount);
+            	swing(leg_front_right_1, globalSpeed * 0.3F, globalDegree * 0.03F, true, 2.1F, 0.0F, limbSwing, limbSwingAmount);
+            	swing(leg_front_right_2, globalSpeed * 0.3F, globalDegree * 0.03F, false, 2.1F, 0.0F, limbSwing, limbSwingAmount);
+            	swing(foot_front_right_base, globalSpeed * 0.3F, globalDegree * 0.01F, false, 2.1F, 0.0F, limbSwing, limbSwingAmount);
+    		}
     		else
     		{
-    			float globalSpeed = 3.6F;
-    			if(entityIn.isBeingRidden())
-    			{
-    				List<Entity> passengers = entityIn.getPassengers();
-    				if(passengers.get(0).equals(Minecraft.getInstance().player))
-    				{
-    					globalSpeed = 1.5F;
-    				}
-    			}
-            	float globalHeight = 1.0F;
-            	float globalDegree = 1.0F;
-            	
-            	bounce(body, globalSpeed * 0.3F, globalHeight * 0.5F, false, limbSwing, limbSwingAmount);
-            	swing(body, globalSpeed * 0.3F, globalDegree * 0.01F, true, 0.0F, 0.0F, limbSwing, limbSwingAmount);
-            	swing(body_back, globalSpeed * 0.3F, globalDegree * 0.01F, true, -1.0F, 0.0F, limbSwing, limbSwingAmount);
-            	
-            	swing(neck, globalSpeed * 0.3F, globalDegree * 0.03F, true, 2.0F, 0.0F, limbSwing, limbSwingAmount);
-            	swing(head_base, globalSpeed * 0.3F, globalDegree * 0.02F, false, 2.0F, 0.0F, limbSwing, limbSwingAmount);
-            	
-            	swing(leg_front_left_1, globalSpeed * 0.15F, globalDegree * 0.35F, true, 1.7F, 0.05F, limbSwing, limbSwingAmount);
-            	swing(leg_front_left_2, globalSpeed * 0.15F, globalDegree * 0.3F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
-            	swing(foot_front_left_base, globalSpeed * 0.15F, globalDegree * 0.25F, false, 1.5F, -0.25F, limbSwing, limbSwingAmount);
-            	
-            	swing(leg_front_right_1, globalSpeed * 0.15F, globalDegree * 0.35F, false, 1.7F, 0.05F, limbSwing, limbSwingAmount);
-            	swing(leg_front_right_2, globalSpeed * 0.15F, globalDegree * 0.3F, true, 0.0F, 0.0F, limbSwing, limbSwingAmount);
-            	swing(foot_front_right_base, globalSpeed * 0.15F, globalDegree * 0.25F, true, 1.5F, -0.25F, limbSwing, limbSwingAmount);
-            	
-            	swing(leg_back_right_1, globalSpeed * 0.15F, globalDegree * 0.3F, false, -3.0F, -0.1F, limbSwing, limbSwingAmount);
-            	swing(leg_back_right_2, globalSpeed * 0.15F, globalDegree * 0.3F, true, -2.0F, 0.2F, limbSwing, limbSwingAmount);
-            	swing(foot_back_right_base, globalSpeed * 0.15F, globalDegree * 0.35F, false, 0.0F, 0.1F, limbSwing, limbSwingAmount);
-            	
-            	swing(leg_back_left_1, globalSpeed * 0.15F, globalDegree * 0.3F, true, -3.0F, -0.1F, limbSwing, limbSwingAmount);
-            	swing(leg_back_left_2, globalSpeed * 0.15F, globalDegree * 0.3F, false, -2.0F, 0.2F, limbSwing, limbSwingAmount);
-            	swing(foot_back_left_base, globalSpeed * 0.15F, globalDegree * 0.35F, true, 0.0F, 0.1F, limbSwing, limbSwingAmount);
-            	
-            	swing(tail_1, globalSpeed * 0.3F, globalDegree * 0.03F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
-            	swing(tail_2, globalSpeed * 0.3F, globalDegree * 0.03F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
-            	swing(tail_3, globalSpeed * 0.3F, globalDegree * 0.03F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
-            	swing(tail_4, globalSpeed * 0.3F, globalDegree * 0.03F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+    			if(!entityIn.isMoving()) //Idle Animation
+            	{
+    				//Makes the Head Rotate where the Entity is Looking
+    				if(netHeadYaw < -180)
+        			{
+        				netHeadYaw += 360;
+        			}
+        			else if(netHeadYaw > 180)
+        			{
+        				netHeadYaw -= 360;
+        			}
+    	    		neck.rotateAngleY += (netHeadYaw * ((float)Math.PI / 180) / 4);
+    				
+            		float globalSpeed = 0.8F;
+                	float globalHeight = 1.0F;
+                	float globalDegree = 1.0F;
+                	
+                	limbSwing = entityIn.ticksExisted;
+                	limbSwingAmount = 1;
+                	
+                	bounce(body, globalSpeed * 0.3F, globalHeight * 0.5F, false, limbSwing, limbSwingAmount);
+                	
+                	swing(neck, globalSpeed * 0.3F, globalDegree * 0.03F, true, -0.5F, 0.0F, limbSwing, limbSwingAmount);
+                	swing(body_back, globalSpeed * 0.3F, globalDegree * 0.01F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+                	
+                	bounce(leg_front_left_1, globalSpeed * 0.3F, globalHeight * -0.3F, false, limbSwing, limbSwingAmount);
+                	swing(leg_front_left_1, globalSpeed * 0.3F, globalDegree * 0.01F, false, 1.0F, 0.0F, limbSwing, limbSwingAmount);
+                	swing(leg_front_left_2, globalSpeed * 0.3F, globalDegree * 0.02F, false, 1.0F, 0.0F, limbSwing, limbSwingAmount);
+                	swing(foot_front_left_base, globalSpeed * 0.3F, globalDegree * 0.04F, true, 1.0F, 0.0F, limbSwing, limbSwingAmount);
+                	
+                	bounce(leg_front_right_1, globalSpeed * 0.3F, globalHeight * -0.3F, false, limbSwing, limbSwingAmount);
+                	swing(leg_front_right_1, globalSpeed * 0.3F, globalDegree * 0.01F, false, 1.0F, 0.0F, limbSwing, limbSwingAmount);
+                	swing(leg_front_right_2, globalSpeed * 0.3F, globalDegree * 0.02F, false, 1.0F, 0.0F, limbSwing, limbSwingAmount);
+                	swing(foot_front_right_base, globalSpeed * 0.3F, globalDegree * 0.04F, true, 1.0F, 0.0F, limbSwing, limbSwingAmount);
+                	
+                	bounce(leg_back_left_1, globalSpeed * 0.3F, globalHeight * -0.4F, false, limbSwing, limbSwingAmount);
+                	swing(leg_back_left_1, globalSpeed * 0.3F, globalDegree * 0.01F, true, 1.0F, 0.0F, limbSwing, limbSwingAmount);
+                	swing(leg_back_left_2, globalSpeed * 0.3F, globalDegree * 0.02F, true, 1.0F, 0.0F, limbSwing, limbSwingAmount);
+                	swing(foot_back_left_base, globalSpeed * 0.3F, globalDegree * 0.04F, true, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+                	
+                	bounce(leg_back_right_1, globalSpeed * 0.3F, globalHeight * -0.4F, false, limbSwing, limbSwingAmount);
+                	swing(leg_back_right_1, globalSpeed * 0.3F, globalDegree * 0.01F, true, 1.0F, 0.0F, limbSwing, limbSwingAmount);
+                	swing(leg_back_right_2, globalSpeed * 0.3F, globalDegree * 0.02F, true, 1.0F, 0.0F, limbSwing, limbSwingAmount);
+                	swing(foot_back_right_base, globalSpeed * 0.3F, globalDegree * 0.04F, true, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+                	
+                	swing(tail_1, globalSpeed * 0.3F, globalDegree * 0.02F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+                	swing(tail_2, globalSpeed * 0.3F, globalDegree * 0.02F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+                	swing(tail_3, globalSpeed * 0.3F, globalDegree * 0.02F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+                	swing(tail_4, globalSpeed * 0.3F, globalDegree * 0.02F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+            	}
+        		else
+        		{
+        			float globalSpeed = 3.6F;
+        			if(entityIn.isBeingRidden())
+        			{
+        				List<Entity> passengers = entityIn.getPassengers();
+        				if(passengers.get(0).equals(Minecraft.getInstance().player))
+        				{
+        					globalSpeed = 1.5F;
+        				}
+        			}
+                	float globalHeight = 1.0F;
+                	float globalDegree = 1.0F;
+                	
+                	bounce(body, globalSpeed * 0.3F, globalHeight * 0.5F, false, limbSwing, limbSwingAmount);
+                	swing(body, globalSpeed * 0.3F, globalDegree * 0.01F, true, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+                	swing(body_back, globalSpeed * 0.3F, globalDegree * 0.01F, true, -1.0F, 0.0F, limbSwing, limbSwingAmount);
+                	
+                	swing(neck, globalSpeed * 0.3F, globalDegree * 0.03F, true, 2.0F, 0.0F, limbSwing, limbSwingAmount);
+                	swing(head_base, globalSpeed * 0.3F, globalDegree * 0.02F, false, 2.0F, 0.0F, limbSwing, limbSwingAmount);
+                	
+                	swing(leg_front_left_1, globalSpeed * 0.15F, globalDegree * 0.35F, true, 1.7F, 0.05F, limbSwing, limbSwingAmount);
+                	swing(leg_front_left_2, globalSpeed * 0.15F, globalDegree * 0.3F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+                	swing(foot_front_left_base, globalSpeed * 0.15F, globalDegree * 0.25F, false, 1.5F, -0.25F, limbSwing, limbSwingAmount);
+                	
+                	swing(leg_front_right_1, globalSpeed * 0.15F, globalDegree * 0.35F, false, 1.7F, 0.05F, limbSwing, limbSwingAmount);
+                	swing(leg_front_right_2, globalSpeed * 0.15F, globalDegree * 0.3F, true, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+                	swing(foot_front_right_base, globalSpeed * 0.15F, globalDegree * 0.25F, true, 1.5F, -0.25F, limbSwing, limbSwingAmount);
+                	
+                	swing(leg_back_right_1, globalSpeed * 0.15F, globalDegree * 0.3F, false, -3.0F, -0.1F, limbSwing, limbSwingAmount);
+                	swing(leg_back_right_2, globalSpeed * 0.15F, globalDegree * 0.3F, true, -2.0F, 0.2F, limbSwing, limbSwingAmount);
+                	swing(foot_back_right_base, globalSpeed * 0.15F, globalDegree * 0.35F, false, 0.0F, 0.1F, limbSwing, limbSwingAmount);
+                	
+                	swing(leg_back_left_1, globalSpeed * 0.15F, globalDegree * 0.3F, true, -3.0F, -0.1F, limbSwing, limbSwingAmount);
+                	swing(leg_back_left_2, globalSpeed * 0.15F, globalDegree * 0.3F, false, -2.0F, 0.2F, limbSwing, limbSwingAmount);
+                	swing(foot_back_left_base, globalSpeed * 0.15F, globalDegree * 0.35F, true, 0.0F, 0.1F, limbSwing, limbSwingAmount);
+                	
+                	swing(tail_1, globalSpeed * 0.3F, globalDegree * 0.03F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+                	swing(tail_2, globalSpeed * 0.3F, globalDegree * 0.03F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+                	swing(tail_3, globalSpeed * 0.3F, globalDegree * 0.03F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+                	swing(tail_4, globalSpeed * 0.3F, globalDegree * 0.03F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+        		}
     		}
     	}
     }

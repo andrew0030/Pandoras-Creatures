@@ -108,6 +108,11 @@
 	"gui.button.pandoras_creatures.youtube": "YouTube",
 	"gui.button.pandoras_creatures.twitch": "Twitch",
 	"gui.button.pandoras_creatures.patreon": "Patreon",
+	"gui.button.pandoras_creatures.bufflon.sit": "Sit",
+	"gui.button.pandoras_creatures.bufflon.follow": "Follow",
+	"gui.button.pandoras_creatures.bufflon.move_freely": "Move Freely",
+	"gui.button.pandoras_creatures.bufflon.combat": "Combat Mode",
+	"gui.button.pandoras_creatures.bufflon.peaceful": "Peaceful Mode",
 	
 //	 Chat Messages
 	"chat.pandoras_creatures.invalidJarDownload": "[here]",

@@ -9,6 +9,11 @@ import javax.annotation.Nullable;
 
 import andrews.pandoras_creatures.container.BufflonContainer;
 import andrews.pandoras_creatures.entities.bases.AnimatedCreatureEntity;
+import andrews.pandoras_creatures.entities.goals.BufflonFollowOwnerGoal;
+import andrews.pandoras_creatures.entities.goals.BufflonNonTamedTargetGoal;
+import andrews.pandoras_creatures.entities.goals.BufflonOwnerHurtByTargetGoal;
+import andrews.pandoras_creatures.entities.goals.BufflonOwnerHurtTargetGoal;
+import andrews.pandoras_creatures.entities.goals.BufflonSitGoal;
 import andrews.pandoras_creatures.registry.PCEntities;
 import andrews.pandoras_creatures.registry.PCItems;
 import andrews.pandoras_creatures.util.animation.Animation;
@@ -22,6 +27,9 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Pose;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.goal.HurtByTargetGoal;
+import net.minecraft.entity.ai.goal.LookAtGoal;
+import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.passive.IFlyingAnimal;
@@ -77,6 +85,12 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
 	//Store the information of the attachments
 	private static final DataParameter<Boolean> IS_SADDLED = EntityDataManager.createKey(BufflonEntity.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Integer> BACK_ATTACHMENT_TYPE = EntityDataManager.createKey(BufflonEntity.class, DataSerializers.VARINT);
+	//Stores whether or not the Bufflon is sitting
+	private static final DataParameter<Boolean> IS_SITTING = EntityDataManager.createKey(BufflonEntity.class, DataSerializers.BOOLEAN);
+	//Stores whether or not the Bufflon is following
+	private static final DataParameter<Boolean> IS_FOLLOWING = EntityDataManager.createKey(BufflonEntity.class, DataSerializers.BOOLEAN);
+	//Stores whether or not the Bufflon is in combat mode
+	private static final DataParameter<Boolean> COMBAT_MODE = EntityDataManager.createKey(BufflonEntity.class, DataSerializers.BOOLEAN);
 	
 	//The Items that can be used in given slots;
 	public static final Item SADDLE_ITEM = PCItems.BUFFLON_SADDLE;
@@ -85,6 +99,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
 	private int thinkTime;
 	private int feedingCooldown;
 	public Inventory bufflonStorage;
+	public BufflonSitGoal bufflonSitGoal;
 	
 	public static final Animation THROW_ANIMATION = new Animation(12);
 	
@@ -104,15 +119,28 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
     @Override
     protected void registerGoals()
     {
+    	//Goal Selector
+    	this.bufflonSitGoal = new BufflonSitGoal(this);
     	this.goalSelector.addGoal(1, new SwimGoal(this));
-    	this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, 0.5D));
+    	this.goalSelector.addGoal(2, this.bufflonSitGoal);
+    	this.goalSelector.addGoal(3, new WaterAvoidingRandomWalkingGoal(this, 0.5D));
+    	this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 0.55D, true));
+    	this.goalSelector.addGoal(5, new BufflonFollowOwnerGoal(this, 0.55D, 10.0F, 2.0F));
+    	this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 8.0F));
+    	//Target Selector
+    	this.targetSelector.addGoal(1, new BufflonOwnerHurtByTargetGoal(this));
+        this.targetSelector.addGoal(2, new BufflonOwnerHurtTargetGoal(this));
+        this.targetSelector.addGoal(3, (new HurtByTargetGoal(this)).setCallsForHelp());
+        this.targetSelector.addGoal(4, new BufflonNonTamedTargetGoal<>(this, PlayerEntity.class, false));
     }
 
     @Override
     protected void registerAttributes()
     {
         super.registerAttributes();
+        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.55D);
         this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(4.0D);
+        this.getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(10.0D);
     }
     
     @Override
@@ -124,6 +152,9 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
 		this.dataManager.register(OWNER_UNIQUE_ID, Optional.empty());
 		this.dataManager.register(IS_SADDLED, false);
 		this.dataManager.register(BACK_ATTACHMENT_TYPE, 0);
+		this.dataManager.register(IS_SITTING, false);
+		this.dataManager.register(IS_FOLLOWING, false);
+		this.dataManager.register(COMBAT_MODE, false);
     }
     
     @Override
@@ -134,6 +165,12 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
 		compound.putInt("BufflonType", this.getBufflonType());
 		//If this entity is saddled
 		compound.putBoolean("IsSaddled", this.isSaddled());
+		//If this entity is sitting
+		compound.putBoolean("IsSitting", this.isSitting());
+		//If this entity is following
+		compound.putBoolean("IsFollowing", this.isFollowingOwner());
+		//If this entity is in combat mode
+		compound.putBoolean("IsInCombatMode", this.isInCombatMode());
 		//The back attachment type this Entity has
 		compound.putInt("BackAttachmentType", this.getBackAttachmentType());
 		//The Owner of the Bufflon
@@ -147,7 +184,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
 	   	}
 		
 		//Storing the Items inside the Bufflons Inventory
-		if(this.isTamed())													 //TODO
+		if(this.isTamed())
 		{
 			ListNBT listnbt = new ListNBT();
 			for(int i = 0; i < this.bufflonStorage.getSizeInventory(); ++i)
@@ -173,6 +210,16 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
 		this.setBufflonType(compound.getInt("BufflonType"));
 		//If this entity is saddled
 		this.setSaddled(compound.getBoolean("IsSaddled"));
+		//If this entity is sitting
+		if(this.bufflonSitGoal != null)
+		{
+			this.bufflonSitGoal.setSitting(compound.getBoolean("IsSitting"));
+		}
+		this.setSitting(compound.getBoolean("IsSitting"));
+		//If this entity is following
+		this.setFollowingOwner(compound.getBoolean("IsFollowing"));
+		//If this entity is in combat mode
+		this.setIsInCombatMode(compound.getBoolean("IsInCombatMode"));
 		//The back attachment type this Entity has
 		this.setBackAttachment(compound.getInt("BackAttachmentType"));
 		//The Owner of the Bufflon
@@ -201,7 +248,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
 		}
 		
 		//Loading the stored Items inside the Bufflons Inventory
-		if(this.isTamed())											//TODO
+		if(this.isTamed())
 		{
 			ListNBT listnbt = compound.getList("Items", 10);
 	     	this.initBufflonStorage();
@@ -225,8 +272,8 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
 	{
 		spawnData = super.onInitialSpawn(world, difficulty, reason, spawnData, dataTag);
 		Random rand = new Random();
-		int type = rand.nextInt(2) + 1;
-		if(dataTag != null && dataTag.contains("BufflonType", 3))
+		int type = rand.nextInt(3) + 1;
+		if(dataTag != null && dataTag.contains("BufflonType", NBT.TAG_INT))
 		{
 			this.setBufflonType(dataTag.getInt("BufflonType"));
 			return spawnData;
@@ -264,6 +311,10 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
         		}
         		player.sendMessage(new StringTextComponent("Is entity saddled: " + this.isSaddled()));
         		player.sendMessage(new StringTextComponent("Has entity back attachment: " + this.hasBackAttachment()));
+        		player.sendMessage(new StringTextComponent(" "));
+        		player.sendMessage(new StringTextComponent("Is Bufflon Sitting: " + this.isSitting()));
+        		player.sendMessage(new StringTextComponent("Is Bufflon Following Owner: " + this.isFollowingOwner()));
+        		player.sendMessage(new StringTextComponent("Bufflon Combat Mode: " + this.isInCombatMode()));
         	}
         	return true;
         }
@@ -321,6 +372,17 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
     }
     
     @Override
+    public boolean attackEntityAsMob(Entity entityIn)
+    {
+    	boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float)((int)this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getValue()));
+        if(flag)
+        {
+           this.applyEnchantments(this, entityIn);
+        }
+        return flag;
+     }
+    
+    @Override
     public void livingTick()
     {
     	super.livingTick();
@@ -372,7 +434,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
     @Override
     protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn)
     {
-        return sizeIn.height * 0.6F;
+        return sizeIn.height * 0.5F;
     }
     
     /**
@@ -580,47 +642,51 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
     {
     	if(this.isAlive())
     	{
-    		if(this.isBeingRidden() && this.canBeSteered() && this.isSaddled())
+    		if(this.isBeingRidden())
     		{
-    			LivingEntity livingentity = (LivingEntity)this.getControllingPassenger();
-    			this.rotationYaw = livingentity.rotationYaw;
-    			this.prevRotationYaw = this.rotationYaw;
-    			this.rotationPitch = livingentity.rotationPitch * 0.5F;
-    			this.setRotation(this.rotationYaw, this.rotationPitch);
-    			this.renderYawOffset = this.rotationYaw;
-    			this.rotationYawHead = this.renderYawOffset;
-    			float f = livingentity.moveStrafing * 0.5F;
-    			float f1 = livingentity.moveForward;
-    			if(f1 <= 0.0F)
-    			{
-    				f1 *= 0.25F;;
-    			}
-    			
-    			if(this.canPassengerSteer())
-    			{
-    				this.setAIMoveSpeed(0.2F);
-    				super.travel(new Vec3d((double)f, p_213352_1_.y, (double)f1));
-    			}
-    			else if(livingentity instanceof PlayerEntity)
-    			{
-    				this.setMotion(Vec3d.ZERO);
-    			}
-    			
-    			//Some code so other people see the walk animation
-    			this.prevLimbSwingAmount = this.limbSwingAmount;
-    		  	double finalPosX = this.posX - this.prevPosX;
-    			double finalPosZ = this.posZ - this.prevPosZ;
-    			double finalPosY = this instanceof IFlyingAnimal ? this.posY - this.prevPosY : 0.0D;
-    			float swingAmountModifier = MathHelper.sqrt(finalPosX * finalPosX + finalPosY * finalPosY + finalPosZ * finalPosZ) * 4.0F;
-    		   	if(swingAmountModifier > 1.0F)
-    		   	{
-    		   		swingAmountModifier = 1.0F;
-    			}
-    		   	
-    		   	this.limbSwingAmount += (swingAmountModifier - this.limbSwingAmount) * 0.4F;
-    		   	this.limbSwing += this.limbSwingAmount;
+	    		LivingEntity livingentity = (LivingEntity)this.getControllingPassenger();
+				this.rotationYaw = livingentity.rotationYaw;
+				this.prevRotationYaw = this.rotationYaw;
+				this.rotationPitch = livingentity.rotationPitch * 0.5F;
+				this.setRotation(this.rotationYaw, this.rotationPitch);
+				this.renderYawOffset = this.rotationYaw;
+				this.rotationYawHead = this.renderYawOffset;
+				
+	    		if(this.canBeSteered() && this.isSaddled())
+	    		{
+	    			float f = livingentity.moveStrafing * 0.5F;
+	    			float f1 = livingentity.moveForward;
+	    			if(f1 <= 0.0F)
+	    			{
+	    				f1 *= 0.25F;;
+	    			}
+	    			
+	    			if(this.canPassengerSteer())
+	    			{
+	    				this.setAIMoveSpeed(0.2F);
+	    				super.travel(new Vec3d((double)f, p_213352_1_.y, (double)f1));
+	    			}
+	    			else if(livingentity instanceof PlayerEntity)
+	    			{
+	    				this.setMotion(Vec3d.ZERO);
+	    			}
+	    			
+	    			//Some code so other people see the walk animation
+	    			this.prevLimbSwingAmount = this.limbSwingAmount;
+	    		  	double finalPosX = this.posX - this.prevPosX;
+	    			double finalPosZ = this.posZ - this.prevPosZ;
+	    			double finalPosY = this instanceof IFlyingAnimal ? this.posY - this.prevPosY : 0.0D;
+	    			float swingAmountModifier = MathHelper.sqrt(finalPosX * finalPosX + finalPosY * finalPosY + finalPosZ * finalPosZ) * 4.0F;
+	    		   	if(swingAmountModifier > 1.0F)
+	    		   	{
+	    		   		swingAmountModifier = 1.0F;
+	    			}
+	    		   	
+	    		   	this.limbSwingAmount += (swingAmountModifier - this.limbSwingAmount) * 0.4F;
+	    		   	this.limbSwing += this.limbSwingAmount;
+	    		}
     		}
-    		else
+	    	else
     		{
     			super.travel(p_213352_1_);
             }
@@ -767,6 +833,57 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
         	player.startRiding(this);
         	this.thinkTime = 40;
         }
+    }
+    
+    /**
+     * @return - Wether or not this Entity is in Combat Mode
+     */
+    public boolean isInCombatMode()
+    {
+       return this.dataManager.get(COMBAT_MODE);
+    }
+    
+    /**
+     * Sets the combat mode of the entity to true or false
+     * @param value - Should be sitting
+     */
+    public void setIsInCombatMode(boolean value)
+    {
+    	this.dataManager.set(COMBAT_MODE, value);
+    }
+    
+    /**
+     * @return - Wether or not this Entity is Following its owner
+     */
+    public boolean isFollowingOwner()
+    {
+       return this.dataManager.get(IS_FOLLOWING);
+    }
+    
+    /**
+     * Sets the entity to Follow the owner true or false
+     * @param value - Should be sitting
+     */
+    public void setFollowingOwner(boolean value)
+    {
+    	this.dataManager.set(IS_FOLLOWING, value);
+    }
+    
+    /**
+     * @return - Wether or not this Entity is Sitting
+     */
+    public boolean isSitting()
+    {
+       return this.dataManager.get(IS_SITTING);
+    }
+    
+    /**
+     * Sets the entity to Sitting true or false
+     * @param value - Should be sitting
+     */
+    public void setSitting(boolean value)
+    {
+    	this.dataManager.set(IS_SITTING, value);
     }
     
     /**
@@ -1027,7 +1144,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
     	if(this.dataManager.get(BUFFLON_TYPE) == 0)
     	{
     		Random rand = new Random();
-    		this.dataManager.set(BUFFLON_TYPE, rand.nextInt(2) + 1);
+    		this.dataManager.set(BUFFLON_TYPE, rand.nextInt(3) + 1);
     		return this.dataManager.get(BUFFLON_TYPE);
     	}
     	else

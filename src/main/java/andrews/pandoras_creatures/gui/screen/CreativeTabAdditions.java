@@ -5,11 +5,11 @@ import java.util.List;
 
 import andrews.pandoras_creatures.Main;
 import andrews.pandoras_creatures.config.Config;
-import andrews.pandoras_creatures.gui.buttons.GuiButtonCurseForge;
-import andrews.pandoras_creatures.gui.buttons.GuiButtonDiscord;
-import andrews.pandoras_creatures.gui.buttons.GuiButtonPatreon;
-import andrews.pandoras_creatures.gui.buttons.GuiButtonTwitch;
-import andrews.pandoras_creatures.gui.buttons.GuiButtonYouTube;
+import andrews.pandoras_creatures.gui.buttons.creative_tab.GuiButtonCurseForge;
+import andrews.pandoras_creatures.gui.buttons.creative_tab.GuiButtonDiscord;
+import andrews.pandoras_creatures.gui.buttons.creative_tab.GuiButtonPatreon;
+import andrews.pandoras_creatures.gui.buttons.creative_tab.GuiButtonTwitch;
+import andrews.pandoras_creatures.gui.buttons.creative_tab.GuiButtonYouTube;
 import andrews.pandoras_creatures.util.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.CreativeScreen;

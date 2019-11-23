@@ -1,4 +1,4 @@
-package andrews.pandoras_creatures.gui.buttons;
+package andrews.pandoras_creatures.gui.buttons.creative_tab;
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,28 +10,29 @@ import andrews.pandoras_creatures.util.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Util;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.config.GuiUtils;
 
 @OnlyIn(Dist.CLIENT)
-public class GuiButtonDiscord extends Button
+public class GuiButtonPatreon extends Button
 {		
 	private static final ResourceLocation texture = new ResourceLocation(Reference.MODID + ":textures/gui/buttons/creative_tab.png");
-	private static GuiButtonDiscord discordButton;
+	private static GuiButtonPatreon patreonButton;
 	private static int buttonWidth = 22;
 	private static int buttonHeight = 22;
 	private float buttonAlpha;
 	private int u = 0;
-	private int v = 0;
+	private int v = 88;
 	
-	public GuiButtonDiscord(int xPos, int yPos) 
+	public GuiButtonPatreon(int xPos, int yPos) 
 	{
 		super(xPos, yPos, buttonWidth, buttonHeight, "", (button) -> { handleButtonPress(); });
-		discordButton = this;
+		patreonButton = this;
 		setButtonAlphaToStart();
 	}
 	
@@ -66,13 +67,14 @@ public class GuiButtonDiscord extends Button
 			GlStateManager.color4f(1, 1, 1, 1);
 			GlStateManager.disableBlend();
 			GlStateManager.enableLighting();
+			RenderHelper.disableStandardItemLighting();
 			GlStateManager.popAttributes();
 			GlStateManager.popMatrix();
 			//This is used to render a tooltip above the button
 			if(isHovered)
 			{
 				FontRenderer renderer = Minecraft.getInstance().fontRenderer;
-				String text = new TranslationTextComponent("gui.button.pandoras_creatures.discord").getString();
+				String text = new TranslationTextComponent("gui.button.pandoras_creatures.patreon").getString();
 				List<String> textAsList = Arrays.asList(text);
 				Minecraft.getInstance().currentScreen.renderTooltip(textAsList, x - (15 + renderer.getStringWidth(text)), y + 19, Minecraft.getInstance().fontRenderer);
 			}
@@ -82,10 +84,10 @@ public class GuiButtonDiscord extends Button
 			this.active = false;
 		}
 	}
-
-	public static GuiButtonDiscord getButton()
+	
+	public static GuiButtonPatreon getButton()
 	{
-		return discordButton;
+		return patreonButton;
 	}
 	
 	//Calculates the Alpha for the Button
@@ -119,15 +121,10 @@ public class GuiButtonDiscord extends Button
 	
 	private static void handleButtonPress()
 	{
-		String url = "https://discord.gg/ab5zP72";
-		Util.getOSType().openURI(url);
+//		String url = "https://www.twitch.tv/andrew0030";
+//		Util.getOSType().openURI(url);
+//		Minecraft.getInstance().player.closeScreen();
+		Minecraft.getInstance().player.sendMessage(new StringTextComponent("§6Patreon has not been added yet!"));
 		Minecraft.getInstance().player.closeScreen();
-//		Minecraft.getInstance().displayGuiScreen(new ConfirmOpenLinkScreen((p_213069_2_) -> {
-//			if(p_213069_2_)
-//			{
-//	        	Util.getOSType().openURI(url);
-//	        }
-//			Minecraft.getInstance().player.closeScreen();
-//		}, url, true));
 	}
 }

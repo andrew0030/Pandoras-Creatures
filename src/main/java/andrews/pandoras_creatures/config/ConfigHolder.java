@@ -2,6 +2,9 @@ package andrews.pandoras_creatures.config;
 
 public class ConfigHolder
 {
+	/**
+	 * Client Config
+	 */
 	public static boolean shouldShowUpdateMessage;
 	public static boolean shouldShowUpdateCheckFailedMessage;
 	public static boolean shouldShowInvalidJarMessage;

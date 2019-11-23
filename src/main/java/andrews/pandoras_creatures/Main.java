@@ -9,7 +9,10 @@ import andrews.pandoras_creatures.entities.HellhoundEntity;
 import andrews.pandoras_creatures.entities.SeahorseEntity;
 import andrews.pandoras_creatures.item_groups.PCItemGroup;
 import andrews.pandoras_creatures.network.client.MessageClientAnimation;
+import andrews.pandoras_creatures.network.server.MessageServerBufflonCombatMode;
+import andrews.pandoras_creatures.network.server.MessageServerBufflonFollow;
 import andrews.pandoras_creatures.network.server.MessageServerBufflonInventory;
+import andrews.pandoras_creatures.network.server.MessageServerBufflonSit;
 import andrews.pandoras_creatures.proxy.ClientProxy;
 import andrews.pandoras_creatures.proxy.ServerProxy;
 import andrews.pandoras_creatures.util.Reference;
@@ -91,6 +94,18 @@ public class Main
 		CHANNEL.messageBuilder(MessageServerBufflonInventory.class, id++)
 		.encoder(MessageServerBufflonInventory::serialize).decoder(MessageServerBufflonInventory::deserialize)
 		.consumer(MessageServerBufflonInventory::handle)
+		.add();
+		CHANNEL.messageBuilder(MessageServerBufflonSit.class, id++)
+		.encoder(MessageServerBufflonSit::serialize).decoder(MessageServerBufflonSit::deserialize)
+		.consumer(MessageServerBufflonSit::handle)
+		.add();
+		CHANNEL.messageBuilder(MessageServerBufflonFollow.class, id++)
+		.encoder(MessageServerBufflonFollow::serialize).decoder(MessageServerBufflonFollow::deserialize)
+		.consumer(MessageServerBufflonFollow::handle)
+		.add();
+		CHANNEL.messageBuilder(MessageServerBufflonCombatMode.class, id++)
+		.encoder(MessageServerBufflonCombatMode::serialize).decoder(MessageServerBufflonCombatMode::deserialize)
+		.consumer(MessageServerBufflonCombatMode::handle)
 		.add();
 	}
 }

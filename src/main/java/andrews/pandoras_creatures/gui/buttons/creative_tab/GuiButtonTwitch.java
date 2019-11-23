@@ -1,4 +1,4 @@
-package andrews.pandoras_creatures.gui.buttons;
+package andrews.pandoras_creatures.gui.buttons.creative_tab;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,20 +18,20 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.config.GuiUtils;
 
 @OnlyIn(Dist.CLIENT)
-public class GuiButtonYouTube extends Button
+public class GuiButtonTwitch extends Button
 {		
 	private static final ResourceLocation texture = new ResourceLocation(Reference.MODID + ":textures/gui/buttons/creative_tab.png");
-	private static GuiButtonYouTube youtubeButton;
+	private static GuiButtonTwitch twitchButton;
 	private static int buttonWidth = 22;
 	private static int buttonHeight = 22;
 	private float buttonAlpha;
 	private int u = 0;
-	private int v = 44;
+	private int v = 66;
 	
-	public GuiButtonYouTube(int xPos, int yPos) 
+	public GuiButtonTwitch(int xPos, int yPos) 
 	{
 		super(xPos, yPos, buttonWidth, buttonHeight, "", (button) -> { handleButtonPress(); });
-		youtubeButton = this;
+		twitchButton = this;
 		setButtonAlphaToStart();
 	}
 	
@@ -72,7 +72,7 @@ public class GuiButtonYouTube extends Button
 			if(isHovered)
 			{
 				FontRenderer renderer = Minecraft.getInstance().fontRenderer;
-				String text = new TranslationTextComponent("gui.button.pandoras_creatures.youtube").getString();
+				String text = new TranslationTextComponent("gui.button.pandoras_creatures.twitch").getString();
 				List<String> textAsList = Arrays.asList(text);
 				Minecraft.getInstance().currentScreen.renderTooltip(textAsList, x - (15 + renderer.getStringWidth(text)), y + 19, Minecraft.getInstance().fontRenderer);
 			}
@@ -83,9 +83,9 @@ public class GuiButtonYouTube extends Button
 		}
 	}
 	
-	public static GuiButtonYouTube getButton()
+	public static GuiButtonTwitch getButton()
 	{
-		return youtubeButton;
+		return twitchButton;
 	}
 	
 	//Calculates the Alpha for the Button
@@ -119,7 +119,7 @@ public class GuiButtonYouTube extends Button
 	
 	private static void handleButtonPress()
 	{
-		String url = "https://www.youtube.com/channel/UCCwx818CTVQXRLvDjL0GifA/featured";
+		String url = "https://www.twitch.tv/andrew0030";
 		Util.getOSType().openURI(url);
 		Minecraft.getInstance().player.closeScreen();
 	}

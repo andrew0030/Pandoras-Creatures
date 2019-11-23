@@ -4,6 +4,11 @@ import com.mojang.blaze3d.platform.GlStateManager;
 
 import andrews.pandoras_creatures.container.BufflonContainer;
 import andrews.pandoras_creatures.entities.BufflonEntity;
+import andrews.pandoras_creatures.gui.buttons.bufflon_menu.GuiButtonBufflonFightMode;
+import andrews.pandoras_creatures.gui.buttons.bufflon_menu.GuiButtonBufflonFollow;
+import andrews.pandoras_creatures.gui.buttons.bufflon_menu.GuiButtonBufflonMoveFreely;
+import andrews.pandoras_creatures.gui.buttons.bufflon_menu.GuiButtonBufflonPeacefulMode;
+import andrews.pandoras_creatures.gui.buttons.bufflon_menu.GuiButtonBufflonSit;
 import andrews.pandoras_creatures.registry.PCItems;
 import andrews.pandoras_creatures.util.Reference;
 import net.minecraft.client.Minecraft;
@@ -34,6 +39,21 @@ public class BufflonScreen extends ContainerScreen<BufflonContainer>
 	{
 		super(screenContainer, inv, titleIn);
 		this.bufflonEntity = this.getContainer().getBufflonEntity();
+	}
+	
+	@Override
+	protected void init()
+	{
+		super.init();
+		//Values to calculate the relative position
+		int x = (this.width - this.xSize) / 2;
+		int y = (this.height - this.ySize) / 2;
+		
+		this.addButton(new GuiButtonBufflonSit(bufflonEntity, x + 9, y + 138));
+		this.addButton(new GuiButtonBufflonFollow(bufflonEntity, x + 9, y + 166));
+		this.addButton(new GuiButtonBufflonMoveFreely(bufflonEntity, x + 9, y + 194));
+		this.addButton(new GuiButtonBufflonFightMode(bufflonEntity, x + 221, y + 148));
+		this.addButton(new GuiButtonBufflonPeacefulMode(bufflonEntity, x + 221, y + 188));
 	}
 	
 	@Override
