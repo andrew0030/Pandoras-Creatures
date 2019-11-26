@@ -15,13 +15,32 @@ import static andrews.pandoras_creatures.config.ConfigHolder.shouldButtonsInCrea
 import static andrews.pandoras_creatures.config.ConfigHolder.shouldShowInvalidJarMessage;
 import static andrews.pandoras_creatures.config.ConfigHolder.shouldShowUpdateCheckFailedMessage;
 import static andrews.pandoras_creatures.config.ConfigHolder.shouldShowUpdateMessage;
+import static andrews.pandoras_creatures.config.ConfigHolder.arachnonSpawning;
+import static andrews.pandoras_creatures.config.ConfigHolder.hellhoundSpawning;
+import static andrews.pandoras_creatures.config.ConfigHolder.crabSpawning;
+import static andrews.pandoras_creatures.config.ConfigHolder.seahorseSpawning;
+import static andrews.pandoras_creatures.config.ConfigHolder.acidicArchvineSpawning;
+import static andrews.pandoras_creatures.config.ConfigHolder.bufflonSpawning;
 
 import net.minecraftforge.fml.config.ModConfig;
 
 public class ConfigHelper
 {	
+	public static ModConfig commonConfig;
 	public static ModConfig clientConfig;
 
+	public static void updateCommonConfig(ModConfig config)
+	{
+		commonConfig = config;
+		
+		arachnonSpawning = Config.COMMON.arachnonSpawning.get();
+		hellhoundSpawning = Config.COMMON.hellhoundSpawning.get();
+		crabSpawning = Config.COMMON.crabSpawning.get();
+		seahorseSpawning = Config.COMMON.seahorseSpawning.get();
+		acidicArchvineSpawning = Config.COMMON.acidicArchvineSpawning.get();
+		bufflonSpawning = Config.COMMON.bufflonSpawning.get();
+	}
+	
 	public static void updateClientConfig(ModConfig config)
 	{
 		clientConfig = config;
@@ -42,5 +61,4 @@ public class ConfigHelper
 		buttonPatreonOffsetY = Config.CLIENT.buttonPatreonOffsetY.get();
 		buttonFadeInTime = Config.CLIENT.buttonFadeInTime.get();
 	}
-	
 }

@@ -4,6 +4,7 @@ import andrews.pandoras_creatures.config.Config;
 import andrews.pandoras_creatures.config.ConfigHelper;
 import andrews.pandoras_creatures.entities.AcidicArchvineEntity;
 import andrews.pandoras_creatures.entities.ArachnonEntity;
+import andrews.pandoras_creatures.entities.BufflonEntity;
 import andrews.pandoras_creatures.entities.CrabEntity;
 import andrews.pandoras_creatures.entities.HellhoundEntity;
 import andrews.pandoras_creatures.entities.SeahorseEntity;
@@ -15,6 +16,7 @@ import andrews.pandoras_creatures.network.server.MessageServerBufflonInventory;
 import andrews.pandoras_creatures.network.server.MessageServerBufflonSit;
 import andrews.pandoras_creatures.proxy.ClientProxy;
 import andrews.pandoras_creatures.proxy.ServerProxy;
+import andrews.pandoras_creatures.util.FeatureInjector;
 import andrews.pandoras_creatures.util.Reference;
 import andrews.pandoras_creatures.util.RehostedJarHandler;
 import net.minecraft.item.ItemGroup;
@@ -52,12 +54,19 @@ public class Main
 			final ModConfig config = event.getConfig();
 			if(config.getSpec() == Config.CLIENTSPEC)
 			{
+				System.out.println("CLIENT CONFIG REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
 				ConfigHelper.updateClientConfig(config);
+			}
+			if(config.getSpec() == Config.COMMONSPEC)
+			{
+				System.out.println("COMMON CONFIG OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+				ConfigHelper.updateCommonConfig(config);
 			}
 		});
 		
 		ModLoadingContext modLoadingContext = ModLoadingContext.get();
 		modLoadingContext.registerConfig(ModConfig.Type.CLIENT, Config.CLIENTSPEC);
+		modLoadingContext.registerConfig(ModConfig.Type.COMMON, Config.COMMONSPEC);
 	}
 	
 	public static final SimpleChannel CHANNEL = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(Reference.MODID, "net"))
@@ -74,11 +83,14 @@ public class Main
 		ModFile file = ModList.get().getModFileById(Reference.MODID).getFile();
 		new RehostedJarHandler(file, "pandoras_creatures-" + Reference.VERSION + ".jar");
 		
+		FeatureInjector.addFeaturesToBiomes();
+		
 		ArachnonEntity.addSpawn();
 		HellhoundEntity.addSpawn();
 		CrabEntity.addSpawn();
 		SeahorseEntity.addSpawn();
 		AcidicArchvineEntity.addSpawn();
+		BufflonEntity.addSpawn();
 	}
 	
 	void setupMessages()

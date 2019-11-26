@@ -37,7 +37,7 @@ public class BufflonOwnerHurtByTargetGoal extends TargetGoal
 			{
 				this.attacker = livingentity.getRevengeTarget();
 				int i = livingentity.getRevengeTimer();
-				return i != this.timestamp && this.isSuitableTarget(this.attacker, EntityPredicate.DEFAULT);
+				return i != this.timestamp && this.isSuitableTarget(this.attacker, EntityPredicate.DEFAULT) && this.bufflonEntity.shouldAttackEntity(this.attacker, livingentity);
 			}
 		}
 		else

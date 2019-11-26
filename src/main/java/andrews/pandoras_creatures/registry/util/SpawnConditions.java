@@ -2,6 +2,7 @@ package andrews.pandoras_creatures.registry.util;
 
 import java.util.Random;
 
+import andrews.pandoras_creatures.config.Config;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
@@ -15,6 +16,10 @@ public class SpawnConditions
 {
 	public static boolean noDayLightMobCondition(EntityType<? extends MobEntity> entityType, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random)
     {
+		if(!Config.COMMON.arachnonSpawning.get())
+		{
+			return false;
+		}
 		if(world.getDifficulty() == Difficulty.PEACEFUL)
 		{
 			return false;
@@ -38,6 +43,10 @@ public class SpawnConditions
 	
 	public static boolean amphibianstMobCondition(EntityType<? extends MobEntity> entityType, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random)
     {
+		if(!Config.COMMON.crabSpawning.get())
+		{
+			return false;
+		}
     	if(world.getDimension().getType() != DimensionType.OVERWORLD)
     	{
     		return false;
@@ -57,6 +66,10 @@ public class SpawnConditions
     
     public static boolean netherCondition(EntityType<? extends MobEntity> entityType, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random)
     {
+    	if(!Config.COMMON.hellhoundSpawning.get())
+		{
+			return false;
+		}
     	if(world.getDifficulty() == Difficulty.PEACEFUL)
 		{
 			return false;
@@ -73,6 +86,10 @@ public class SpawnConditions
     
     public static boolean waterCondition(EntityType<? extends MobEntity> entityType, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random)
     {
+    	if(!Config.COMMON.seahorseSpawning.get())
+		{
+			return false;
+		}
     	if(world.getDimension().getType() != DimensionType.OVERWORLD)
     	{
     		return false;
@@ -85,6 +102,10 @@ public class SpawnConditions
     
     public static boolean acidicArchvineCondition(EntityType<? extends MobEntity> entityType, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random)
     {	
+    	if(!Config.COMMON.acidicArchvineSpawning.get())
+		{
+			return false;
+		}
     	if(world.getDifficulty() == Difficulty.PEACEFUL)
 		{
 			return false;
@@ -123,5 +144,21 @@ public class SpawnConditions
     		return false;
     	}
     	return true;
+    }
+    
+    public static boolean bufflonCondition(EntityType<? extends MobEntity> entityType, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random)
+    {
+    	if(!Config.COMMON.bufflonSpawning.get())
+		{
+			return false;
+		}
+    	if(world.getDimension().getType() != DimensionType.OVERWORLD)
+    	{
+    		return false;
+    	}
+    	else
+    	{
+    		return world.getLightSubtracted(pos, 0) > 8 && world.getBlockState(pos.down()).getBlock() == Blocks.GRASS_BLOCK;
+    	}
     }
 }

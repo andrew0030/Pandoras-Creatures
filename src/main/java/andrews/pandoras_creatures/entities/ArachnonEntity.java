@@ -48,7 +48,7 @@ public class ArachnonEntity extends MonsterEntity
         this(PCEntities.ARACHNON, world);
         this.setPosition(posX, posY, posZ);
     }
-
+    
     @Override
     protected void registerGoals()
     {

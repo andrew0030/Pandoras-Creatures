@@ -226,7 +226,10 @@ public class ItemArachnonHammer extends PickaxeItem
 			Direction face = ((BlockRayTraceResult) raycast).getFace();
 			return face.getOpposite();
 		}
-		return null;
+		else
+		{
+			return Direction.NORTH;
+		}
 	}
 	
 	/**

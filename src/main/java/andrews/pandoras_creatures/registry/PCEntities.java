@@ -155,9 +155,6 @@ public class PCEntities
     }
     private static boolean bufflonCondition(EntityType<? extends MobEntity> entityType, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random)
     {
-    	//CHANGE!!!!!!!!!!!!!!!!!!!!
-    	//IMPORTANT !!!!!!!!!!!!!!!!
-    	//CHANGE!!!!!!!!!!!!!!!!!!!!
-    	return SpawnConditions.amphibianstMobCondition(entityType, world, spawnReason, pos, random);
+    	return SpawnConditions.bufflonCondition(entityType, world, spawnReason, pos, random);
     }
 }

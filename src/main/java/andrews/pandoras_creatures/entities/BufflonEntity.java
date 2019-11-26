@@ -16,6 +16,7 @@ import andrews.pandoras_creatures.entities.goals.BufflonOwnerHurtTargetGoal;
 import andrews.pandoras_creatures.entities.goals.BufflonSitGoal;
 import andrews.pandoras_creatures.registry.PCEntities;
 import andrews.pandoras_creatures.registry.PCItems;
+import andrews.pandoras_creatures.registry.PCSounds;
 import andrews.pandoras_creatures.util.animation.Animation;
 import andrews.pandoras_creatures.util.network.NetworkUtil;
 import net.minecraft.entity.Entity;
@@ -29,13 +30,20 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
+import net.minecraft.entity.ai.goal.LookRandomlyGoal;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
+import net.minecraft.entity.monster.CreeperEntity;
+import net.minecraft.entity.monster.GhastEntity;
+import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.entity.passive.IFlyingAnimal;
+import net.minecraft.entity.passive.WolfEntity;
+import net.minecraft.entity.passive.horse.AbstractHorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.IInventoryChangedListener;
 import net.minecraft.inventory.Inventory;
@@ -56,11 +64,11 @@ import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.IWorld;
@@ -75,7 +83,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryChangedListener
 {
-	private static Biome[] biomes = new Biome[] {Biomes.TAIGA, Biomes.TAIGA_HILLS, Biomes.SNOWY_TAIGA, Biomes.SNOWY_TAIGA_HILLS};
+	private static Biome[] biomes = new Biome[] {Biomes.SNOWY_TUNDRA, Biomes.FROZEN_RIVER, Biomes.SNOWY_MOUNTAINS};
 	
 	//Stores the Bufflon type
 	private static final DataParameter<Integer> BUFFLON_TYPE = EntityDataManager.createKey(BufflonEntity.class, DataSerializers.VARINT);
@@ -102,6 +110,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
 	public BufflonSitGoal bufflonSitGoal;
 	
 	public static final Animation THROW_ANIMATION = new Animation(12);
+	public static final Animation ATTACK_HEAD_ANIMATION = new Animation(12);
 	
     public BufflonEntity(EntityType<? extends BufflonEntity> type, World worldIn)
     {
@@ -127,6 +136,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
     	this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 0.55D, true));
     	this.goalSelector.addGoal(5, new BufflonFollowOwnerGoal(this, 0.55D, 10.0F, 2.0F));
     	this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 8.0F));
+    	this.goalSelector.addGoal(7, new LookRandomlyGoal(this));
     	//Target Selector
     	this.targetSelector.addGoal(1, new BufflonOwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new BufflonOwnerHurtTargetGoal(this));
@@ -139,7 +149,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
     {
         super.registerAttributes();
         this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.55D);
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(4.0D);
+        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(60.0D);
         this.getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(10.0D);
     }
     
@@ -272,7 +282,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
 	{
 		spawnData = super.onInitialSpawn(world, difficulty, reason, spawnData, dataTag);
 		Random rand = new Random();
-		int type = rand.nextInt(3) + 1;
+		int type = rand.nextInt(7) + 1;
 		if(dataTag != null && dataTag.contains("BufflonType", NBT.TAG_INT))
 		{
 			this.setBufflonType(dataTag.getInt("BufflonType"));
@@ -287,44 +297,26 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
 	{
 		return false;
 	}
+	
+	@Override
+	protected int getExperiencePoints(PlayerEntity player)
+	{
+		return 1 + this.world.rand.nextInt(3);
+	}
     
     @Override
     protected boolean processInteract(PlayerEntity player, Hand hand)
     {
     	ItemStack itemstack = player.getHeldItem(hand);
-        if(itemstack.getItem() == Items.STICK)
+        if(itemstack.getItem() == PCItems.HERB_BUNDLE)
         {
-        	if(this.isAnimationPlaying(BLANK_ANIMATION) && !this.getEntityWorld().isRemote())
-        	{
-        		NetworkUtil.setPlayingAnimationMessage(this, THROW_ANIMATION);
-        	}
-        	return true;
-        }
-        else if(itemstack.getItem() == Items.BLAZE_ROD)
-        {
-        	if(world.isRemote)
-        	{
-        		player.sendMessage(new StringTextComponent("Is entity tamed: " + this.isTamed()));
-        		if(this.isTamed())
-        		{
-        			player.sendMessage(new StringTextComponent("Entity owner is: " + this.getOwner().getName().getString()));
-        		}
-        		player.sendMessage(new StringTextComponent("Is entity saddled: " + this.isSaddled()));
-        		player.sendMessage(new StringTextComponent("Has entity back attachment: " + this.hasBackAttachment()));
-        		player.sendMessage(new StringTextComponent(" "));
-        		player.sendMessage(new StringTextComponent("Is Bufflon Sitting: " + this.isSitting()));
-        		player.sendMessage(new StringTextComponent("Is Bufflon Following Owner: " + this.isFollowingOwner()));
-        		player.sendMessage(new StringTextComponent("Bufflon Combat Mode: " + this.isInCombatMode()));
-        	}
-        	return true;
-        }
-        else if(itemstack.getItem() == PCItems.HERB_BUNDLE)
-        {
+        	//Is Not Tamed
         	if(!this.world.isRemote && !this.isTamed())
         	{
         		if(feedingCooldown <= 0)
         		{
         			feedingCooldown = 10;
+        			this.world.playSound((PlayerEntity)null, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_HORSE_EAT, this.getSoundCategory(), 1.0F, 1.0F);
 		    		if(!player.abilities.isCreativeMode)
 		    		{
 		                itemstack.shrink(1);
@@ -339,6 +331,30 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
 		    			this.playTameEffect(false);
 		    			this.world.setEntityState(this, (byte)6);
 		            }
+        		}
+        	}
+        	//Is Tamed
+        	else if(!this.world.isRemote && this.isTamed())
+        	{
+        		if(this.getHealth() < this.getMaxHealth())
+        		{
+        			this.heal(2.0F);
+        			this.world.playSound((PlayerEntity)null, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_HORSE_EAT, this.getSoundCategory(), 1.0F, 1.0F);
+        			if(!player.abilities.isCreativeMode)
+		    		{
+		                itemstack.shrink(1);
+		            }
+        		}
+        		else
+        		{
+        			if(player.isSneaking())
+            		{
+            			this.openGUI(player);
+            		}
+            		else
+            		{
+            			mountTo(player);
+            		}
         		}
         	}
         	return true;
@@ -375,17 +391,113 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
     public boolean attackEntityAsMob(Entity entityIn)
     {
     	boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float)((int)this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getValue()));
+    	//The attack sound
+    	this.world.playSound((PlayerEntity)null, this.posX, this.posY, this.posZ, PCSounds.BUFFLON_ATTACK, this.getSoundCategory(), 0.6F, 0.8F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
+    	//The attack animation
+    	if(this.isAnimationPlaying(BLANK_ANIMATION) && !this.getEntityWorld().isRemote())
+    	{
+    		NetworkUtil.setPlayingAnimationMessage(this, ATTACK_HEAD_ANIMATION);
+    	}
+    	
         if(flag)
         {
-           this.applyEnchantments(this, entityIn);
+        	entityIn.setMotion(entityIn.getMotion().add(this.getPositionVec().subtract(entityIn.getPositionVec()).mul(-0.15D, 0.0D, -0.15D)));
+        	entityIn.velocityChanged = true;
+        	this.applyEnchantments(this, entityIn);
         }
         return flag;
-     }
+    }
+    
+    /**
+     * Used in Goals to avoid fighting of tamed entities
+     */
+    public boolean shouldAttackEntity(LivingEntity target, LivingEntity owner)
+    {
+    	if(!(target instanceof CreeperEntity) && !(target instanceof GhastEntity))
+    	{
+    		//Protects Tamed Dog Entities
+    		if(target instanceof WolfEntity)
+    		{
+    			WolfEntity wolfentity = (WolfEntity)target;
+    			if(wolfentity.isTamed() && wolfentity.getOwner() == owner)
+    			{
+    				return false;
+    			}
+    		}
+    		
+    		//Protects Tamed Bufflon Entities
+    		if(target instanceof BufflonEntity)
+    		{
+    			BufflonEntity bufflonEntity = (BufflonEntity)target;
+    			if(bufflonEntity.isTamed() && bufflonEntity.getOwner() == owner)
+    			{
+    				return false;
+    			}
+    		}
+
+    		//Protects none attackable Players
+    		if(target instanceof PlayerEntity && owner instanceof PlayerEntity && !((PlayerEntity)owner).canAttackPlayer((PlayerEntity)target))
+    		{
+    			return false;
+    		}
+    		//Protects tamed Horses
+    		else if(target instanceof AbstractHorseEntity && ((AbstractHorseEntity)target).isTame())
+    		{
+    			return false;
+    		}
+    		//Protects tamed Cats
+    		else
+    		{
+    			return !(target instanceof CatEntity) || !((CatEntity)target).isTamed();
+    		}
+    	}
+    	else
+    	{
+    		return false;
+    	}
+	}
+    
+	/**
+    * Called when the entity is attacked.
+    */
+	@Override
+	public boolean attackEntityFrom(DamageSource source, float amount)
+	{
+		if(this.isInvulnerableTo(source))
+		{
+			return false;
+		}
+		else
+		{
+			Entity entity = source.getTrueSource();
+			if(this.bufflonSitGoal != null && this.isInCombatMode())
+			{
+				this.bufflonSitGoal.setSitting(false);
+			}
+
+			if(entity != null && !(entity instanceof PlayerEntity) && !(entity instanceof AbstractArrowEntity))
+			{
+				amount = (amount + 1.0F) / 2.0F;
+			}
+
+			return super.attackEntityFrom(source, amount);
+		}
+	}
     
     @Override
     public void livingTick()
     {
     	super.livingTick();
+    	
+    	//Makes it so the Bufflon gains health slowly "regeneration"
+    	if(!this.world.isRemote && this.isAlive())
+    	{
+    		if(this.rand.nextInt(900) == 0 && this.deathTime == 0)
+    		{
+               this.heal(1.0F);
+            }
+    	}
+    	
     	if(feedingCooldown > 0)
     	{
     		feedingCooldown--;
@@ -409,6 +521,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
         		}
         		else
         		{
+        			this.world.playSound((PlayerEntity)null, this.posX, this.posY, this.posZ, PCSounds.BUFFLON_ATTACK, this.getSoundCategory(), 0.6F, 0.8F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
         			//Removes the Passengers
         			for(int i = this.getPassengers().size() - 1; i >= 0; --i)
         			{
@@ -428,8 +541,32 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
     @Override
 	public Animation[] getAnimations()
     {
-		return new Animation[] {THROW_ANIMATION};
+		return new Animation[] {THROW_ANIMATION, ATTACK_HEAD_ANIMATION};
 	}
+    
+    @Override
+    protected SoundEvent getAmbientSound()
+    {
+    	return PCSounds.BUFFLON_AMBIENT;
+    }
+    
+    @Override
+    protected SoundEvent getDeathSound()
+    {
+    	return PCSounds.BUFFLON_DEATH;
+    }
+    
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn)
+    {
+    	return PCSounds.BUFFLON_HURT;
+    }
+    
+    @Override
+    protected float getSoundVolume()
+    {
+    	return 0.6F;
+    }
     
     @Override
     protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn)
@@ -518,7 +655,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
     @Override
     public boolean canDespawn(double distanceToClosestPlayer)
     {
-    	return !this.isTamed() && !this.hasCustomName();
+    	return false;
     }
 
     /**
@@ -1144,7 +1281,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
     	if(this.dataManager.get(BUFFLON_TYPE) == 0)
     	{
     		Random rand = new Random();
-    		this.dataManager.set(BUFFLON_TYPE, rand.nextInt(3) + 1);
+    		this.dataManager.set(BUFFLON_TYPE, rand.nextInt(7) + 1);
     		return this.dataManager.get(BUFFLON_TYPE);
     	}
     	else
@@ -1161,6 +1298,12 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
 	{
 		this.dataManager.set(BUFFLON_TYPE, typeId);
 	}
+	
+    @Override
+    public int getMaxSpawnedInChunk()
+    {
+    	return 1;
+    }
     
     public static void addSpawn()
     {
@@ -1171,7 +1314,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
     {
 		if(Arrays.asList(biomes).contains(biome))
 		{
-			biome.addSpawn(EntityClassification.AMBIENT, new Biome.SpawnListEntry(PCEntities.BUFFLON, 40, 2, 5));
+			biome.addSpawn(EntityClassification.CREATURE, new Biome.SpawnListEntry(PCEntities.BUFFLON, 3, 1, 1));
 		}
     }
     

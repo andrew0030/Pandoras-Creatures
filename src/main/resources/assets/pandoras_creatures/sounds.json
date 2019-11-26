@@ -73,5 +73,37 @@
         "sounds": [
         	{ "name": "pandoras_creatures:entity/acidic_archvine_attack_0", "stream": true}
         ]
+    },
+    "entity.bufflon.ambient":
+    {
+        "category": "entity",
+        "subtitle": "Heavy Bufflon Breath",
+        "sounds": [
+        	{ "name": "pandoras_creatures:entity/bufflon_ambient_0", "stream": true}
+        ]
+    },
+    "entity.bufflon.hurt":
+    {
+        "category": "entity",
+        "subtitle": "Bufflon Hurt",
+        "sounds": [
+        	{ "name": "pandoras_creatures:entity/bufflon_hurt_0", "stream": true}
+        ]
+    },
+    "entity.bufflon.death":
+    {
+        "category": "entity",
+        "subtitle": "Bufflon Death",
+        "sounds": [
+        	{ "name": "pandoras_creatures:entity/bufflon_death_0", "stream": true}
+        ]
+    },
+    "entity.bufflon.attack":
+    {
+        "category": "entity",
+        "subtitle": "Bufflon Attack",
+        "sounds": [
+        	{ "name": "pandoras_creatures:entity/bufflon_attack_0", "stream": true}
+        ]
     }
 }

@@ -63,7 +63,8 @@
 	"item.pandoras_creatures.hellhound_spawn_egg": "Generar Sabueso Infernal",
 	"item.pandoras_creatures.crab_spawn_egg": "Generar Cangrejo",
 	"item.pandoras_creatures.seahorse_spawn_egg": "Generar Caballito de Mar",
-	"item.pandoras_creatures.acidic_archvine_spawn_egg": "Generar Archidina Ácida",
+	"item.pandoras_creatures.acidic_archvine_spawn_egg": "Generar Archídea Ácida",
+	"item.pandoras_creatures.bufflon_spawn_egg": "Generar Bufalon",
 	
 //	 Item Tooltips, [Localising Tools] can be used here.
 	"item.pandoras_creatures.acidic_archvine_spawn_egg.tooltip": "#c7Necesita ser colocado debajo de\n#c7Hojas de Jungla o Netherrack",
@@ -77,17 +78,29 @@
 	"item.pandoras_creatures.seahorse_bucket": "Balde con Caballito de Mar",
 	"item.pandoras_creatures.seahorse": "Caballito de Mar Crudo",
 	"item.pandoras_creatures.seahorse_cooked": "Caballito de Mar Cocinado",
-	"item.pandoras_creatures.acidic_archvine_tongue": "Lengua de Archidina Ácida",
+	"item.pandoras_creatures.acidic_archvine_tongue": "Lengua de Archídea Ácida",
+	"item.pandoras_creatures.herb_bundle": "Ramo de Hierbas",
+	"item.pandoras_creatures.bufflon_beef": "Bife de Bufalon",
+	"item.pandoras_creatures.bufflon_beef_cooked": "Bife de Bufalon cocinado",
+	"item.pandoras_creatures.bufflon_hide": "Piel de Bufalon",
+	"item.pandoras_creatures.bufflon_saddle": "Montura de Bufalon",
+	"item.pandoras_creatures.bufflon_player_seats": "Asientos de Jugador de Bufalon",
+	"item.pandoras_creatures.bufflon_small_storage": "Pequeño Almacenamiento de Bufalon",
+	"item.pandoras_creatures.bufflon_large_storage": "Gran Almacenamiento de Bufalon",
 	
 //	 Blocks
 	"block.pandoras_creatures.arachnon_crystal": "Cristal de Arachnon",
+	"block.pandoras_creatures.horsetail": "Equiseto",
+	"block.pandoras_creatures.dhania": "Dhania",
+	"block.pandoras_creatures.hill_bloom": "Flor de Colina",
 	
 //	 Entities
 	"entity.pandoras_creatures.arachnon": "Arachnon",
 	"entity.pandoras_creatures.hellhound": "Sabueso Infernal",
 	"entity.pandoras_creatures.crab": "Cangrejo",
 	"entity.pandoras_creatures.seahorse": "Caballito de Mar",
-	"entity.pandoras_creatures.acidic_archvine": "Archidina Ácida",
+	"entity.pandoras_creatures.acidic_archvine": "Archídea Ácida",
+	"entity.pandoras_creatures.bufflon": "Bufalon",
 	
 //	 Button Tool Tips
 	"gui.button.pandoras_creatures.discord": "Discord",
@@ -95,6 +108,11 @@
 	"gui.button.pandoras_creatures.youtube": "YouTube",
 	"gui.button.pandoras_creatures.twitch": "Twitch",
 	"gui.button.pandoras_creatures.patreon": "Patreon",
+	"gui.button.pandoras_creatures.bufflon.sit": "Sentarse",
+	"gui.button.pandoras_creatures.bufflon.follow": "Seguir",
+	"gui.button.pandoras_creatures.bufflon.move_freely": "Mover Libremente",
+	"gui.button.pandoras_creatures.bufflon.combat": "Modo Combate",
+	"gui.button.pandoras_creatures.bufflon.peaceful": "Modo Pacífico",
 	
 //	 Chat Messages
 	"chat.pandoras_creatures.invalidJarDownload": "[aquí]",

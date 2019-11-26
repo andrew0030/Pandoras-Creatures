@@ -10,6 +10,44 @@ import net.minecraftforge.fml.config.ModConfig;
 public class Config
 {
 	/**
+     * Common configuration
+     */
+	public static class Common
+	{
+		public final ConfigValue<Boolean> arachnonSpawning;
+		public final ConfigValue<Boolean> hellhoundSpawning;
+		public final ConfigValue<Boolean> crabSpawning;
+		public final ConfigValue<Boolean> seahorseSpawning;
+		public final ConfigValue<Boolean> acidicArchvineSpawning;
+		public final ConfigValue<Boolean> bufflonSpawning;
+		
+		Common(ForgeConfigSpec.Builder builder)
+		{
+			builder.comment("Common Settings for Pandoras Creatures")
+            .push("spawning");
+			arachnonSpawning = builder
+				.comment("Toggle Arachnon Spawning")
+				.define("arachnonSpawning", true);
+			hellhoundSpawning = builder
+				.comment("Toggle Hellhound Spawning")
+				.define("hellhoundSpawning", true);
+			crabSpawning = builder
+				.comment("Toggle Crab Spawning")
+				.define("crabSpawning", true);
+			seahorseSpawning = builder
+				.comment("Toggle Seahorse Spawning")
+				.define("seahorseSpawning", true);
+			acidicArchvineSpawning = builder
+				.comment("Toggle Acidic Archvine Spawning")
+				.define("acidicArchvineSpawning", true);
+			bufflonSpawning = builder
+				.comment("Toggle Bufflon Spawning")
+				.define("bufflonSpawning", true);
+			builder.pop();
+		}
+	}
+	
+	/**
      * Client specific configuration
      */
 	public static class Client
@@ -88,13 +126,22 @@ public class Config
 		}
 	}
 	
+	public static final ForgeConfigSpec COMMONSPEC;
+	public static final Common COMMON;
 	public static final ForgeConfigSpec CLIENTSPEC;
 	public static final Client CLIENT;
+	
 	static
 	{
-		final Pair<Client, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Client::new);
-		CLIENTSPEC = specPair.getRight();
-		CLIENT = specPair.getLeft();
+		//Common
+		final Pair<Common, ForgeConfigSpec> specPairCommon = new ForgeConfigSpec.Builder().configure(Common::new);
+		COMMONSPEC = specPairCommon.getRight();
+		COMMON = specPairCommon.getLeft();
+		
+		//Client
+		final Pair<Client, ForgeConfigSpec> specPairClient = new ForgeConfigSpec.Builder().configure(Client::new);
+		CLIENTSPEC = specPairClient.getRight();
+		CLIENT = specPairClient.getLeft();
 	}
     
     @SubscribeEvent

@@ -64,6 +64,7 @@
 	"item.pandoras_creatures.crab_spawn_egg": "螃蟹刷怪蛋",
 	"item.pandoras_creatures.seahorse_spawn_egg": "海马刷怪蛋",
 	"item.pandoras_creatures.acidic_archvine_spawn_egg": "藤壶怪刷怪蛋",
+	"item.pandoras_creatures.bufflon_spawn_egg": "Bufflon Spawn Egg",
 	
 //	 Item Tooltips, [Localising Tools] can be used here.
 	"item.pandoras_creatures.acidic_archvine_spawn_egg.tooltip": "#c7藤壶怪只能在丛林树叶和地狱岩下面生长",
@@ -78,9 +79,20 @@
 	"item.pandoras_creatures.seahorse": "生海马",
 	"item.pandoras_creatures.seahorse_cooked": "熟海马",
 	"item.pandoras_creatures.acidic_archvine_tongue": "藤壶怪之舌",
+	"item.pandoras_creatures.herb_bundle": "Herb Bundle",
+	"item.pandoras_creatures.bufflon_beef": "Bufflon肉",
+	"item.pandoras_creatures.bufflon_beef_cooked": "熟Bufflon肉",
+	"item.pandoras_creatures.bufflon_hide": "Bufflon Hide",
+	"item.pandoras_creatures.bufflon_saddle": "Bufflon鞍",
+	"item.pandoras_creatures.bufflon_player_seats": "Bufflon 玩家座位",
+	"item.pandoras_creatures.bufflon_small_storage": "Bufflon 小型存储",
+	"item.pandoras_creatures.bufflon_large_storage": "Bufflon 大型存储",	
 	
 //	 Blocks
 	"block.pandoras_creatures.arachnon_crystal": "巨型蜘蛛结晶",
+	"block.pandoras_creatures.horsetail": "马尾",
+	"block.pandoras_creatures.dhania": "Dhania",
+	"block.pandoras_creatures.hill_bloom": "Hill Bloom",	
 	
 //	 实体
 	"entity.pandoras_creatures.arachnon": "巨型蜘蛛",
@@ -88,6 +100,7 @@
 	"entity.pandoras_creatures.crab": "螃蟹",
 	"entity.pandoras_creatures.seahorse": "海马",
 	"entity.pandoras_creatures.acidic_archvine": "藤壶怪",
+	"entity.pandoras_creatures.bufflon": "Bufflon",
 	
 //	 按钮工具提示
 	"gui.button.pandoras_creatures.discord": "Discord",
@@ -95,6 +108,11 @@
 	"gui.button.pandoras_creatures.youtube": "YouTube",
 	"gui.button.pandoras_creatures.twitch": "Twitch",
 	"gui.button.pandoras_creatures.patreon": "Patreon",
+	"gui.button.pandoras_creatures.bufflon.sit": "坐下",
+	"gui.button.pandoras_creatures.bufflon.follow": "跟随",
+	"gui.button.pandoras_creatures.bufflon.move_freely": "随意移动",
+	"gui.button.pandoras_creatures.bufflon.combat": "战斗模式",
+	"gui.button.pandoras_creatures.bufflon.peaceful": "和平模式",
 	
 //	 聊天消息
 	"chat.pandoras_creatures.invalidJarDownload": "[点击这里]",

@@ -3,6 +3,16 @@ package andrews.pandoras_creatures.config;
 public class ConfigHolder
 {
 	/**
+	 * Common Config
+	 */
+	public static boolean arachnonSpawning;
+	public static boolean hellhoundSpawning;
+	public static boolean crabSpawning;
+	public static boolean seahorseSpawning;
+	public static boolean acidicArchvineSpawning;
+	public static boolean bufflonSpawning;
+	
+	/**
 	 * Client Config
 	 */
 	public static boolean shouldShowUpdateMessage;

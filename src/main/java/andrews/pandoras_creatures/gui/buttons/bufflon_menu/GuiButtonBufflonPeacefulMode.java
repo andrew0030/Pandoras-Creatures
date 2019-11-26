@@ -37,6 +37,15 @@ public class GuiButtonBufflonPeacefulMode extends Button
 	@Override
 	public void renderButton(int mouseX, int mouseY, float partial)
 	{
+		if(bufflonEntity.getOwner() != Minecraft.getInstance().player)
+		{
+			this.active = false;
+		}
+		else
+		{
+			this.active = true;
+		}
+		
 		if(mouseX >= x && mouseX < x + width && mouseY >= y && mouseY < y + height)
 		{
 			this.isHovered = true;
@@ -47,7 +56,14 @@ public class GuiButtonBufflonPeacefulMode extends Button
 		}
 		
 		//change the texture pick position so the texture of the button changes
-		if(!bufflonEntity.isInCombatMode()) { u = 26; }else{ u = 0; }
+		if(this.active)
+		{
+			if(!bufflonEntity.isInCombatMode()) { u = 26; }else{ u = 0; }
+		}
+		else
+		{
+			u = 52;
+		}
 		
 		//Renders the Button
 		Minecraft.getInstance().getRenderManager().textureManager.bindTexture(texture);

@@ -41,9 +41,12 @@ public class Animator
 	 */
 	public boolean setAnimationToPlay(Animation animationToPlay)
 	{
-		this.tempTick = this.prevTempTick = 0;
-		this.correctAnimation = this.animatedEntity.getPlayingAnimation() == animationToPlay;
-		return this.correctAnimation;
+	    this.tempTick = this.prevTempTick = 0;
+	    this.correctAnimation = this.animatedEntity.getPlayingAnimation() == animationToPlay;
+	    this.prevBoxValues.clear();
+	    this.prevBoxValues.putAll(this.boxValues);
+	    this.boxValues.clear();
+	    return this.correctAnimation;
 	}
     
 	/**

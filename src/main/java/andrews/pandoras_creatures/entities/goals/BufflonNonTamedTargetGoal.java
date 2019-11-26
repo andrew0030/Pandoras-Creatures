@@ -19,7 +19,7 @@ public class BufflonNonTamedTargetGoal<T extends LivingEntity> extends NearestAt
 	 */
 	public boolean shouldExecute()
 	{
-		return !this.bufflonEntity.isTamed() && super.shouldExecute();
+		return !this.bufflonEntity.isTamed() && !this.bufflonEntity.isBeingRidden() && super.shouldExecute();
 	}
 
 	/**
@@ -27,6 +27,20 @@ public class BufflonNonTamedTargetGoal<T extends LivingEntity> extends NearestAt
 	 */
 	public boolean shouldContinueExecuting()
 	{
-		return this.targetEntitySelector != null ? this.targetEntitySelector.canTarget(this.goalOwner, this.nearestTarget) : super.shouldContinueExecuting();
+		if(this.targetEntitySelector != null)
+		{
+			if(this.goalOwner.isBeingRidden())
+			{
+				return false;
+			}
+			else
+			{
+				return this.targetEntitySelector.canTarget(this.goalOwner, this.nearestTarget);
+			}
+		}
+		else
+		{
+			return super.shouldContinueExecuting();
+		}
 	}
 }

@@ -64,6 +64,7 @@
 	"item.pandoras_creatures.crab_spawn_egg": "ƃƃƎ uʍɐdS qɐɹƆ",
 	"item.pandoras_creatures.seahorse_spawn_egg": "ƃƃƎ uʍɐdS ǝsɹoɥɐǝS",
 	"item.pandoras_creatures.acidic_archvine_spawn_egg": "ƃƃƎ uʍɐdS ǝuᴉʌɥɔɹ∀ ɔᴉpᴉɔ∀",
+	"item.pandoras_creatures.bufflon_spawn_egg": "ƃƃƎ uʍɐdS uoʃɟɟn𐐒",
 	
 //	 Item Tooltips, [Localising Tools] can be used here.
 	"item.pandoras_creatures.acidic_archvine_spawn_egg.tooltip": "#c7ɹǝpun pǝɔɐld ǝq oʇ spǝǝN\n#c7ʞɔɐɹɹǝɥʇǝN ɹo sǝʌɐǝ˥ ǝlƃunſ",
@@ -78,9 +79,20 @@
 	"item.pandoras_creatures.seahorse": "ǝsɹoɥɐǝS ʍɐɹ",
 	"item.pandoras_creatures.seahorse_cooked": "ǝsɹoɥɐǝS pǝʞooƆ",
 	"item.pandoras_creatures.acidic_archvine_tongue": "ǝnƃuo┴ ǝuᴉʌɥɔɹ∀ ɔᴉpᴉɔ∀",
+	"item.pandoras_creatures.herb_bundle": "ǝlpunq qɹǝH",
+	"item.pandoras_creatures.bufflon_beef": "ɟǝǝ𐐒 uoʃɟɟn𐐒",
+	"item.pandoras_creatures.bufflon_beef_cooked": "ɟǝǝ𐐒 uoʃɟɟn𐐒 pǝʞooↃ",
+	"item.pandoras_creatures.bufflon_hide": "ǝpıH uoʃɟɟn𐐒",
+	"item.pandoras_creatures.bufflon_saddle": "ǝʃppɐS uoʃɟɟn𐐒",
+	"item.pandoras_creatures.bufflon_player_seats": "sʇɐǝS ɹǝʎɐʃԀ uoʃɟɟn𐐒",
+	"item.pandoras_creatures.bufflon_small_storage": "ǝƃɐɹoʇS ʃʃɐɯS uoʃɟɟn𐐒",
+	"item.pandoras_creatures.bufflon_large_storage": "ǝƃɐɹoʇS ǝƃɹɐ⅂ uoʃɟɟn𐐒",
 	
 //	 Blocks
 	"block.pandoras_creatures.arachnon_crystal": "lɐʇsʎɹƆ uouɥɔɐɹ∀",
+	"block.pandoras_creatures.horsetail": "ʃıɐʇǝsɹoH",
+	"block.pandoras_creatures.dhania": "ɐıuɐɥ◖",
+	"block.pandoras_creatures.hill_bloom": "ɯooʃ𐐒 ʃʃıH",
 	
 //	 Entities
 	"entity.pandoras_creatures.arachnon": "uouɥɔɐɹ∀",
@@ -88,6 +100,7 @@
 	"entity.pandoras_creatures.crab": "qɐɹƆ",
 	"entity.pandoras_creatures.seahorse": "ǝsɹoɥɐǝS",
 	"entity.pandoras_creatures.acidic_archvine": "ǝuᴉʌɥɔɹ∀ ɔᴉpᴉɔ∀",
+	"entity.pandoras_creatures.bufflon": "uoʃɟɟn𐐒",
 	
 //  Button Tool Tips
     "gui.button.pandoras_creatures.discord": "pɹoɔsᴉp",
@@ -95,6 +108,11 @@
     "gui.button.pandoras_creatures.youtube": "ǝqn┴no⅄",
     "gui.button.pandoras_creatures.twitch": "ɥɔʇᴉʍ┴",
     "gui.button.pandoras_creatures.patreon": "uoǝɹʇɐԀ",
+    "gui.button.pandoras_creatures.bufflon.sit": "ʇıS",
+	"gui.button.pandoras_creatures.bufflon.follow": "ʍoʃʃoℲ",
+	"gui.button.pandoras_creatures.bufflon.move_freely": "ʎʃǝǝɹℲ ǝʌoW",
+	"gui.button.pandoras_creatures.bufflon.combat": "ǝpoW ʇɐqɯoↃ",
+	"gui.button.pandoras_creatures.bufflon.peaceful": "ǝpoW ʃnɟǝɔɐǝԀ",
 
 //  Chat Messages
     "chat.pandoras_creatures.invalidJarDownload": "[ǝɹǝɥ]",

@@ -22,10 +22,13 @@ public class RiderInventoryHandler
 			PlayerEntity localPlayer = Minecraft.getInstance().player;
 			if(localPlayer.isPassenger() && localPlayer.getRidingEntity() instanceof BufflonEntity)
 			{
-				event.setCanceled(true);
-				//Sends a packet to the server, and notifies it of the player opening the inventory
-				BufflonEntity bufflonEntity = (BufflonEntity) localPlayer.getRidingEntity();
-				NetworkUtil.openBufflonInventoryMessage(bufflonEntity);
+				if(((BufflonEntity) localPlayer.getRidingEntity()).isTamed())
+				{
+					event.setCanceled(true);
+					//Sends a packet to the server, and notifies it of the player opening the inventory
+					BufflonEntity bufflonEntity = (BufflonEntity) localPlayer.getRidingEntity();
+					NetworkUtil.openBufflonInventoryMessage(bufflonEntity);
+				}
 			}
 		}
     }

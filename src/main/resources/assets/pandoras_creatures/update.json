@@ -1,9 +1,10 @@
 {
   "homepage": "https://www.curseforge.com/minecraft/mc-mods/pandoras-creatures/files",
   "promos": {
-		"1.14.4-recommended": "1.14.4-0.11.0"
+		"1.14.4-recommended": "1.14.4-0.12.0"
 	},
 	"1.14.4": {
+		"1.14.4-0.12.0": "Added Bufflon Entity.\n - The Bufflon has multiple variants and spawns in snowy grass lands.\nImproved Arachnon Hammer code and fixed some bugs.\nAdded Wither Hellhound.\nAdded French translation.\nAdded Spanish translation.\nUpdated all other langs.\n - Now they are all up to date.\nAdded Config system for mob spawning.\nAdded herb blocks that spawn in world.\nMade arachnon crystal a Block.\nFixed Update Message Spam on servers.",
 		"1.14.4-0.11.0": "Added buttons to Pandoras Creatures Creative Tab.\n - The Button fade in time can be increased or disabled in the config.\nReplaced the Arachnon Hammer model.\nMade Arachnon Hammer break blocks depending on the side of the block you break.\nAdded English Upside Down lang.\nUpdated all other langs.\n - Now they are all up to date.\nAdded tools for Mod translators.",
 		"1.14.4-0.10.0": "Added Acidc Archvine Entity.\n - They come in 2 variants.\nAdded Config.\nFinished rehost protection.\nAdded update message, when update is available.\n - Can be turned of in Config.\nAdded Acidic Archvine Tongue.\n - The item does not do anything yet but it will in future versions.\nAdded Chinese translation.",
 		"1.14.4-0.9.2": "Made water mobs also spawn in versions before 2.8.1 and removed the need to use 2.8.1 and above",

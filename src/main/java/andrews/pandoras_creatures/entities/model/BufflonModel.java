@@ -1047,7 +1047,7 @@ public class BufflonModel<T extends BufflonEntity> extends PCEntityModel<T>
     {
     	loadAllDefaultValues();
     	
-    	if(entityIn.isAnimationPlaying(BufflonEntity.BLANK_ANIMATION))
+    	if(entityIn.isAnimationPlaying(BufflonEntity.BLANK_ANIMATION) || entityIn.isAnimationPlaying(BufflonEntity.ATTACK_HEAD_ANIMATION))
     	{
     		if(entityIn.isSitting() && !entityIn.isBeingRidden())
     		{
@@ -1220,8 +1220,6 @@ public class BufflonModel<T extends BufflonEntity> extends PCEntityModel<T>
     	if(animatedEntity.isAnimationPlaying(BufflonEntity.THROW_ANIMATION))
     	{
     		this.animator.setAnimationToPlay(BufflonEntity.THROW_ANIMATION);
-    		this.animator.startKeyframe(0);
-    		this.animator.endKeyframe();
     		
     		this.animator.startKeyframe(6);
     		this.animator.rotate(body, -0.2F, 0F, 0F);
@@ -1247,6 +1245,23 @@ public class BufflonModel<T extends BufflonEntity> extends PCEntityModel<T>
     		this.animator.endKeyframe();
     		
     		this.animator.resetKeyframe(6);
+    	}
+    	
+    	if(animatedEntity.isAnimationPlaying(BufflonEntity.ATTACK_HEAD_ANIMATION))
+    	{
+    		this.animator.setAnimationToPlay(BufflonEntity.ATTACK_HEAD_ANIMATION);
+    		
+    		this.animator.startKeyframe(5);
+    		this.animator.rotate(neck, 0.3F, 0.2F, 0.0F);
+    		this.animator.rotate(head_base, 0.3F, 0.2F, 0.0F);
+    		this.animator.endKeyframe();
+    		
+    		this.animator.startKeyframe(2);
+    		this.animator.rotate(neck, 0.0F, -0.3F, 0.2F);
+    		this.animator.rotate(head_base, -0.1F, -0.2F, 0.2F);
+    		this.animator.endKeyframe();
+    		
+    		this.animator.resetKeyframe(5);
     	}
     }
     

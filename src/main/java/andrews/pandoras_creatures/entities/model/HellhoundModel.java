@@ -1,5 +1,7 @@
 package andrews.pandoras_creatures.entities.model;
 
+import com.mojang.blaze3d.platform.GlStateManager;
+
 import andrews.pandoras_creatures.entities.HellhoundEntity;
 import andrews.pandoras_creatures.util.animation.PCEntityModel;
 import andrews.pandoras_creatures.util.animation.PCRendererModel;
@@ -496,7 +498,23 @@ public class HellhoundModel<T extends HellhoundEntity> extends PCEntityModel<T>
     public void render(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
     {
     	this.setRotationAngles(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-        this.body.render(scale);
+    	if(entity.getHellhoundType() == 1)
+    	{
+    		this.body.render(scale);
+    	}
+    	else
+    	{
+    		double hellhoundScale = 1.3D;
+    		GlStateManager.pushMatrix();
+            GlStateManager.translated(this.body.offsetX, this.body.offsetY, this.body.offsetZ);
+            GlStateManager.translated(this.body.rotationPointX * scale, this.body.rotationPointY * scale, this.body.rotationPointZ * scale);
+            GlStateManager.scaled(hellhoundScale, hellhoundScale, hellhoundScale);
+            GlStateManager.translated(-this.body.offsetX, -this.body.offsetY, -this.body.offsetZ);
+            GlStateManager.translated(-this.body.rotationPointX * scale, -this.body.rotationPointY * scale, -this.body.rotationPointZ * scale);
+            this.body.offsetY = -0.25F;
+            this.body.render(scale);
+            GlStateManager.popMatrix();
+    	}
     }
 
     /**

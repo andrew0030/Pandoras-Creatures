@@ -46,7 +46,7 @@
 //
 // Feel free to add or remove new lines, in order to make the text look good in the language youre working on.
 // You should use a text editor that has JSON formating in order to avoid invalid files.
-// The text %s will be replace with text. Example: "Author: %s" could become "Author: andrew0030".  
+// The text %s will be replace with text. Example: "Author: %s" could become "Author: andrew0030".
 // The text %d will be replace with a number. Example: "Radius: %d*%d*%d" could become "Radius: 3*3*3"
 //
 // IMPORTANT: The [Localising Tools] will only work on the Item Tooltips Category, as the ingame chat splits
@@ -64,11 +64,12 @@
 	"item.pandoras_creatures.crab_spawn_egg": "Krabben-Spawn-Ei",
 	"item.pandoras_creatures.seahorse_spawn_egg": "Seepferdchen-Spawn-Ei",
 	"item.pandoras_creatures.acidic_archvine_spawn_egg": "ätzende-Teufelsranke-Spawn-Ei",
-	
+	"item.pandoras_creatures.bufflon_spawn_egg": "Buffelon-Spawn-Ei",
+
 //	 Item Tooltips, [Localising Tools] can be used here.
 	"item.pandoras_creatures.acidic_archvine_spawn_egg.tooltip": "#c7Muss unter Dschungel Blättern\n#c7oder Netherstein platziert werden",
 	"item.pandoras_creatures.arachnon_hammer.tooltip": "#c7Beim zerstören von\n#c7Blöcken mit diesem\n#c7Werkzeug, wird ein\n#c73x3 Radius abgebaut.",
-	
+
 //	 Items
 	"item.pandoras_creatures.arachnon_hammer": "Arachnon Hammer",
 	"item.pandoras_creatures.crab_meat": "Krabben Fleisch",
@@ -78,24 +79,41 @@
 	"item.pandoras_creatures.seahorse": "totes Seepferdchen",
 	"item.pandoras_creatures.seahorse_cooked": "gebackenes Seepferdchen",
 	"item.pandoras_creatures.acidic_archvine_tongue": "ätzende Teufelsranken-Zunge",
-	
+	"item.pandoras_creatures.herb_bundle": "Kräuter Bündel",
+	"item.pandoras_creatures.bufflon_beef": "Buffelon Fleisch",
+	"item.pandoras_creatures.bufflon_beef_cooked": "Gebratenes Buffelon Fleisch",
+	"item.pandoras_creatures.bufflon_hide": "Buffelon Fell",
+	"item.pandoras_creatures.bufflon_saddle": "Buffelon Sattel",
+	"item.pandoras_creatures.bufflon_player_seats": "Buffelon Spieler Sitz",
+	"item.pandoras_creatures.bufflon_small_storage": "Buffelon kleines Lager",
+	"item.pandoras_creatures.bufflon_large_storage": "Buffelon großes Lager",
+
 //	 Blocks
 	"block.pandoras_creatures.arachnon_crystal": "Arachnon Kristall",
-	
+	"block.pandoras_creatures.horsetail": "Schachtelhalm",
+	"block.pandoras_creatures.dhania": "Koriander",
+	"block.pandoras_creatures.hill_bloom": "Hügel Blüte",
+
 //	 Entities
 	"entity.pandoras_creatures.arachnon": "Arachnon",
 	"entity.pandoras_creatures.hellhound": "Höllenhund",
 	"entity.pandoras_creatures.crab": "Krabbe",
 	"entity.pandoras_creatures.seahorse": "Seepferdchen",
 	"entity.pandoras_creatures.acidic_archvine": "ätzende Teufelsranke",
-	
+	"entity.pandoras_creatures.bufflon": "Buffelon",
+
 //	 Button Tool Tips
 	"gui.button.pandoras_creatures.discord": "Discord",
 	"gui.button.pandoras_creatures.curseforge": "CurseForge",
 	"gui.button.pandoras_creatures.youtube": "YouTube",
 	"gui.button.pandoras_creatures.twitch": "Twitch",
 	"gui.button.pandoras_creatures.patreon": "Patreon",
-	
+	"gui.button.pandoras_creatures.bufflon.sit": "Sitzen",
+	"gui.button.pandoras_creatures.bufflon.follow": "Folgen",
+	"gui.button.pandoras_creatures.bufflon.move_freely": "Frei bewegen",
+	"gui.button.pandoras_creatures.bufflon.combat": "Kampf Modus",
+	"gui.button.pandoras_creatures.bufflon.peaceful": "Friedlicher Modus",
+
 //	 Chat Messages
 	"chat.pandoras_creatures.invalidJarDownload": "[hier]",
 	"chat.pandoras_creatures.invalidJarDownloadTooltip": "Klicke um die Download-Seite zu öffnen.",
@@ -106,21 +124,21 @@
 	"chat.pandoras_creatures.newVersionDownloadTooltip": "Klicke um die Download-Seite zu öffnen.",
 	"chat.pandoras_creatures.newVersion": "Es gibt eine neue Pandoras Kreaturen version. Bitte klicke %s um die offizielle download Seite zu öffnen.",
 	"chat.pandoras_creatures.failedCheck": "Pandoras Kreaturen konnte nich nach neuen Versionen prüfen.",
-	
+
 //	 Crab Types
 	"chat.pandoras_creatures.crabBucketTooltip.sea": "Meeres-Krabbe",
 	"chat.pandoras_creatures.crabBucketTooltip.tropical": "tropische Krabbe",
-	
+
 //	Seahorse Sizes
 	"chat.pandoras_creatures.seahorseBucketTooltip.verySmall": "Größe: sehr klein",
 	"chat.pandoras_creatures.seahorseBucketTooltip.small": "Größe: klein",
 	"chat.pandoras_creatures.seahorseBucketTooltip.normal": "Größe: normal",
 	"chat.pandoras_creatures.seahorseBucketTooltip.big": "Größe: groß",
 	"chat.pandoras_creatures.seahorseBucketTooltip.veryBig": "Größe: sehr groß",
-	
+
 // 	Seahorse Types
 	"chat.pandoras_creatures.seahorseBucketTooltip.orange": "oranges Seepferdchen",
-	"chat.pandoras_creatures.seahorseBucketTooltip.green": "grünes Seepferdchen",	
+	"chat.pandoras_creatures.seahorseBucketTooltip.green": "grünes Seepferdchen",
 	"chat.pandoras_creatures.seahorseBucketTooltip.red": "rotes Seepferdchen",
 	"chat.pandoras_creatures.seahorseBucketTooltip.yellow": "gelbes Seepferdchen",
 	"chat.pandoras_creatures.seahorseBucketTooltip.chromatic": "chromatisches Seepferdchen",

@@ -64,6 +64,7 @@
 	"item.pandoras_creatures.crab_spawn_egg": "Uovo di spawn Granchio",
 	"item.pandoras_creatures.seahorse_spawn_egg": "Uovo di spawn Cavallucio marino",
 	"item.pandoras_creatures.acidic_archvine_spawn_egg": "Uovo di spawn Archvine Acida",
+	"item.pandoras_creatures.bufflon_spawn_egg": "Uovo di spawn Bufflon",
 	
 //	 Item Tooltips, [Localising Tools] can be used here.
 	"item.pandoras_creatures.acidic_archvine_spawn_egg.tooltip": "#c7Deve essere piazzatta sotto le \n#c7foglie di Giungla o la Netherrack",
@@ -78,9 +79,20 @@
 	"item.pandoras_creatures.seahorse": "Cavalluccio Marino Crudo",
 	"item.pandoras_creatures.seahorse_cooked": "Cavalluccio Marino Cotto",
 	"item.pandoras_creatures.acidic_archvine_tongue": "Lingua di Archvine Acida",
+	"item.pandoras_creatures.herb_bundle": "Pacchetto d'erba",
+	"item.pandoras_creatures.bufflon_beef": "Bistecca di Bufflon",
+	"item.pandoras_creatures.bufflon_beef_cooked": "Bistecca di Bufflon cotta",
+	"item.pandoras_creatures.bufflon_hide": "Pelle di Bufflon",
+	"item.pandoras_creatures.bufflon_saddle": "Sella per Bufflon",
+	"item.pandoras_creatures.bufflon_player_seats": "Seduta da player per Bufflon",
+	"item.pandoras_creatures.bufflon_small_storage": "Magazino piccolo per Bufflon",
+	"item.pandoras_creatures.bufflon_large_storage": "Magazino grande per Bufflon",
 	
 //	 Blocks
 	"block.pandoras_creatures.arachnon_crystal": "Cristallo di Arachnon",
+	"block.pandoras_creatures.horsetail": "Equiseto",
+	"block.pandoras_creatures.dhania": "Dhania",
+	"block.pandoras_creatures.hill_bloom": "Hill Bloom",
 	
 //	 Entities
 	"entity.pandoras_creatures.arachnon": "Arachnon",
@@ -88,13 +100,19 @@
 	"entity.pandoras_creatures.crab": "Granchio",
 	"entity.pandoras_creatures.seahorse": "Cavallucio Marino",
 	"entity.pandoras_creatures.acidic_archvine": "Archvine Acida",
-	
+	"entity.pandoras_creatures.bufflon": "Bufflon",
+
 //	 Button Tool Tips
 	"gui.button.pandoras_creatures.discord": "Discord",
 	"gui.button.pandoras_creatures.curseforge": "CurseForge",
 	"gui.button.pandoras_creatures.youtube": "YouTube",
 	"gui.button.pandoras_creatures.twitch": "Twitch",
 	"gui.button.pandoras_creatures.patreon": "Patreon",
+	"gui.button.pandoras_creatures.bufflon.sit": "Siediti",
+	"gui.button.pandoras_creatures.bufflon.follow": "Segui",
+	"gui.button.pandoras_creatures.bufflon.move_freely": "Muoviti liberamente",
+	"gui.button.pandoras_creatures.bufflon.combat": "modalità di combattimento",
+	"gui.button.pandoras_creatures.bufflon.peaceful": "Modalità pacifica",
 	
 //	 Chat Messages
 	"chat.pandoras_creatures.invalidJarDownload": "[qui]",
