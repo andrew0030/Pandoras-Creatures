@@ -69,7 +69,7 @@ public class EventHandler
 	 */
 	private static void outdatedMessage(PlayerEntity player)
 	{	
-		TranslationTextComponent downloadLink = new TranslationTextComponent("chat.pandoras_creatures.newVersionDownload", (Object)null);
+		TranslationTextComponent downloadLink = new TranslationTextComponent("chat.pandoras_creatures.newVersionDownload");
         downloadLink.getStyle().setUnderlined(true);
         downloadLink.getStyle().setColor(TextFormatting.BLUE);
         downloadLink.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TranslationTextComponent("chat.pandoras_creatures.newVersionDownloadTooltip", (Object)null)));

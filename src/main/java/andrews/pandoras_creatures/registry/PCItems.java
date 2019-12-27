@@ -17,8 +17,8 @@ public class PCItems
 	public static Item ARACHNON_HAMMER                        = new ItemArachnonHammer().setRegistryName(Reference.MODID, "arachnon_hammer");
 	public static Item CRAB_MEAT               	   			  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.CRAB_MEAT(false))).setRegistryName(Reference.MODID, "crab_meat");
 	public static Item CRAB_MEAT_COOKED             		  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.CRAB_MEAT(true))).setRegistryName(Reference.MODID, "crab_meat_cooked");
-	public static Item CRAB_BUCKET                			  = new ItemCrabBucket(PCEntities.CRAB, Fluids.WATER).setRegistryName(Reference.MODID, "crab_bucket");
-	public static Item SEAHORSE_BUCKET                		  = new ItemSeahorseBucket(PCEntities.SEAHORSE, Fluids.WATER).setRegistryName(Reference.MODID, "seahorse_bucket");
+	public static Item CRAB_BUCKET                			  = new ItemCrabBucket(PCEntities.CRAB, () -> Fluids.WATER).setRegistryName(Reference.MODID, "crab_bucket");
+	public static Item SEAHORSE_BUCKET                		  = new ItemSeahorseBucket(PCEntities.SEAHORSE, () -> Fluids.WATER).setRegistryName(Reference.MODID, "seahorse_bucket");
 	public static Item SEAHORSE               	   			  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.SEAHORSE(false))).setRegistryName(Reference.MODID, "seahorse");
 	public static Item SEAHORSE_COOKED             		 	  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.CRAB_MEAT(true))).setRegistryName(Reference.MODID, "seahorse_cooked");
 	public static Item ACIDIC_ARCHVINE_TONGUE                 = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP)).setRegistryName(Reference.MODID, "acidic_archvine_tongue");

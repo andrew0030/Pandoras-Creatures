@@ -76,9 +76,12 @@ public class TargetUnderneathGoal<T extends LivingEntity> extends TargetGoal
 	public void startExecuting()
 	{
 		this.goalOwner.setAttackTarget(this.nearestTarget);
-		this.acidicArchvine.setTargetedEntity(this.acidicArchvine.getAttackTarget().getEntityId());
-		this.goalOwner.world.setEntityState(this.goalOwner, (byte)5);
-		((AcidicArchvineEntity) this.goalOwner).setAttackState(1);
+		if(this.acidicArchvine.getAttackTarget() != null)
+		{
+			this.acidicArchvine.setTargetedEntity(this.acidicArchvine.getAttackTarget().getEntityId());
+			this.goalOwner.world.setEntityState(this.goalOwner, (byte)5);
+			((AcidicArchvineEntity) this.goalOwner).setAttackState(1);
+		}
 		super.startExecuting();
 	}
 	

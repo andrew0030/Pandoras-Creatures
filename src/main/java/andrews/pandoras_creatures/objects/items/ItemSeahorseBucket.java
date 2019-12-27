@@ -1,6 +1,7 @@
 package andrews.pandoras_creatures.objects.items;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 import andrews.pandoras_creatures.Main;
 import andrews.pandoras_creatures.entities.SeahorseEntity;
@@ -19,9 +20,9 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class ItemSeahorseBucket extends ItemMobBucket
 {
-	public ItemSeahorseBucket(EntityType<? extends SeahorseEntity> entityType, Fluid fluid)
+	public ItemSeahorseBucket(EntityType<? extends SeahorseEntity> entityType, Supplier<? extends Fluid> supplier)
 	{
-		super(entityType, fluid, getProperties());
+		super(entityType, supplier, getProperties());
 		this.addPropertyOverride(new ResourceLocation("variant"), (stack, world, entity) ->
 		{
 			CompoundNBT compoundnbt = stack.getTag();

@@ -64,6 +64,8 @@
 	"item.pandoras_creatures.crab_spawn_egg": "œuf d'Apparition de Crabe",
 	"item.pandoras_creatures.seahorse_spawn_egg": "œuf d'Apparition d'Hippocampe",
 	"item.pandoras_creatures.acidic_archvine_spawn_egg": "œuf d'Apparition d'Archvine d'Acide",
+	"item.pandoras_creatures.bufflon_spawn_egg": "œuf d'Apparition de Bufflon",
+
 	
 //	 Item Tooltips, [Localising Tools] can be used here.
 	"item.pandoras_creatures.acidic_archvine_spawn_egg.tooltip": "#c7Doit être placé sous Feuilles de\n#c7la jungle ou sentier du Néant",
@@ -78,9 +80,20 @@
 	"item.pandoras_creatures.seahorse": "Hippocrampe Cru",
 	"item.pandoras_creatures.seahorse_cooked": "Hippocrampe Cuite",
 	"item.pandoras_creatures.acidic_archvine_tongue": "Langue d'Archvine d'Acide",
+	"item.pandoras_creatures.herb_bundle": "Paquet d'Herbe",
+	"item.pandoras_creatures.bufflon_beef": "Boeuf de Bufflon",
+	"item.pandoras_creatures.bufflon_beef_cooked": "Boeuf de Bufflon Cuit",
+	"item.pandoras_creatures.bufflon_hide": "Cuir de Bufflon",
+	"item.pandoras_creatures.bufflon_saddle": "Selle de Bufflon",
+	"item.pandoras_creatures.bufflon_player_seats": "Sièges de Joueur de Bufflon",
+	"item.pandoras_creatures.bufflon_small_storage": "Petit Rangement de Bufflon",
+	"item.pandoras_creatures.bufflon_large_storage": "Grand Rangement de Bufflon",
 	
 //	 Blocks
 	"block.pandoras_creatures.arachnon_crystal": "Cristal d'Arachnon",
+	"block.pandoras_creatures.horsetail": "Queue de Cheval ( Plante )",
+	"block.pandoras_creatures.dhania": "Dhania",
+	"block.pandoras_creatures.hill_bloom": "Floraison des Collines",
 	
 //	 Entities
 	"entity.pandoras_creatures.arachnon": "Arachnon",
@@ -88,6 +101,7 @@
 	"entity.pandoras_creatures.crab": "Crabe",
 	"entity.pandoras_creatures.seahorse": "Hippocrampe",
 	"entity.pandoras_creatures.acidic_archvine": "Archvine d'Acide",
+	"entity.pandoras_creatures.bufflon": "Bufflon",
 	
 //	 Button Tool Tips
 	"gui.button.pandoras_creatures.discord": "Discord",
@@ -95,6 +109,11 @@
 	"gui.button.pandoras_creatures.youtube": "YouTube",
 	"gui.button.pandoras_creatures.twitch": "Twitch",
 	"gui.button.pandoras_creatures.patreon": "Patreon",
+	"gui.button.pandoras_creatures.bufflon.sit": "Asseoir",
+	"gui.button.pandoras_creatures.bufflon.follow": "Suivre",
+	"gui.button.pandoras_creatures.bufflon.move_freely": "Bouger Librement",
+	"gui.button.pandoras_creatures.bufflon.combat": "Mode Combat",
+	"gui.button.pandoras_creatures.bufflon.peaceful": "Mod Paisible",
 	
 //	 Chat Messages
 	"chat.pandoras_creatures.invalidJarDownload": "[here]",

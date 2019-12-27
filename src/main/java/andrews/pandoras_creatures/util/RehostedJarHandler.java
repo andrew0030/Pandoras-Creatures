@@ -96,16 +96,16 @@ public final class RehostedJarHandler
         lastMessagePost = System.currentTimeMillis();
         PlayerEntity player = event.player;
         
-        TranslationTextComponent downloadLink = new TranslationTextComponent("chat.pandoras_creatures.invalidJarDownload", (Object)null);
+        TranslationTextComponent downloadLink = new TranslationTextComponent("chat.pandoras_creatures.invalidJarDownload");
         downloadLink.getStyle().setUnderlined(true);
         downloadLink.getStyle().setColor(TextFormatting.BLUE);
-        downloadLink.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TranslationTextComponent("chat.pandoras_creatures.invalidJarDownloadTooltip", (Object)null)));
+        downloadLink.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TranslationTextComponent("chat.pandoras_creatures.invalidJarDownloadTooltip")));
         downloadLink.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.curseforge.com/minecraft/mc-mods/pandoras-creatures/files"));
         
-        TranslationTextComponent stopModRepostsLink = new TranslationTextComponent("chat.pandoras_creatures.invalidJarStopModReposts", (Object)null);
+        TranslationTextComponent stopModRepostsLink = new TranslationTextComponent("chat.pandoras_creatures.invalidJarStopModReposts");
         stopModRepostsLink.getStyle().setUnderlined(true);
         stopModRepostsLink.getStyle().setColor(TextFormatting.BLUE);
-        stopModRepostsLink.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TranslationTextComponent("chat.pandoras_creatures.invalidJarStopModRepostsTooltip", (Object)null)));
+        stopModRepostsLink.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TranslationTextComponent("chat.pandoras_creatures.invalidJarStopModRepostsTooltip")));
         stopModRepostsLink.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, STOP_MOD_REPOSTS_URL));
         
         TranslationTextComponent updateMessage = new TranslationTextComponent("chat.pandoras_creatures.invalidJar", downloadLink, stopModRepostsLink);

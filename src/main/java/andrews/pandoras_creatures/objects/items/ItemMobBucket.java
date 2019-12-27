@@ -1,5 +1,7 @@
 package andrews.pandoras_creatures.objects.items;
 
+import java.util.function.Supplier;
+
 import javax.annotation.Nullable;
 
 import andrews.pandoras_creatures.entities.bases.BucketableMobEntity;
@@ -21,10 +23,9 @@ public class ItemMobBucket extends BucketItem
 {
 	private final EntityType<?> entityType;
 
-	@SuppressWarnings("deprecation")
-	public ItemMobBucket(EntityType<? extends BucketableMobEntity> entityType, Fluid fluid, Item.Properties builder)
+	public ItemMobBucket(EntityType<? extends BucketableMobEntity> entityType, Supplier<? extends Fluid> supplier, Item.Properties builder)
 	{
-		super(fluid, builder);
+		super(supplier, builder);
 		this.entityType = entityType;
 	}
 

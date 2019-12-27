@@ -54,12 +54,10 @@ public class Main
 			final ModConfig config = event.getConfig();
 			if(config.getSpec() == Config.CLIENTSPEC)
 			{
-				System.out.println("CLIENT CONFIG REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
 				ConfigHelper.updateClientConfig(config);
 			}
 			if(config.getSpec() == Config.COMMONSPEC)
 			{
-				System.out.println("COMMON CONFIG OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
 				ConfigHelper.updateCommonConfig(config);
 			}
 		});
