@@ -1,5 +1,8 @@
 package andrews.pandoras_creatures.config;
 
+import static andrews.pandoras_creatures.config.ConfigHolder.acidicArchvineSpawning;
+import static andrews.pandoras_creatures.config.ConfigHolder.arachnonSpawning;
+import static andrews.pandoras_creatures.config.ConfigHolder.bufflonSpawning;
 import static andrews.pandoras_creatures.config.ConfigHolder.buttonCurseForgeOffsetX;
 import static andrews.pandoras_creatures.config.ConfigHolder.buttonCurseForgeOffsetY;
 import static andrews.pandoras_creatures.config.ConfigHolder.buttonDiscordOffsetX;
@@ -11,16 +14,13 @@ import static andrews.pandoras_creatures.config.ConfigHolder.buttonTwitchOffsetX
 import static andrews.pandoras_creatures.config.ConfigHolder.buttonTwitchOffsetY;
 import static andrews.pandoras_creatures.config.ConfigHolder.buttonYouTubeOffsetX;
 import static andrews.pandoras_creatures.config.ConfigHolder.buttonYouTubeOffsetY;
+import static andrews.pandoras_creatures.config.ConfigHolder.crabSpawning;
+import static andrews.pandoras_creatures.config.ConfigHolder.hellhoundSpawning;
+import static andrews.pandoras_creatures.config.ConfigHolder.seahorseSpawning;
 import static andrews.pandoras_creatures.config.ConfigHolder.shouldButtonsInCreativeTabBeEnabled;
 import static andrews.pandoras_creatures.config.ConfigHolder.shouldShowInvalidJarMessage;
 import static andrews.pandoras_creatures.config.ConfigHolder.shouldShowUpdateCheckFailedMessage;
 import static andrews.pandoras_creatures.config.ConfigHolder.shouldShowUpdateMessage;
-import static andrews.pandoras_creatures.config.ConfigHolder.arachnonSpawning;
-import static andrews.pandoras_creatures.config.ConfigHolder.hellhoundSpawning;
-import static andrews.pandoras_creatures.config.ConfigHolder.crabSpawning;
-import static andrews.pandoras_creatures.config.ConfigHolder.seahorseSpawning;
-import static andrews.pandoras_creatures.config.ConfigHolder.acidicArchvineSpawning;
-import static andrews.pandoras_creatures.config.ConfigHolder.bufflonSpawning;
 
 import net.minecraftforge.fml.config.ModConfig;
 

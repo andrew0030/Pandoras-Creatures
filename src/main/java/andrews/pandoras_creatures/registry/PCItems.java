@@ -3,9 +3,12 @@ package andrews.pandoras_creatures.registry;
 import andrews.pandoras_creatures.Main;
 import andrews.pandoras_creatures.objects.items.ItemArachnonHammer;
 import andrews.pandoras_creatures.objects.items.ItemCrabBucket;
+import andrews.pandoras_creatures.objects.items.ItemPlantHat;
 import andrews.pandoras_creatures.objects.items.ItemSeahorseBucket;
+import andrews.pandoras_creatures.objects.util.PCArmorMaterials;
 import andrews.pandoras_creatures.util.Reference;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -30,6 +33,7 @@ public class PCItems
 	public static Item BUFFLON_PLAYER_SEATS                   = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).maxStackSize(1)).setRegistryName(Reference.MODID, "bufflon_player_seats");
 	public static Item BUFFLON_SMALL_STORAGE                  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).maxStackSize(1)).setRegistryName(Reference.MODID, "bufflon_small_storage");
 	public static Item BUFFLON_LARGE_STORAGE                  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).maxStackSize(1)).setRegistryName(Reference.MODID, "bufflon_large_storage");
+	public static Item PLANT_HAT                			  = new ItemPlantHat(PCArmorMaterials.PLANT_HAT, EquipmentSlotType.HEAD).setRegistryName(Reference.MODID, "plant_hat");
 	
 	@SubscribeEvent
 	public static void onRegisterItems(RegistryEvent.Register<Item> event)
@@ -51,7 +55,8 @@ public class PCItems
 			BUFFLON_SADDLE,
 			BUFFLON_PLAYER_SEATS,
 			BUFFLON_SMALL_STORAGE,
-			BUFFLON_LARGE_STORAGE
+			BUFFLON_LARGE_STORAGE,
+			PLANT_HAT
 		};
 		event.getRegistry().registerAll(items);
 	}

@@ -15,6 +15,8 @@ public class HellHoundAttack extends MeleeAttackGoal
 	@Override
 	protected void checkAndPerformAttack(LivingEntity enemy, double distToEnemySqr)
 	{
+		super.checkAndPerformAttack(enemy, distToEnemySqr);
+		
 		double d0 = this.getAttackReachSqr(enemy);
 		if(distToEnemySqr <= d0 && this.attackTick <= 0)
 		{

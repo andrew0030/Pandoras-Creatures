@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javax.annotation.Nullable;
 
 import andrews.pandoras_creatures.entities.AcidicArchvineEntity;
+import andrews.pandoras_creatures.registry.PCItems;
 import andrews.pandoras_creatures.registry.PCSounds;
 import net.minecraft.entity.EntityPredicate;
 import net.minecraft.entity.LivingEntity;
@@ -56,6 +57,19 @@ public class TargetUnderneathGoal<T extends LivingEntity> extends TargetGoal
 		else
 		{
 			this.findNearestTarget();
+			
+			//Checks if the targeted entity is instance of PlayerEntity
+			if(this.nearestTarget != null && this.nearestTarget instanceof PlayerEntity)
+			{
+				PlayerEntity player = (PlayerEntity) this.nearestTarget;
+				
+				//If the player wears the plant helmet the plant will not be able to start attacking him
+				if(player.inventory.armorItemInSlot(3) != null && player.inventory.armorItemInSlot(3).getItem() == PCItems.PLANT_HAT)
+				{
+					return false;
+				}
+			}
+			
 			return this.nearestTarget != null;
 		}
 	}
