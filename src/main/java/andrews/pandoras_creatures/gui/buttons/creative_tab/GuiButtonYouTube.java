@@ -38,7 +38,7 @@ public class GuiButtonYouTube extends Button
 	@Override
 	public void renderButton(int mouseX, int mouseY, float partial)
 	{
-		if(visible && Config.CLIENT.shouldButtonsInCreativeTabBeEnabled.get() == true)
+		if(visible && Config.CLIENT.shouldButtonsInCreativeTabBeEnabled.get() == true && Minecraft.getInstance().player.getActivePotionEffects().isEmpty())
 		{
 			this.active = true;
 			calculateButtonAlpha();

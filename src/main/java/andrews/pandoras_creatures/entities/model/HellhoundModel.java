@@ -504,14 +504,14 @@ public class HellhoundModel<T extends HellhoundEntity> extends PCEntityModel<T>
     	}
     	else
     	{
-    		double hellhoundScale = 1.3D;
+    		double hellhoundScale = 1.1D;
     		GlStateManager.pushMatrix();
             GlStateManager.translated(this.body.offsetX, this.body.offsetY, this.body.offsetZ);
             GlStateManager.translated(this.body.rotationPointX * scale, this.body.rotationPointY * scale, this.body.rotationPointZ * scale);
             GlStateManager.scaled(hellhoundScale, hellhoundScale, hellhoundScale);
             GlStateManager.translated(-this.body.offsetX, -this.body.offsetY, -this.body.offsetZ);
             GlStateManager.translated(-this.body.rotationPointX * scale, -this.body.rotationPointY * scale, -this.body.rotationPointZ * scale);
-            this.body.offsetY = -0.25F;
+            this.body.offsetY = -0.12F;
             this.body.render(scale);
             GlStateManager.popMatrix();
     	}

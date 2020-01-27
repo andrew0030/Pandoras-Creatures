@@ -65,6 +65,7 @@
 	"item.pandoras_creatures.seahorse_spawn_egg": "Seahorse Spawn Egg",
 	"item.pandoras_creatures.acidic_archvine_spawn_egg": "Acidic Archvine Spawn Egg",
 	"item.pandoras_creatures.bufflon_spawn_egg": "Bufflon Spawn Egg",
+	"item.pandoras_creatures.end_troll_spawn_egg": "End Troll Spawn Egg",
 	
 //	 Item Tooltips, [Localising Tools] can be used here.
 	"item.pandoras_creatures.acidic_archvine_spawn_egg.tooltip": "#c7Needs to be placed under\n#c7Jungle Leaves or Netherrack",
@@ -103,6 +104,7 @@
 	"entity.pandoras_creatures.seahorse": "Seahorse",
 	"entity.pandoras_creatures.acidic_archvine": "Acidic Archvine",
 	"entity.pandoras_creatures.bufflon": "Bufflon",
+	"entity.pandoras_creatures.end_troll": "End Troll",
 	
 //	 Button Tool Tips
 	"gui.button.pandoras_creatures.discord": "Discord",

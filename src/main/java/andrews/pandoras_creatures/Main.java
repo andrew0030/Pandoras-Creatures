@@ -6,27 +6,37 @@ import andrews.pandoras_creatures.entities.AcidicArchvineEntity;
 import andrews.pandoras_creatures.entities.ArachnonEntity;
 import andrews.pandoras_creatures.entities.BufflonEntity;
 import andrews.pandoras_creatures.entities.CrabEntity;
+import andrews.pandoras_creatures.entities.EndTrollEntity;
 import andrews.pandoras_creatures.entities.HellhoundEntity;
 import andrews.pandoras_creatures.entities.SeahorseEntity;
+import andrews.pandoras_creatures.entities.render.AcidicArchvineRenderer;
+import andrews.pandoras_creatures.entities.render.ArachnonRenderer;
+import andrews.pandoras_creatures.entities.render.BufflonRenderer;
+import andrews.pandoras_creatures.entities.render.CrabRenderer;
+import andrews.pandoras_creatures.entities.render.EndTrollRenderer;
+import andrews.pandoras_creatures.entities.render.HellhoundRenderer;
+import andrews.pandoras_creatures.entities.render.SeahorseRenderer;
+import andrews.pandoras_creatures.gui.screen.BufflonScreen;
 import andrews.pandoras_creatures.item_groups.PCItemGroup;
 import andrews.pandoras_creatures.network.client.MessageClientAnimation;
 import andrews.pandoras_creatures.network.server.MessageServerBufflonCombatMode;
 import andrews.pandoras_creatures.network.server.MessageServerBufflonFollow;
 import andrews.pandoras_creatures.network.server.MessageServerBufflonInventory;
 import andrews.pandoras_creatures.network.server.MessageServerBufflonSit;
-import andrews.pandoras_creatures.proxy.ClientProxy;
-import andrews.pandoras_creatures.proxy.ServerProxy;
+import andrews.pandoras_creatures.registry.PCContainers;
 import andrews.pandoras_creatures.util.FeatureInjector;
 import andrews.pandoras_creatures.util.Reference;
 import andrews.pandoras_creatures.util.RehostedJarHandler;
+import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.moddiscovery.ModFile;
@@ -37,7 +47,6 @@ import net.minecraftforge.fml.network.simple.SimpleChannel;
 public class Main
 {
 	public static Main instance;
-	public static ServerProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 	public static final ItemGroup PANDORAS_CREATURES_GROUP = new PCItemGroup();
 	public static final String NETWORK_PROTOCOL = "1";
 
@@ -48,6 +57,7 @@ public class Main
 		final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 		
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setupCommon);
+		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setupClient);
 		
 		modEventBus.addListener((ModConfig.ModConfigEvent event) ->
 		{
@@ -76,7 +86,6 @@ public class Main
 	private void setupCommon(final FMLCommonSetupEvent event)
 	{
 		this.setupMessages();
-		proxy.preInit();
 		
 		ModFile file = ModList.get().getModFileById(Reference.MODID).getFile();
 		new RehostedJarHandler(file, "pandoras_creatures-" + Reference.VERSION + ".jar");
@@ -89,6 +98,25 @@ public class Main
 		SeahorseEntity.addSpawn();
 		AcidicArchvineEntity.addSpawn();
 		BufflonEntity.addSpawn();
+		EndTrollEntity.addSpawn();
+	}
+	
+	private void setupClient(final FMLClientSetupEvent event)
+	{
+		//Tile Entities
+//		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityElderEye.class, new TileEntityElderEyeRenderer());
+		
+		//Entities
+		RenderingRegistry.registerEntityRenderingHandler(ArachnonEntity.class, manager -> new ArachnonRenderer(manager));
+		RenderingRegistry.registerEntityRenderingHandler(HellhoundEntity.class, manager -> new HellhoundRenderer(manager));
+		RenderingRegistry.registerEntityRenderingHandler(CrabEntity.class, manager -> new CrabRenderer(manager));
+		RenderingRegistry.registerEntityRenderingHandler(SeahorseEntity.class, manager -> new SeahorseRenderer(manager));
+		RenderingRegistry.registerEntityRenderingHandler(AcidicArchvineEntity.class, manager -> new AcidicArchvineRenderer(manager));
+		RenderingRegistry.registerEntityRenderingHandler(BufflonEntity.class, manager -> new BufflonRenderer(manager));
+		RenderingRegistry.registerEntityRenderingHandler(EndTrollEntity.class, manager -> new EndTrollRenderer(manager));
+		
+		//ContainerScreens
+		ScreenManager.registerFactory(PCContainers.BUFFLON, BufflonScreen::new);
 	}
 	
 	void setupMessages()

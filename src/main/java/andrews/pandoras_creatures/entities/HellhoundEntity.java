@@ -11,11 +11,9 @@ import andrews.pandoras_creatures.registry.PCSounds;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.Pose;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.HurtByTargetGoal;
@@ -69,7 +67,7 @@ public class HellhoundEntity extends MonsterEntity
     	this.goalSelector.addGoal(1, new HellHoundAttack(this, 0.7D, false));
         this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
-        this.goalSelector.addGoal(4, new WaterAvoidingRandomWalkingGoal(this, 0.4D));
+        this.goalSelector.addGoal(4, new WaterAvoidingRandomWalkingGoal(this, 0.4D, 0.01F));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setCallsForHelp());
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
     }
@@ -205,11 +203,11 @@ public class HellhoundEntity extends MonsterEntity
         return flag;
     }
     
-    @Override
-    protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn)
-    {
-        return sizeIn.height * 0.8F;
-    }
+//    @Override
+//    protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn)
+//    {
+//        return sizeIn.height * 0.7F;
+//    }
     
     @Override
     public CreatureAttribute getCreatureAttribute()
