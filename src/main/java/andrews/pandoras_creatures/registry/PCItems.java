@@ -1,63 +1,57 @@
 package andrews.pandoras_creatures.registry;
 
+import java.util.List;
+
+import com.google.common.collect.Lists;
+
 import andrews.pandoras_creatures.Main;
 import andrews.pandoras_creatures.objects.items.ItemArachnonHammer;
 import andrews.pandoras_creatures.objects.items.ItemCrabBucket;
 import andrews.pandoras_creatures.objects.items.ItemPlantHat;
 import andrews.pandoras_creatures.objects.items.ItemSeahorseBucket;
 import andrews.pandoras_creatures.objects.util.PCArmorMaterials;
+import andrews.pandoras_creatures.registry.util.RegistryUtils;
 import andrews.pandoras_creatures.util.Reference;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
-@Mod.EventBusSubscriber(modid = Reference.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class PCItems
 {
-	public static Item ARACHNON_HAMMER                        = new ItemArachnonHammer().setRegistryName(Reference.MODID, "arachnon_hammer");
-	public static Item CRAB_MEAT               	   			  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.CRAB_MEAT(false))).setRegistryName(Reference.MODID, "crab_meat");
-	public static Item CRAB_MEAT_COOKED             		  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.CRAB_MEAT(true))).setRegistryName(Reference.MODID, "crab_meat_cooked");
-	public static Item CRAB_BUCKET                			  = new ItemCrabBucket(PCEntities.CRAB, () -> Fluids.WATER).setRegistryName(Reference.MODID, "crab_bucket");
-	public static Item SEAHORSE_BUCKET                		  = new ItemSeahorseBucket(PCEntities.SEAHORSE, () -> Fluids.WATER).setRegistryName(Reference.MODID, "seahorse_bucket");
-	public static Item SEAHORSE               	   			  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.SEAHORSE(false))).setRegistryName(Reference.MODID, "seahorse");
-	public static Item SEAHORSE_COOKED             		 	  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.CRAB_MEAT(true))).setRegistryName(Reference.MODID, "seahorse_cooked");
-	public static Item ACIDIC_ARCHVINE_TONGUE                 = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP)).setRegistryName(Reference.MODID, "acidic_archvine_tongue");
-	public static Item HERB_BUNDLE                 			  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP)).setRegistryName(Reference.MODID, "herb_bundle");
-	public static Item BUFFLON_BEEF                 		  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.BUFFLON_BEEF(false))).setRegistryName(Reference.MODID, "bufflon_beef");
-	public static Item BUFFLON_BEEF_COOKED                 	  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.BUFFLON_BEEF(true))).setRegistryName(Reference.MODID, "bufflon_beef_cooked");
-	public static Item BUFFLON_HIDE                			  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP)).setRegistryName(Reference.MODID, "bufflon_hide");
-	public static Item BUFFLON_SADDLE                 		  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).maxStackSize(1)).setRegistryName(Reference.MODID, "bufflon_saddle");
-	public static Item BUFFLON_PLAYER_SEATS                   = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).maxStackSize(1)).setRegistryName(Reference.MODID, "bufflon_player_seats");
-	public static Item BUFFLON_SMALL_STORAGE                  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).maxStackSize(1)).setRegistryName(Reference.MODID, "bufflon_small_storage");
-	public static Item BUFFLON_LARGE_STORAGE                  = new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).maxStackSize(1)).setRegistryName(Reference.MODID, "bufflon_large_storage");
-	public static Item PLANT_HAT                			  = new ItemPlantHat(PCArmorMaterials.PLANT_HAT, EquipmentSlotType.HEAD).setRegistryName(Reference.MODID, "plant_hat");
+	public static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, Reference.MODID);
+	public static final List<RegistryObject<Item>> SPAWN_EGGS = Lists.newArrayList();
+	/*
+	 * Items
+	 */
+	public static final RegistryObject<Item> ARACHNON_HAMMER			= RegistryUtils.createItem("arachnon_hammer", () -> new ItemArachnonHammer());
+	public static final RegistryObject<Item> CRAB_MEAT					= RegistryUtils.createItem("crab_meat", () -> new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.CRAB_MEAT(false))));
+	public static final RegistryObject<Item> CRAB_MEAT_COOKED			= RegistryUtils.createItem("crab_meat_cooked", () -> new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.CRAB_MEAT(true))));
+	public static final RegistryObject<Item> CRAB_BUCKET                = RegistryUtils.createItem("crab_bucket", () -> new ItemCrabBucket(PCEntities.CRAB.get(), () -> Fluids.WATER));
+	public static final RegistryObject<Item> SEAHORSE_BUCKET            = RegistryUtils.createItem("seahorse_bucket", () -> new ItemSeahorseBucket(PCEntities.SEAHORSE.get(), () -> Fluids.WATER));
+	public static final RegistryObject<Item> SEAHORSE               	= RegistryUtils.createItem("seahorse", () -> new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.SEAHORSE(false))));
+	public static final RegistryObject<Item> SEAHORSE_COOKED            = RegistryUtils.createItem("seahorse_cooked", () -> new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.SEAHORSE(true))));
+	public static final RegistryObject<Item> ACIDIC_ARCHVINE_TONGUE     = RegistryUtils.createItem("acidic_archvine_tongue", () -> new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP)));
+	public static final RegistryObject<Item> HERB_BUNDLE                = RegistryUtils.createItem("herb_bundle", () -> new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP)));
+	public static final RegistryObject<Item> BUFFLON_BEEF               = RegistryUtils.createItem("bufflon_beef", () -> new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.BUFFLON_BEEF(false))));
+	public static final RegistryObject<Item> BUFFLON_BEEF_COOKED        = RegistryUtils.createItem("bufflon_beef_cooked", () -> new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.BUFFLON_BEEF(true))));
+	public static final RegistryObject<Item> BUFFLON_HIDE               = RegistryUtils.createItem("bufflon_hide", () -> new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP)));
+	public static final RegistryObject<Item> BUFFLON_SADDLE             = RegistryUtils.createItem("bufflon_saddle", () -> new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).maxStackSize(1)));
+	public static final RegistryObject<Item> BUFFLON_PLAYER_SEATS       = RegistryUtils.createItem("bufflon_player_seats", () -> new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).maxStackSize(1)));
+	public static final RegistryObject<Item> BUFFLON_SMALL_STORAGE      = RegistryUtils.createItem("bufflon_small_storage", () -> new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).maxStackSize(1)));
+	public static final RegistryObject<Item> BUFFLON_LARGE_STORAGE      = RegistryUtils.createItem("bufflon_large_storage", () -> new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).maxStackSize(1)));
+	public static final RegistryObject<Item> PLANT_HAT                	= RegistryUtils.createItem("plant_hat", () -> new ItemPlantHat(PCArmorMaterials.PLANT_HAT, EquipmentSlotType.HEAD));
 	
-	@SubscribeEvent
-	public static void onRegisterItems(RegistryEvent.Register<Item> event)
-	{
-		final Item[] items =
-		{
-			ARACHNON_HAMMER,
-			CRAB_MEAT,
-			CRAB_MEAT_COOKED,
-			CRAB_BUCKET,
-			SEAHORSE_BUCKET,
-			SEAHORSE,
-			SEAHORSE_COOKED,
-			ACIDIC_ARCHVINE_TONGUE,
-			HERB_BUNDLE,
-			BUFFLON_BEEF,
-			BUFFLON_BEEF_COOKED,
-			BUFFLON_HIDE,
-			BUFFLON_SADDLE,
-			BUFFLON_PLAYER_SEATS,
-			BUFFLON_SMALL_STORAGE,
-			BUFFLON_LARGE_STORAGE,
-			PLANT_HAT
-		};
-		event.getRegistry().registerAll(items);
-	}
+	/*
+	 * Spawn Eggs
+	 */
+	public static final RegistryObject<Item> ARACHNON_SPAWN_EGG			= RegistryUtils.createSpawnEggItem("arachnon", () -> PCEntities.ARACHNON.get(), 5394534, 12257023);
+	public static final RegistryObject<Item> HELLHOUND_SPAWN_EGG		= RegistryUtils.createSpawnEggItem("hellhound", () -> PCEntities.HELLHOUND.get(), 0xf5f3f0, 0xfc750d);
+	public static final RegistryObject<Item> CRAB_SPAWN_EGG				= RegistryUtils.createSpawnEggItem("crab", () -> PCEntities.CRAB.get(), 0xf79811, 0xffde3b);
+	public static final RegistryObject<Item> SEAHORSE_SPAWN_EGG			= RegistryUtils.createSpawnEggItem("seahorse", () -> PCEntities.SEAHORSE.get(), 0x38d1d1, 0xd98f27);
+	public static final RegistryObject<Item> ACIDIC_ARCHVINE_SPAWN_EGG	= RegistryUtils.createSpawnEggWithToolTipItem("acidic_archvine", () -> PCEntities.ACIDIC_ARCHVINE.get(), 0x14661f, 0x7b34ad, "item.pandoras_creatures.acidic_archvine_spawn_egg.tooltip");
+	public static final RegistryObject<Item> BUFFLON_SPAWN_EGG			= RegistryUtils.createSpawnEggItem("bufflon", () -> PCEntities.BUFFLON.get(), 0x4f3914, 0x1a1d29);
+	public static final RegistryObject<Item> END_TROLL_SPAWN_EGG		= RegistryUtils.createSpawnEggItem("end_troll", () -> PCEntities.END_TROLL.get(), 0x4f3914, 0x4f3914);
 }

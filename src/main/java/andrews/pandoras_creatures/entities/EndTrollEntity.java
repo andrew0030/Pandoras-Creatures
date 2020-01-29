@@ -23,7 +23,7 @@ public class EndTrollEntity extends AnimatedCreatureEntity
 
     public EndTrollEntity(World world, double posX, double posY, double posZ)
     {
-        this(PCEntities.END_TROLL, world);
+        this(PCEntities.END_TROLL.get(), world);
         this.setPosition(posX, posY, posZ);
     }
     
@@ -56,7 +56,7 @@ public class EndTrollEntity extends AnimatedCreatureEntity
     {
 		if(Arrays.asList(biomes).contains(biome))
 		{
-			biome.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(PCEntities.END_TROLL, 30, 1, 1));
+			biome.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(PCEntities.END_TROLL.get(), 30, 1, 1));
         }
 	}
 }

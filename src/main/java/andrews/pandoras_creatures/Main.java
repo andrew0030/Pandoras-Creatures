@@ -23,16 +23,28 @@ import andrews.pandoras_creatures.network.server.MessageServerBufflonCombatMode;
 import andrews.pandoras_creatures.network.server.MessageServerBufflonFollow;
 import andrews.pandoras_creatures.network.server.MessageServerBufflonInventory;
 import andrews.pandoras_creatures.network.server.MessageServerBufflonSit;
+import andrews.pandoras_creatures.objects.items.PCSpawnEggItem;
+import andrews.pandoras_creatures.registry.PCBlocks;
 import andrews.pandoras_creatures.registry.PCContainers;
+import andrews.pandoras_creatures.registry.PCEntities;
+import andrews.pandoras_creatures.registry.PCItems;
+import andrews.pandoras_creatures.registry.PCSounds;
 import andrews.pandoras_creatures.util.FeatureInjector;
 import andrews.pandoras_creatures.util.Reference;
 import andrews.pandoras_creatures.util.RehostedJarHandler;
 import net.minecraft.client.gui.ScreenManager;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -56,9 +68,17 @@ public class Main
 		
 		final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 		
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setupCommon);
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setupClient);
+		PCItems.ITEMS.register(modEventBus);
+		PCBlocks.BLOCKS.register(modEventBus);
+		PCEntities.ENTITY_TYPES.register(modEventBus);
+		PCSounds.SOUNDS.register(modEventBus);
 		
+		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {modEventBus.addListener(EventPriority.LOWEST, this::registerItemColors);});
+		
+		FMLJavaModLoadingContext.get().getModEventBus().addListener(EventPriority.LOWEST, this::setupCommon);
+		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {modEventBus.addListener(this::setupClient);});
+		
+		//Configs
 		modEventBus.addListener((ModConfig.ModConfigEvent event) ->
 		{
 			final ModConfig config = event.getConfig();
@@ -77,12 +97,14 @@ public class Main
 		modLoadingContext.registerConfig(ModConfig.Type.COMMON, Config.COMMONSPEC);
 	}
 	
+	//Networking
 	public static final SimpleChannel CHANNEL = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(Reference.MODID, "net"))
 		.networkProtocolVersion(() -> NETWORK_PROTOCOL)
 		.clientAcceptedVersions(NETWORK_PROTOCOL::equals)
 		.serverAcceptedVersions(NETWORK_PROTOCOL::equals)
 		.simpleChannel();
 	
+	//Setup Common
 	private void setupCommon(final FMLCommonSetupEvent event)
 	{
 		this.setupMessages();
@@ -101,6 +123,8 @@ public class Main
 		EndTrollEntity.addSpawn();
 	}
 	
+	//Setup Client
+	@OnlyIn(Dist.CLIENT)
 	private void setupClient(final FMLClientSetupEvent event)
 	{
 		//Tile Entities
@@ -119,6 +143,24 @@ public class Main
 		ScreenManager.registerFactory(PCContainers.BUFFLON, BufflonScreen::new);
 	}
 	
+	//Item Colors
+	@OnlyIn(Dist.CLIENT)
+	private void registerItemColors(ColorHandlerEvent.Item event)
+	{
+		for(RegistryObject<Item> items : PCItems.SPAWN_EGGS)
+		{
+			Item item = items.get();
+			if(item instanceof PCSpawnEggItem)
+			{
+				event.getItemColors().register((itemColor, itemsIn) ->
+				{
+					return ((PCSpawnEggItem) item).getColor(itemsIn);
+				}, item);
+			}
+		}
+	}
+	
+	//Setup Messages
 	void setupMessages()
 	{
 		int id = -1;

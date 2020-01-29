@@ -91,20 +91,20 @@ public class BufflonScreen extends ContainerScreen<BufflonContainer>
 	    //The Saddle slot previews
 	    if(!bufflonEntity.isSaddled())
 	    {
-	    	Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(new ItemStack(PCItems.BUFFLON_SADDLE), x + 23, y + 102);
+	    	Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(new ItemStack(PCItems.BUFFLON_SADDLE.get()), x + 23, y + 102);
 	    }
 	    
 	    if(!bufflonEntity.hasBackAttachment())
 	    {
 		    switch(attachmentToRender) {
 			case 1:
-				Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(new ItemStack(PCItems.BUFFLON_PLAYER_SEATS), x + 51, y + 102);
+				Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(new ItemStack(PCItems.BUFFLON_PLAYER_SEATS.get()), x + 51, y + 102);
 				break;
 			case 2:
-				Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(new ItemStack(PCItems.BUFFLON_SMALL_STORAGE), x + 51, y + 102);
+				Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(new ItemStack(PCItems.BUFFLON_SMALL_STORAGE.get()), x + 51, y + 102);
 				break;
 			case 3:
-				Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(new ItemStack(PCItems.BUFFLON_LARGE_STORAGE), x + 51, y + 102);
+				Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(new ItemStack(PCItems.BUFFLON_LARGE_STORAGE.get()), x + 51, y + 102);
 				break;
 			default:
 				break;

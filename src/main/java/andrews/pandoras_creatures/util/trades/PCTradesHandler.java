@@ -28,13 +28,13 @@ public class PCTradesHandler
 		if(event.getType() == VillagerProfession.LEATHERWORKER)
 		{
 			//Adds the Bufflon Hide
-			event.getTrades().get(3).add(new EmeraldForItemsTrade(PCItems.BUFFLON_HIDE, 3, 5, 12, 20));
+			event.getTrades().get(3).add(new EmeraldForItemsTrade(PCItems.BUFFLON_HIDE.get(), 3, 5, 12, 20));
 			//Adds the Bufflon Saddle
-			event.getTrades().get(4).add(new ItemsForEmeraldsTrade(PCItems.BUFFLON_SADDLE, 25, 1, 3, 30));
+			event.getTrades().get(4).add(new ItemsForEmeraldsTrade(PCItems.BUFFLON_SADDLE.get(), 25, 1, 3, 30));
 			//Adds the Bufflon Back Attachments
-			event.getTrades().get(5).add(new ItemsForEmeraldsTrade(PCItems.BUFFLON_PLAYER_SEATS, 34, 1, 3, 32));
-			event.getTrades().get(5).add(new ItemsForEmeraldsTrade(PCItems.BUFFLON_SMALL_STORAGE, 34, 1, 3, 32));
-			event.getTrades().get(5).add(new ItemsForEmeraldsTrade(PCItems.BUFFLON_LARGE_STORAGE, 34, 1, 3, 32));
+			event.getTrades().get(5).add(new ItemsForEmeraldsTrade(PCItems.BUFFLON_PLAYER_SEATS.get(), 34, 1, 3, 32));
+			event.getTrades().get(5).add(new ItemsForEmeraldsTrade(PCItems.BUFFLON_SMALL_STORAGE.get(), 34, 1, 3, 32));
+			event.getTrades().get(5).add(new ItemsForEmeraldsTrade(PCItems.BUFFLON_LARGE_STORAGE.get(), 34, 1, 3, 32));
 		}
 		
 		/**
@@ -43,7 +43,7 @@ public class PCTradesHandler
 		if(event.getType() == VillagerProfession.BUTCHER)
 		{
 			//Adds the Bufflon Beef
-			event.getTrades().get(3).add(new EmeraldForItemsTrade(PCItems.BUFFLON_BEEF, 4, 10, 12, 20));
+			event.getTrades().get(3).add(new EmeraldForItemsTrade(PCItems.BUFFLON_BEEF.get(), 4, 10, 12, 20));
 		}
 	}
 	

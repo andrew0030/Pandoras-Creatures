@@ -1,52 +1,32 @@
 package andrews.pandoras_creatures.registry;
 
-import java.util.List;
-
-import com.google.common.collect.Lists;
-
 import andrews.pandoras_creatures.util.Reference;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.ObjectHolder;
 
-@EventBusSubscriber(modid = Reference.MODID, bus = EventBusSubscriber.Bus.MOD)
-@ObjectHolder(Reference.MODID)
 public class PCSounds
 {
-	private static List<SoundEvent> sounds = Lists.newArrayList();
-	public static final SoundEvent ARACHNON_AMBIENT = createSound("entity.arachnon.ambient");
-	public static final SoundEvent ARACHNON_HURT = createSound("entity.arachnon.hurt");
-	public static final SoundEvent ARACHNON_DEATH = createSound("entity.arachnon.death");
-	public static final SoundEvent HELLHOUND_AMBIENT = createSound("entity.hellhound.ambient");
-	public static final SoundEvent HELLHOUND_HURT = createSound("entity.hellhound.hurt");
-	public static final SoundEvent HELLHOUND_DEATH = createSound("entity.hellhound.death");
-	public static final SoundEvent CRAB_HURT = createSound("entity.crab.hurt");
-	public static final SoundEvent CRAB_DEATH = createSound("entity.crab.death");
-	public static final SoundEvent ACIDIC_ARCHVINE_ATTACK = createSound("entity.acidic_archvine.attack");
-	public static final SoundEvent BUFFLON_AMBIENT = createSound("entity.bufflon.ambient");
-	public static final SoundEvent BUFFLON_HURT = createSound("entity.bufflon.hurt");
-	public static final SoundEvent BUFFLON_DEATH = createSound("entity.bufflon.death");
-	public static final SoundEvent BUFFLON_ATTACK = createSound("entity.bufflon.attack");
+	public static final DeferredRegister<SoundEvent> SOUNDS = new DeferredRegister<>(ForgeRegistries.SOUND_EVENTS, Reference.MODID);
 	
-	public static SoundEvent createSound(String name)
+	public static final RegistryObject<SoundEvent> ARACHNON_AMBIENT = createSoundEvent("entity.arachnon.ambient");
+	public static final RegistryObject<SoundEvent> ARACHNON_HURT = createSoundEvent("entity.arachnon.hurt");
+	public static final RegistryObject<SoundEvent> ARACHNON_DEATH = createSoundEvent("entity.arachnon.death");
+	public static final RegistryObject<SoundEvent> HELLHOUND_AMBIENT = createSoundEvent("entity.hellhound.ambient");
+	public static final RegistryObject<SoundEvent> HELLHOUND_HURT = createSoundEvent("entity.hellhound.hurt");
+	public static final RegistryObject<SoundEvent> HELLHOUND_DEATH = createSoundEvent("entity.hellhound.death");
+	public static final RegistryObject<SoundEvent> CRAB_HURT = createSoundEvent("entity.crab.hurt");
+	public static final RegistryObject<SoundEvent> CRAB_DEATH = createSoundEvent("entity.crab.death");
+	public static final RegistryObject<SoundEvent> ACIDIC_ARCHVINE_ATTACK = createSoundEvent("entity.acidic_archvine.attack");
+	public static final RegistryObject<SoundEvent> BUFFLON_AMBIENT = createSoundEvent("entity.bufflon.ambient");
+	public static final RegistryObject<SoundEvent> BUFFLON_HURT = createSoundEvent("entity.bufflon.hurt");
+	public static final RegistryObject<SoundEvent> BUFFLON_DEATH = createSoundEvent("entity.bufflon.death");
+	public static final RegistryObject<SoundEvent> BUFFLON_ATTACK = createSoundEvent("entity.bufflon.attack");
+	
+	private static RegistryObject<SoundEvent> createSoundEvent(String name)
 	{
-		ResourceLocation location = new ResourceLocation(Reference.MODID, name);
-		SoundEvent event = new SoundEvent(location);
-		event.setRegistryName(name);
-		ForgeRegistries.SOUND_EVENTS.register(event);
-		return event;
+		return SOUNDS.register(name, () -> new SoundEvent(new ResourceLocation(Reference.MODID, name)));
 	}
-	
-	@SubscribeEvent
-    public static void registerSound(RegistryEvent.Register<SoundEvent> event)
-	{
-        for(SoundEvent sound : sounds)
-        {
-            event.getRegistry().register(sound);
-        }
-    }
 }

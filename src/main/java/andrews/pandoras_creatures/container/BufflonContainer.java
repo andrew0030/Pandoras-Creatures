@@ -122,15 +122,15 @@ public class BufflonContainer extends Container
 		}
 		else
 		{
-			if(this.inventorySlots.get(1).getStack().getItem() == PCItems.BUFFLON_PLAYER_SEATS)
+			if(this.inventorySlots.get(1).getStack().getItem() == PCItems.BUFFLON_PLAYER_SEATS.get())
 			{
 				return 2;
 			}
-			else if(this.inventorySlots.get(1).getStack().getItem() == PCItems.BUFFLON_SMALL_STORAGE)
+			else if(this.inventorySlots.get(1).getStack().getItem() == PCItems.BUFFLON_SMALL_STORAGE.get())
 			{
 				return (3 * 9) + 2;
 			}
-			else if(this.inventorySlots.get(1).getStack().getItem() == PCItems.BUFFLON_LARGE_STORAGE)
+			else if(this.inventorySlots.get(1).getStack().getItem() == PCItems.BUFFLON_LARGE_STORAGE.get())
 			{
 				return (6 * 9) + 2;
 			}

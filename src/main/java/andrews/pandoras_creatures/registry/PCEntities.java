@@ -1,11 +1,7 @@
 package andrews.pandoras_creatures.registry;
 
-import java.util.List;
 import java.util.Random;
 
-import com.google.common.collect.Lists;
-
-import andrews.pandoras_creatures.Main;
 import andrews.pandoras_creatures.entities.AcidicArchvineEntity;
 import andrews.pandoras_creatures.entities.ArachnonEntity;
 import andrews.pandoras_creatures.entities.BufflonEntity;
@@ -13,122 +9,85 @@ import andrews.pandoras_creatures.entities.CrabEntity;
 import andrews.pandoras_creatures.entities.EndTrollEntity;
 import andrews.pandoras_creatures.entities.HellhoundEntity;
 import andrews.pandoras_creatures.entities.SeahorseEntity;
-import andrews.pandoras_creatures.registry.util.RegistryUtils;
 import andrews.pandoras_creatures.registry.util.SpawnConditions;
 import andrews.pandoras_creatures.util.Reference;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
-@Mod.EventBusSubscriber(modid = Reference.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
-@SuppressWarnings("rawtypes")
+@EventBusSubscriber(modid = Reference.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class PCEntities
 {
-	private static List<EntityType> entities = Lists.newArrayList();
-	private static List<Item> spawnEggs = Lists.newArrayList();
+	public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = new DeferredRegister<>(ForgeRegistries.ENTITIES, Reference.MODID);
 	
-	public static final EntityType<ArachnonEntity> ARACHNON = createEntity(ArachnonEntity.class, ArachnonEntity::new, EntityClassification.MONSTER, "arachnon", 2.8F, 1.8F, 5394534, 12257023);
-	public static final EntityType<HellhoundEntity> HELLHOUND = createNetherEntity(HellhoundEntity.class, HellhoundEntity::new, EntityClassification.MONSTER, "hellhound", 1.0F, 1.2F, 0xf5f3f0, 0xfc750d);
-	public static final EntityType<CrabEntity> CRAB = createEntity(CrabEntity.class, CrabEntity::new, EntityClassification.AMBIENT, "crab", 0.8F, 0.3F, 0xf79811, 0xffde3b);
-	public static final EntityType<SeahorseEntity> SEAHORSE = createEntity(SeahorseEntity.class, SeahorseEntity::new, EntityClassification.AMBIENT, "seahorse", 0.4F, 0.8F, 0x38d1d1, 0xd98f27);
-	public static final EntityType<AcidicArchvineEntity> ACIDIC_ARCHVINE = createAcidicArchvineEntity(AcidicArchvineEntity.class, AcidicArchvineEntity::new, EntityClassification.MONSTER, "acidic_archvine", 1.0F, 1.5F, 0x14661f, 0x7b34ad);
-	public static final EntityType<BufflonEntity> BUFFLON = createEntity(BufflonEntity.class, BufflonEntity::new, EntityClassification.CREATURE, "bufflon", 2.4F, 3.0F, 0x4f3914, 0x1a1d29);
-	public static final EntityType<EndTrollEntity> END_TROLL = createEntity(EndTrollEntity.class, EndTrollEntity::new, EntityClassification.MONSTER, "end_troll", 3.0F, 3.0F, 0x4f3914, 0x4f3914);
+	public static final RegistryObject<EntityType<ArachnonEntity>> ARACHNON = ENTITY_TYPES.register("arachnon", () -> createLivingEntity(ArachnonEntity::new, EntityClassification.MONSTER, "arachnon", 2.8F, 1.8F));
+	public static final RegistryObject<EntityType<HellhoundEntity>> HELLHOUND = ENTITY_TYPES.register("hellhound", () -> createLivingNetherEntity(HellhoundEntity::new, EntityClassification.MONSTER, "hellhound", 1.0F, 1.2F));
+	public static final RegistryObject<EntityType<CrabEntity>> CRAB = ENTITY_TYPES.register("crab", () -> createLivingEntity(CrabEntity::new, EntityClassification.AMBIENT, "crab", 0.8F, 0.3F));
+	public static final RegistryObject<EntityType<SeahorseEntity>> SEAHORSE = ENTITY_TYPES.register("seahorse", () -> createLivingEntity(SeahorseEntity::new, EntityClassification.AMBIENT, "seahorse", 0.4F, 0.8F));
+	public static final RegistryObject<EntityType<AcidicArchvineEntity>> ACIDIC_ARCHVINE = ENTITY_TYPES.register("acidic_archvine", () -> createLivingEntity(AcidicArchvineEntity::new, EntityClassification.MONSTER, "acidic_archvine", 1.0F, 1.5F));
+	public static final RegistryObject<EntityType<BufflonEntity>> BUFFLON = ENTITY_TYPES.register("bufflon", () -> createLivingEntity(BufflonEntity::new, EntityClassification.CREATURE, "bufflon", 2.4F, 3.0F));
+	public static final RegistryObject<EntityType<EndTrollEntity>> END_TROLL = ENTITY_TYPES.register("end_troll", () -> createLivingEntity(EndTrollEntity::new, EntityClassification.MONSTER, "end_troll", 3.0F, 3.0F));
 	
 	//=========================================================================================================================================================================================================================================
 	//=========================================================================================================================================================================================================================================
-	//Entity Creation Method
-	private static <T extends Entity> EntityType<T> createEntity(Class<T> entityClass, EntityType.IFactory<T> factory, EntityClassification entityClassification, String name, float width, float height, int eggPrimary, int eggSecondary)
+	
+	//LivingEntity Creation Method
+	private static <T extends LivingEntity> EntityType<T> createLivingEntity(EntityType.IFactory<T> factory, EntityClassification entityClassification, String name, float width, float height)
 	{
-        ResourceLocation location = new ResourceLocation(Reference.MODID, name);
-      
-        EntityType<T> entity = EntityType.Builder.create(factory, entityClassification)
-        	.size(width, height)
-        	.setTrackingRange(20)
-        	.build(location.toString());
-        
-        entity.setRegistryName(location);
-        
-        entities.add(entity);
-        spawnEggs.add(RegistryUtils.createSpawnEggForEntity(entity, eggPrimary, eggSecondary, Main.PANDORAS_CREATURES_GROUP));
-        return entity;
+		ResourceLocation location = new ResourceLocation(Reference.MODID, name);
+		EntityType<T> entity = EntityType.Builder.create(factory, entityClassification)
+			.size(width, height)
+			.setTrackingRange(64)
+			.setShouldReceiveVelocityUpdates(true)
+			.setUpdateInterval(3)
+			.build(location.toString()
+		);
+		return entity;
 	}
+	
 	//Nether Entity Creation Method
-	private static <T extends Entity> EntityType<T> createNetherEntity(Class<T> entityClass, EntityType.IFactory<T> factory, EntityClassification entityClassification, String name, float width, float height, int eggPrimary, int eggSecondary)
+	private static <T extends LivingEntity> EntityType<T> createLivingNetherEntity(EntityType.IFactory<T> factory, EntityClassification entityClassification, String name, float width, float height)
 	{
-        ResourceLocation location = new ResourceLocation(Reference.MODID, name);
-      
-        EntityType<T> entity = EntityType.Builder.create(factory, entityClassification)
-        	.size(width, height)
-        	.immuneToFire()
-        	.setTrackingRange(16)
-        	.build(location.toString());
-        
-        entity.setRegistryName(location);
-        
-        entities.add(entity);
-        spawnEggs.add(RegistryUtils.createSpawnEggForEntity(entity, eggPrimary, eggSecondary, Main.PANDORAS_CREATURES_GROUP));
-        return entity;
-	}
-	//Acidic Archvine Entity Creation Method
-	private static <T extends Entity> EntityType<T> createAcidicArchvineEntity(Class<T> entityClass, EntityType.IFactory<T> factory, EntityClassification entityClassification, String name, float width, float height, int eggPrimary, int eggSecondary)
-	{
-        ResourceLocation location = new ResourceLocation(Reference.MODID, name);
-      
-        EntityType<T> entity = EntityType.Builder.create(factory, entityClassification)
-        	.size(width, height)
-        	.setTrackingRange(60)
-        	.build(location.toString());
-        
-        entity.setRegistryName(location);
-        
-        entities.add(entity);
-        
-    	String langPath = "item.pandoras_creatures.acidic_archvine_spawn_egg.tooltip";
-        
-    	spawnEggs.add(RegistryUtils.createSpawnEggWithTooltipForEntity(entity, eggPrimary, eggSecondary, langPath, Main.PANDORAS_CREATURES_GROUP));
-        return entity;
+		ResourceLocation location = new ResourceLocation(Reference.MODID, name);
+		EntityType<T> entity = EntityType.Builder.create(factory, entityClassification)
+			.size(width, height)
+			.setTrackingRange(64)
+			.setShouldReceiveVelocityUpdates(true)
+			.setUpdateInterval(3)
+			.immuneToFire()
+			.build(location.toString()
+		);
+		return entity;
 	}
 	
 	//=========================================================================================================================================================================================================================================
 	//=========================================================================================================================================================================================================================================
 	
 	//Entity Registry
-    @SubscribeEvent
-    public static void registerEntities(RegistryEvent.Register<EntityType<?>> event)
-    {
-    	for (EntityType entity : entities)
-    	{
-    		event.getRegistry().register(entity);
-    	}
-    	EntitySpawnPlacementRegistry.register(ARACHNON, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PCEntities::noDayLightMobCondition);
-    	EntitySpawnPlacementRegistry.register(HELLHOUND, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PCEntities::netherCondition);
-    	EntitySpawnPlacementRegistry.register(CRAB, EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS, Heightmap.Type.OCEAN_FLOOR, PCEntities::amphibianstMobCondition);
-    	EntitySpawnPlacementRegistry.register(SEAHORSE, EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PCEntities::waterCondition);
-    	EntitySpawnPlacementRegistry.register(ACIDIC_ARCHVINE, EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PCEntities::acidicArchvineCondition);
-    	EntitySpawnPlacementRegistry.register(BUFFLON, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PCEntities::bufflonCondition);
-    	EntitySpawnPlacementRegistry.register(END_TROLL, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PCEntities::noDayLightMobCondition); //TODO
-    }
-    
-    //Entity Spawn Egg Registry
-    @SubscribeEvent
-    public static void registerSpawnEggs(RegistryEvent.Register<Item> event)
-    {
-        for (Item spawnEgg : spawnEggs)
-        {
-            event.getRegistry().register(spawnEgg);
-        }
+	@SubscribeEvent(priority = EventPriority.LOWEST)
+	public static void registerEntities(RegistryEvent.Register<EntityType<?>> event)
+	{
+    	EntitySpawnPlacementRegistry.register(ARACHNON.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PCEntities::noDayLightMobCondition);
+    	EntitySpawnPlacementRegistry.register(HELLHOUND.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PCEntities::netherCondition);
+    	EntitySpawnPlacementRegistry.register(CRAB.get(), EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS, Heightmap.Type.OCEAN_FLOOR, PCEntities::amphibianstMobCondition);
+    	EntitySpawnPlacementRegistry.register(SEAHORSE.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PCEntities::waterCondition);
+    	EntitySpawnPlacementRegistry.register(ACIDIC_ARCHVINE.get(), EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PCEntities::acidicArchvineCondition);
+    	EntitySpawnPlacementRegistry.register(BUFFLON.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PCEntities::bufflonCondition);
+    	EntitySpawnPlacementRegistry.register(END_TROLL.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PCEntities::noDayLightMobCondition); //TODO
     }
     
     //=========================================================================================================================================================================================================================================

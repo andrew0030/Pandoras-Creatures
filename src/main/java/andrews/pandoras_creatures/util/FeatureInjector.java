@@ -16,9 +16,9 @@ public class FeatureInjector
 	 */
 	public static void addFeaturesToBiomes()
 	{
-		Biomes.PLAINS.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(PCFeatures.HORSETAIL, new GrassFeatureConfig(PCBlocks.HORSETAIL.getDefaultState()), Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(2)));
-		Biomes.SUNFLOWER_PLAINS.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(PCFeatures.HORSETAIL, new GrassFeatureConfig(PCBlocks.HORSETAIL.getDefaultState()), Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(1)));
-		Biomes.SWAMP.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(PCFeatures.DHANIA, new GrassFeatureConfig(PCBlocks.DHANIA.getDefaultState()), Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(1)));
-		Biomes.MOUNTAINS.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(PCFeatures.HILL_BLOOM, new GrassFeatureConfig(PCBlocks.HILL_BLOOM.getDefaultState()), Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(1)));
+		Biomes.PLAINS.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(PCFeatures.HORSETAIL, new GrassFeatureConfig(PCBlocks.HORSETAIL.get().getDefaultState()), Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(2)));
+		Biomes.SUNFLOWER_PLAINS.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(PCFeatures.HORSETAIL, new GrassFeatureConfig(PCBlocks.HORSETAIL.get().getDefaultState()), Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(1)));
+		Biomes.SWAMP.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(PCFeatures.DHANIA, new GrassFeatureConfig(PCBlocks.DHANIA.get().getDefaultState()), Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(1)));
+		Biomes.MOUNTAINS.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(PCFeatures.HILL_BLOOM, new GrassFeatureConfig(PCBlocks.HILL_BLOOM.get().getDefaultState()), Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(1)));
 	}
 }

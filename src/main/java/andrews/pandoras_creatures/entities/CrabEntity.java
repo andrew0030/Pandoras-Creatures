@@ -52,7 +52,7 @@ public class CrabEntity extends BucketableMobEntity
 
     public CrabEntity(World world, double posX, double posY, double posZ)
     {
-        this(PCEntities.CRAB, world);
+        this(PCEntities.CRAB.get(), world);
         this.setPosition(posX, posY, posZ);
     }
     
@@ -142,7 +142,7 @@ public class CrabEntity extends BucketableMobEntity
     @Override
 	public ItemStack getBucket()
     {
-		return new ItemStack(PCItems.CRAB_BUCKET);
+		return new ItemStack(PCItems.CRAB_BUCKET.get());
 	}
     
     @Override
@@ -192,13 +192,13 @@ public class CrabEntity extends BucketableMobEntity
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSourceIn)
     {
-    	return PCSounds.CRAB_HURT;
+    	return PCSounds.CRAB_HURT.get();
     }
     
     @Override
     protected SoundEvent getDeathSound()
     {
-    	return PCSounds.CRAB_DEATH;
+    	return PCSounds.CRAB_DEATH.get();
     }
     
     public static String getNameById(int id)
@@ -241,7 +241,7 @@ public class CrabEntity extends BucketableMobEntity
     {
 		if(Arrays.asList(biomes).contains(biome))
 		{
-			biome.addSpawn(EntityClassification.AMBIENT, new Biome.SpawnListEntry(PCEntities.CRAB, 40, 2, 5));
+			biome.addSpawn(EntityClassification.AMBIENT, new Biome.SpawnListEntry(PCEntities.CRAB.get(), 40, 2, 5));
 		}
     }
 }

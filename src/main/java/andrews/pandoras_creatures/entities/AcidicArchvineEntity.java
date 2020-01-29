@@ -47,7 +47,7 @@ public class AcidicArchvineEntity extends MonsterEntity
 
     public AcidicArchvineEntity(World world, double posX, double posY, double posZ)
     {
-        this(PCEntities.ACIDIC_ARCHVINE, world);
+        this(PCEntities.ACIDIC_ARCHVINE.get(), world);
         this.setPosition(posX, posY, posZ);
     }
 
@@ -302,11 +302,11 @@ public class AcidicArchvineEntity extends MonsterEntity
     {
 		if(Arrays.asList(biomes).contains(biome))
 		{
-			biome.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(PCEntities.ACIDIC_ARCHVINE, 100, 1, 1));
+			biome.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(PCEntities.ACIDIC_ARCHVINE.get(), 100, 1, 1));
         }
 		else if(biome == Biomes.NETHER)
 		{
-			biome.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(PCEntities.ACIDIC_ARCHVINE, 30, 1, 1));
+			biome.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(PCEntities.ACIDIC_ARCHVINE.get(), 30, 1, 1));
 		}
 	}
 }

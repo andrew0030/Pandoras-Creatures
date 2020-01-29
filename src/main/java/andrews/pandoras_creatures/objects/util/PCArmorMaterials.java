@@ -10,7 +10,7 @@ import net.minecraft.util.SoundEvents;
 
 public enum PCArmorMaterials implements IArmorMaterial
 {
-	PLANT_HAT("plant_hat", new int[] {30, 30, 30, 30}, new int[] {1, 1, 1, 1}, 15, PCItems.ACIDIC_ARCHVINE_TONGUE, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F);
+	PLANT_HAT("plant_hat", new int[] {30, 30, 30, 30}, new int[] {1, 1, 1, 1}, 15, PCItems.ACIDIC_ARCHVINE_TONGUE.get(), SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F);
 	
 	private int[] durabilities, damageReduction;
 	private int enchantability;

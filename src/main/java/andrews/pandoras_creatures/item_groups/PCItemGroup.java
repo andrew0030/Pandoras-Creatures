@@ -20,6 +20,6 @@ public class PCItemGroup extends ItemGroup
 	@Override
 	public ItemStack createIcon()
 	{
-		return new ItemStack(PCItems.SEAHORSE);
+		return new ItemStack(PCItems.SEAHORSE.get());
 	}
 }

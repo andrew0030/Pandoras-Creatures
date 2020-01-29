@@ -45,7 +45,7 @@ public class ArachnonEntity extends MonsterEntity
 
     public ArachnonEntity(World world, double posX, double posY, double posZ)
     {
-        this(PCEntities.ARACHNON, world);
+        this(PCEntities.ARACHNON.get(), world);
         this.setPosition(posX, posY, posZ);
     }
     
@@ -132,19 +132,19 @@ public class ArachnonEntity extends MonsterEntity
     @Override
     protected SoundEvent getAmbientSound()
     {
-    	return PCSounds.ARACHNON_AMBIENT;
+    	return PCSounds.ARACHNON_AMBIENT.get();
     }
     
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSourceIn)
     {
-    	return PCSounds.ARACHNON_HURT;
+    	return PCSounds.ARACHNON_HURT.get();
     }
     
     @Override
     protected SoundEvent getDeathSound()
     {
-    	return PCSounds.ARACHNON_DEATH;
+    	return PCSounds.ARACHNON_DEATH.get();
     }
     
     @Override
@@ -168,7 +168,7 @@ public class ArachnonEntity extends MonsterEntity
     {
 		if(Arrays.asList(biomes).contains(biome))
 		{
-			biome.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(PCEntities.ARACHNON, 20, 1, 1));
+			biome.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(PCEntities.ARACHNON.get(), 20, 1, 1));
         }
 	}
 }

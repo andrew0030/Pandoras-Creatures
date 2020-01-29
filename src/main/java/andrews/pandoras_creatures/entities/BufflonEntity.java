@@ -101,8 +101,8 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
 	private static final DataParameter<Boolean> COMBAT_MODE = EntityDataManager.createKey(BufflonEntity.class, DataSerializers.BOOLEAN);
 	
 	//The Items that can be used in given slots;
-	public static final Item SADDLE_ITEM = PCItems.BUFFLON_SADDLE;
-	public static final Item[] VALID_BACK_ATTACHMENTS = {PCItems.BUFFLON_PLAYER_SEATS, PCItems.BUFFLON_SMALL_STORAGE, PCItems.BUFFLON_LARGE_STORAGE};
+	public static final Item SADDLE_ITEM = PCItems.BUFFLON_SADDLE.get();
+	public static final Item[] VALID_BACK_ATTACHMENTS = {PCItems.BUFFLON_PLAYER_SEATS.get(), PCItems.BUFFLON_SMALL_STORAGE.get(), PCItems.BUFFLON_LARGE_STORAGE.get()};
 	
 	private int thinkTime;
 	private int feedingCooldown;
@@ -121,7 +121,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
 
     public BufflonEntity(World world, double posX, double posY, double posZ)
     {
-        this(PCEntities.BUFFLON, world);
+        this(PCEntities.BUFFLON.get(), world);
         this.setPosition(posX, posY, posZ);
     }
     
@@ -308,7 +308,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
     protected boolean processInteract(PlayerEntity player, Hand hand)
     {
     	ItemStack itemstack = player.getHeldItem(hand);
-        if(itemstack.getItem() == PCItems.HERB_BUNDLE)
+        if(itemstack.getItem() == PCItems.HERB_BUNDLE.get())
         {
         	//Is Not Tamed
         	if(!this.world.isRemote && !this.isTamed())
@@ -392,7 +392,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
     {
     	boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float)((int)this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getValue()));
     	//The attack sound
-    	this.world.playSound((PlayerEntity)null, this.posX, this.posY, this.posZ, PCSounds.BUFFLON_ATTACK, this.getSoundCategory(), 0.6F, 0.8F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
+    	this.world.playSound((PlayerEntity)null, this.posX, this.posY, this.posZ, PCSounds.BUFFLON_ATTACK.get(), this.getSoundCategory(), 0.6F, 0.8F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
     	//The attack animation
     	if(this.isAnimationPlaying(BLANK_ANIMATION) && !this.getEntityWorld().isRemote())
     	{
@@ -521,7 +521,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
         		}
         		else
         		{
-        			this.world.playSound((PlayerEntity)null, this.posX, this.posY, this.posZ, PCSounds.BUFFLON_ATTACK, this.getSoundCategory(), 0.6F, 0.8F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
+        			this.world.playSound((PlayerEntity)null, this.posX, this.posY, this.posZ, PCSounds.BUFFLON_ATTACK.get(), this.getSoundCategory(), 0.6F, 0.8F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
         			//Removes the Passengers
         			for(int i = this.getPassengers().size() - 1; i >= 0; --i)
         			{
@@ -547,19 +547,19 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
     @Override
     protected SoundEvent getAmbientSound()
     {
-    	return PCSounds.BUFFLON_AMBIENT;
+    	return PCSounds.BUFFLON_AMBIENT.get();
     }
     
     @Override
     protected SoundEvent getDeathSound()
     {
-    	return PCSounds.BUFFLON_DEATH;
+    	return PCSounds.BUFFLON_DEATH.get();
     }
     
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSourceIn)
     {
-    	return PCSounds.BUFFLON_HURT;
+    	return PCSounds.BUFFLON_HURT.get();
     }
     
     @Override
@@ -1063,15 +1063,15 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
     	}
     	else
     	{
-    		if(item == PCItems.BUFFLON_PLAYER_SEATS)
+    		if(item == PCItems.BUFFLON_PLAYER_SEATS.get())
     		{
     			return 1;
     		}
-    		else if(item == PCItems.BUFFLON_SMALL_STORAGE)
+    		else if(item == PCItems.BUFFLON_SMALL_STORAGE.get())
     		{
     			return 2;
     		}
-    		else if(item == PCItems.BUFFLON_LARGE_STORAGE)
+    		else if(item == PCItems.BUFFLON_LARGE_STORAGE.get())
     		{
     			return 3;
     		}
@@ -1314,7 +1314,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
     {
 		if(Arrays.asList(biomes).contains(biome))
 		{
-			biome.addSpawn(EntityClassification.CREATURE, new Biome.SpawnListEntry(PCEntities.BUFFLON, 3, 1, 1));
+			biome.addSpawn(EntityClassification.CREATURE, new Biome.SpawnListEntry(PCEntities.BUFFLON.get(), 3, 1, 1));
 		}
     }
     

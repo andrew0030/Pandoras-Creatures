@@ -59,7 +59,7 @@ public class SeahorseEntity extends BucketableMobEntity
 
     public SeahorseEntity(World world, double posX, double posY, double posZ)
     {
-        this(PCEntities.SEAHORSE, world);
+        this(PCEntities.SEAHORSE.get(), world);
         this.setPosition(posX, posY, posZ);
     }
     
@@ -245,7 +245,7 @@ public class SeahorseEntity extends BucketableMobEntity
     @Override
 	public ItemStack getBucket()
     {
-		return new ItemStack(PCItems.SEAHORSE_BUCKET);
+		return new ItemStack(PCItems.SEAHORSE_BUCKET.get());
 	}
     
     protected boolean func_212800_dy()
@@ -346,11 +346,11 @@ public class SeahorseEntity extends BucketableMobEntity
     {
 		if(Arrays.asList(biomesHot).contains(biome))
 		{
-			biome.addSpawn(EntityClassification.WATER_CREATURE, new Biome.SpawnListEntry(PCEntities.SEAHORSE, 25, 3, 6));
+			biome.addSpawn(EntityClassification.WATER_CREATURE, new Biome.SpawnListEntry(PCEntities.SEAHORSE.get(), 25, 3, 6));
 		}
 		else if(Arrays.asList(biomesCold).contains(biome))
 		{
-			biome.addSpawn(EntityClassification.WATER_CREATURE, new Biome.SpawnListEntry(PCEntities.SEAHORSE, 10, 2, 3));
+			biome.addSpawn(EntityClassification.WATER_CREATURE, new Biome.SpawnListEntry(PCEntities.SEAHORSE.get(), 10, 2, 3));
 		}
     }
     

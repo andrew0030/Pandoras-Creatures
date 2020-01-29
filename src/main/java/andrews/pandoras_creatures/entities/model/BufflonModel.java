@@ -1335,7 +1335,7 @@ public class BufflonModel<T extends BufflonEntity> extends PCEntityModel<T>
      */
     private void renderSmallStorageBoxes(BufflonEntity entity, int itensInInventory)
     {
-    	if(entity.bufflonStorage.getStackInSlot(1).getItem() == PCItems.BUFFLON_SMALL_STORAGE)
+    	if(entity.bufflonStorage.getStackInSlot(1).getItem() == PCItems.BUFFLON_SMALL_STORAGE.get())
     	{
     		if(itensInInventory >= 5)
     		{
@@ -1363,7 +1363,7 @@ public class BufflonModel<T extends BufflonEntity> extends PCEntityModel<T>
      */
     private void renderLargeStorageBoxes(BufflonEntity entity, int itensInInventory)
     {
-    	if(entity.bufflonStorage.getStackInSlot(1).getItem() == PCItems.BUFFLON_LARGE_STORAGE)
+    	if(entity.bufflonStorage.getStackInSlot(1).getItem() == PCItems.BUFFLON_LARGE_STORAGE.get())
     	{
     		if(itensInInventory >= 5)
     		{

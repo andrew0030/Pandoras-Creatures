@@ -57,7 +57,7 @@ public class HellhoundEntity extends MonsterEntity
 
     public HellhoundEntity(World world, double posX, double posY, double posZ)
     {
-        this(PCEntities.HELLHOUND, world);
+        this(PCEntities.HELLHOUND.get(), world);
         this.setPosition(posX, posY, posZ);
     }
     
@@ -225,19 +225,19 @@ public class HellhoundEntity extends MonsterEntity
     @Override
     protected SoundEvent getAmbientSound()
     {
-    	return PCSounds.HELLHOUND_AMBIENT;
+    	return PCSounds.HELLHOUND_AMBIENT.get();
     }
     
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSourceIn)
     {
-    	return PCSounds.HELLHOUND_HURT;
+    	return PCSounds.HELLHOUND_HURT.get();
     }
     
     @Override
     protected SoundEvent getDeathSound()
     {
-    	return PCSounds.HELLHOUND_DEATH;
+    	return PCSounds.HELLHOUND_DEATH.get();
     }
     
     @Override
@@ -289,7 +289,7 @@ public class HellhoundEntity extends MonsterEntity
     {
 		if(Arrays.asList(biomes).contains(biome))
 		{
-			biome.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(PCEntities.HELLHOUND, 30, 3, 6));
+			biome.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(PCEntities.HELLHOUND.get(), 30, 3, 6));
         }
 	}
 }

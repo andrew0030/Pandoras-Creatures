@@ -64,7 +64,7 @@ public class TargetUnderneathGoal<T extends LivingEntity> extends TargetGoal
 				PlayerEntity player = (PlayerEntity) this.nearestTarget;
 				
 				//If the player wears the plant helmet the plant will not be able to start attacking him
-				if(player.inventory.armorItemInSlot(3) != null && player.inventory.armorItemInSlot(3).getItem() == PCItems.PLANT_HAT)
+				if(player.inventory.armorItemInSlot(3) != null && player.inventory.armorItemInSlot(3).getItem() == PCItems.PLANT_HAT.get())
 				{
 					return false;
 				}
@@ -150,7 +150,7 @@ public class TargetUnderneathGoal<T extends LivingEntity> extends TargetGoal
 				if((this.goalOwner.ticksExisted % 20) == 0)
 				{
 					this.goalOwner.attackEntityAsMob(this.nearestTarget);
-					this.goalOwner.playSound(PCSounds.ACIDIC_ARCHVINE_ATTACK, 1.0F, 1.0F);
+					this.goalOwner.playSound(PCSounds.ACIDIC_ARCHVINE_ATTACK.get(), 1.0F, 1.0F);
 				}
 			}
 			this.nearestTarget.velocityChanged = true;
