@@ -9,14 +9,6 @@ import andrews.pandoras_creatures.entities.CrabEntity;
 import andrews.pandoras_creatures.entities.EndTrollEntity;
 import andrews.pandoras_creatures.entities.HellhoundEntity;
 import andrews.pandoras_creatures.entities.SeahorseEntity;
-import andrews.pandoras_creatures.entities.render.AcidicArchvineRenderer;
-import andrews.pandoras_creatures.entities.render.ArachnonRenderer;
-import andrews.pandoras_creatures.entities.render.BufflonRenderer;
-import andrews.pandoras_creatures.entities.render.CrabRenderer;
-import andrews.pandoras_creatures.entities.render.EndTrollRenderer;
-import andrews.pandoras_creatures.entities.render.HellhoundRenderer;
-import andrews.pandoras_creatures.entities.render.SeahorseRenderer;
-import andrews.pandoras_creatures.gui.screen.BufflonScreen;
 import andrews.pandoras_creatures.item_groups.PCItemGroup;
 import andrews.pandoras_creatures.network.client.MessageClientAnimation;
 import andrews.pandoras_creatures.network.server.MessageServerBufflonCombatMode;
@@ -32,7 +24,6 @@ import andrews.pandoras_creatures.registry.PCSounds;
 import andrews.pandoras_creatures.util.FeatureInjector;
 import andrews.pandoras_creatures.util.Reference;
 import andrews.pandoras_creatures.util.RehostedJarHandler;
-import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
@@ -41,11 +32,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -70,13 +61,13 @@ public class Main
 		
 		PCItems.ITEMS.register(modEventBus);
 		PCBlocks.BLOCKS.register(modEventBus);
+		PCContainers.CONTAINERS.register(modEventBus);
 		PCEntities.ENTITY_TYPES.register(modEventBus);
 		PCSounds.SOUNDS.register(modEventBus);
 		
 		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {modEventBus.addListener(EventPriority.LOWEST, this::registerItemColors);});
 		
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(EventPriority.LOWEST, this::setupCommon);
-		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {modEventBus.addListener(this::setupClient);});
+		FMLJavaModLoadingContext.get().getModEventBus().register(Main.class);
 		
 		//Configs
 		modEventBus.addListener((ModConfig.ModConfigEvent event) ->
@@ -105,9 +96,10 @@ public class Main
 		.simpleChannel();
 	
 	//Setup Common
-	private void setupCommon(final FMLCommonSetupEvent event)
+	@SubscribeEvent
+	public static void setupCommon(final FMLCommonSetupEvent event)
 	{
-		this.setupMessages();
+		setupMessages();
 		
 		ModFile file = ModList.get().getModFileById(Reference.MODID).getFile();
 		new RehostedJarHandler(file, "pandoras_creatures-" + Reference.VERSION + ".jar");
@@ -124,28 +116,21 @@ public class Main
 	}
 	
 	//Setup Client
-	@OnlyIn(Dist.CLIENT)
-	private void setupClient(final FMLClientSetupEvent event)
+	@SubscribeEvent
+	public static void setupClient(final FMLClientSetupEvent event)
 	{
 		//Tile Entities
 //		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityElderEye.class, new TileEntityElderEyeRenderer());
 		
 		//Entities
-		RenderingRegistry.registerEntityRenderingHandler(ArachnonEntity.class, manager -> new ArachnonRenderer(manager));
-		RenderingRegistry.registerEntityRenderingHandler(HellhoundEntity.class, manager -> new HellhoundRenderer(manager));
-		RenderingRegistry.registerEntityRenderingHandler(CrabEntity.class, manager -> new CrabRenderer(manager));
-		RenderingRegistry.registerEntityRenderingHandler(SeahorseEntity.class, manager -> new SeahorseRenderer(manager));
-		RenderingRegistry.registerEntityRenderingHandler(AcidicArchvineEntity.class, manager -> new AcidicArchvineRenderer(manager));
-		RenderingRegistry.registerEntityRenderingHandler(BufflonEntity.class, manager -> new BufflonRenderer(manager));
-		RenderingRegistry.registerEntityRenderingHandler(EndTrollEntity.class, manager -> new EndTrollRenderer(manager));
-		
+		PCEntities.registerEntityRenders();
 		//ContainerScreens
-		ScreenManager.registerFactory(PCContainers.BUFFLON, BufflonScreen::new);
+		PCContainers.screenSetup();
 	}
 	
 	//Item Colors
 	@OnlyIn(Dist.CLIENT)
-	private void registerItemColors(ColorHandlerEvent.Item event)
+	public void registerItemColors(ColorHandlerEvent.Item event)
 	{
 		for(RegistryObject<Item> items : PCItems.SPAWN_EGGS)
 		{
@@ -161,7 +146,7 @@ public class Main
 	}
 	
 	//Setup Messages
-	void setupMessages()
+	static void setupMessages()
 	{
 		int id = -1;
 		//Client Messages

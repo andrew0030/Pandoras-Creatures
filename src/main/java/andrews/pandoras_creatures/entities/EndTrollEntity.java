@@ -4,9 +4,12 @@ import java.util.Arrays;
 
 import andrews.pandoras_creatures.entities.bases.AnimatedCreatureEntity;
 import andrews.pandoras_creatures.registry.PCEntities;
+import andrews.pandoras_creatures.registry.PCItems;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
@@ -38,6 +41,12 @@ public class EndTrollEntity extends AnimatedCreatureEntity
     {
         super.registerAttributes();
 //      this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(14.0D); //TODO
+    }
+    
+    @Override
+    public ItemStack getPickedResult(RayTraceResult target)
+    {
+    	return new ItemStack(PCItems.END_TROLL_SPAWN_EGG.get());
     }
     
     @Override

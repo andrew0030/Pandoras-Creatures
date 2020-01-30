@@ -6,6 +6,7 @@ import javax.annotation.Nullable;
 
 import andrews.pandoras_creatures.entities.goals.TargetUnderneathGoal;
 import andrews.pandoras_creatures.registry.PCEntities;
+import andrews.pandoras_creatures.registry.PCItems;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
@@ -16,12 +17,14 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorld;
@@ -72,6 +75,12 @@ public class AcidicArchvineEntity extends MonsterEntity
     	super.registerData();
         this.dataManager.register(TARGET_ENTITY, 0);
         this.dataManager.register(ARCHVINE_TYPE, 0);
+    }
+    
+    @Override
+    public ItemStack getPickedResult(RayTraceResult target)
+    {
+    	return new ItemStack(PCItems.ACIDIC_ARCHVINE_SPAWN_EGG.get());
     }
     
     @Override

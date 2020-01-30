@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 
 import andrews.pandoras_creatures.entities.goals.HellHoundAttack;
 import andrews.pandoras_creatures.registry.PCEntities;
+import andrews.pandoras_creatures.registry.PCItems;
 import andrews.pandoras_creatures.registry.PCSounds;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.Entity;
@@ -34,6 +35,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -85,6 +87,12 @@ public class HellhoundEntity extends MonsterEntity
 		super.registerData();
 		this.dataManager.register(HELLHOUND_TYPE, 0);
 	}
+    
+    @Override
+    public ItemStack getPickedResult(RayTraceResult target)
+    {
+    	return new ItemStack(PCItems.HELLHOUND_SPAWN_EGG.get());
+    }
     
     @Override
 	public void writeAdditional(CompoundNBT compound)

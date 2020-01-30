@@ -36,6 +36,7 @@ import net.minecraft.util.EntityPredicates;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorld;
@@ -86,6 +87,12 @@ public class SeahorseEntity extends BucketableMobEntity
 		this.dataManager.register(SEAHORSE_TYPE, 0);
 		this.dataManager.register(SEAHORSE_SIZE, 0);
 	}
+    
+    @Override
+    public ItemStack getPickedResult(RayTraceResult target)
+    {
+    	return new ItemStack(PCItems.SEAHORSE_SPAWN_EGG.get());
+    }
     
     /**
      * Returns new PathNavigateGround instance

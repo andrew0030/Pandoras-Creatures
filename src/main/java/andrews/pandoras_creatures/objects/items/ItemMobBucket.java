@@ -21,9 +21,9 @@ import net.minecraft.world.World;
 
 public class ItemMobBucket extends BucketItem
 {
-	private final EntityType<?> entityType;
+	private final Supplier<EntityType<? extends BucketableMobEntity>> entityType;
 
-	public ItemMobBucket(EntityType<? extends BucketableMobEntity> entityType, Supplier<? extends Fluid> supplier, Item.Properties builder)
+	public ItemMobBucket(Supplier<EntityType<? extends BucketableMobEntity>> entityType, Supplier<? extends Fluid> supplier, Item.Properties builder)
 	{
 		super(supplier, builder);
 		this.entityType = entityType;
@@ -62,7 +62,7 @@ public class ItemMobBucket extends BucketItem
 	 */
 	private void placeEntity(World worldIn, ItemStack stack, BlockPos pos)
 	{
-		Entity entity = this.entityType.spawn(worldIn, stack, (PlayerEntity)null, pos, SpawnReason.BUCKET, true, false);
+		Entity entity = this.entityType.get().spawn(worldIn, stack, (PlayerEntity)null, pos, SpawnReason.BUCKET, true, false);
 		
 		if(entity != null)
 		{

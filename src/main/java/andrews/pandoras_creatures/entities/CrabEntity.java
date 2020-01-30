@@ -28,6 +28,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -77,6 +78,12 @@ public class CrabEntity extends BucketableMobEntity
 		super.registerData();
 		this.dataManager.register(CRAB_TYPE, 0);
 	}
+    
+    @Override
+    public ItemStack getPickedResult(RayTraceResult target)
+    {
+    	return new ItemStack(PCItems.CRAB_SPAWN_EGG.get());
+    }
     
     @Override
 	protected void setBucketData(ItemStack bucket)

@@ -29,8 +29,8 @@ public class PCItems
 	public static final RegistryObject<Item> ARACHNON_HAMMER			= RegistryUtils.createItem("arachnon_hammer", () -> new ItemArachnonHammer());
 	public static final RegistryObject<Item> CRAB_MEAT					= RegistryUtils.createItem("crab_meat", () -> new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.CRAB_MEAT(false))));
 	public static final RegistryObject<Item> CRAB_MEAT_COOKED			= RegistryUtils.createItem("crab_meat_cooked", () -> new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.CRAB_MEAT(true))));
-	public static final RegistryObject<Item> CRAB_BUCKET                = RegistryUtils.createItem("crab_bucket", () -> new ItemCrabBucket(PCEntities.CRAB.get(), () -> Fluids.WATER));
-	public static final RegistryObject<Item> SEAHORSE_BUCKET            = RegistryUtils.createItem("seahorse_bucket", () -> new ItemSeahorseBucket(PCEntities.SEAHORSE.get(), () -> Fluids.WATER));
+	public static final RegistryObject<Item> CRAB_BUCKET                = RegistryUtils.createItem("crab_bucket", () -> new ItemCrabBucket(() -> PCEntities.CRAB.get(), () -> Fluids.WATER));
+	public static final RegistryObject<Item> SEAHORSE_BUCKET            = RegistryUtils.createItem("seahorse_bucket", () -> new ItemSeahorseBucket(() -> PCEntities.SEAHORSE.get(), () -> Fluids.WATER));
 	public static final RegistryObject<Item> SEAHORSE               	= RegistryUtils.createItem("seahorse", () -> new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.SEAHORSE(false))));
 	public static final RegistryObject<Item> SEAHORSE_COOKED            = RegistryUtils.createItem("seahorse_cooked", () -> new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.SEAHORSE(true))));
 	public static final RegistryObject<Item> ACIDIC_ARCHVINE_TONGUE     = RegistryUtils.createItem("acidic_archvine_tongue", () -> new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP)));

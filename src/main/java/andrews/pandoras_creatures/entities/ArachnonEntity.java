@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import andrews.pandoras_creatures.entities.goals.MeleeAttackGoalWithRange;
 import andrews.pandoras_creatures.registry.PCEntities;
+import andrews.pandoras_creatures.registry.PCItems;
 import andrews.pandoras_creatures.registry.PCSounds;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.CreatureAttribute;
@@ -22,10 +23,12 @@ import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
@@ -69,6 +72,12 @@ public class ArachnonEntity extends MonsterEntity
         super.registerAttributes();
         this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80.0D);
         this.getAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(0.2D);
+    }
+    
+    @Override
+    public ItemStack getPickedResult(RayTraceResult target)
+    {
+    	return new ItemStack(PCItems.ARACHNON_SPAWN_EGG.get());
     }
     
     @Override

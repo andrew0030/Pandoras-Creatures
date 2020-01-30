@@ -9,6 +9,13 @@ import andrews.pandoras_creatures.entities.CrabEntity;
 import andrews.pandoras_creatures.entities.EndTrollEntity;
 import andrews.pandoras_creatures.entities.HellhoundEntity;
 import andrews.pandoras_creatures.entities.SeahorseEntity;
+import andrews.pandoras_creatures.entities.render.AcidicArchvineRenderer;
+import andrews.pandoras_creatures.entities.render.ArachnonRenderer;
+import andrews.pandoras_creatures.entities.render.BufflonRenderer;
+import andrews.pandoras_creatures.entities.render.CrabRenderer;
+import andrews.pandoras_creatures.entities.render.EndTrollRenderer;
+import andrews.pandoras_creatures.entities.render.HellhoundRenderer;
+import andrews.pandoras_creatures.entities.render.SeahorseRenderer;
 import andrews.pandoras_creatures.registry.util.SpawnConditions;
 import andrews.pandoras_creatures.util.Reference;
 import net.minecraft.entity.EntityClassification;
@@ -21,10 +28,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.Heightmap;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -91,6 +101,24 @@ public class PCEntities
     }
     
     //=========================================================================================================================================================================================================================================
+    //=========================================================================================================================================================================================================================================
+  	
+	/**
+	 * Registers Model Rendering for entities
+	 */
+    @OnlyIn(Dist.CLIENT)
+    public static void registerEntityRenders()
+    {
+		RenderingRegistry.registerEntityRenderingHandler(ArachnonEntity.class, ArachnonRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(HellhoundEntity.class, HellhoundRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(CrabEntity.class, CrabRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(SeahorseEntity.class, SeahorseRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(AcidicArchvineEntity.class, AcidicArchvineRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(BufflonEntity.class, BufflonRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(EndTrollEntity.class, EndTrollRenderer::new);
+    }
+	
+	//=========================================================================================================================================================================================================================================
     //=========================================================================================================================================================================================================================================
   	
   	//Entity Spawn Conditions

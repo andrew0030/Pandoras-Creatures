@@ -23,13 +23,12 @@ public class BufflonContainer extends Container
 	
 	public BufflonContainer(final int windowId, final PlayerInventory playerInventory, PacketBuffer data)
 	{
-//		super(ModContainerTypes.BUFFLON, windowId);
 		this(windowId, playerInventory, data.readInt());
 	}
 	
 	public BufflonContainer(int windowId, PlayerInventory playerInventory, int entityId)
 	{
-		super(PCContainers.BUFFLON, windowId);
+		super(PCContainers.BUFFLON.get(), windowId);
 		
         this.bufflonEntity = (BufflonEntity) playerInventory.player.world.getEntityByID(entityId);
         this.bufflonStorge = bufflonEntity.bufflonStorage;

@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 
 import andrews.pandoras_creatures.Main;
 import andrews.pandoras_creatures.entities.CrabEntity;
+import andrews.pandoras_creatures.entities.bases.BucketableMobEntity;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluid;
@@ -20,7 +21,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class ItemCrabBucket extends ItemMobBucket
 {
-	public ItemCrabBucket(EntityType<? extends CrabEntity> entityType, Supplier<? extends Fluid> supplier)
+	public ItemCrabBucket(Supplier<EntityType<? extends BucketableMobEntity>> entityType, Supplier<? extends Fluid> supplier)
 	{
 		super(entityType, supplier, getProperties());
 		this.addPropertyOverride(new ResourceLocation("variant"), (stack, world, entity) ->

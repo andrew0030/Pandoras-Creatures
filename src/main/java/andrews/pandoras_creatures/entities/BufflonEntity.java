@@ -67,6 +67,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.DifficultyInstance;
@@ -165,6 +166,12 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
 		this.dataManager.register(IS_SITTING, false);
 		this.dataManager.register(IS_FOLLOWING, false);
 		this.dataManager.register(COMBAT_MODE, false);
+    }
+    
+    @Override
+    public ItemStack getPickedResult(RayTraceResult target)
+    {
+    	return new ItemStack(PCItems.BUFFLON_SPAWN_EGG.get());
     }
     
     @Override
