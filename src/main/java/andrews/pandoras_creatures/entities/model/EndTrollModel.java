@@ -1,6 +1,7 @@
 package andrews.pandoras_creatures.entities.model;
 
 import andrews.pandoras_creatures.entities.EndTrollEntity;
+import andrews.pandoras_creatures.util.animation.Animator;
 import andrews.pandoras_creatures.util.animation.PCEntityModel;
 import andrews.pandoras_creatures.util.animation.PCRendererModel;
 import net.minecraftforge.api.distmarker.Dist;
@@ -176,6 +177,8 @@ public class EndTrollModel<T extends EndTrollEntity> extends PCEntityModel<T>
     public PCRendererModel foot_right_front_slope;
     public PCRendererModel foot_right_back;
     public PCRendererModel foot_right_back_slope;
+    
+    public Animator animator = new Animator();
 
     public EndTrollModel()
     {
@@ -1030,123 +1033,236 @@ public class EndTrollModel<T extends EndTrollEntity> extends PCEntityModel<T>
     	
     	if(entity.isAnimationPlaying(EndTrollEntity.BLANK_ANIMATION))
     	{
+    		if(entity.prevPosX != entity.posX || entity.prevPosZ != entity.posZ)
+    		{
+        		float globalSpeed = 1.0F;
+            	float globalHeight = 1.0F;
+            	float globalDegree = 1.0F;
+            	
+            	bounce(bottom_body, globalSpeed * 0.4F, globalHeight * 0.8F, false, limbSwing, limbSwingAmount);
+            	//Left Leg
+            	swing(leg_left_1, globalSpeed * 0.2F, globalDegree * 0.22F, false, 2.2F, 0.0F, limbSwing, limbSwingAmount);
+            	swing(leg_left_2, globalSpeed * 0.2F, globalDegree * 0.25F, false, 2.7F, 0.0F, limbSwing, limbSwingAmount);
+            	swing(leg_left_3, globalSpeed * 0.2F, globalDegree * 0.2F, true, 1.3F, 0.1F, limbSwing, limbSwingAmount);
+            	swing(leg_left_4, globalSpeed * 0.2F, globalDegree * 0.28F, true, 3.3F, -0.03F, limbSwing, limbSwingAmount);
+            	swing(foot_left_front_slope, globalSpeed * 0.2F, globalDegree * 0.2F, false, 1.0F, -0.12F, limbSwing, limbSwingAmount);
+            	//Right Leg
+            	swing(leg_right_1, globalSpeed * 0.2F, globalDegree * 0.22F, true, 2.2F, 0.0F, limbSwing, limbSwingAmount);
+            	swing(leg_right_2, globalSpeed * 0.2F, globalDegree * 0.25F, true, 2.7F, 0.0F, limbSwing, limbSwingAmount);
+            	swing(leg_right_3, globalSpeed * 0.2F, globalDegree * 0.2F, false, 1.3F, 0.1F, limbSwing, limbSwingAmount);
+            	swing(leg_right_4, globalSpeed * 0.2F, globalDegree * 0.28F, false, 3.3F, -0.03F, limbSwing, limbSwingAmount);
+            	swing(foot_right_front_slope, globalSpeed * 0.2F, globalDegree * 0.2F, true, 1.0F, -0.12F, limbSwing, limbSwingAmount);
+            	//Torso
+            	shake(torso, globalSpeed * 0.2F, globalDegree * 0.04F, true, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+            	swing(torso, globalSpeed * 0.4F, globalDegree * 0.02F, true, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+            	swing(stomach, globalSpeed * 0.4F, globalDegree * 0.02F, true, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+            	
+            	//Left Arm
+            	swing(arm_left_main, globalSpeed * 0.2F, globalDegree * 0.35F, false, -0.4F, 0.1F, limbSwing, limbSwingAmount);
+            	swing(arm_left_2, globalSpeed * 0.2F, globalDegree * 0.35F, false, 2.0F, -0.08F, limbSwing, limbSwingAmount);
+            	//Left Thumb
+            	flap(hand_left_thumb_1, globalSpeed * 0.2F, globalDegree * 0.4F, true, 1.0F, -0.2F, limbSwing, limbSwingAmount);
+            	flap(hand_left_thumb_2, globalSpeed * 0.2F, globalDegree * 0.4F, false, 1.0F, 0.1F, limbSwing, limbSwingAmount);
+            	//Left Fingers
+            	flap(hand_left_finger_left_1, globalSpeed * 0.2F, globalDegree * 0.2F, false, 1.7F, 0.0F, limbSwing, limbSwingAmount);
+            	flap(hand_left_finger_left_2, globalSpeed * 0.2F, globalDegree * 0.35F, false, 1.0F, 0.2F, limbSwing, limbSwingAmount);
+            	flap(hand_left_finger_left_3, globalSpeed * 0.2F, globalDegree * 0.3F, false, 1.0F, 0.2F, limbSwing, limbSwingAmount);
+            	
+            	flap(hand_left_finger_right_1, globalSpeed * 0.2F, globalDegree * 0.2F, false, 1.2F, 0.0F, limbSwing, limbSwingAmount);
+            	flap(hand_left_finger_right_2, globalSpeed * 0.2F, globalDegree * 0.35F, false, 0.5F, 0.2F, limbSwing, limbSwingAmount);
+            	flap(hand_left_finger_right_3, globalSpeed * 0.2F, globalDegree * 0.3F, false, 0.5F, 0.2F, limbSwing, limbSwingAmount);
+            	
+            	//Right Arm
+            	swing(arm_right_main, globalSpeed * 0.2F, globalDegree * 0.35F, true, -0.4F, 0.1F, limbSwing, limbSwingAmount);
+            	swing(arm_right_2, globalSpeed * 0.2F, globalDegree * 0.35F, true, 2.0F, -0.08F, limbSwing, limbSwingAmount);
+            	//Right Thumb
+            	flap(hand_right_thumb_1, globalSpeed * 0.2F, globalDegree * 0.4F, false, 1.0F, -0.2F, limbSwing, limbSwingAmount);
+            	flap(hand_right_thumb_2, globalSpeed * 0.2F, globalDegree * 0.4F, true, 1.0F, 0.1F, limbSwing, limbSwingAmount);
+            	//Right Fingers
+            	flap(hand_right_finger_left_1, globalSpeed * 0.2F, globalDegree * 0.2F, true, 1.5F, 0.0F, limbSwing, limbSwingAmount);
+            	flap(hand_right_finger_left_2, globalSpeed * 0.2F, globalDegree * 0.35F, true, 0.5F, 0.2F, limbSwing, limbSwingAmount);
+            	flap(hand_right_finger_left_3, globalSpeed * 0.2F, globalDegree * 0.3F, true, 0.5F, 0.2F, limbSwing, limbSwingAmount);
+            	
+            	flap(hand_right_finger_right_1, globalSpeed * 0.2F, globalDegree * 0.2F, true, 1.7F, 0.0F, limbSwing, limbSwingAmount);
+            	flap(hand_right_finger_right_2, globalSpeed * 0.2F, globalDegree * 0.35F, true, 1.0F, 0.2F, limbSwing, limbSwingAmount);
+            	flap(hand_right_finger_right_3, globalSpeed * 0.2F, globalDegree * 0.3F, true, 1.0F, 0.2F, limbSwing, limbSwingAmount);
+            	
+            	//Head
+            	swing(head_top, globalSpeed * 0.4F, globalDegree * 0.05F, false, 0.0F, -0.08F, limbSwing, limbSwingAmount);
+    		}
+    		else
+    		{
+    			limbSwing = entity.ticksExisted;
+        		limbSwingAmount = 1;
+        		
+        		float globalSpeed = 1.0F;
+            	float globalHeight = 1.0F;
+            	float globalDegree = 0.8F;
+        		
+            	bounce(bottom_body, globalSpeed * 0.3F, globalHeight * 0.56F, false, limbSwing, limbSwingAmount);
+            	swing(torso, globalSpeed * 0.3F, globalDegree * 0.006F, true, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+            	swing(stomach, globalSpeed * 0.3F, globalDegree * 0.006F, true, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+            	
+            	swing(leg_left_1, globalSpeed * 0.3F, globalDegree * 0.05F, false, 1.2F, 0.0F, limbSwing, limbSwingAmount);
+            	swing(leg_left_2, globalSpeed * 0.3F, globalDegree * 0.05F, true, 1.2F, -0.1F, limbSwing, limbSwingAmount);
+            	swing(leg_left_3, globalSpeed * 0.3F, globalDegree * 0.03F, true, 1.2F, 0.105F, limbSwing, limbSwingAmount);
+            	swing(leg_left_4, globalSpeed * 0.3F, globalDegree * 0.03F, false, 1.2F, 0.0F, limbSwing, limbSwingAmount);
+            	swing(leg_left_calf_muscle, globalSpeed * 0.3F, globalDegree * 0.08F, false, 1.2F, 0.05F, limbSwing, limbSwingAmount);
+            	swing(foot_left_front_slope, globalSpeed * 0.3F, globalDegree * 0.04F, true, 1.2F, -0.03F, limbSwing, limbSwingAmount);
+            	
+            	swing(leg_right_1, globalSpeed * 0.3F, globalDegree * 0.05F, false, 1.2F, 0.0F, limbSwing, limbSwingAmount);
+            	swing(leg_right_2, globalSpeed * 0.3F, globalDegree * 0.05F, true, 1.2F, -0.1F, limbSwing, limbSwingAmount);
+            	swing(leg_right_3, globalSpeed * 0.3F, globalDegree * 0.03F, true, 1.2F, 0.105F, limbSwing, limbSwingAmount);
+            	swing(leg_right_4, globalSpeed * 0.3F, globalDegree * 0.03F, false, 1.2F, 0.0F, limbSwing, limbSwingAmount);
+            	swing(leg_right_calf_muscle, globalSpeed * 0.3F, globalDegree * 0.08F, false, 1.2F, 0.05F, limbSwing, limbSwingAmount);
+            	swing(foot_right_front_slope, globalSpeed * 0.3F, globalDegree * 0.04F, true, 1.2F, -0.03F, limbSwing, limbSwingAmount);
+        		
+        		swing(arm_left_main, globalSpeed * 0.3F, globalDegree * 0.02F, true, 1.2F, 0.02F, limbSwing, limbSwingAmount);
+        		swing(arm_left_2, globalSpeed * 0.3F, globalDegree * 0.05F, false, 1.2F, 0.02F, limbSwing, limbSwingAmount);
+        		
+        		swing(arm_right_main, globalSpeed * 0.3F, globalDegree * 0.02F, true, 1.2F, 0.02F, limbSwing, limbSwingAmount);
+        		swing(arm_right_2, globalSpeed * 0.3F, globalDegree * 0.05F, false, 1.2F, 0.02F, limbSwing, limbSwingAmount);
+        		
+        		flap(hand_left_finger_left_1, globalSpeed * 0.3F, globalDegree * 0.05F, false, 1.2F, -0.25F, limbSwing, limbSwingAmount);
+            	flap(hand_left_finger_left_2, globalSpeed * 0.3F, globalDegree * 0.04F, true, 1.2F, 0.1F, limbSwing, limbSwingAmount);
+            	flap(hand_left_finger_left_3, globalSpeed * 0.3F, globalDegree * 0.04F, true, 1.2F, 0.1F, limbSwing, limbSwingAmount);
+        		
+            	flap(hand_left_finger_right_1, globalSpeed * 0.3F, globalDegree * 0.05F, false, 1.2F, -0.25F, limbSwing, limbSwingAmount);
+            	flap(hand_left_finger_right_2, globalSpeed * 0.3F, globalDegree * 0.04F, true, 1.2F, 0.1F, limbSwing, limbSwingAmount);
+            	flap(hand_left_finger_right_3, globalSpeed * 0.3F, globalDegree * 0.04F, true, 1.2F, 0.1F, limbSwing, limbSwingAmount);
+        		
+            	flap(hand_left_thumb_1, globalSpeed * 0.3F, globalDegree * 0.1F, true, 1.2F, 0.0F, limbSwing, limbSwingAmount);
+            	flap(hand_left_thumb_2, globalSpeed * 0.3F, globalDegree * 0.1F, true, 1.2F, 0.0F, limbSwing, limbSwingAmount);
+        		
+            	flap(hand_right_finger_left_1, globalSpeed * 0.3F, globalDegree * 0.05F, false, 1.2F, -0.25F, limbSwing, limbSwingAmount);
+            	flap(hand_right_finger_left_2, globalSpeed * 0.3F, globalDegree * 0.04F, true, 1.2F, 0.1F, limbSwing, limbSwingAmount);
+            	flap(hand_right_finger_left_3, globalSpeed * 0.3F, globalDegree * 0.04F, true, 1.2F, 0.1F, limbSwing, limbSwingAmount);
+        		
+            	flap(hand_right_finger_right_1, globalSpeed * 0.3F, globalDegree * 0.05F, false, 1.2F, -0.25F, limbSwing, limbSwingAmount);
+            	flap(hand_right_finger_right_2, globalSpeed * 0.3F, globalDegree * 0.04F, true, 1.2F, 0.1F, limbSwing, limbSwingAmount);
+            	flap(hand_right_finger_right_3, globalSpeed * 0.3F, globalDegree * 0.04F, true, 1.2F, 0.1F, limbSwing, limbSwingAmount);
+        		
+            	flap(hand_right_thumb_1, globalSpeed * 0.3F, globalDegree * 0.1F, true, 1.2F, 0.0F, limbSwing, limbSwingAmount);
+            	flap(hand_right_thumb_2, globalSpeed * 0.3F, globalDegree * 0.1F, true, 1.2F, 0.0F, limbSwing, limbSwingAmount);
+        		
+            	swing(body_abs, globalSpeed * 0.3F, globalDegree * 0.08F, true, 1.6F, 0.0F, limbSwing, limbSwingAmount);
+            	swing(body_abs_bottom, globalSpeed * 0.3F, globalDegree * 0.08F, false, 2.0F, 0.1F, limbSwing, limbSwingAmount);
+        		
+        		swing(head_top, globalSpeed * 0.3F, globalDegree * 0.03F, false, 1.2F, -0.05F, limbSwing, limbSwingAmount);
+    		}
+    	}
+    	
+    	if(entity.isAnimationPlaying(EndTrollEntity.TRANSFORM_ANIMATION))
+    	{
     		limbSwing = entity.ticksExisted;
     		limbSwingAmount = 1;
     		
-    		float globalSpeed = 1.0F;
-        	float globalHeight = 1.0F;
-        	float globalDegree = 0.8F;
+    		swing(head_top, 0.3F, 0.03F, false, 1.2F, -0.05F, limbSwing, limbSwingAmount);
     		
-        	bounce(bottom_body, globalSpeed * 0.3F, globalHeight * 0.56F, false, limbSwing, limbSwingAmount);
-        	swing(torso, globalSpeed * 0.3F, globalDegree * 0.006F, true, 0.0F, 0.0F, limbSwing, limbSwingAmount);
-        	swing(stomach, globalSpeed * 0.3F, globalDegree * 0.006F, true, 0.0F, 0.0F, limbSwing, limbSwingAmount);
-        	
-        	swing(leg_left_1, globalSpeed * 0.3F, globalDegree * 0.05F, false, 1.2F, 0.0F, limbSwing, limbSwingAmount);
-        	swing(leg_left_2, globalSpeed * 0.3F, globalDegree * 0.05F, true, 1.2F, -0.1F, limbSwing, limbSwingAmount);
-        	swing(leg_left_3, globalSpeed * 0.3F, globalDegree * 0.03F, true, 1.2F, 0.105F, limbSwing, limbSwingAmount);
-        	swing(leg_left_4, globalSpeed * 0.3F, globalDegree * 0.03F, false, 1.2F, 0.0F, limbSwing, limbSwingAmount);
-        	swing(leg_left_calf_muscle, globalSpeed * 0.3F, globalDegree * 0.08F, false, 1.2F, 0.05F, limbSwing, limbSwingAmount);
-        	swing(foot_left_front_slope, globalSpeed * 0.3F, globalDegree * 0.04F, true, 1.2F, -0.03F, limbSwing, limbSwingAmount);
-        	
-        	swing(leg_right_1, globalSpeed * 0.3F, globalDegree * 0.05F, false, 1.2F, 0.0F, limbSwing, limbSwingAmount);
-        	swing(leg_right_2, globalSpeed * 0.3F, globalDegree * 0.05F, true, 1.2F, -0.1F, limbSwing, limbSwingAmount);
-        	swing(leg_right_3, globalSpeed * 0.3F, globalDegree * 0.03F, true, 1.2F, 0.105F, limbSwing, limbSwingAmount);
-        	swing(leg_right_4, globalSpeed * 0.3F, globalDegree * 0.03F, false, 1.2F, 0.0F, limbSwing, limbSwingAmount);
-        	swing(leg_right_calf_muscle, globalSpeed * 0.3F, globalDegree * 0.08F, false, 1.2F, 0.05F, limbSwing, limbSwingAmount);
-        	swing(foot_right_front_slope, globalSpeed * 0.3F, globalDegree * 0.04F, true, 1.2F, -0.03F, limbSwing, limbSwingAmount);
+    		if(entity.getAnimationTick() > 0 && entity.getAnimationTick() <= 19)
+    		{	
+    			shake(left_eyelid_base, 2.0F, 0.02F, false, 0.0F, 0.04F, limbSwing, limbSwingAmount);
+    			shake(right_eyelid_base, 2.0F, 0.02F, true, 0.0F, -0.04F, limbSwing, limbSwingAmount);
+    		}
+    	}
+    }
+    
+    @Override
+    public void animateModel(T animatedEntity, float f, float f1, float f2, float f3, float f4, float f5)
+    {
+    	super.animateModel(animatedEntity, f, f1, f2, f3, f4, f5);
+    	
+    	this.animator.updateAnimations(animatedEntity);
+    	
+    	if(animatedEntity.isAnimationPlaying(EndTrollEntity.TRANSFORM_ANIMATION))
+    	{
+    		this.animator.setAnimationToPlay(EndTrollEntity.TRANSFORM_ANIMATION);
     		
-    		swing(arm_left_main, globalSpeed * 0.3F, globalDegree * 0.02F, true, 1.2F, 0.02F, limbSwing, limbSwingAmount);
-    		swing(arm_left_2, globalSpeed * 0.3F, globalDegree * 0.05F, false, 1.2F, 0.02F, limbSwing, limbSwingAmount);
+    		this.animator.startKeyframe(6);
+    		this.animator.move(movement_base, 0, 4.0F, 0);
+    		this.animator.rotate(leg_left_2, 0.4F, 0, 0);
+    		this.animator.rotate(leg_right_2, 0.4F, 0, 0);
+    		this.animator.rotate(leg_left_3, -0.4F, 0, 0);
+    		this.animator.rotate(leg_right_3, -0.4F, 0, 0);
+    		this.animator.rotate(arm_left_2, -0.2F, 0, 0);
+    		this.animator.rotate(arm_right_2, -0.2F, 0, 0);
+    		this.animator.endKeyframe();
     		
-    		swing(arm_right_main, globalSpeed * 0.3F, globalDegree * 0.02F, true, 1.2F, 0.02F, limbSwing, limbSwingAmount);
-    		swing(arm_right_2, globalSpeed * 0.3F, globalDegree * 0.05F, false, 1.2F, 0.02F, limbSwing, limbSwingAmount);
+    		this.animator.startKeyframe(10);
+    		this.animator.move(movement_base, 0, -4, -20.0F);
+    		this.animator.rotate(bottom_body, -1.6F, 0, 0);
+    		this.animator.rotate(leg_left_1, 1.6F, 0, 0);
+    		this.animator.rotate(leg_right_1, 1.6F, 0, 0);
+    		this.animator.rotate(leg_left_2, 0.4F, 0, 0);
+    		this.animator.rotate(leg_right_2, 0.4F, 0, 0);
+    		this.animator.rotate(leg_left_3, -0.4F, 0, 0);
+    		this.animator.rotate(leg_right_3, -0.4F, 0, 0);
+    		this.animator.rotate(stomach, 0.4F, 0, 0);
+    		this.animator.rotate(torso, 0.6F, 0, 0);
+    		this.animator.rotate(hand_left_main, 0, -1.6F, 0);
+    		this.animator.rotate(hand_right_main, 0, 1.6F, 0);
+    		this.animator.rotate(arm_left_main, 1.0F, 0.12F, -0.12F);
+    		this.animator.rotate(arm_right_main, 1.0F, -0.12F, 0.12F);
+    		this.animator.rotate(arm_left_2, -0.2F, 0, 0);
+    		this.animator.rotate(arm_right_2, -0.2F, 0, 0);
     		
-    		flap(hand_left_finger_left_1, globalSpeed * 0.3F, globalDegree * 0.05F, false, 1.2F, -0.25F, limbSwing, limbSwingAmount);
-        	flap(hand_left_finger_left_2, globalSpeed * 0.3F, globalDegree * 0.04F, true, 1.2F, 0.1F, limbSwing, limbSwingAmount);
-        	flap(hand_left_finger_left_3, globalSpeed * 0.3F, globalDegree * 0.04F, true, 1.2F, 0.1F, limbSwing, limbSwingAmount);
+    		this.animator.rotate(hand_left_thumb_1, 0, 0, -0.8F);
+    		this.animator.rotate(hand_left_thumb_2, 0, 0, -0.4F);
+    		this.animator.rotate(hand_right_thumb_1, 0, 0, -0.8F);
+    		this.animator.rotate(hand_right_thumb_2, 0, 0, -0.4F);
+    		this.animator.endKeyframe();
     		
-        	flap(hand_left_finger_right_1, globalSpeed * 0.3F, globalDegree * 0.05F, false, 1.2F, -0.25F, limbSwing, limbSwingAmount);
-        	flap(hand_left_finger_right_2, globalSpeed * 0.3F, globalDegree * 0.04F, true, 1.2F, 0.1F, limbSwing, limbSwingAmount);
-        	flap(hand_left_finger_right_3, globalSpeed * 0.3F, globalDegree * 0.04F, true, 1.2F, 0.1F, limbSwing, limbSwingAmount);
+    		this.animator.startKeyframe(3);
+    		this.animator.move(movement_base, 0, 0, -20.0F);
+    		this.animator.rotate(bottom_body, -1.6F, 0, 0);
+    		this.animator.rotate(leg_left_1, 1.6F, 0, 0);
+    		this.animator.rotate(leg_right_1, 1.6F, 0, 0);
+    		this.animator.rotate(leg_left_2, 0.0F, 0, 0);
+    		this.animator.rotate(leg_right_2, 0.0F, 0, 0);
+    		this.animator.rotate(leg_left_3, 0.0F, 0, 0);
+    		this.animator.rotate(leg_right_3, 0.0F, 0, 0);
+    		this.animator.rotate(stomach, 0.4F, 0, 0);
+    		this.animator.rotate(torso, 0.6F, 0, 0);
+    		this.animator.rotate(hand_left_main, 0, -1.6F, 0);
+    		this.animator.rotate(hand_right_main, 0, 1.6F, 0);
+    		this.animator.rotate(arm_left_main, 1.0F, 0.12F, -0.12F);
+    		this.animator.rotate(arm_right_main, 1.0F, -0.12F, 0.12F);
+    		this.animator.rotate(arm_left_2, 0.0F, 0, 0);
+    		this.animator.rotate(arm_right_2, 0.0F, 0, 0);
     		
-        	flap(hand_left_thumb_1, globalSpeed * 0.3F, globalDegree * 0.1F, true, 1.2F, 0.0F, limbSwing, limbSwingAmount);
-        	flap(hand_left_thumb_2, globalSpeed * 0.3F, globalDegree * 0.1F, true, 1.2F, 0.0F, limbSwing, limbSwingAmount);
+    		this.animator.rotate(hand_left_thumb_1, 0, 0, -0.8F);
+    		this.animator.rotate(hand_left_thumb_2, 0, 0, -0.4F);
+    		this.animator.rotate(hand_right_thumb_1, 0, 0, -0.8F);
+    		this.animator.rotate(hand_right_thumb_2, 0, 0, -0.4F);
+    		this.animator.endKeyframe();
     		
-        	flap(hand_right_finger_left_1, globalSpeed * 0.3F, globalDegree * 0.05F, false, 1.2F, -0.25F, limbSwing, limbSwingAmount);
-        	flap(hand_right_finger_left_2, globalSpeed * 0.3F, globalDegree * 0.04F, true, 1.2F, 0.1F, limbSwing, limbSwingAmount);
-        	flap(hand_right_finger_left_3, globalSpeed * 0.3F, globalDegree * 0.04F, true, 1.2F, 0.1F, limbSwing, limbSwingAmount);
+    		this.animator.startKeyframe(1);
+    		this.animator.move(movement_base, 0, 0, -20.0F);
+    		this.animator.rotate(bottom_body, -1.6F, 0, 0);
+    		this.animator.rotate(leg_left_1, 1.6F, 0, 0);
+    		this.animator.rotate(leg_right_1, 1.6F, 0, 0);
+    		this.animator.rotate(leg_left_2, 0.0F, 0, 0);
+    		this.animator.rotate(leg_right_2, 0.0F, 0, 0);
+    		this.animator.rotate(leg_left_3, 0.0F, 0, 0);
+    		this.animator.rotate(leg_right_3, 0.0F, 0, 0);
+    		this.animator.rotate(stomach, 0.4F, 0, 0);
+    		this.animator.rotate(torso, 0.6F, 0, 0);
+    		this.animator.rotate(hand_left_main, 0, -1.6F, 0);
+    		this.animator.rotate(hand_right_main, 0, 1.6F, 0);
+    		this.animator.rotate(arm_left_main, 1.0F, 0.12F, -0.12F);
+    		this.animator.rotate(arm_right_main, 1.0F, -0.12F, 0.12F);
+    		this.animator.rotate(left_eyelid_base, 0, -0.3F, 0);
+    		this.animator.rotate(right_eyelid_base, 0, 0.3F, 0);
+    		this.animator.rotate(arm_left_2, 0.0F, 0, 0);
+    		this.animator.rotate(arm_right_2, 0.0F, 0, 0);
     		
-        	flap(hand_right_finger_right_1, globalSpeed * 0.3F, globalDegree * 0.05F, false, 1.2F, -0.25F, limbSwing, limbSwingAmount);
-        	flap(hand_right_finger_right_2, globalSpeed * 0.3F, globalDegree * 0.04F, true, 1.2F, 0.1F, limbSwing, limbSwingAmount);
-        	flap(hand_right_finger_right_3, globalSpeed * 0.3F, globalDegree * 0.04F, true, 1.2F, 0.1F, limbSwing, limbSwingAmount);
+    		this.animator.rotate(hand_left_thumb_1, 0, 0, -0.8F);
+    		this.animator.rotate(hand_left_thumb_2, 0, 0, -0.4F);
+    		this.animator.rotate(hand_right_thumb_1, 0, 0, -0.8F);
+    		this.animator.rotate(hand_right_thumb_2, 0, 0, -0.4F);
+    		this.animator.endKeyframe();
     		
-        	flap(hand_right_thumb_1, globalSpeed * 0.3F, globalDegree * 0.1F, true, 1.2F, 0.0F, limbSwing, limbSwingAmount);
-        	flap(hand_right_thumb_2, globalSpeed * 0.3F, globalDegree * 0.1F, true, 1.2F, 0.0F, limbSwing, limbSwingAmount);
-    		
-        	swing(body_abs, globalSpeed * 0.3F, globalDegree * 0.08F, true, 1.6F, 0.0F, limbSwing, limbSwingAmount);
-        	swing(body_abs_bottom, globalSpeed * 0.3F, globalDegree * 0.08F, false, 2.0F, 0.1F, limbSwing, limbSwingAmount);
-    		
-    		swing(head_top, globalSpeed * 0.3F, globalDegree * 0.03F, false, 1.2F, -0.05F, limbSwing, limbSwingAmount);
-    		
-    		
-    		
-    		
-    		
-    		
-//    		float globalSpeed = 1.0F;
-//        	float globalHeight = 1.0F;
-//        	float globalDegree = 1.0F;
-//        	
-//        	bounce(bottom_body, globalSpeed * 0.4F, globalHeight * 0.8F, false, limbSwing, limbSwingAmount);
-//        	//Left Leg
-//        	swing(leg_left_1, globalSpeed * 0.2F, globalDegree * 0.22F, false, 2.2F, 0.0F, limbSwing, limbSwingAmount);
-//        	swing(leg_left_2, globalSpeed * 0.2F, globalDegree * 0.25F, false, 2.7F, 0.0F, limbSwing, limbSwingAmount);
-//        	swing(leg_left_3, globalSpeed * 0.2F, globalDegree * 0.2F, true, 1.3F, 0.1F, limbSwing, limbSwingAmount);
-//        	swing(leg_left_4, globalSpeed * 0.2F, globalDegree * 0.28F, true, 3.3F, -0.03F, limbSwing, limbSwingAmount);
-//        	swing(foot_left_front_slope, globalSpeed * 0.2F, globalDegree * 0.2F, false, 1.0F, -0.12F, limbSwing, limbSwingAmount);
-//        	//Right Leg
-//        	swing(leg_right_1, globalSpeed * 0.2F, globalDegree * 0.22F, true, 2.2F, 0.0F, limbSwing, limbSwingAmount);
-//        	swing(leg_right_2, globalSpeed * 0.2F, globalDegree * 0.25F, true, 2.7F, 0.0F, limbSwing, limbSwingAmount);
-//        	swing(leg_right_3, globalSpeed * 0.2F, globalDegree * 0.2F, false, 1.3F, 0.1F, limbSwing, limbSwingAmount);
-//        	swing(leg_right_4, globalSpeed * 0.2F, globalDegree * 0.28F, false, 3.3F, -0.03F, limbSwing, limbSwingAmount);
-//        	swing(foot_right_front_slope, globalSpeed * 0.2F, globalDegree * 0.2F, true, 1.0F, -0.12F, limbSwing, limbSwingAmount);
-//        	//Torso
-//        	shake(torso, globalSpeed * 0.2F, globalDegree * 0.04F, true, 0.0F, 0.0F, limbSwing, limbSwingAmount);
-//        	swing(torso, globalSpeed * 0.4F, globalDegree * 0.02F, true, 0.0F, 0.0F, limbSwing, limbSwingAmount);
-//        	swing(stomach, globalSpeed * 0.4F, globalDegree * 0.02F, true, 0.0F, 0.0F, limbSwing, limbSwingAmount);
-//        	
-//        	//Left Arm
-//        	swing(arm_left_main, globalSpeed * 0.2F, globalDegree * 0.35F, false, -0.4F, 0.1F, limbSwing, limbSwingAmount);
-//        	swing(arm_left_2, globalSpeed * 0.2F, globalDegree * 0.35F, false, 2.0F, -0.08F, limbSwing, limbSwingAmount);
-//        	//Left Thumb
-//        	flap(hand_left_thumb_1, globalSpeed * 0.2F, globalDegree * 0.4F, true, 1.0F, -0.2F, limbSwing, limbSwingAmount);
-//        	flap(hand_left_thumb_2, globalSpeed * 0.2F, globalDegree * 0.4F, false, 1.0F, 0.1F, limbSwing, limbSwingAmount);
-//        	//Left Fingers
-//        	flap(hand_left_finger_left_1, globalSpeed * 0.2F, globalDegree * 0.2F, false, 1.7F, 0.0F, limbSwing, limbSwingAmount);
-//        	flap(hand_left_finger_left_2, globalSpeed * 0.2F, globalDegree * 0.35F, false, 1.0F, 0.2F, limbSwing, limbSwingAmount);
-//        	flap(hand_left_finger_left_3, globalSpeed * 0.2F, globalDegree * 0.3F, false, 1.0F, 0.2F, limbSwing, limbSwingAmount);
-//        	
-//        	flap(hand_left_finger_right_1, globalSpeed * 0.2F, globalDegree * 0.2F, false, 1.2F, 0.0F, limbSwing, limbSwingAmount);
-//        	flap(hand_left_finger_right_2, globalSpeed * 0.2F, globalDegree * 0.35F, false, 0.5F, 0.2F, limbSwing, limbSwingAmount);
-//        	flap(hand_left_finger_right_3, globalSpeed * 0.2F, globalDegree * 0.3F, false, 0.5F, 0.2F, limbSwing, limbSwingAmount);
-//        	
-//        	//Right Arm
-//        	swing(arm_right_main, globalSpeed * 0.2F, globalDegree * 0.35F, true, -0.4F, 0.1F, limbSwing, limbSwingAmount);
-//        	swing(arm_right_2, globalSpeed * 0.2F, globalDegree * 0.35F, true, 2.0F, -0.08F, limbSwing, limbSwingAmount);
-//        	//Right Thumb
-//        	flap(hand_right_thumb_1, globalSpeed * 0.2F, globalDegree * 0.4F, false, 1.0F, -0.2F, limbSwing, limbSwingAmount);
-//        	flap(hand_right_thumb_2, globalSpeed * 0.2F, globalDegree * 0.4F, true, 1.0F, 0.1F, limbSwing, limbSwingAmount);
-//        	//Right Fingers
-//        	flap(hand_right_finger_left_1, globalSpeed * 0.2F, globalDegree * 0.2F, true, 1.5F, 0.0F, limbSwing, limbSwingAmount);
-//        	flap(hand_right_finger_left_2, globalSpeed * 0.2F, globalDegree * 0.35F, true, 0.5F, 0.2F, limbSwing, limbSwingAmount);
-//        	flap(hand_right_finger_left_3, globalSpeed * 0.2F, globalDegree * 0.3F, true, 0.5F, 0.2F, limbSwing, limbSwingAmount);
-//        	
-//        	flap(hand_right_finger_right_1, globalSpeed * 0.2F, globalDegree * 0.2F, true, 1.7F, 0.0F, limbSwing, limbSwingAmount);
-//        	flap(hand_right_finger_right_2, globalSpeed * 0.2F, globalDegree * 0.35F, true, 1.0F, 0.2F, limbSwing, limbSwingAmount);
-//        	flap(hand_right_finger_right_3, globalSpeed * 0.2F, globalDegree * 0.3F, true, 1.0F, 0.2F, limbSwing, limbSwingAmount);
-//        	
-//        	//Head
-//        	swing(head_top, globalSpeed * 0.4F, globalDegree * 0.05F, false, 0.0F, -0.08F, limbSwing, limbSwingAmount);
+    		this.animator.setStaticKeyframe(40);
     	}
     }
 }

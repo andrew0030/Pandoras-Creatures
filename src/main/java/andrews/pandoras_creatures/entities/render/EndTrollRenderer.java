@@ -15,7 +15,7 @@ public class EndTrollRenderer extends MobRenderer<EndTrollEntity, EndTrollModel<
 {
 	public EndTrollRenderer(EntityRendererManager renderManager)
 	{
-        super(renderManager, new EndTrollModel<>(), 0.2F);
+        super(renderManager, new EndTrollModel<>(), 2.0F);
         this.addLayer(new RenderLayerEndTrollEye<>(this));
     }
 	
