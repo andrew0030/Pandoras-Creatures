@@ -10,11 +10,13 @@ import net.minecraft.item.ItemStack;
 
 public class BufflonBackAttachmentSlot extends Slot
 {
+	private BufflonEntity bufflonEntity;
 	private IInventory bufflonInventory;
 	
-	public BufflonBackAttachmentSlot(IInventory inventoryIn, int index, int xPosition, int yPosition)
+	public BufflonBackAttachmentSlot(BufflonEntity bufflonEntity, IInventory inventoryIn, int index, int xPosition, int yPosition)
 	{
 		super(inventoryIn, index, xPosition, yPosition);
+		this.bufflonEntity = bufflonEntity;
 		this.bufflonInventory = inventoryIn;
 	}
 
@@ -38,6 +40,13 @@ public class BufflonBackAttachmentSlot extends Slot
 	@Override
 	public boolean canTakeStack(PlayerEntity playerIn)
 	{
+		if(bufflonEntity.isBeingRidden())
+		{
+			if(bufflonEntity.getPassengers().size() > 1)
+			{
+				return false;
+			}
+		}
 		return hasItemsInInventory();
 	}
 

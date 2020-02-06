@@ -64,7 +64,7 @@ public class TargetUnderneathGoal<T extends LivingEntity> extends TargetGoal
 				PlayerEntity player = (PlayerEntity) this.nearestTarget;
 				
 				//If the player wears the plant helmet the plant will not be able to start attacking him
-				if(player.inventory.armorItemInSlot(3) != null && player.inventory.armorItemInSlot(3).getItem() == PCItems.PLANT_HAT.get())
+				if(player.inventory.armorInventory.get(3).getItem() == PCItems.PLANT_HAT.get())
 				{
 					return false;
 				}
@@ -106,7 +106,6 @@ public class TargetUnderneathGoal<T extends LivingEntity> extends TargetGoal
 		this.acidicArchvine.setTargetedEntity(0);
 		this.goalOwner.world.setEntityState(this.goalOwner, (byte)4);
 		((AcidicArchvineEntity) this.goalOwner).setAttackState(0);
-		this.nearestTarget.setNoGravity(false);
 		if(this.nearestTarget instanceof PlayerEntity)
 		{
 			PlayerEntity player = (PlayerEntity) this.nearestTarget;
@@ -138,7 +137,7 @@ public class TargetUnderneathGoal<T extends LivingEntity> extends TargetGoal
 					this.goalOwner.world.setEntityState(this.goalOwner, (byte)6);
 					((AcidicArchvineEntity) this.goalOwner).setAttackState(2);
 					this.nearestTarget.setPositionAndUpdate(this.goalOwner.posX, this.goalOwner.posY - 0.5, this.goalOwner.posZ);
-					this.nearestTarget.setNoGravity(true);
+					this.nearestTarget.setMotion(0, 0, 0);
 					if(this.nearestTarget instanceof PlayerEntity)
 					{
 						PlayerEntity player = (PlayerEntity) this.nearestTarget;

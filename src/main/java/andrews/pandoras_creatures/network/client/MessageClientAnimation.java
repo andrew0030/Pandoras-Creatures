@@ -44,7 +44,7 @@ public class MessageClientAnimation
 				{
 					if(message.animationIndex == -1)
 					{
-						animatedEntity.setAnimationToBlank();
+						animatedEntity.resetPlayingAnimationToDefault();
 					}
 					else
 					{

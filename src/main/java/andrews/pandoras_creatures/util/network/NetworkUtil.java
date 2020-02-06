@@ -18,16 +18,17 @@ import net.minecraftforge.fml.network.PacketDistributor;
 public class NetworkUtil
 {
 	/**
-	 * Sends a message to the client, containing the animation the entity should start playing
-	 * @param entity - The Entity that will be affected
-	 * @param animationToPlay - The animation that will start playing
-	 */
+	* Sends an animation message to the clients to update an entity's animations
+	* @param entity - The Entity to send the packet for
+	* @param animationToPlay - The animation to play
+	*/
 	public static void setPlayingAnimationMessage(AnimatedCreatureEntity entity, Animation animationToPlay)
 	{
-		if(!entity.getEntityWorld().isRemote)
-		{
-			Main.CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), new MessageClientAnimation(entity.getEntityId(), ArrayUtils.indexOf(entity.getAnimations(), animationToPlay)));
-		}
+	    if(!entity.getEntityWorld().isRemote)
+	    {
+	        Main.CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), new MessageClientAnimation(entity.getEntityId(), ArrayUtils.indexOf(entity.getAnimations(), animationToPlay)));
+	        entity.setPlayingAnimation(animationToPlay);
+	    }
 	}
 	
 	/**

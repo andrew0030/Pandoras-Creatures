@@ -50,7 +50,7 @@ public class PCEntities
 	public static final RegistryObject<EntityType<SeahorseEntity>> SEAHORSE = ENTITY_TYPES.register("seahorse", () -> createLivingEntity(SeahorseEntity::new, EntityClassification.AMBIENT, "seahorse", 0.4F, 0.8F));
 	public static final RegistryObject<EntityType<AcidicArchvineEntity>> ACIDIC_ARCHVINE = ENTITY_TYPES.register("acidic_archvine", () -> createLivingEntity(AcidicArchvineEntity::new, EntityClassification.MONSTER, "acidic_archvine", 1.0F, 1.5F));
 	public static final RegistryObject<EntityType<BufflonEntity>> BUFFLON = ENTITY_TYPES.register("bufflon", () -> createLivingEntity(BufflonEntity::new, EntityClassification.CREATURE, "bufflon", 2.4F, 3.0F));
-	public static final RegistryObject<EntityType<EndTrollEntity>> END_TROLL = ENTITY_TYPES.register("end_troll", () -> createLivingEntity(EndTrollEntity::new, EntityClassification.MONSTER, "end_troll", 3.0F, 3.0F));
+	public static final RegistryObject<EntityType<EndTrollEntity>> END_TROLL = ENTITY_TYPES.register("end_troll", () -> createLivingEntity(EndTrollEntity::new, EntityClassification.MONSTER, "end_troll", 3.0F, 5.0F));
 	
 	//=========================================================================================================================================================================================================================================
 	//=========================================================================================================================================================================================================================================

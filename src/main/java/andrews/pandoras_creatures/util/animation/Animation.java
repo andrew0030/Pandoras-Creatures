@@ -8,8 +8,6 @@ package andrews.pandoras_creatures.util.animation;
 public class Animation
 {
 	private int tickDuration;
-	private int loopCycles;
-	private boolean doesLoop = false;
 	
 	/**
 	 * Simple constructor for an Animation
@@ -18,20 +16,6 @@ public class Animation
 	public Animation(int tickDuration)
 	{
 		this.tickDuration = tickDuration;
-		this.loopCycles = 0;
-	}
-	
-	/**
-	 * Constructor for looped animations
-	 * @param tickDuration - Duration of how long the animation plays for; measured in ticks
-	 * @param doesLoop - Does this animation loop
-	 * @param loopCycles- How many times does this animation loop
-	 */
-	public Animation(int tickDuration, boolean doesLoop, int loopCycles)
-	{
-		this(tickDuration);
-		this.doesLoop = doesLoop;
-		this.loopCycles = loopCycles;
 	}
 	
 	/**
@@ -39,7 +23,7 @@ public class Animation
 	 */
 	public Animation()
 	{
-		this(0, false, 0);
+		this(0);
 	}
 	
 	/**
@@ -48,22 +32,5 @@ public class Animation
 	public int getAnimationTickDuration()
 	{
 		return this.tickDuration;
-	}
-	
-	/**
-	 * @return - Does this animation loop
-	 */
-	public boolean doesAnimationLoop()
-	{
-		return this.doesLoop;
-	}
-	
-	/**
-	 * @return - Loop cycles for this animations
-	 */
-	public int getLoopCycles()
-	{
-		if(!this.doesLoop) return 0;
-		return this.loopCycles;
 	}
 }

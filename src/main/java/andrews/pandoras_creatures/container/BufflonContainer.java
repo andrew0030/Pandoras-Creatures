@@ -38,7 +38,7 @@ public class BufflonContainer extends Container
         //The Bufflon Saddle Slot
         this.addSlot(new BufflonSaddleSlot(bufflonEntity, bufflonStorge, 0, -17, 72));
         //The Bufflon Back Attachment Slot
-        this.addSlot(new BufflonBackAttachmentSlot(bufflonStorge, 1, 11, 72));
+        this.addSlot(new BufflonBackAttachmentSlot(bufflonEntity, bufflonStorge, 1, 11, 72));
         
         //The Bufflon Inventory
 	    for(int y = 0; y < 6; ++y)

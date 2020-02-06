@@ -53,5 +53,5 @@ public class PCItems
 	public static final RegistryObject<Item> SEAHORSE_SPAWN_EGG			= RegistryUtils.createSpawnEggItem("seahorse", () -> PCEntities.SEAHORSE.get(), 0x38d1d1, 0xd98f27);
 	public static final RegistryObject<Item> ACIDIC_ARCHVINE_SPAWN_EGG	= RegistryUtils.createSpawnEggWithToolTipItem("acidic_archvine", () -> PCEntities.ACIDIC_ARCHVINE.get(), 0x14661f, 0x7b34ad, "item.pandoras_creatures.acidic_archvine_spawn_egg.tooltip");
 	public static final RegistryObject<Item> BUFFLON_SPAWN_EGG			= RegistryUtils.createSpawnEggItem("bufflon", () -> PCEntities.BUFFLON.get(), 0x4f3914, 0x1a1d29);
-	public static final RegistryObject<Item> END_TROLL_SPAWN_EGG		= RegistryUtils.createSpawnEggItem("end_troll", () -> PCEntities.END_TROLL.get(), 0x4f3914, 0x4f3914);
+	public static final RegistryObject<Item> END_TROLL_SPAWN_EGG		= RegistryUtils.createSpawnEggItem("end_troll", () -> PCEntities.END_TROLL.get(), 0x2a234d, 0x4db4bf);
 }

@@ -35,22 +35,22 @@ public class Animator
 	}
     
 	/**
-	 * Sets the animation for this Animator instance to play
+	 * Sets the animation for this animator instance to play
 	 * @param animationToPlay - The animation to play
 	 * @return - Is this the correct animation to play
 	 */
 	public boolean setAnimationToPlay(Animation animationToPlay)
 	{
-	    this.tempTick = this.prevTempTick = 0;
-	    this.correctAnimation = this.animatedEntity.getPlayingAnimation() == animationToPlay;
-	    this.prevBoxValues.clear();
-	    this.prevBoxValues.putAll(this.boxValues);
-	    this.boxValues.clear();
-	    return this.correctAnimation;
+		this.tempTick = this.prevTempTick = 0;
+		this.correctAnimation = this.animatedEntity.getPlayingAnimation() == animationToPlay;
+		this.prevBoxValues.clear();
+		this.prevBoxValues.putAll(this.boxValues);
+		this.boxValues.clear();
+		return this.correctAnimation;
 	}
     
 	/**
-	 * Updates the entity for this Animator instance
+	 * Updates the entity for this animator instance
 	 * @param animatedEntity - The entity to update
 	 */
 	public void updateAnimations(AnimatedCreatureEntity animatedEntity)
@@ -100,7 +100,7 @@ public class Animator
 	/**
 	 * Gets the values of a box stored from a map
 	 * @param model - The PCRendererModel to look up in the box values map
-	 * @return - The PCRendererModel's float array of box values from the box values map
+	 * @return - The AnimatorRendererModel's float array of box values from the box values map
 	 */
 	public float[] getBoxValues(PCRendererModel model)
 	{
@@ -109,8 +109,8 @@ public class Animator
 	}
 	
 	/**
-	 * Moves an PCRendererModel in the current Keyframe
-	 * @param model - EndimatorRendererModel to move
+	 * Moves an AnimatorRendererModel in the current Keyframe
+	 * @param model - PCRendererModel to move
 	 * @param x - The x point
 	 * @param y - The y point
 	 * @param z - The z point
@@ -125,7 +125,7 @@ public class Animator
 	
 	/**
 	 * Rotates an PCRendererModel in the current Keyframe
-	 * @param model - EndimatorRendererModel to rotate
+	 * @param model - PCRendererModel to rotate
 	 * @param x - The x rotation
 	 * @param y - The y rotation
 	 * @param z - The z rotation
