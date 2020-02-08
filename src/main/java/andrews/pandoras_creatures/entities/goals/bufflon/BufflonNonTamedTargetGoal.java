@@ -1,4 +1,4 @@
-package andrews.pandoras_creatures.entities.goals;
+package andrews.pandoras_creatures.entities.goals.bufflon;
 
 import andrews.pandoras_creatures.entities.BufflonEntity;
 import net.minecraft.entity.LivingEntity;

@@ -1,4 +1,4 @@
-package andrews.pandoras_creatures.entities.goals;
+package andrews.pandoras_creatures.entities.goals.arachnon;
 
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.LivingEntity;

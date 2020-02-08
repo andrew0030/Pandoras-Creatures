@@ -1,4 +1,4 @@
-package andrews.pandoras_creatures.entities.goals;
+package andrews.pandoras_creatures.entities.goals.acidic_archvine;
 
 import java.util.EnumSet;
 import java.util.function.Predicate;

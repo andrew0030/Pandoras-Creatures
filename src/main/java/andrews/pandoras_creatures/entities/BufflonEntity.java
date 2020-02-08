@@ -9,11 +9,11 @@ import javax.annotation.Nullable;
 
 import andrews.pandoras_creatures.container.BufflonContainer;
 import andrews.pandoras_creatures.entities.bases.AnimatedCreatureEntity;
-import andrews.pandoras_creatures.entities.goals.BufflonFollowOwnerGoal;
-import andrews.pandoras_creatures.entities.goals.BufflonNonTamedTargetGoal;
-import andrews.pandoras_creatures.entities.goals.BufflonOwnerHurtByTargetGoal;
-import andrews.pandoras_creatures.entities.goals.BufflonOwnerHurtTargetGoal;
-import andrews.pandoras_creatures.entities.goals.BufflonSitGoal;
+import andrews.pandoras_creatures.entities.goals.bufflon.BufflonFollowOwnerGoal;
+import andrews.pandoras_creatures.entities.goals.bufflon.BufflonNonTamedTargetGoal;
+import andrews.pandoras_creatures.entities.goals.bufflon.BufflonOwnerHurtByTargetGoal;
+import andrews.pandoras_creatures.entities.goals.bufflon.BufflonOwnerHurtTargetGoal;
+import andrews.pandoras_creatures.entities.goals.bufflon.BufflonSitGoal;
 import andrews.pandoras_creatures.registry.PCEntities;
 import andrews.pandoras_creatures.registry.PCItems;
 import andrews.pandoras_creatures.registry.PCSounds;
@@ -84,7 +84,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryChangedListener
 {
-	private static Biome[] biomes = new Biome[] {Biomes.SNOWY_TUNDRA, Biomes.FROZEN_RIVER, Biomes.SNOWY_MOUNTAINS};
+//	private static Biome[] biomes = new Biome[] {Biomes.SNOWY_TUNDRA, Biomes.FROZEN_RIVER, Biomes.SNOWY_MOUNTAINS};
 	
 	//Stores the Bufflon type
 	private static final DataParameter<Integer> BUFFLON_TYPE = EntityDataManager.createKey(BufflonEntity.class, DataSerializers.VARINT);
@@ -1312,18 +1312,18 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
     	return 1;
     }
     
-    public static void addSpawn()
-    {
-		ForgeRegistries.BIOMES.getValues().stream().forEach(BufflonEntity::processSpawning);
-	}
-	
-    private static void processSpawning(Biome biome)
-    {
-		if(Arrays.asList(biomes).contains(biome))
-		{
-			biome.addSpawn(EntityClassification.CREATURE, new Biome.SpawnListEntry(PCEntities.BUFFLON.get(), 3, 1, 1));
-		}
-    }
+//    public static void addSpawn()
+//    {
+//		ForgeRegistries.BIOMES.getValues().stream().forEach(BufflonEntity::processSpawning);
+//	}
+//	
+//    private static void processSpawning(Biome biome)
+//    {
+//		if(Arrays.asList(biomes).contains(biome))
+//		{
+//			biome.addSpawn(EntityClassification.CREATURE, new Biome.SpawnListEntry(PCEntities.BUFFLON.get(), 3, 1, 1));
+//		}
+//    }
     
     private net.minecraftforge.common.util.LazyOptional<?> itemHandler = null;
 

@@ -2,13 +2,6 @@ package andrews.pandoras_creatures;
 
 import andrews.pandoras_creatures.config.Config;
 import andrews.pandoras_creatures.config.ConfigHelper;
-import andrews.pandoras_creatures.entities.AcidicArchvineEntity;
-import andrews.pandoras_creatures.entities.ArachnonEntity;
-import andrews.pandoras_creatures.entities.BufflonEntity;
-import andrews.pandoras_creatures.entities.CrabEntity;
-import andrews.pandoras_creatures.entities.EndTrollEntity;
-import andrews.pandoras_creatures.entities.HellhoundEntity;
-import andrews.pandoras_creatures.entities.SeahorseEntity;
 import andrews.pandoras_creatures.item_groups.PCItemGroup;
 import andrews.pandoras_creatures.network.client.MessageClientAnimation;
 import andrews.pandoras_creatures.network.server.MessageServerBufflonCombatMode;
@@ -33,6 +26,7 @@ import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -47,6 +41,7 @@ import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 
 @Mod(value = Reference.MODID)
+@SuppressWarnings("deprecation")
 public class Main
 {
 	public static Main instance;
@@ -106,13 +101,15 @@ public class Main
 		
 		FeatureInjector.addFeaturesToBiomes();
 		
-		ArachnonEntity.addSpawn();
-		HellhoundEntity.addSpawn();
-		CrabEntity.addSpawn();
-		SeahorseEntity.addSpawn();
-		AcidicArchvineEntity.addSpawn();
-		BufflonEntity.addSpawn();
-		EndTrollEntity.addSpawn();
+		DeferredWorkQueue.runLater(PCEntities::registerEntityWorldSpawns);
+		
+//		ArachnonEntity.addSpawn();
+//		HellhoundEntity.addSpawn();
+//		CrabEntity.addSpawn();
+//		SeahorseEntity.addSpawn();
+//		AcidicArchvineEntity.addSpawn();
+//		BufflonEntity.addSpawn();
+//		EndTrollEntity.addSpawn();
 	}
 	
 	//Setup Client

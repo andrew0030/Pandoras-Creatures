@@ -1,15 +1,14 @@
 package andrews.pandoras_creatures.entities;
 
-import java.util.Arrays;
+import java.util.List;
 
 import javax.annotation.Nullable;
 
-import andrews.pandoras_creatures.entities.goals.TargetUnderneathGoal;
+import andrews.pandoras_creatures.entities.goals.acidic_archvine.TargetUnderneathGoal;
 import andrews.pandoras_creatures.registry.PCEntities;
 import andrews.pandoras_creatures.registry.PCItems;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.LivingEntity;
@@ -33,11 +32,10 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class AcidicArchvineEntity extends MonsterEntity
 {
-	private static Biome[] biomes = new Biome[] {Biomes.JUNGLE, Biomes.JUNGLE_EDGE, Biomes.JUNGLE_HILLS, Biomes.MODIFIED_JUNGLE, Biomes.MODIFIED_JUNGLE_EDGE};
+//	private static Biome[] biomes = new Biome[] {Biomes.JUNGLE, Biomes.JUNGLE_EDGE, Biomes.JUNGLE_HILLS, Biomes.MODIFIED_JUNGLE, Biomes.MODIFIED_JUNGLE_EDGE};
 	private static final DataParameter<Integer> ARCHVINE_TYPE = EntityDataManager.createKey(AcidicArchvineEntity.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> TARGET_ENTITY = EntityDataManager.createKey(AcidicArchvineEntity.class, DataSerializers.VARINT);
 	private LivingEntity targetedEntity;
@@ -189,11 +187,7 @@ public class AcidicArchvineEntity extends MonsterEntity
     private int getTypeForBiome(IWorld world)
     {
 		Biome biome = world.getBiome(new BlockPos(this));
-		if(Arrays.asList(biomes).contains(biome))
-		{
-			return 1;
-		} 
-		else if(biome == Biomes.NETHER)
+		if(biome == Biomes.NETHER)
 		{
 			return 2;
 		}
@@ -302,20 +296,44 @@ public class AcidicArchvineEntity extends MonsterEntity
        this.attackState = value;
     }
     
-    public static void addSpawn()
+    /*
+     * Spawning Logic
+     */
+    public static int getFrequency()
     {
-		ForgeRegistries.BIOMES.getValues().stream().forEach(AcidicArchvineEntity::processSpawning);
-	}
-	
-    private static void processSpawning(Biome biome)
-    {
-		if(Arrays.asList(biomes).contains(biome))
-		{
-			biome.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(PCEntities.ACIDIC_ARCHVINE.get(), 100, 1, 1));
-        }
-		else if(biome == Biomes.NETHER)
-		{
-			biome.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(PCEntities.ACIDIC_ARCHVINE.get(), 30, 1, 1));
-		}
-	}
+    	for(Biome biome : PCEntities.getAcidicArchvineBiomes)
+    	{
+    		if(biome == Biomes.NETHER)
+    		{
+    			System.out.println("30 Called");
+    			return 30;
+    		}
+    		else
+    		{
+    			System.out.println("100 Called");
+    			return 100;
+    		}
+    	}
+    	System.out.println("Default Called");
+    	return 100;
+    }
+    
+    
+    
+//    public static void addSpawn()
+//    {
+//		ForgeRegistries.BIOMES.getValues().stream().forEach(AcidicArchvineEntity::processSpawning);
+//	}
+//	
+//    private static void processSpawning(Biome biome)
+//    {
+//		if(Arrays.asList(biomes).contains(biome))
+//		{
+//			biome.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(PCEntities.ACIDIC_ARCHVINE.get(), 100, 1, 1));
+//        }
+//		else if(biome == Biomes.NETHER)
+//		{
+//			biome.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(PCEntities.ACIDIC_ARCHVINE.get(), 30, 1, 1));
+//		}
+//	}
 }

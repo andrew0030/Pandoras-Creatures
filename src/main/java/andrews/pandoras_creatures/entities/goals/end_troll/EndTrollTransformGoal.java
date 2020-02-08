@@ -1,4 +1,4 @@
-package andrews.pandoras_creatures.entities.goals;
+package andrews.pandoras_creatures.entities.goals.end_troll;
 
 import java.util.EnumSet;
 

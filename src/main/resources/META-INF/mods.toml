@@ -29,7 +29,7 @@ displayURL="https://www.curseforge.com/minecraft/mc-mods/pandoras-creatures" #op
 logoFile="logo.png" #optional
 
 # A text field displayed in the mod UI
-credits="\nIgrek, for his amazing textures.\nFlummie2000 for translating and textures.\nGdG_Metiu19 for translating.\nqsefthuopq for translating.\nGhanou Craft for translating.\nEl Limbo for translating.\n" #optional
+credits="\nIgrek, for his amazing textures.\nFlummie2000 for translating and textures.\nGdG_Metiu19 for translating.\nqsefthuopq for translating.\nGhanou Craft for translating.\nEl Limbo for translating.\nGun_Man1 for translating.\n" #optional
 
 # A text field displayed in the mod UI
 authors="andrew0030\n" #optional

@@ -1,4 +1,4 @@
-package andrews.pandoras_creatures.entities.goals;
+package andrews.pandoras_creatures.entities.goals.hellhound;
 
 import andrews.pandoras_creatures.entities.HellhoundEntity;
 import net.minecraft.entity.CreatureEntity;

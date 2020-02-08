@@ -3,11 +3,13 @@ package andrews.pandoras_creatures.entities;
 import java.util.Arrays;
 
 import andrews.pandoras_creatures.entities.bases.AnimatedCreatureEntity;
-import andrews.pandoras_creatures.entities.goals.EndTrollTransformGoal;
+import andrews.pandoras_creatures.entities.goals.end_troll.EndTrollAttackGoal;
+import andrews.pandoras_creatures.entities.goals.end_troll.EndTrollTransformGoal;
 import andrews.pandoras_creatures.registry.PCEntities;
 import andrews.pandoras_creatures.registry.PCItems;
 import andrews.pandoras_creatures.util.animation.Animation;
 import andrews.pandoras_creatures.util.network.NetworkUtil;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
@@ -28,6 +30,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.DifficultyInstance;
@@ -39,7 +42,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class EndTrollEntity extends AnimatedCreatureEntity
 {
-	private static Biome[] biomes = new Biome[] {Biomes.NETHER};
+//	private static Biome[] biomes = new Biome[] {Biomes.NETHER};
 	
 	private static final DataParameter<Boolean> IS_STANDING = EntityDataManager.createKey(EndTrollEntity.class, DataSerializers.BOOLEAN);
 	
@@ -62,7 +65,7 @@ public class EndTrollEntity extends AnimatedCreatureEntity
     	//AI Goals
     	this.goalSelector.addGoal(1, new SwimGoal(this));
     	this.goalSelector.addGoal(2, new EndTrollTransformGoal(this));
-//    	this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.0D, false));
+    	this.goalSelector.addGoal(3, new EndTrollAttackGoal(this, 0.3D, false));
     	this.goalSelector.addGoal(4, new WaterAvoidingRandomWalkingGoal(this, 0.3D));
     	this.goalSelector.addGoal(5, new LookAtGoal(this, PlayerEntity.class, 10.0F));
     	this.goalSelector.addGoal(6, new LookRandomlyGoal(this));
@@ -172,6 +175,17 @@ public class EndTrollEntity extends AnimatedCreatureEntity
     }
     
     /**
+     * Used to handle the EndTroll Attacks
+     */
+    @Override
+    public boolean attackEntityAsMob(Entity entityIn)
+    {
+    	boolean flag;
+    	flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float)(2 + this.rand.nextInt(3)));
+        return flag;
+    }
+    
+    /**
      * @return - Wether or not this Entity is standing
      */
     public boolean isEntityStanding()
@@ -188,16 +202,16 @@ public class EndTrollEntity extends AnimatedCreatureEntity
     	this.dataManager.set(IS_STANDING, value);
     }
     
-    public static void addSpawn()
-    {
-		ForgeRegistries.BIOMES.getValues().stream().forEach(EndTrollEntity::processSpawning);
-	}
-	
-    private static void processSpawning(Biome biome)
-    {
-		if(Arrays.asList(biomes).contains(biome))
-		{
-			biome.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(PCEntities.END_TROLL.get(), 30, 1, 1));
-        }
-	}
+//    public static void addSpawn()
+//    {
+//		ForgeRegistries.BIOMES.getValues().stream().forEach(EndTrollEntity::processSpawning);
+//	}
+//	
+//    private static void processSpawning(Biome biome)
+//    {
+//		if(Arrays.asList(biomes).contains(biome))
+//		{
+//			biome.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(PCEntities.END_TROLL.get(), 30, 1, 1));
+//        }
+//	}
 }

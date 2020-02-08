@@ -1,17 +1,15 @@
 package andrews.pandoras_creatures.entities;
 
-import java.util.Arrays;
 import java.util.Random;
 
 import javax.annotation.Nullable;
 
-import andrews.pandoras_creatures.entities.goals.HellHoundAttack;
+import andrews.pandoras_creatures.entities.goals.hellhound.HellHoundAttack;
 import andrews.pandoras_creatures.registry.PCEntities;
 import andrews.pandoras_creatures.registry.PCItems;
 import andrews.pandoras_creatures.registry.PCSounds;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.LivingEntity;
@@ -39,17 +37,14 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biomes;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.Constants.NBT;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class HellhoundEntity extends MonsterEntity
 {
 	private static final DataParameter<Integer> HELLHOUND_TYPE = EntityDataManager.createKey(HellhoundEntity.class, DataSerializers.VARINT);
-	private static Biome[] biomes = new Biome[] {Biomes.NETHER};
+//	private static Biome[] biomes = new Biome[] {Biomes.NETHER};
 	private int isCharging;
 	
     public HellhoundEntity(EntityType<? extends HellhoundEntity> type, World worldIn)
@@ -288,16 +283,16 @@ public class HellhoundEntity extends MonsterEntity
 		this.dataManager.set(HELLHOUND_TYPE, typeId);
 	}
     
-    public static void addSpawn()
-    {
-		ForgeRegistries.BIOMES.getValues().stream().forEach(HellhoundEntity::processSpawning);
-	}
-	
-    private static void processSpawning(Biome biome)
-    {
-		if(Arrays.asList(biomes).contains(biome))
-		{
-			biome.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(PCEntities.HELLHOUND.get(), 30, 3, 6));
-        }
-	}
+//    public static void addSpawn()
+//    {
+//		ForgeRegistries.BIOMES.getValues().stream().forEach(HellhoundEntity::processSpawning);
+//	}
+//	
+//    private static void processSpawning(Biome biome)
+//    {
+//		if(Arrays.asList(biomes).contains(biome))
+//		{
+//			biome.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(PCEntities.HELLHOUND.get(), 30, 3, 6));
+//        }
+//	}
 }

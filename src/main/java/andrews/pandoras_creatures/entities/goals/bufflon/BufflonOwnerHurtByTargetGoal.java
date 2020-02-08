@@ -1,4 +1,4 @@
-package andrews.pandoras_creatures.entities.goals;
+package andrews.pandoras_creatures.entities.goals.bufflon;
 
 import java.util.EnumSet;
 
@@ -8,13 +8,13 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.TargetGoal;
 
-public class BufflonOwnerHurtTargetGoal extends TargetGoal
+public class BufflonOwnerHurtByTargetGoal extends TargetGoal
 {
 	private final BufflonEntity bufflonEntity;
 	private LivingEntity attacker;
 	private int timestamp;
 
-	public BufflonOwnerHurtTargetGoal(BufflonEntity bufflonEntity)
+	public BufflonOwnerHurtByTargetGoal(BufflonEntity bufflonEntity)
 	{
 		super(bufflonEntity, false);
 		this.bufflonEntity = bufflonEntity;
@@ -29,14 +29,14 @@ public class BufflonOwnerHurtTargetGoal extends TargetGoal
 		if(this.bufflonEntity.isTamed() && !this.bufflonEntity.isSitting() && this.bufflonEntity.isInCombatMode())
 		{
 			LivingEntity livingentity = this.bufflonEntity.getOwner();
-			if (livingentity == null)
+			if(livingentity == null)
 			{
 				return false;
 			}
 			else
 			{
-				this.attacker = livingentity.getLastAttackedEntity();
-				int i = livingentity.getLastAttackedEntityTime();
+				this.attacker = livingentity.getRevengeTarget();
+				int i = livingentity.getRevengeTimer();
 				return i != this.timestamp && this.isSuitableTarget(this.attacker, EntityPredicate.DEFAULT) && this.bufflonEntity.shouldAttackEntity(this.attacker, livingentity);
 			}
 		}
@@ -55,7 +55,7 @@ public class BufflonOwnerHurtTargetGoal extends TargetGoal
 		LivingEntity livingentity = this.bufflonEntity.getOwner();
 		if(livingentity != null)
 		{
-			this.timestamp = livingentity.getLastAttackedEntityTime();
+			this.timestamp = livingentity.getRevengeTimer();
 		}
 
 		super.startExecuting();

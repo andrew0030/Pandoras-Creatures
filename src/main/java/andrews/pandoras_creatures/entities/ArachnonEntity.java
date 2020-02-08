@@ -1,15 +1,12 @@
 package andrews.pandoras_creatures.entities;
 
-import java.util.Arrays;
-
-import andrews.pandoras_creatures.entities.goals.MeleeAttackGoalWithRange;
+import andrews.pandoras_creatures.entities.goals.arachnon.MeleeAttackGoalWithRange;
 import andrews.pandoras_creatures.registry.PCEntities;
 import andrews.pandoras_creatures.registry.PCItems;
 import andrews.pandoras_creatures.registry.PCSounds;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.Pose;
@@ -30,15 +27,12 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biomes;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class ArachnonEntity extends MonsterEntity
 {
-	private static Biome[] biomes = new Biome[] {Biomes.PLAINS, Biomes.MOUNTAINS, Biomes.GRAVELLY_MOUNTAINS};
+//	private static Biome[] biomes = new Biome[] {Biomes.PLAINS, Biomes.MOUNTAINS, Biomes.GRAVELLY_MOUNTAINS};
 	private int attackTimer;
 	
     public ArachnonEntity(EntityType<? extends ArachnonEntity> type, World worldIn)
@@ -168,16 +162,16 @@ public class ArachnonEntity extends MonsterEntity
         return CreatureAttribute.ARTHROPOD;
     }
     
-    public static void addSpawn()
-    {
-		ForgeRegistries.BIOMES.getValues().stream().forEach(ArachnonEntity::processSpawning);
-	}
-	
-    private static void processSpawning(Biome biome)
-    {
-		if(Arrays.asList(biomes).contains(biome))
-		{
-			biome.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(PCEntities.ARACHNON.get(), 20, 1, 1));
-        }
-	}
+//    public static void addSpawn()
+//    {
+//		ForgeRegistries.BIOMES.getValues().stream().forEach(ArachnonEntity::processSpawning);
+//	}
+//	
+//    private static void processSpawning(Biome biome)
+//    {
+//		if(Arrays.asList(biomes).contains(biome))
+//		{
+//			biome.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(PCEntities.ARACHNON.get(), 20, 1, 1));
+//        }
+//	}
 }
