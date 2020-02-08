@@ -20,7 +20,6 @@ import andrews.pandoras_creatures.registry.PCSounds;
 import andrews.pandoras_creatures.util.animation.Animation;
 import andrews.pandoras_creatures.util.network.NetworkUtil;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
@@ -74,18 +73,13 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biomes;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.fml.network.NetworkHooks;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryChangedListener
 {
-//	private static Biome[] biomes = new Biome[] {Biomes.SNOWY_TUNDRA, Biomes.FROZEN_RIVER, Biomes.SNOWY_MOUNTAINS};
-	
 	//Stores the Bufflon type
 	private static final DataParameter<Integer> BUFFLON_TYPE = EntityDataManager.createKey(BufflonEntity.class, DataSerializers.VARINT);
 	//Stores whether or not the Bufflon is tamed and the UUID of the owner

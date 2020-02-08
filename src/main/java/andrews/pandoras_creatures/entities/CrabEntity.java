@@ -1,6 +1,5 @@
 package andrews.pandoras_creatures.entities;
 
-import java.util.Arrays;
 import java.util.Random;
 
 import javax.annotation.Nullable;
@@ -10,7 +9,6 @@ import andrews.pandoras_creatures.registry.PCEntities;
 import andrews.pandoras_creatures.registry.PCItems;
 import andrews.pandoras_creatures.registry.PCSounds;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
@@ -32,16 +30,12 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biomes;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class CrabEntity extends BucketableMobEntity
 {
 	private static final DataParameter<Integer> CRAB_TYPE = EntityDataManager.createKey(CrabEntity.class, DataSerializers.VARINT);
-//	private static Biome[] biomes = new Biome[] {Biomes.BEACH, Biomes.WARM_OCEAN};
 	private boolean partyCrab;
 	private boolean underWater = false;
 	private BlockPos jukeboxPosition;

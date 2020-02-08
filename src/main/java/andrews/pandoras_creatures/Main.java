@@ -102,14 +102,6 @@ public class Main
 		FeatureInjector.addFeaturesToBiomes();
 		
 		DeferredWorkQueue.runLater(PCEntities::registerEntityWorldSpawns);
-		
-//		ArachnonEntity.addSpawn();
-//		HellhoundEntity.addSpawn();
-//		CrabEntity.addSpawn();
-//		SeahorseEntity.addSpawn();
-//		AcidicArchvineEntity.addSpawn();
-//		BufflonEntity.addSpawn();
-//		EndTrollEntity.addSpawn();
 	}
 	
 	//Setup Client
@@ -117,7 +109,7 @@ public class Main
 	public static void setupClient(final FMLClientSetupEvent event)
 	{
 		//Tile Entities
-//		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityElderEye.class, new TileEntityElderEyeRenderer());
+//		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityName.class, new TileEntityNameRenderer());
 		
 		//Entities
 		PCEntities.registerEntityRenders();

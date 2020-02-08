@@ -1,7 +1,5 @@
 package andrews.pandoras_creatures.entities;
 
-import java.util.List;
-
 import javax.annotation.Nullable;
 
 import andrews.pandoras_creatures.entities.goals.acidic_archvine.TargetUnderneathGoal;
@@ -295,30 +293,6 @@ public class AcidicArchvineEntity extends MonsterEntity
     {
        this.attackState = value;
     }
-    
-    /*
-     * Spawning Logic
-     */
-    public static int getFrequency()
-    {
-    	for(Biome biome : PCEntities.getAcidicArchvineBiomes)
-    	{
-    		if(biome == Biomes.NETHER)
-    		{
-    			System.out.println("30 Called");
-    			return 30;
-    		}
-    		else
-    		{
-    			System.out.println("100 Called");
-    			return 100;
-    		}
-    	}
-    	System.out.println("Default Called");
-    	return 100;
-    }
-    
-    
     
 //    public static void addSpawn()
 //    {

@@ -1,6 +1,5 @@
 package andrews.pandoras_creatures.entities;
 
-import java.util.Arrays;
 import java.util.Random;
 
 import javax.annotation.Nullable;
@@ -8,7 +7,6 @@ import javax.annotation.Nullable;
 import andrews.pandoras_creatures.entities.bases.BucketableMobEntity;
 import andrews.pandoras_creatures.registry.PCEntities;
 import andrews.pandoras_creatures.registry.PCItems;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
@@ -41,16 +39,11 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biomes;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class SeahorseEntity extends BucketableMobEntity
 {
 	private static final DataParameter<Integer> SEAHORSE_TYPE = EntityDataManager.createKey(SeahorseEntity.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> SEAHORSE_SIZE = EntityDataManager.createKey(SeahorseEntity.class, DataSerializers.VARINT);
-	private static Biome[] biomesHot = new Biome[] {Biomes.WARM_OCEAN, Biomes.DEEP_WARM_OCEAN};
-	private static Biome[] biomesCold = new Biome[] {Biomes.OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.DEEP_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN};
 	
     public SeahorseEntity(EntityType<? extends SeahorseEntity> type, World worldIn)
     {
@@ -343,7 +336,7 @@ public class SeahorseEntity extends BucketableMobEntity
 	{
 		this.dataManager.set(SEAHORSE_SIZE, typeId);
 	}
-    
+	
 //    public static void addSpawn()
 //    {
 //		ForgeRegistries.BIOMES.getValues().stream().forEach(SeahorseEntity::processSpawning);

@@ -1,7 +1,5 @@
 package andrews.pandoras_creatures.entities;
 
-import java.util.Arrays;
-
 import andrews.pandoras_creatures.entities.bases.AnimatedCreatureEntity;
 import andrews.pandoras_creatures.entities.goals.end_troll.EndTrollAttackGoal;
 import andrews.pandoras_creatures.entities.goals.end_troll.EndTrollTransformGoal;
@@ -10,7 +8,6 @@ import andrews.pandoras_creatures.registry.PCItems;
 import andrews.pandoras_creatures.util.animation.Animation;
 import andrews.pandoras_creatures.util.network.NetworkUtil;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
@@ -36,9 +33,6 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biomes;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class EndTrollEntity extends AnimatedCreatureEntity
 {
@@ -201,17 +195,4 @@ public class EndTrollEntity extends AnimatedCreatureEntity
     {
     	this.dataManager.set(IS_STANDING, value);
     }
-    
-//    public static void addSpawn()
-//    {
-//		ForgeRegistries.BIOMES.getValues().stream().forEach(EndTrollEntity::processSpawning);
-//	}
-//	
-//    private static void processSpawning(Biome biome)
-//    {
-//		if(Arrays.asList(biomes).contains(biome))
-//		{
-//			biome.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(PCEntities.END_TROLL.get(), 30, 1, 1));
-//        }
-//	}
 }
