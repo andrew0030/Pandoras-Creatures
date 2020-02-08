@@ -336,23 +336,6 @@ public class SeahorseEntity extends BucketableMobEntity
 	{
 		this.dataManager.set(SEAHORSE_SIZE, typeId);
 	}
-	
-//    public static void addSpawn()
-//    {
-//		ForgeRegistries.BIOMES.getValues().stream().forEach(SeahorseEntity::processSpawning);
-//	}
-//	
-//    private static void processSpawning(Biome biome)
-//    {
-//		if(Arrays.asList(biomesHot).contains(biome))
-//		{
-//			biome.addSpawn(EntityClassification.WATER_CREATURE, new Biome.SpawnListEntry(PCEntities.SEAHORSE.get(), 25, 3, 6));
-//		}
-//		else if(Arrays.asList(biomesCold).contains(biome))
-//		{
-//			biome.addSpawn(EntityClassification.WATER_CREATURE, new Biome.SpawnListEntry(PCEntities.SEAHORSE.get(), 10, 2, 3));
-//		}
-//    }
     
     /**
      * The Movement Controller.

@@ -33,7 +33,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class AcidicArchvineEntity extends MonsterEntity
 {
-//	private static Biome[] biomes = new Biome[] {Biomes.JUNGLE, Biomes.JUNGLE_EDGE, Biomes.JUNGLE_HILLS, Biomes.MODIFIED_JUNGLE, Biomes.MODIFIED_JUNGLE_EDGE};
 	private static final DataParameter<Integer> ARCHVINE_TYPE = EntityDataManager.createKey(AcidicArchvineEntity.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> TARGET_ENTITY = EntityDataManager.createKey(AcidicArchvineEntity.class, DataSerializers.VARINT);
 	private LivingEntity targetedEntity;
@@ -293,21 +292,4 @@ public class AcidicArchvineEntity extends MonsterEntity
     {
        this.attackState = value;
     }
-    
-//    public static void addSpawn()
-//    {
-//		ForgeRegistries.BIOMES.getValues().stream().forEach(AcidicArchvineEntity::processSpawning);
-//	}
-//	
-//    private static void processSpawning(Biome biome)
-//    {
-//		if(Arrays.asList(biomes).contains(biome))
-//		{
-//			biome.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(PCEntities.ACIDIC_ARCHVINE.get(), 100, 1, 1));
-//        }
-//		else if(biome == Biomes.NETHER)
-//		{
-//			biome.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(PCEntities.ACIDIC_ARCHVINE.get(), 30, 1, 1));
-//		}
-//	}
 }

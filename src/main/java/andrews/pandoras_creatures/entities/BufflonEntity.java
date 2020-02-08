@@ -1306,19 +1306,6 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
     	return 1;
     }
     
-//    public static void addSpawn()
-//    {
-//		ForgeRegistries.BIOMES.getValues().stream().forEach(BufflonEntity::processSpawning);
-//	}
-//	
-//    private static void processSpawning(Biome biome)
-//    {
-//		if(Arrays.asList(biomes).contains(biome))
-//		{
-//			biome.addSpawn(EntityClassification.CREATURE, new Biome.SpawnListEntry(PCEntities.BUFFLON.get(), 3, 1, 1));
-//		}
-//    }
-    
     private net.minecraftforge.common.util.LazyOptional<?> itemHandler = null;
 
     @Override

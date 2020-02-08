@@ -32,7 +32,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class ArachnonEntity extends MonsterEntity
 {
-//	private static Biome[] biomes = new Biome[] {Biomes.PLAINS, Biomes.MOUNTAINS, Biomes.GRAVELLY_MOUNTAINS};
 	private int attackTimer;
 	
     public ArachnonEntity(EntityType<? extends ArachnonEntity> type, World worldIn)
@@ -161,17 +160,4 @@ public class ArachnonEntity extends MonsterEntity
     {
         return CreatureAttribute.ARTHROPOD;
     }
-    
-//    public static void addSpawn()
-//    {
-//		ForgeRegistries.BIOMES.getValues().stream().forEach(ArachnonEntity::processSpawning);
-//	}
-//	
-//    private static void processSpawning(Biome biome)
-//    {
-//		if(Arrays.asList(biomes).contains(biome))
-//		{
-//			biome.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(PCEntities.ARACHNON.get(), 20, 1, 1));
-//        }
-//	}
 }

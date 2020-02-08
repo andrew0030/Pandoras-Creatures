@@ -44,7 +44,6 @@ import net.minecraftforge.common.util.Constants.NBT;
 public class HellhoundEntity extends MonsterEntity
 {
 	private static final DataParameter<Integer> HELLHOUND_TYPE = EntityDataManager.createKey(HellhoundEntity.class, DataSerializers.VARINT);
-//	private static Biome[] biomes = new Biome[] {Biomes.NETHER};
 	private int isCharging;
 	
     public HellhoundEntity(EntityType<? extends HellhoundEntity> type, World worldIn)
@@ -282,17 +281,4 @@ public class HellhoundEntity extends MonsterEntity
 	{
 		this.dataManager.set(HELLHOUND_TYPE, typeId);
 	}
-    
-//    public static void addSpawn()
-//    {
-//		ForgeRegistries.BIOMES.getValues().stream().forEach(HellhoundEntity::processSpawning);
-//	}
-//	
-//    private static void processSpawning(Biome biome)
-//    {
-//		if(Arrays.asList(biomes).contains(biome))
-//		{
-//			biome.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(PCEntities.HELLHOUND.get(), 30, 3, 6));
-//        }
-//	}
 }

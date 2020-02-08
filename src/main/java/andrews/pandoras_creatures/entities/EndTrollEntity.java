@@ -35,9 +35,7 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
 public class EndTrollEntity extends AnimatedCreatureEntity
-{
-//	private static Biome[] biomes = new Biome[] {Biomes.NETHER};
-	
+{	
 	private static final DataParameter<Boolean> IS_STANDING = EntityDataManager.createKey(EndTrollEntity.class, DataSerializers.BOOLEAN);
 	
 	public static final Animation TRANSFORM_ANIMATION = new Animation(20);

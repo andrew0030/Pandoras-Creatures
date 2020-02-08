@@ -232,17 +232,4 @@ public class CrabEntity extends BucketableMobEntity
 	{
 		this.dataManager.set(CRAB_TYPE, typeId);
 	}
-    
-//    public static void addSpawn()
-//    {
-//		ForgeRegistries.BIOMES.getValues().stream().forEach(CrabEntity::processSpawning);
-//	}
-//	
-//    private static void processSpawning(Biome biome)
-//    {
-//		if(Arrays.asList(biomes).contains(biome))
-//		{
-//			biome.addSpawn(EntityClassification.AMBIENT, new Biome.SpawnListEntry(PCEntities.CRAB.get(), 40, 2, 5));
-//		}
-//    }
 }
