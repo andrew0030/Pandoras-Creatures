@@ -2,9 +2,9 @@ package andrews.pandoras_creatures.util.network;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import andrews.pandoras_creatures.Main;
 import andrews.pandoras_creatures.entities.BufflonEntity;
 import andrews.pandoras_creatures.entities.bases.AnimatedCreatureEntity;
+import andrews.pandoras_creatures.network.PCNetwork;
 import andrews.pandoras_creatures.network.client.MessageClientAnimation;
 import andrews.pandoras_creatures.network.server.MessageServerBufflonCombatMode;
 import andrews.pandoras_creatures.network.server.MessageServerBufflonFollow;
@@ -26,7 +26,7 @@ public class NetworkUtil
 	{
 	    if(!entity.getEntityWorld().isRemote)
 	    {
-	        Main.CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), new MessageClientAnimation(entity.getEntityId(), ArrayUtils.indexOf(entity.getAnimations(), animationToPlay)));
+	        PCNetwork.CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), new MessageClientAnimation(entity.getEntityId(), ArrayUtils.indexOf(entity.getAnimations(), animationToPlay)));
 	        entity.setPlayingAnimation(animationToPlay);
 	    }
 	}
@@ -38,7 +38,7 @@ public class NetworkUtil
 	@OnlyIn(Dist.CLIENT)
 	public static void openBufflonInventoryMessage(BufflonEntity bufflonEntity)
 	{
-		Main.CHANNEL.sendToServer(new MessageServerBufflonInventory(bufflonEntity.getEntityId()));
+		PCNetwork.CHANNEL.sendToServer(new MessageServerBufflonInventory(bufflonEntity.getEntityId()));
 	}
 	
 	/**
@@ -49,7 +49,7 @@ public class NetworkUtil
 	@OnlyIn(Dist.CLIENT)
 	public static void setBufflonSittingMessage(BufflonEntity bufflonEntity, boolean shouldSit)
 	{
-		Main.CHANNEL.sendToServer(new MessageServerBufflonSit(bufflonEntity.getEntityId(), shouldSit));
+		PCNetwork.CHANNEL.sendToServer(new MessageServerBufflonSit(bufflonEntity.getEntityId(), shouldSit));
 	}
 	
 	/**
@@ -60,7 +60,7 @@ public class NetworkUtil
 	@OnlyIn(Dist.CLIENT)
 	public static void setBufflonFollowingMessage(BufflonEntity bufflonEntity, boolean shouldFollow)
 	{
-		Main.CHANNEL.sendToServer(new MessageServerBufflonFollow(bufflonEntity.getEntityId(), shouldFollow));
+		PCNetwork.CHANNEL.sendToServer(new MessageServerBufflonFollow(bufflonEntity.getEntityId(), shouldFollow));
 	}
 	
 	/**
@@ -71,6 +71,6 @@ public class NetworkUtil
 	@OnlyIn(Dist.CLIENT)
 	public static void setBufflonCombatMode(BufflonEntity bufflonEntity, boolean combatMode)
 	{
-		Main.CHANNEL.sendToServer(new MessageServerBufflonCombatMode(bufflonEntity.getEntityId(), combatMode));
+		PCNetwork.CHANNEL.sendToServer(new MessageServerBufflonCombatMode(bufflonEntity.getEntityId(), combatMode));
 	}
 }

@@ -15,14 +15,14 @@ public class EndTrollTransformGoal extends Goal
 	public EndTrollTransformGoal(EndTrollEntity endTroll)
 	{
 		this.endTroll = endTroll;
-	    this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE));//TODO
+	    this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE));
 	}
 	
 	@Override
 	public boolean shouldExecute()
 	{
 		LivingEntity livingentity = this.endTroll.getAttackTarget();
-	    return !this.endTroll.isEntityStanding() && livingentity != null && this.endTroll.getDistanceSq(livingentity) < 120.0D;
+	    return !this.endTroll.isEntityStanding() && livingentity != null && this.endTroll.getDistanceSq(livingentity) < 150.0D;
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class EndTrollTransformGoal extends Goal
 		{
 			if(this.endTroll.isAnimationPlaying(EndTrollEntity.BLANK_ANIMATION) && !this.endTroll.isWorldRemote())
         	{
-        		NetworkUtil.setPlayingAnimationMessage(this.endTroll, EndTrollEntity.TRANSFORM_ANIMATION); //TODO REMOVE
+        		NetworkUtil.setPlayingAnimationMessage(this.endTroll, EndTrollEntity.TRANSFORM_ANIMATION);
         	}
 		}
 	}

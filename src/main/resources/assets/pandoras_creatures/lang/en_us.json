@@ -105,6 +105,9 @@
 	"entity.pandoras_creatures.acidic_archvine": "Acidic Archvine",
 	"entity.pandoras_creatures.bufflon": "Bufflon",
 	"entity.pandoras_creatures.end_troll": "End Troll",
+	"entity.pandoras_creatures.end_troll_bullet_poison": "Poison End Troll Bullet",
+	"entity.pandoras_creatures.end_troll_bullet_wither": "Wither End Troll Bullet",
+	"entity.pandoras_creatures.end_troll_bullet_damage": "Damage End Troll Bullet",
 	
 //	 Button Tool Tips
 	"gui.button.pandoras_creatures.discord": "Discord",

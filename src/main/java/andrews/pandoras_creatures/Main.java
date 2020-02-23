@@ -3,11 +3,7 @@ package andrews.pandoras_creatures;
 import andrews.pandoras_creatures.config.Config;
 import andrews.pandoras_creatures.config.ConfigHelper;
 import andrews.pandoras_creatures.item_groups.PCItemGroup;
-import andrews.pandoras_creatures.network.client.MessageClientAnimation;
-import andrews.pandoras_creatures.network.server.MessageServerBufflonCombatMode;
-import andrews.pandoras_creatures.network.server.MessageServerBufflonFollow;
-import andrews.pandoras_creatures.network.server.MessageServerBufflonInventory;
-import andrews.pandoras_creatures.network.server.MessageServerBufflonSit;
+import andrews.pandoras_creatures.network.PCNetwork;
 import andrews.pandoras_creatures.objects.items.PCSpawnEggItem;
 import andrews.pandoras_creatures.registry.PCBlocks;
 import andrews.pandoras_creatures.registry.PCContainers;
@@ -17,9 +13,9 @@ import andrews.pandoras_creatures.registry.PCSounds;
 import andrews.pandoras_creatures.util.FeatureInjector;
 import andrews.pandoras_creatures.util.Reference;
 import andrews.pandoras_creatures.util.RehostedJarHandler;
+import andrews.pandoras_creatures.world.PCFeatures;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ColorHandlerEvent;
@@ -37,8 +33,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.moddiscovery.ModFile;
-import net.minecraftforge.fml.network.NetworkRegistry;
-import net.minecraftforge.fml.network.simple.SimpleChannel;
 
 @Mod(value = Reference.MODID)
 @SuppressWarnings("deprecation")
@@ -46,7 +40,6 @@ public class Main
 {
 	public static Main instance;
 	public static final ItemGroup PANDORAS_CREATURES_GROUP = new PCItemGroup();
-	public static final String NETWORK_PROTOCOL = "1";
 
 	public Main()
 	{
@@ -58,6 +51,7 @@ public class Main
 		PCBlocks.BLOCKS.register(modEventBus);
 		PCContainers.CONTAINERS.register(modEventBus);
 		PCEntities.ENTITY_TYPES.register(modEventBus);
+		PCFeatures.FEATURES.register(modEventBus);
 		PCSounds.SOUNDS.register(modEventBus);
 		
 		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {modEventBus.addListener(EventPriority.LOWEST, this::registerItemColors);});
@@ -83,18 +77,11 @@ public class Main
 		modLoadingContext.registerConfig(ModConfig.Type.COMMON, Config.COMMONSPEC);
 	}
 	
-	//Networking
-	public static final SimpleChannel CHANNEL = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(Reference.MODID, "net"))
-		.networkProtocolVersion(() -> NETWORK_PROTOCOL)
-		.clientAcceptedVersions(NETWORK_PROTOCOL::equals)
-		.serverAcceptedVersions(NETWORK_PROTOCOL::equals)
-		.simpleChannel();
-	
 	//Setup Common
 	@SubscribeEvent
 	public static void setupCommon(final FMLCommonSetupEvent event)
 	{
-		setupMessages();
+		PCNetwork.setupMessages();
 		
 		ModFile file = ModList.get().getModFileById(Reference.MODID).getFile();
 		new RehostedJarHandler(file, "pandoras_creatures-" + Reference.VERSION + ".jar");
@@ -132,34 +119,5 @@ public class Main
 				}, item);
 			}
 		}
-	}
-	
-	//Setup Messages
-	static void setupMessages()
-	{
-		int id = -1;
-		//Client Messages
-		CHANNEL.messageBuilder(MessageClientAnimation.class, id++)
-		.encoder(MessageClientAnimation::serialize)
-		.decoder(MessageClientAnimation::deserialize)
-		.consumer(MessageClientAnimation::handle).add();
-		
-		//Server Messages
-		CHANNEL.messageBuilder(MessageServerBufflonInventory.class, id++)
-		.encoder(MessageServerBufflonInventory::serialize).decoder(MessageServerBufflonInventory::deserialize)
-		.consumer(MessageServerBufflonInventory::handle)
-		.add();
-		CHANNEL.messageBuilder(MessageServerBufflonSit.class, id++)
-		.encoder(MessageServerBufflonSit::serialize).decoder(MessageServerBufflonSit::deserialize)
-		.consumer(MessageServerBufflonSit::handle)
-		.add();
-		CHANNEL.messageBuilder(MessageServerBufflonFollow.class, id++)
-		.encoder(MessageServerBufflonFollow::serialize).decoder(MessageServerBufflonFollow::deserialize)
-		.consumer(MessageServerBufflonFollow::handle)
-		.add();
-		CHANNEL.messageBuilder(MessageServerBufflonCombatMode.class, id++)
-		.encoder(MessageServerBufflonCombatMode::serialize).decoder(MessageServerBufflonCombatMode::deserialize)
-		.consumer(MessageServerBufflonCombatMode::handle)
-		.add();
 	}
 }
