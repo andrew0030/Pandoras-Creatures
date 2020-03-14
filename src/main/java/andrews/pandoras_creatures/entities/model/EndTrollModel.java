@@ -1031,7 +1031,7 @@ public class EndTrollModel<T extends EndTrollEntity> extends PCEntityModel<T>
     {
     	loadAllDefaultValues();
     	
-    	if(entity.isAnimationPlaying(EndTrollEntity.BLANK_ANIMATION) || entity.isAnimationPlaying(EndTrollEntity.SHOOT_ANIMATION))
+    	if(entity.isAnimationPlaying(EndTrollEntity.BLANK_ANIMATION) || entity.isAnimationPlaying(EndTrollEntity.SHOOT_ANIMATION) || entity.isAnimationPlaying(EndTrollEntity.RIGHT_PUNCH_ANIMATION) || entity.isAnimationPlaying(EndTrollEntity.LEFT_PUNCH_ANIMATION) || entity.isAnimationPlaying(EndTrollEntity.DOUBLE_PUNCH_ANIMATION))
     	{
     		if(!entity.isEntityStanding())
     		{
@@ -1539,6 +1539,167 @@ public class EndTrollModel<T extends EndTrollEntity> extends PCEntityModel<T>
     		
     		this.animator.setStaticKeyframe(1);
     		this.animator.resetKeyframe(7);
+    	}
+    	if(animatedEntity.isAnimationPlaying(EndTrollEntity.RIGHT_PUNCH_ANIMATION))
+    	{
+    		this.animator.setAnimationToPlay(EndTrollEntity.RIGHT_PUNCH_ANIMATION);
+    		
+    		this.animator.startKeyframe(9);
+    		this.animator.rotate(torso, 0.2F, -0.2F, 0.3F);
+    		this.animator.rotate(stomach, -0.1F, 0, 0);
+    		this.animator.rotate(arm_right_main, 0.5F, -0.7F, 0.7F);
+    		this.animator.rotate(arm_right_2, -1.5F, 0, 0);
+    		
+    		this.animator.rotate(arm_left_main, -0.1F, 0.4F, -0.2F);
+    		this.animator.rotate(arm_left_2, -0.5F, 0, 0);
+    		
+    		this.animator.rotate(hand_right_finger_right_1, 0, 0, 0.2F);
+    		this.animator.rotate(hand_right_finger_right_2, 0, 0, 0.4F);
+    		this.animator.rotate(hand_right_finger_right_3, 0, 0, 0.4F);
+    		this.animator.rotate(hand_right_finger_left_1, 0, 0, 0.2F);
+    		this.animator.rotate(hand_right_finger_left_2, 0, 0, 0.4F);
+    		this.animator.rotate(hand_right_finger_left_3, 0, 0, 0.4F);
+    		this.animator.rotate(hand_right_thumb_1, 0, 0, -0.2F);
+    		this.animator.rotate(hand_right_thumb_2, 0, 0, 0.8F);
+    		this.animator.endKeyframe();
+    		
+    		this.animator.setStaticKeyframe(1);
+    		
+    		this.animator.startKeyframe(5);
+    		this.animator.rotate(torso, 0.2F, 0.4F, -0.4F);
+    		this.animator.rotate(stomach, 0.0F, 0, 0);
+    		
+    		this.animator.rotate(arm_right_main, -1.2F, -0.7F, 0.7F);
+    		this.animator.rotate(arm_right_2, 0.1F, 0, 0);
+    		
+    		this.animator.rotate(arm_left_main, 0.5F, 0.1F, -0.1F);
+    		this.animator.rotate(arm_left_2, -1.1F, 0.2F, -0.2F);
+    		
+    		this.animator.rotate(hand_right_finger_right_1, 0, 0, 0.2F);
+    		this.animator.rotate(hand_right_finger_right_2, 0, 0, 0.4F);
+    		this.animator.rotate(hand_right_finger_right_3, 0, 0, 0.4F);
+    		this.animator.rotate(hand_right_finger_left_1, 0, 0, 0.2F);
+    		this.animator.rotate(hand_right_finger_left_2, 0, 0, 0.4F);
+    		this.animator.rotate(hand_right_finger_left_3, 0, 0, 0.4F);
+    		this.animator.rotate(hand_right_thumb_1, 0, 0, -0.2F);
+    		this.animator.rotate(hand_right_thumb_2, 0, 0, 0.8F);
+    		this.animator.endKeyframe();
+    		
+    		this.animator.setStaticKeyframe(1);
+    		
+    		this.animator.resetKeyframe(12);
+    	}
+    	if(animatedEntity.isAnimationPlaying(EndTrollEntity.LEFT_PUNCH_ANIMATION))
+    	{
+    		this.animator.setAnimationToPlay(EndTrollEntity.LEFT_PUNCH_ANIMATION);
+    		
+    		this.animator.startKeyframe(9);
+    		this.animator.rotate(torso, 0.2F, 0.2F, -0.3F);
+    		this.animator.rotate(stomach, -0.1F, 0, 0);
+    		this.animator.rotate(arm_left_main, 0.5F, 0.7F, -0.7F);
+    		this.animator.rotate(arm_left_2, -1.5F, 0, 0);
+    		
+    		this.animator.rotate(arm_right_main, -0.1F, -0.4F, 0.2F);
+    		this.animator.rotate(arm_right_2, -0.5F, 0, 0);
+    		
+    		this.animator.rotate(hand_left_finger_right_1, 0, 0, 0.2F);
+    		this.animator.rotate(hand_left_finger_right_2, 0, 0, 0.4F);
+    		this.animator.rotate(hand_left_finger_right_3, 0, 0, 0.4F);
+    		this.animator.rotate(hand_left_finger_left_1, 0, 0, 0.2F);
+    		this.animator.rotate(hand_left_finger_left_2, 0, 0, 0.4F);
+    		this.animator.rotate(hand_left_finger_left_3, 0, 0, 0.4F);
+    		this.animator.rotate(hand_left_thumb_1, 0, 0, -0.2F);
+    		this.animator.rotate(hand_left_thumb_2, 0, 0, 0.8F);
+    		this.animator.endKeyframe();
+    		
+    		this.animator.setStaticKeyframe(1);
+    		
+    		this.animator.startKeyframe(5);
+    		this.animator.rotate(torso, 0.2F, -0.4F, 0.4F);
+    		this.animator.rotate(stomach, 0.0F, 0, 0);
+    		
+    		this.animator.rotate(arm_left_main, -1.2F, 0.7F, -0.7F);
+    		this.animator.rotate(arm_left_2, 0.1F, 0, 0);
+    		
+    		this.animator.rotate(arm_right_main, 0.5F, -0.1F, 0.1F);
+    		this.animator.rotate(arm_right_2, -1.1F, -0.2F, 0.2F);
+    		
+    		this.animator.rotate(hand_left_finger_right_1, 0, 0, 0.2F);
+    		this.animator.rotate(hand_left_finger_right_2, 0, 0, 0.4F);
+    		this.animator.rotate(hand_left_finger_right_3, 0, 0, 0.4F);
+    		this.animator.rotate(hand_left_finger_left_1, 0, 0, 0.2F);
+    		this.animator.rotate(hand_left_finger_left_2, 0, 0, 0.4F);
+    		this.animator.rotate(hand_left_finger_left_3, 0, 0, 0.4F);
+    		this.animator.rotate(hand_left_thumb_1, 0, 0, -0.2F);
+    		this.animator.rotate(hand_left_thumb_2, 0, 0, 0.8F);
+    		this.animator.endKeyframe();
+    		
+    		this.animator.setStaticKeyframe(1);
+    		
+    		this.animator.resetKeyframe(12);
+    	}
+    	if(animatedEntity.isAnimationPlaying(EndTrollEntity.DOUBLE_PUNCH_ANIMATION))
+    	{
+    		this.animator.setAnimationToPlay(EndTrollEntity.DOUBLE_PUNCH_ANIMATION);
+    		
+    		this.animator.startKeyframe(9);
+    		this.animator.rotate(torso, 0.3F, 0, 0);
+    		this.animator.rotate(stomach, -0.3F, 0, 0);
+    		this.animator.rotate(arm_left_main, 0.5F, 0.7F, -0.7F);
+    		this.animator.rotate(arm_left_2, -1.5F, 0, 0);
+    		this.animator.rotate(arm_right_main, 0.5F, -0.7F, 0.7F);
+    		this.animator.rotate(arm_right_2, -1.5F, 0, 0);
+    		
+    		this.animator.rotate(hand_left_finger_right_1, 0, 0, 0.2F);
+    		this.animator.rotate(hand_left_finger_right_2, 0, 0, 0.4F);
+    		this.animator.rotate(hand_left_finger_right_3, 0, 0, 0.4F);
+    		this.animator.rotate(hand_left_finger_left_1, 0, 0, 0.2F);
+    		this.animator.rotate(hand_left_finger_left_2, 0, 0, 0.4F);
+    		this.animator.rotate(hand_left_finger_left_3, 0, 0, 0.4F);
+    		this.animator.rotate(hand_left_thumb_1, 0, 0, -0.2F);
+    		this.animator.rotate(hand_left_thumb_2, 0, 0, 0.8F);
+    		this.animator.rotate(hand_right_finger_right_1, 0, 0, 0.2F);
+    		this.animator.rotate(hand_right_finger_right_2, 0, 0, 0.4F);
+    		this.animator.rotate(hand_right_finger_right_3, 0, 0, 0.4F);
+    		this.animator.rotate(hand_right_finger_left_1, 0, 0, 0.2F);
+    		this.animator.rotate(hand_right_finger_left_2, 0, 0, 0.4F);
+    		this.animator.rotate(hand_right_finger_left_3, 0, 0, 0.4F);
+    		this.animator.rotate(hand_right_thumb_1, 0, 0, -0.2F);
+    		this.animator.rotate(hand_right_thumb_2, 0, 0, 0.8F);
+    		this.animator.endKeyframe();
+    		
+    		this.animator.setStaticKeyframe(1);
+    		
+    		this.animator.startKeyframe(5);
+    		this.animator.rotate(torso, 0.2F, 0, 0);
+    		this.animator.rotate(stomach, 0.2F, 0, 0);
+    		
+    		this.animator.rotate(arm_left_main, -1.6F, 0.7F, -0.7F);
+    		this.animator.rotate(arm_left_2, 0.1F, 0, 0.4F);
+    		this.animator.rotate(arm_right_main, -1.6F, -0.7F, 0.7F);
+    		this.animator.rotate(arm_right_2, 0.1F, 0, -0.4F);
+    		
+    		this.animator.rotate(hand_left_finger_right_1, 0, 0, 0.2F);
+    		this.animator.rotate(hand_left_finger_right_2, 0, 0, 0.4F);
+    		this.animator.rotate(hand_left_finger_right_3, 0, 0, 0.4F);
+    		this.animator.rotate(hand_left_finger_left_1, 0, 0, 0.2F);
+    		this.animator.rotate(hand_left_finger_left_2, 0, 0, 0.4F);
+    		this.animator.rotate(hand_left_finger_left_3, 0, 0, 0.4F);
+    		this.animator.rotate(hand_left_thumb_1, 0, 0, -0.2F);
+    		this.animator.rotate(hand_left_thumb_2, 0, 0, 0.8F);
+    		this.animator.rotate(hand_right_finger_right_1, 0, 0, 0.2F);
+    		this.animator.rotate(hand_right_finger_right_2, 0, 0, 0.4F);
+    		this.animator.rotate(hand_right_finger_right_3, 0, 0, 0.4F);
+    		this.animator.rotate(hand_right_finger_left_1, 0, 0, 0.2F);
+    		this.animator.rotate(hand_right_finger_left_2, 0, 0, 0.4F);
+    		this.animator.rotate(hand_right_finger_left_3, 0, 0, 0.4F);
+    		this.animator.rotate(hand_right_thumb_1, 0, 0, -0.2F);
+    		this.animator.rotate(hand_right_thumb_2, 0, 0, 0.8F);
+    		this.animator.endKeyframe();
+    		
+    		this.animator.setStaticKeyframe(1);
+    		
+    		this.animator.resetKeyframe(12);
     	}
     }
 }

@@ -1,8 +1,9 @@
 package andrews.pandoras_creatures.entities;
 
-import java.util.EnumSet;
-
 import andrews.pandoras_creatures.entities.bases.AnimatedCreatureEntity;
+import andrews.pandoras_creatures.entities.goals.end_troll.EndTrollAttackGoal;
+import andrews.pandoras_creatures.entities.goals.end_troll.EndTrollBulletAttackGoal;
+import andrews.pandoras_creatures.entities.goals.end_troll.EndTrollScreamGoal;
 import andrews.pandoras_creatures.entities.goals.end_troll.EndTrollTransformGoal;
 import andrews.pandoras_creatures.registry.PCEntities;
 import andrews.pandoras_creatures.registry.PCItems;
@@ -14,16 +15,15 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Pose;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.item.FallingBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
@@ -33,7 +33,6 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
@@ -41,7 +40,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -56,6 +54,12 @@ public class EndTrollEntity extends AnimatedCreatureEntity
 	public static final Animation TRANSFORM_ANIMATION = new Animation(20);
 	public static final Animation SCREAM_ANIMATION = new Animation(32);
 	public static final Animation SHOOT_ANIMATION = new Animation(20);
+	public static final Animation RIGHT_PUNCH_ANIMATION = new Animation(28);
+	public static final Animation LEFT_PUNCH_ANIMATION = new Animation(28);
+	public static final Animation DOUBLE_PUNCH_ANIMATION = new Animation(28);
+	
+	public int shootCooldown = 300;
+	public int screamCooldown = 600;
 	
     public EndTrollEntity(EntityType<? extends EndTrollEntity> type, World worldIn)
     {
@@ -75,8 +79,9 @@ public class EndTrollEntity extends AnimatedCreatureEntity
     	//AI Goals
     	this.goalSelector.addGoal(1, new SwimGoal(this));
     	this.goalSelector.addGoal(2, new EndTrollTransformGoal(this));
-    	this.goalSelector.addGoal(3, new EndTrollEntity.BulletAttackGoal());
-//    	this.goalSelector.addGoal(3, new EndTrollAttackGoal(this, 0.3D, false));
+    	this.goalSelector.addGoal(3, new EndTrollScreamGoal(this));
+    	this.goalSelector.addGoal(4, new EndTrollBulletAttackGoal(this));
+    	this.goalSelector.addGoal(5, new EndTrollAttackGoal(this, 0.3D, false));
 //    	this.goalSelector.addGoal(4, new WaterAvoidingRandomWalkingGoal(this, 0.3D));
 //    	this.goalSelector.addGoal(5, new LookAtGoal(this, PlayerEntity.class, 10.0F));
 //    	this.goalSelector.addGoal(6, new LookRandomlyGoal(this));
@@ -156,7 +161,10 @@ public class EndTrollEntity extends AnimatedCreatureEntity
 		    		NetworkUtil.setPlayingAnimationMessage(this, SCREAM_ANIMATION); //TODO REMOVE
 		    	}
 			}
-			
+		}
+		
+		if(this.isEntityStanding())
+		{
 			//Breaks the Blocks during the Scream
 			if(this.isAnimationPlaying(SCREAM_ANIMATION))
 			{
@@ -171,6 +179,18 @@ public class EndTrollEntity extends AnimatedCreatureEntity
 				else if(this.getAnimationTick() == 10)
 				{
 					this.getEntityWorld().playSound(this.getPosition().getX(), this.getPosition().getY() + this.getEyeHeight(), this.getPosition().getZ(), SoundEvents.ENTITY_WITHER_HURT, SoundCategory.HOSTILE, 1.0F, -3.0F, false);
+				}
+			}
+			
+			if(!this.isWorldRemote() && this.isEntityStanding())
+			{
+				if(shootCooldown > 0)
+				{
+					shootCooldown--;
+				}
+				if(screamCooldown > 0)
+				{
+					screamCooldown--;
 				}
 			}
 		}
@@ -240,7 +260,7 @@ public class EndTrollEntity extends AnimatedCreatureEntity
     @Override
    	public Animation[] getAnimations()
     {
-   		return new Animation[] {TRANSFORM_ANIMATION, SCREAM_ANIMATION, SHOOT_ANIMATION};
+   		return new Animation[] {TRANSFORM_ANIMATION, SCREAM_ANIMATION, SHOOT_ANIMATION, RIGHT_PUNCH_ANIMATION, LEFT_PUNCH_ANIMATION, DOUBLE_PUNCH_ANIMATION};
    	}
     
     @Override
@@ -259,7 +279,14 @@ public class EndTrollEntity extends AnimatedCreatureEntity
         {	
         	if(this.isAnimationPlaying(BLANK_ANIMATION) && !this.getEntityWorld().isRemote())
         	{
-        		NetworkUtil.setPlayingAnimationMessage(this, SHOOT_ANIMATION); //TODO REMOVE
+        		NetworkUtil.setPlayingAnimationMessage(this, RIGHT_PUNCH_ANIMATION); //TODO REMOVE
+        	}
+        }
+        if(itemstack.getItem() == Items.FERMENTED_SPIDER_EYE)
+        {	
+        	if(this.isAnimationPlaying(BLANK_ANIMATION) && !this.getEntityWorld().isRemote())
+        	{
+        		NetworkUtil.setPlayingAnimationMessage(this, DOUBLE_PUNCH_ANIMATION); //TODO REMOVE
         	}
         }
         if(itemstack.getItem() == Items.BLAZE_POWDER)
@@ -314,14 +341,31 @@ public class EndTrollEntity extends AnimatedCreatureEntity
     	return sizeIn.height * 0.7F;
     }
     
+    @Override
+    public boolean attackEntityFrom(DamageSource source, float amount)
+    {
+    	Entity entity = source.getImmediateSource();
+		if(entity instanceof AbstractArrowEntity)
+		{
+			return false;
+		}
+		return super.attackEntityFrom(source, amount);
+    }
+    
     /**
      * Used to handle the EndTroll Attacks
      */
-    @Override
-    public boolean attackEntityAsMob(Entity entityIn)
+    public boolean attackEntityAsMob(Entity entityIn, boolean doublePunch)
     {
     	boolean flag;
-    	flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float)(2 + this.rand.nextInt(3)));
+    	if(doublePunch)
+    	{
+    		flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float)(5 + this.rand.nextInt(2)));
+    	}
+    	else
+    	{
+    		flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float)(1 + this.rand.nextInt(1)));
+    	}
         return flag;
     }
     
@@ -393,107 +437,5 @@ public class EndTrollEntity extends AnimatedCreatureEntity
     public void setHasScreamed(boolean value)
     {
     	this.dataManager.set(HAS_SCREAMED, value);
-    }
-    
-    class BulletAttackGoal extends Goal
-    {
-    	private int attackTime;
-
-    	public BulletAttackGoal()
-    	{
-    		this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
-    	}
-
-    	/**
-    	 * Returns whether the EntityAIBase should begin execution.
-         */
-    	public boolean shouldExecute()
-    	{
-    		LivingEntity livingentity = EndTrollEntity.this.getAttackTarget();
-    		if(livingentity != null && livingentity.isAlive())
-    		{
-    			return EndTrollEntity.this.world.getDifficulty() != Difficulty.PEACEFUL;
-    		}
-    		else
-    		{
-    			return false;
-    		}
-    	}
-
-    	/**
-    	 * Keep ticking a continuous task that has already been started
-    	 */
-        public void tick()
-        {	
-        	if(EndTrollEntity.this.world.getDifficulty() != Difficulty.PEACEFUL)
-        	{
-        		--this.attackTime;
-        		LivingEntity livingentity = EndTrollEntity.this.getAttackTarget();
-        		EndTrollEntity.this.getLookController().setLookPositionWithEntity(livingentity, 180.0F, 180.0F);
-        		double d0 = EndTrollEntity.this.getDistanceSq(livingentity);
-        		if(d0 < 400.0D)
-        		{
-        			if(this.attackTime <= 0)
-        			{
-        				if(EndTrollEntity.this.isAnimationPlaying(BLANK_ANIMATION) && !EndTrollEntity.this.getEntityWorld().isRemote())
-        	        	{
-        	        		NetworkUtil.setPlayingAnimationMessage(EndTrollEntity.this, SHOOT_ANIMATION);
-        	        	}
-        				
-        				if(EndTrollEntity.this.isAnimationPlaying(SHOOT_ANIMATION) && EndTrollEntity.this.getAnimationTick() == 9)
-        				{
-        					this.attackTime = 20 + EndTrollEntity.this.rand.nextInt(10) * 20 / 2;
-        					for(int i = 0; i < 5; i++)
-        					{
-        						EndTrollEntity.this.world.addEntity(getRandomEndTrollBullet(EndTrollEntity.this.world, EndTrollEntity.this, livingentity, getAxis()));
-        					}
-        					EndTrollEntity.this.playSound(SoundEvents.ENTITY_SHULKER_SHOOT, 2.0F, (EndTrollEntity.this.rand.nextFloat() - EndTrollEntity.this.rand.nextFloat()) * 0.2F + 1.0F);
-        				}
-        			}
-        		}
-        		else
-        		{
-        			EndTrollEntity.this.setAttackTarget((LivingEntity)null);
-        		}
-        		
-        		super.tick();
-        	}
-        }
-        
-        private Entity getRandomEndTrollBullet(World world, EndTrollEntity owner, LivingEntity targetEntity, Direction.Axis directionAxis)
-        {
-    		switch(rand.nextInt(3) + 1)
-    		{
-			case 1:
-				return new EndTrollBulletPoisonEntity(world, owner, targetEntity, directionAxis);
-			case 2:
-				return new EndTrollBulletWitherEntity(world, owner, targetEntity, directionAxis);
-			case 3:
-				return new EndTrollBulletDamageEntity(world, owner, targetEntity, directionAxis);
-			default:
-				return new EndTrollBulletPoisonEntity(world, owner, targetEntity, directionAxis);
-			}
-        }
-        
-        /**
-         * return - Returns a Random Axis
-         */
-        private Direction.Axis getAxis()
-        {
-        	if(rand.nextInt(3) + 1 == 1)
-        	{
-        		return Direction.Axis.X;
-        	}
-        	if(rand.nextInt(3) + 1 == 2)
-        	{
-        		return Direction.Axis.Y;
-        	}
-        	if(rand.nextInt(3) + 1 == 3)
-        	{
-        		return Direction.Axis.Z;
-        	}
-        	
-        	return Direction.Axis.X;
-        }
     }
 }

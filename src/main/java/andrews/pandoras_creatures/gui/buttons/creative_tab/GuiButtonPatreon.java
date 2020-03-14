@@ -12,7 +12,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.Util;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -121,10 +121,8 @@ public class GuiButtonPatreon extends Button
 	
 	private static void handleButtonPress()
 	{
-//		String url = "https://www.twitch.tv/andrew0030";
-//		Util.getOSType().openURI(url);
-//		Minecraft.getInstance().player.closeScreen();
-		Minecraft.getInstance().player.sendMessage(new StringTextComponent("§6Patreon has not been added yet!"));
+		String url = "https://www.patreon.com/andrew0030";
+		Util.getOSType().openURI(url);
 		Minecraft.getInstance().player.closeScreen();
 	}
 }

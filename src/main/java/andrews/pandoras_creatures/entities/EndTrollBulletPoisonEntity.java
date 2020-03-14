@@ -31,7 +31,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
@@ -150,103 +149,96 @@ public class EndTrollBulletPoisonEntity extends Entity
 	@Override
 	public void tick()
 	{
-		if(!this.world.isRemote && this.world.getDifficulty() == Difficulty.PEACEFUL)
+		super.tick();
+		if(!this.world.isRemote)
 		{
-			this.remove();
-		}
-		else
-		{
-			super.tick();
-			if(!this.world.isRemote)
+			if(this.target == null && this.targetUniqueId != null)
 			{
-				if(this.target == null && this.targetUniqueId != null)
+				for(LivingEntity livingentity : this.world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(this.targetBlockPos.add(-2, -2, -2), this.targetBlockPos.add(2, 2, 2))))
 				{
-					for(LivingEntity livingentity : this.world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(this.targetBlockPos.add(-2, -2, -2), this.targetBlockPos.add(2, 2, 2))))
+					if(livingentity.getUniqueID().equals(this.targetUniqueId))
 					{
-						if(livingentity.getUniqueID().equals(this.targetUniqueId))
-						{
-							this.target = livingentity;
-							break;
-						}
-					}
-
-					this.targetUniqueId = null;
-				}
-
-				if(this.owner == null && this.ownerUniqueId != null)
-				{
-					for(LivingEntity livingentity1 : this.world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(this.ownerBlockPos.add(-2, -2, -2), this.ownerBlockPos.add(2, 2, 2))))
-					{
-						if(livingentity1.getUniqueID().equals(this.ownerUniqueId))
-						{
-							this.owner = livingentity1;
-							break;
-						}
-					}
-
-					this.ownerUniqueId = null;
-				}
-
-				if(this.target == null || !this.target.isAlive() || this.target instanceof PlayerEntity && ((PlayerEntity)this.target).isSpectator())
-				{
-					if(!this.hasNoGravity())
-					{
-						this.setMotion(this.getMotion().add(0.0D, -0.04D, 0.0D));
+						this.target = livingentity;
+						break;
 					}
 				}
-				else
-				{
-					this.targetDeltaX = MathHelper.clamp(this.targetDeltaX * 1.025D, -1.0D, 1.0D);
-					this.targetDeltaY = MathHelper.clamp(this.targetDeltaY * 1.025D, -1.0D, 1.0D);
-					this.targetDeltaZ = MathHelper.clamp(this.targetDeltaZ * 1.025D, -1.0D, 1.0D);
-					Vec3d vec3d = this.getMotion();
-					this.setMotion(vec3d.add((this.targetDeltaX - vec3d.x) * 0.2D, (this.targetDeltaY - vec3d.y) * 0.2D, (this.targetDeltaZ - vec3d.z) * 0.2D));
-				}
 
-				RayTraceResult raytraceresult = ProjectileHelper.func_221266_a(this, true, false, this.owner, RayTraceContext.BlockMode.COLLIDER);
-				if(raytraceresult.getType() != RayTraceResult.Type.MISS && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult))
-				{
-					this.bulletHit(raytraceresult);
-				}
+				this.targetUniqueId = null;
 			}
 
-			Vec3d vec3d1 = this.getMotion();
-			this.setPosition(this.posX + vec3d1.x, this.posY + vec3d1.y, this.posZ + vec3d1.z);
-         	ProjectileHelper.rotateTowardsMovement(this, 0.5F);
-         	if(this.world.isRemote)
-         	{
-         		this.world.addParticle(new RedstoneParticleData(0, 255, 0, 1.0F), this.posX - vec3d1.x, this.posY - vec3d1.y + 0.15D, this.posZ - vec3d1.z, 0.0D, 0.0D, 0.0D);
-         	}
-         	else if(this.target != null && this.target.isAlive())
-         	{
-         		if(this.steps > 0)
-         		{
-         			--this.steps;
-         			if(this.steps == 0)
-         			{
-         				this.selectNextMoveDirection(this.direction == null ? null : this.direction.getAxis());
-         			}
-         		}
+			if(this.owner == null && this.ownerUniqueId != null)
+			{
+				for(LivingEntity livingentity1 : this.world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(this.ownerBlockPos.add(-2, -2, -2), this.ownerBlockPos.add(2, 2, 2))))
+				{
+					if(livingentity1.getUniqueID().equals(this.ownerUniqueId))
+					{
+						this.owner = livingentity1;
+						break;
+					}
+				}
 
-         		if(this.direction != null)
-         		{
-         			BlockPos blockpos1 = new BlockPos(this);
-         			Direction.Axis direction$axis = this.direction.getAxis();
-         			if(this.world.func_217400_a(blockpos1.offset(this.direction), this))
-         			{
-         				this.selectNextMoveDirection(direction$axis);
-         			}
-         			else
-         			{
-         				BlockPos blockpos = new BlockPos(this.target);
-         				if(direction$axis == Direction.Axis.X && blockpos1.getX() == blockpos.getX() || direction$axis == Direction.Axis.Z && blockpos1.getZ() == blockpos.getZ() || direction$axis == Direction.Axis.Y && blockpos1.getY() == blockpos.getY())
-         				{
-         					this.selectNextMoveDirection(direction$axis);
-         				}
-         			}
-         		}
-         	}
+				this.ownerUniqueId = null;
+			}
+
+			if(this.target == null || !this.target.isAlive() || this.target instanceof PlayerEntity && ((PlayerEntity)this.target).isSpectator())
+			{
+				if(!this.hasNoGravity())
+				{
+					this.setMotion(this.getMotion().add(0.0D, -0.04D, 0.0D));
+				}
+			}
+			else
+			{
+				this.targetDeltaX = MathHelper.clamp(this.targetDeltaX * 1.025D, -1.0D, 1.0D);
+				this.targetDeltaY = MathHelper.clamp(this.targetDeltaY * 1.025D, -1.0D, 1.0D);
+				this.targetDeltaZ = MathHelper.clamp(this.targetDeltaZ * 1.025D, -1.0D, 1.0D);
+				Vec3d vec3d = this.getMotion();
+				this.setMotion(vec3d.add((this.targetDeltaX - vec3d.x) * 0.2D, (this.targetDeltaY - vec3d.y) * 0.2D, (this.targetDeltaZ - vec3d.z) * 0.2D));
+			}
+
+			RayTraceResult raytraceresult = ProjectileHelper.func_221266_a(this, true, false, this.owner, RayTraceContext.BlockMode.COLLIDER);
+			if(raytraceresult.getType() != RayTraceResult.Type.MISS && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult))
+			{
+				this.bulletHit(raytraceresult);
+			}
 		}
+
+		Vec3d vec3d1 = this.getMotion();
+		this.setPosition(this.posX + vec3d1.x, this.posY + vec3d1.y, this.posZ + vec3d1.z);
+     	ProjectileHelper.rotateTowardsMovement(this, 0.5F);
+     	if(this.world.isRemote)
+     	{
+     		this.world.addParticle(new RedstoneParticleData(0, 255, 0, 1.0F), this.posX - vec3d1.x, this.posY - vec3d1.y + 0.15D, this.posZ - vec3d1.z, 0.0D, 0.0D, 0.0D);
+     	}
+     	else if(this.target != null && this.target.isAlive())
+     	{
+     		if(this.steps > 0)
+     		{
+     			--this.steps;
+     			if(this.steps == 0)
+     			{
+     				this.selectNextMoveDirection(this.direction == null ? null : this.direction.getAxis());
+     			}
+     		}
+
+     		if(this.direction != null)
+     		{
+     			BlockPos blockpos1 = new BlockPos(this);
+     			Direction.Axis direction$axis = this.direction.getAxis();
+     			if(this.world.func_217400_a(blockpos1.offset(this.direction), this))
+     			{
+     				this.selectNextMoveDirection(direction$axis);
+     			}
+     			else
+     			{
+     				BlockPos blockpos = new BlockPos(this.target);
+     				if(direction$axis == Direction.Axis.X && blockpos1.getX() == blockpos.getX() || direction$axis == Direction.Axis.Z && blockpos1.getZ() == blockpos.getZ() || direction$axis == Direction.Axis.Y && blockpos1.getY() == blockpos.getY())
+     				{
+     					this.selectNextMoveDirection(direction$axis);
+     				}
+     			}
+     		}
+     	}
 	}
 	
 	/**
