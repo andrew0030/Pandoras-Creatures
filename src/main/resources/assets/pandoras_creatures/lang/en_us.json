@@ -96,6 +96,23 @@
 	"block.pandoras_creatures.horsetail": "Horsetail",
 	"block.pandoras_creatures.dhania": "Dhania",
 	"block.pandoras_creatures.hill_bloom": "Hill Bloom",
+	"block.pandoras_creatures.end_troll_box": "End Troll Box",
+	"block.pandoras_creatures.white_end_troll_box": "White End Troll Box",
+	"block.pandoras_creatures.orange_end_troll_box": "Orange End Troll Box",
+	"block.pandoras_creatures.magenta_end_troll_box": "Magenta End Troll Box",
+	"block.pandoras_creatures.light_blue_end_troll_box": "Light Blue End Troll Box",
+	"block.pandoras_creatures.yellow_end_troll_box": "Yellow End Troll Box",
+	"block.pandoras_creatures.lime_end_troll_box": "Lime End Troll Box",
+	"block.pandoras_creatures.pink_end_troll_box": "Pink End Troll Box",
+	"block.pandoras_creatures.gray_end_troll_box": "Gray End Troll Box",
+	"block.pandoras_creatures.light_gray_end_troll_box": "Light Gray End Troll Box",
+	"block.pandoras_creatures.cyan_end_troll_box": "Cyan End Troll Box",
+	"block.pandoras_creatures.purple_end_troll_box": "Purple End Troll Box",
+	"block.pandoras_creatures.blue_end_troll_box": "Blue End Troll Box",
+	"block.pandoras_creatures.brown_end_troll_box": "Brown End Troll Box",
+	"block.pandoras_creatures.green_end_troll_box": "Green End Troll Box",
+	"block.pandoras_creatures.red_end_troll_box": "Red End Troll Box",
+	"block.pandoras_creatures.black_end_troll_box": "Black End Troll Box",
 	
 //	 Entities
 	"entity.pandoras_creatures.arachnon": "Arachnon",
@@ -108,6 +125,9 @@
 	"entity.pandoras_creatures.end_troll_bullet_poison": "Poison End Troll Bullet",
 	"entity.pandoras_creatures.end_troll_bullet_wither": "Wither End Troll Bullet",
 	"entity.pandoras_creatures.end_troll_bullet_damage": "Damage End Troll Bullet",
+	
+//	 Containers
+	 "container.pandoras_creatures.end_troll_box": "End Troll Box",
 	
 //	 Button Tool Tips
 	"gui.button.pandoras_creatures.discord": "Discord",

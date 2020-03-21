@@ -10,6 +10,7 @@ import andrews.pandoras_creatures.registry.PCContainers;
 import andrews.pandoras_creatures.registry.PCEntities;
 import andrews.pandoras_creatures.registry.PCItems;
 import andrews.pandoras_creatures.registry.PCSounds;
+import andrews.pandoras_creatures.registry.PCTileEntities;
 import andrews.pandoras_creatures.util.FeatureInjector;
 import andrews.pandoras_creatures.util.Reference;
 import andrews.pandoras_creatures.util.RehostedJarHandler;
@@ -49,6 +50,7 @@ public class Main
 		
 		PCItems.ITEMS.register(modEventBus);
 		PCBlocks.BLOCKS.register(modEventBus);
+		PCTileEntities.TILE_ENTITY_TYPES.register(modEventBus);
 		PCContainers.CONTAINERS.register(modEventBus);
 		PCEntities.ENTITY_TYPES.register(modEventBus);
 		PCFeatures.FEATURES.register(modEventBus);
@@ -96,8 +98,7 @@ public class Main
 	public static void setupClient(final FMLClientSetupEvent event)
 	{
 		//Tile Entities
-//		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityName.class, new TileEntityNameRenderer());
-		
+		PCTileEntities.registerTileRenders();
 		//Entities
 		PCEntities.registerEntityRenders();
 		//ContainerScreens
