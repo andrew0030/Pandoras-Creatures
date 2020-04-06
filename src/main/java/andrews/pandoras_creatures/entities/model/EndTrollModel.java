@@ -1701,5 +1701,169 @@ public class EndTrollModel<T extends EndTrollEntity> extends PCEntityModel<T>
     		
     		this.animator.resetKeyframe(12);
     	}
+    	if(animatedEntity.isAnimationPlaying(EndTrollEntity.DEATH_ANIMATION))
+    	{
+    		this.animator.setAnimationToPlay(EndTrollEntity.DEATH_ANIMATION);
+    		
+    		this.animator.startKeyframe(0);
+    		this.animator.move(movement_base, 0, 0, -20.0F);
+    		this.animator.rotate(bottom_body, -1.6F, 0, 0);
+    		this.animator.rotate(leg_left_1, 1.6F, 0, 0);
+    		this.animator.rotate(leg_right_1, 1.6F, 0, 0);
+    		this.animator.rotate(leg_left_2, 0.0F, 0, 0);
+    		this.animator.rotate(leg_right_2, 0.0F, 0, 0);
+    		this.animator.rotate(leg_left_3, 0.0F, 0, 0);
+    		this.animator.rotate(leg_right_3, 0.0F, 0, 0);
+    		this.animator.rotate(stomach, 0.4F, 0, 0);
+    		this.animator.rotate(torso, 0.6F, 0, 0);
+    		this.animator.rotate(hand_left_main, 0, -1.6F, 0);
+    		this.animator.rotate(hand_right_main, 0, 1.6F, 0);
+    		this.animator.rotate(arm_left_main, 1.0F, 0.12F, -0.12F);
+    		this.animator.rotate(arm_right_main, 1.0F, -0.12F, 0.12F);
+    		this.animator.rotate(left_eyelid_base, 0, -0.3F, 0);
+    		this.animator.rotate(right_eyelid_base, 0, 0.3F, 0);
+    		this.animator.rotate(arm_left_2, 0.0F, 0, 0);
+    		this.animator.rotate(arm_right_2, 0.0F, 0, 0);
+    		this.animator.rotate(hand_left_thumb_1, 0, 0, -0.8F);
+    		this.animator.rotate(hand_left_thumb_2, 0, 0, -0.4F);
+    		this.animator.rotate(hand_right_thumb_1, 0, 0, -0.8F);
+    		this.animator.rotate(hand_right_thumb_2, 0, 0, -0.4F);
+    		this.animator.endKeyframe();
+    		
+    		//Legs Move Up
+    		this.animator.startKeyframe(6);
+    		this.animator.move(movement_base, 0, 0, -20.0F);
+    		this.animator.rotate(bottom_body, -1.5F, 0, 0);
+    		this.animator.move(bottom_body, 0, 6, 0);
+    		this.animator.rotate(leg_left_1, 1.5F, 0, 0);
+    		this.animator.rotate(leg_right_1, 1.5F, 0, 0);
+    		this.animator.rotate(leg_left_2, 0.6F, 0, 0);
+    		this.animator.rotate(leg_right_2, 0.6F, 0, 0);
+    		this.animator.rotate(leg_left_3, -0.6F, 0, 0);
+    		this.animator.rotate(leg_right_3, -0.6F, 0, 0);
+    		this.animator.rotate(stomach, 0.4F, 0, 0);
+    		this.animator.rotate(torso, 0.6F, 0, 0);
+    		this.animator.rotate(hand_left_main, 0, -1.6F, 0);
+    		this.animator.rotate(hand_right_main, 0, 1.6F, 0);
+    		this.animator.rotate(arm_left_main, 0.8F, 0.12F, -0.12F);
+    		this.animator.rotate(arm_right_main, 0.8F, -0.12F, 0.12F);
+    		this.animator.rotate(left_eyelid_base, 0, -0.3F, 0);
+    		this.animator.rotate(right_eyelid_base, 0, 0.3F, 0);
+    		this.animator.rotate(arm_left_2, -0.1F, 0, 0);
+    		this.animator.rotate(arm_right_2, -0.1F, 0, 0);
+    		this.animator.rotate(hand_left_thumb_1, 0, 0, -0.8F);
+    		this.animator.rotate(hand_left_thumb_2, 0, 0, -0.4F);
+    		this.animator.rotate(hand_right_thumb_1, 0, 0, -0.8F);
+    		this.animator.rotate(hand_right_thumb_2, 0, 0, -0.4F);
+    		this.animator.rotate(hand_left_finger_right_1, 0, 0, 0.2F);
+    		this.animator.rotate(hand_left_finger_right_2, 0, 0, 0.4F);
+    		this.animator.rotate(hand_left_finger_right_3, 0, 0, 0.4F);
+    		this.animator.rotate(hand_left_finger_left_1, 0, 0, 0.2F);
+    		this.animator.rotate(hand_left_finger_left_2, 0, 0, 0.4F);
+    		this.animator.rotate(hand_left_finger_left_3, 0, 0, 0.4F);
+    		this.animator.rotate(hand_left_thumb_1, 0, 0, -0.2F);
+    		this.animator.rotate(hand_left_thumb_2, 0, 0, 0.8F);
+    		this.animator.rotate(hand_right_finger_right_1, 0, 0, 0.2F);
+    		this.animator.rotate(hand_right_finger_right_2, 0, 0, 0.4F);
+    		this.animator.rotate(hand_right_finger_right_3, 0, 0, 0.4F);
+    		this.animator.rotate(hand_right_finger_left_1, 0, 0, 0.2F);
+    		this.animator.rotate(hand_right_finger_left_2, 0, 0, 0.4F);
+    		this.animator.rotate(hand_right_finger_left_3, 0, 0, 0.4F);
+    		this.animator.rotate(hand_right_thumb_1, 0, 0, -0.2F);
+    		this.animator.rotate(hand_right_thumb_2, 0, 0, 0.8F);
+    		this.animator.endKeyframe();
+    		
+    		//Fall Forwards
+    		this.animator.startKeyframe(8);
+    		this.animator.move(movement_base, 0, 0, -20.0F);
+    		this.animator.rotate(bottom_body, -0.7F, 0, 0);
+    		this.animator.move(bottom_body, 0, 6, 0);
+    		this.animator.rotate(leg_left_1, 0.7F, 0, 0);
+    		this.animator.rotate(leg_right_1, 0.7F, 0, 0);
+    		this.animator.rotate(leg_left_2, 0.6F, 0, 0);
+    		this.animator.rotate(leg_right_2, 0.6F, 0, 0);
+    		this.animator.rotate(leg_left_3, -0.6F, 0, 0);
+    		this.animator.rotate(leg_right_3, -0.6F, 0, 0);
+    		this.animator.rotate(stomach, 0.4F, 0, 0);
+    		this.animator.rotate(torso, 0.6F, 0, 0);
+    		this.animator.rotate(hand_left_main, 0, -1.6F, 0);
+    		this.animator.rotate(hand_right_main, 0, 1.6F, 0);
+    		this.animator.rotate(arm_left_main, 0.1F, 0.12F, -0.12F);
+    		this.animator.rotate(arm_right_main, 0.1F, -0.12F, 0.12F);
+    		this.animator.rotate(arm_left_2, -0.4F, 0, 0);
+    		this.animator.rotate(arm_right_2, -0.4F, 0, 0);
+    		this.animator.rotate(left_eyelid_base, 0, 0.0F, 0);
+    		this.animator.rotate(right_eyelid_base, 0, 0.0F, 0);
+    		this.animator.rotate(hand_left_thumb_1, 0, 0, -0.8F);
+    		this.animator.rotate(hand_left_thumb_2, 0, 0, -0.4F);
+    		this.animator.rotate(hand_right_thumb_1, 0, 0, -0.8F);
+    		this.animator.rotate(hand_right_thumb_2, 0, 0, -0.4F);
+    		this.animator.rotate(hand_left_finger_right_1, 0, 0, 0.2F);
+    		this.animator.rotate(hand_left_finger_right_2, 0, 0, 0.4F);
+    		this.animator.rotate(hand_left_finger_right_3, 0, 0, 0.4F);
+    		this.animator.rotate(hand_left_finger_left_1, 0, 0, 0.2F);
+    		this.animator.rotate(hand_left_finger_left_2, 0, 0, 0.4F);
+    		this.animator.rotate(hand_left_finger_left_3, 0, 0, 0.4F);
+    		this.animator.rotate(hand_left_thumb_1, 0, 0, -0.2F);
+    		this.animator.rotate(hand_left_thumb_2, 0, 0, 0.8F);
+    		this.animator.rotate(hand_right_finger_right_1, 0, 0, 0.2F);
+    		this.animator.rotate(hand_right_finger_right_2, 0, 0, 0.4F);
+    		this.animator.rotate(hand_right_finger_right_3, 0, 0, 0.4F);
+    		this.animator.rotate(hand_right_finger_left_1, 0, 0, 0.2F);
+    		this.animator.rotate(hand_right_finger_left_2, 0, 0, 0.4F);
+    		this.animator.rotate(hand_right_finger_left_3, 0, 0, 0.4F);
+    		this.animator.rotate(hand_right_thumb_1, 0, 0, -0.2F);
+    		this.animator.rotate(hand_right_thumb_2, 0, 0, 0.8F);
+    		this.animator.endKeyframe();
+    		
+    		this.animator.setStaticKeyframe(4);
+    		
+    		//Final Death Part
+    		this.animator.startKeyframe(16);
+    		this.animator.move(movement_base, 0, 0, -20.0F);
+    		this.animator.rotate(bottom_body, 0.1F, 0, 0);
+    		this.animator.move(bottom_body, 0, 6, 0);
+    		this.animator.rotate(leg_left_1, -0.1F, 0, 0);
+    		this.animator.rotate(leg_right_1, -0.1F, 0, 0);
+    		this.animator.rotate(leg_left_2, 0.6F, 0, 0);
+    		this.animator.rotate(leg_right_2, 0.6F, 0, 0);
+    		this.animator.rotate(leg_left_3, -0.6F, 0, 0);
+    		this.animator.rotate(leg_right_3, -0.6F, 0, 0);
+    		this.animator.rotate(stomach, 0.4F, 0, 0);
+    		this.animator.rotate(torso, 0.4F, 0, 0);
+    		this.animator.rotate(hand_left_main, 0, -1.6F, 0);
+    		this.animator.rotate(hand_right_main, 0, 1.6F, 0);
+    		
+    		this.animator.rotate(arm_left_main, -0.7F, -0.7F, -0.7F);
+    		this.animator.rotate(arm_right_main, -0.7F, 0.7F, 0.7F);
+    		this.animator.rotate(arm_left_2, -0.4F, 0, 0);
+    		this.animator.rotate(arm_right_2, -0.4F, 0, 0);
+    		
+    		this.animator.rotate(left_eyelid_base, 0, 0.0F, 0);
+    		this.animator.rotate(right_eyelid_base, 0, 0.0F, 0);
+    		this.animator.rotate(hand_left_thumb_1, 0, 0, -0.8F);
+    		this.animator.rotate(hand_left_thumb_2, 0, 0, -0.4F);
+    		this.animator.rotate(hand_right_thumb_1, 0, 0, -0.8F);
+    		this.animator.rotate(hand_right_thumb_2, 0, 0, -0.4F);
+    		this.animator.rotate(hand_left_finger_right_1, 0, 0, 0.2F);
+    		this.animator.rotate(hand_left_finger_right_2, 0, 0, 0.4F);
+    		this.animator.rotate(hand_left_finger_right_3, 0, 0, 0.4F);
+    		this.animator.rotate(hand_left_finger_left_1, 0, 0, 0.2F);
+    		this.animator.rotate(hand_left_finger_left_2, 0, 0, 0.4F);
+    		this.animator.rotate(hand_left_finger_left_3, 0, 0, 0.4F);
+    		this.animator.rotate(hand_left_thumb_1, 0, 0, -0.2F);
+    		this.animator.rotate(hand_left_thumb_2, 0, 0, 0.8F);
+    		this.animator.rotate(hand_right_finger_right_1, 0, 0, 0.2F);
+    		this.animator.rotate(hand_right_finger_right_2, 0, 0, 0.4F);
+    		this.animator.rotate(hand_right_finger_right_3, 0, 0, 0.4F);
+    		this.animator.rotate(hand_right_finger_left_1, 0, 0, 0.2F);
+    		this.animator.rotate(hand_right_finger_left_2, 0, 0, 0.4F);
+    		this.animator.rotate(hand_right_finger_left_3, 0, 0, 0.4F);
+    		this.animator.rotate(hand_right_thumb_1, 0, 0, -0.2F);
+    		this.animator.rotate(hand_right_thumb_2, 0, 0, 0.8F);
+    		this.animator.endKeyframe();
+
+    		this.animator.setStaticKeyframe(16);
+    	}
     }
 }

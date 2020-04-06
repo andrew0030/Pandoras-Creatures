@@ -72,6 +72,9 @@
 	"item.pandoras_creatures.arachnon_hammer.tooltip": "#c7This tool will break\n#c7blocks in a 3x3 radius",
 	"item.pandoras_creatures.plant_hat.tooltip": "#c7Wearing this hat makes you\n#c7invisible to Acidic Archvines",
 	
+//	 Block Tooltips, [Localising Tools] can be used here.
+	"block.pandoras_creatures.end_troll_box.tooltip": "and %d more...",
+	
 //	 Items
 	"item.pandoras_creatures.arachnon_hammer": "Arachnon Hammer",
 	"item.pandoras_creatures.crab_meat": "Crab Meat",
@@ -90,6 +93,7 @@
 	"item.pandoras_creatures.bufflon_small_storage": "Bufflon Small Storage",
 	"item.pandoras_creatures.bufflon_large_storage": "Bufflon Large Storage",
 	"item.pandoras_creatures.plant_hat": "Plant Hat",
+	"item.pandoras_creatures.end_troll_skin": "End Troll Skin",
 	
 //	 Blocks
 	"block.pandoras_creatures.arachnon_crystal": "Arachnon Crystal",

@@ -6,61 +6,84 @@ import javax.annotation.Nullable;
 
 import andrews.pandoras_creatures.registry.PCBlocks;
 import andrews.pandoras_creatures.tile_entities.EndTrollBoxTileEntity;
+import andrews.pandoras_creatures.util.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.DirectionalBlock;
+import net.minecraft.block.DispenserBlock;
+import net.minecraft.block.IWaterLoggable;
+import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.PushReaction;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.dispenser.IBlockSource;
+import net.minecraft.dispenser.OptionalDispenseBehavior;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.fluid.IFluidState;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.DirectionalPlaceContext;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer.Builder;
-import net.minecraft.stats.Stats;
+import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Mirror;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootParameters;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.util.Constants.NBT;
 
-public class BlockEndTrollBox extends Block
+public class BlockEndTrollBox extends ShulkerBoxBlock implements IWaterLoggable
 {
+	protected static final VoxelShape FLOOR_AABB = Block.makeCuboidShape(1.0D, 0.0D, 1.0D, 15.0D, 14.0D, 15.0D);
+	protected static final VoxelShape CEILING_AABB = Block.makeCuboidShape(1.0D, 2.0D, 1.0D, 15.0D, 16.0D, 15.0D);
+	protected static final VoxelShape NORTH_AABB = Block.makeCuboidShape(1.0D, 1.0D, 2.0D, 15.0D, 15.0D, 16.0D);
+	protected static final VoxelShape SOUTH_AABB = Block.makeCuboidShape(1.0D, 1.0D, 0.0D, 15.0D, 15.0D, 14.0D);
+	protected static final VoxelShape WEST_AABB = Block.makeCuboidShape(2.0D, 1.0D, 1.0D, 16.0D, 15.0D, 15.0D);
+	protected static final VoxelShape EAST_AABB = Block.makeCuboidShape(0.0D, 1.0D, 1.0D, 14.0D, 15.0D, 15.0D);
+	
+	protected static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final EnumProperty<Direction> FACING = DirectionalBlock.FACING;
-	public static final ResourceLocation field_220169_b = new ResourceLocation("contents");
+	public static final ResourceLocation location = new ResourceLocation("contents");
 	@Nullable
 	private final DyeColor color;
 
 	public BlockEndTrollBox(@Nullable DyeColor color)
 	{
-		super(getProperties());
+		super(null, getProperties());
 		this.color = color;
-		this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.UP));
+		this.setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, false).with(FACING, Direction.UP));
 	}
 	
 	/**
@@ -69,11 +92,12 @@ public class BlockEndTrollBox extends Block
 	private static Properties getProperties()
 	{
 		Properties properties = Block.Properties.create(Material.SHULKER);
-		properties.hardnessAndResistance(2.0F, 6.0F);
+		properties.hardnessAndResistance(2.0F);
+		properties.harvestTool(ToolType.PICKAXE);
 		
 		return properties;
 	}
-
+	
 	@Override
 	public boolean hasTileEntity(BlockState state)
 	{
@@ -92,12 +116,6 @@ public class BlockEndTrollBox extends Block
         TileEntity tileentity = worldIn.getTileEntity(pos);
         return tileentity == null ? false : tileentity.receiveClientEvent(id, param);
     }
-
-	@Override
-	public boolean causesSuffocation(BlockState state, IBlockReader worldIn, BlockPos pos)
-	{
-		return true;
-	}
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
@@ -130,7 +148,6 @@ public class BlockEndTrollBox extends Block
 			{
 				EndTrollBoxTileEntity endTrollShulkerTileentity = (EndTrollBoxTileEntity) tileentity;
 				player.openContainer(endTrollShulkerTileentity);
-				player.addStat(Stats.OPEN_SHULKER_BOX); //TODO maybe replace with a End Troll Box stat
 
 				return true;
 			}
@@ -145,37 +162,52 @@ public class BlockEndTrollBox extends Block
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext context)
 	{
-		return this.getDefaultState().with(FACING, context.getFace());
+		IFluidState fluidState = context.getWorld().getFluidState(context.getPos());
+		return this.getDefaultState().with(FACING, context.getFace()).with(WATERLOGGED, fluidState.isTagged(FluidTags.WATER) && fluidState.getLevel() >= 8);
+	}
+	
+	@SuppressWarnings("deprecation")
+	@Override
+	public BlockState updatePostPlacement(BlockState state, Direction facing, BlockState facingState, IWorld world, BlockPos currentPos, BlockPos facingPos)
+	{
+		if(state.get(WATERLOGGED))
+		{
+			world.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+		}
+		return super.updatePostPlacement(state, facing, facingState, world, currentPos, facingPos);
+	}
+	
+	@Override
+	public IFluidState getFluidState(BlockState state)
+	{
+		return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : Fluids.EMPTY.getDefaultState();
 	}
 
 	@Override
 	protected void fillStateContainer(Builder<Block, BlockState> builder)
 	{
-		builder.add(FACING);
+		builder.add(WATERLOGGED, FACING);
 	}
 
-	/**
-	 * Called before the Block is set to air in the world. Called regardless of if
-	 * the player's tool can actually collect this block
-	 */
+	@Override
 	public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player)
 	{
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 		if(tileentity instanceof EndTrollBoxTileEntity)
 		{
-			EndTrollBoxTileEntity endTrollShulkerTileentity = (EndTrollBoxTileEntity) tileentity;
-			if(!worldIn.isRemote && player.isCreative() && !endTrollShulkerTileentity.isEmpty())
+			EndTrollBoxTileEntity endTrollBoxTileentity = (EndTrollBoxTileEntity) tileentity;
+			if(!worldIn.isRemote && player.isCreative() && !endTrollBoxTileentity.isEmpty())
 			{
 				ItemStack itemstack = getColoredItemStack(this.getColor());
-				CompoundNBT compoundnbt = endTrollShulkerTileentity.saveToNbt(new CompoundNBT());
+				CompoundNBT compoundnbt = endTrollBoxTileentity.saveToNbt(new CompoundNBT());
 				if(!compoundnbt.isEmpty())
 				{
 					itemstack.setTagInfo("BlockEntityTag", compoundnbt);
 				}
 
-				if(endTrollShulkerTileentity.hasCustomName())
+				if(endTrollBoxTileentity.hasCustomName())
 				{
-					itemstack.setDisplayName(endTrollShulkerTileentity.getCustomName());
+					itemstack.setDisplayName(endTrollBoxTileentity.getCustomName());
 				}
 
 				ItemEntity itementity = new ItemEntity(worldIn, (double) pos.getX(), (double) pos.getY(), (double) pos.getZ(), itemstack);
@@ -184,36 +216,32 @@ public class BlockEndTrollBox extends Block
 			}
 			else
 			{
-				endTrollShulkerTileentity.fillWithLoot(player);
+				endTrollBoxTileentity.fillWithLoot(player);
 			}
 		}
-
 		super.onBlockHarvested(worldIn, pos, state, player);
 	}
 
+	@Override
 	public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder)
 	{
 		TileEntity tileentity = builder.get(LootParameters.BLOCK_ENTITY);
 		if(tileentity instanceof EndTrollBoxTileEntity)
 		{
-			EndTrollBoxTileEntity endTrollShulkerTileentity = (EndTrollBoxTileEntity) tileentity;
-			builder = builder.withDynamicDrop(field_220169_b, (p_220168_1_, p_220168_2_) ->
+			EndTrollBoxTileEntity endTrollBoxTileentity = (EndTrollBoxTileEntity) tileentity;
+			builder = builder.withDynamicDrop(location, (lootContext, consumer) ->
 			{
-				for(int i = 0; i < endTrollShulkerTileentity.getSizeInventory(); ++i)
+				for(int i = 0; i < endTrollBoxTileentity.getSizeInventory(); ++i)
 				{
-					p_220168_2_.accept(endTrollShulkerTileentity.getStackInSlot(i));
+					consumer.accept(endTrollBoxTileentity.getStackInSlot(i));
 				}
 
 			});
 		}
-
 		return super.getDrops(state, builder);
 	}
 
-	/**
-	 * Called by ItemBlocks after a block is set in the world, to allow post-place
-	 * logic
-	 */
+	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack)
 	{
 		if(stack.hasDisplayName())
@@ -224,9 +252,9 @@ public class BlockEndTrollBox extends Block
 				((EndTrollBoxTileEntity) tileentity).setCustomName(stack.getDisplayName());
 			}
 		}
-
 	}
 
+	@Override
 	public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving)
 	{
 		if(state.getBlock() != newState.getBlock())
@@ -236,15 +264,15 @@ public class BlockEndTrollBox extends Block
 			{
 				worldIn.updateComparatorOutputLevel(pos, state.getBlock());
 			}
-
+			
 			super.onReplaced(state, worldIn, pos, newState, isMoving);
 		}
 	}
 
 	@OnlyIn(Dist.CLIENT)
+	@Override
 	public void addInformation(ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
 	{
-		super.addInformation(stack, worldIn, tooltip, flagIn);
 		CompoundNBT compoundnbt = stack.getChildTag("BlockEntityTag");
 		if(compoundnbt != null)
 		{
@@ -255,7 +283,7 @@ public class BlockEndTrollBox extends Block
 
 			if (compoundnbt.contains("Items", NBT.TAG_LIST))
 			{
-				NonNullList<ItemStack> nonnulllist = NonNullList.withSize(27, ItemStack.EMPTY);
+				NonNullList<ItemStack> nonnulllist = NonNullList.withSize(54, ItemStack.EMPTY);
 				ItemStackHelper.loadAllItems(compoundnbt, nonnulllist);
 				int i = 0;
 				int j = 0;
@@ -277,40 +305,31 @@ public class BlockEndTrollBox extends Block
 
 				if(j - i > 0)
 				{
-					tooltip.add((new TranslationTextComponent("container.shulkerBox.more", j - i)).applyTextStyle(TextFormatting.ITALIC));
+					tooltip.add((new TranslationTextComponent("block." + Reference.MODID + ".end_troll_box.tooltip", j - i)).applyTextStyle(TextFormatting.ITALIC));
 				}
 			}
 		}
 	}
 
-	/**
-	 * @deprecated call via {@link IBlockState#getMobilityFlag()} whenever possible.
-	 *             Implementing/overriding is fine.
-	 */
+	@Override
 	public PushReaction getPushReaction(BlockState state)
 	{
 		return PushReaction.DESTROY;
 	}
 
+	@Override
 	public boolean isSolid(BlockState state)
 	{
 		return false;
 	}
 
-	/**
-	 * @deprecated call via {@link IBlockState#hasComparatorInputOverride()}
-	 *             whenever possible. Implementing/overriding is fine.
-	 */
+	@Override
 	public boolean hasComparatorInputOverride(BlockState state)
 	{
 		return true;
 	}
 
-	/**
-	 * @deprecated call via
-	 *             {@link IBlockState#getComparatorInputOverride(World,BlockPos)}
-	 *             whenever possible. Implementing/overriding is fine.
-	 */
+	@Override
 	public int getComparatorInputOverride(BlockState blockState, World worldIn, BlockPos pos)
 	{
 		return Container.calcRedstoneFromInventory((IInventory) worldIn.getTileEntity(pos));
@@ -319,7 +338,7 @@ public class BlockEndTrollBox extends Block
 	@Override
 	public ItemStack getPickBlock(BlockState state, RayTraceResult target, IBlockReader world, BlockPos pos, PlayerEntity player)
 	{
-		ItemStack itemstack = super.getPickBlock(state, target, world, pos, player);
+		ItemStack itemstack = new ItemStack(this.getBlock().asItem());
 		EndTrollBoxTileEntity endTrollShulkerTileentity = (EndTrollBoxTileEntity) world.getTileEntity(pos);
 		CompoundNBT compoundnbt = endTrollShulkerTileentity.saveToNbt(new CompoundNBT());
 		if(!compoundnbt.isEmpty())
@@ -330,6 +349,9 @@ public class BlockEndTrollBox extends Block
 		return itemstack;
 	}
 
+	/**
+	 * Gets the color from the given Item.
+	 */
 	@Nullable
 	@OnlyIn(Dist.CLIENT)
 	public static DyeColor getColorFromItem(Item itemIn)
@@ -337,6 +359,9 @@ public class BlockEndTrollBox extends Block
 		return getColorFromBlock(Block.getBlockFromItem(itemIn));
 	}
 
+	/**
+	 * Gets the color from the given Block.
+	 */
 	@Nullable
 	@OnlyIn(Dist.CLIENT)
 	public static DyeColor getColorFromBlock(Block block)
@@ -347,7 +372,37 @@ public class BlockEndTrollBox extends Block
 		}
 		return null;
 	}
+	
+	@Override
+	public boolean causesSuffocation(BlockState state, IBlockReader worldIn, BlockPos pos)
+	{
+		return false;
+	}
+	
+	@Override
+	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context)
+	{
+		switch((Direction)state.get(FACING))
+		{
+     		case UP:
+     		default:
+     			return FLOOR_AABB;
+     		case DOWN:
+     			return CEILING_AABB;
+     		case SOUTH:
+     			return SOUTH_AABB;
+     		case NORTH:
+     			return NORTH_AABB;
+     		case EAST:
+     			return EAST_AABB;
+     		case WEST:
+     			return WEST_AABB;
+		}
+	}
 
+	/**
+	 * Get an End TRoll Box variant that depends on the given color.
+	 */
 	public static Block getBlockByColor(@Nullable DyeColor colorIn)
 	{
 		if(colorIn == null)
@@ -395,38 +450,49 @@ public class BlockEndTrollBox extends Block
 		}
 	}
 
+	/**
+	 * @return - The color of this {@link BlockEndTrollBox}
+	 */
 	@Nullable
 	public DyeColor getColor()
 	{
 		return this.color;
 	}
 
+	/**
+	 * Returns a colored ItemStack.
+	 */
 	public static ItemStack getColoredItemStack(@Nullable DyeColor colorIn)
 	{
 		return new ItemStack(getBlockByColor(colorIn));
 	}
-
-	/**
-	 * Returns the blockstate with the given rotation from the passed blockstate. If
-	 * inapplicable, returns the passed blockstate.
-	 * 
-	 * @deprecated call via {@link IBlockState#withRotation(Rotation)} whenever
-	 *             possible. Implementing/overriding is fine.
-	 */
-	public BlockState rotate(BlockState state, Rotation rot)
+	
+	public static class EndTrollBoxDispenseBehavior extends OptionalDispenseBehavior
 	{
-		return state.with(FACING, rot.rotate(state.get(FACING)));
-	}
-
-	/**
-	 * Returns the blockstate with the given mirror of the passed blockstate. If
-	 * inapplicable, returns the passed blockstate.
-	 * 
-	 * @deprecated call via {@link IBlockState#withMirror(Mirror)} whenever
-	 *             possible. Implementing/overriding is fine.
-	 */
-	public BlockState mirror(BlockState state, Mirror mirrorIn)
-	{
-		return state.rotate(mirrorIn.toRotation(state.get(FACING)));
+		@Override
+		protected ItemStack dispenseStack(IBlockSource source, ItemStack stack)
+		{
+			World world = source.getWorld();
+			this.successful = true;
+            BlockPos blockpos = source.getBlockPos().offset(source.getBlockState().get(DispenserBlock.FACING));
+            BlockState blockstate = world.getBlockState(blockpos);
+            if(!blockstate.getMaterial().isReplaceable())
+            {
+            	this.successful = false;
+            }
+            else
+            {
+            	this.successful = true;
+            }
+            
+            if(this.successful)
+            {
+            	Item item = stack.getItem();
+            	Direction direction = source.getBlockState().get(DispenserBlock.FACING);
+            	this.successful = ((BlockItem)item).tryPlace(new DirectionalPlaceContext(source.getWorld(), blockpos, direction, stack, direction)) == ActionResultType.SUCCESS;
+            }
+            
+            return stack;
+		}
 	}
 }

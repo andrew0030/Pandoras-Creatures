@@ -11,6 +11,7 @@ import andrews.pandoras_creatures.registry.PCEntities;
 import andrews.pandoras_creatures.registry.PCItems;
 import andrews.pandoras_creatures.registry.PCSounds;
 import andrews.pandoras_creatures.registry.PCTileEntities;
+import andrews.pandoras_creatures.registry.util.PCDispenserBehaviors;
 import andrews.pandoras_creatures.util.FeatureInjector;
 import andrews.pandoras_creatures.util.Reference;
 import andrews.pandoras_creatures.util.RehostedJarHandler;
@@ -83,6 +84,7 @@ public class Main
 	@SubscribeEvent
 	public static void setupCommon(final FMLCommonSetupEvent event)
 	{
+		PCDispenserBehaviors.registerAll();
 		PCNetwork.setupMessages();
 		
 		ModFile file = ModList.get().getModFileById(Reference.MODID).getFile();

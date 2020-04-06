@@ -15,6 +15,7 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.PickaxeItem;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -65,86 +66,56 @@ public class ItemArachnonHammer extends PickaxeItem
 		{
 			switch(getBlockSideHit(player))
 			{
-			case WEST:
-				for(int z = -1; z < 2; z++)
-				{
-					for(int y = -1; y < 2; y++)
-					{
-						BlockPos blockPos = new BlockPos(pos.getX(), pos.getY() + y, pos.getZ() + z);
-						BlockState stateIn = player.getEntityWorld().getBlockState(blockPos);
-						if(canHarvestBlock(player.getEntityWorld(), blockPos, stateIn))
-						{
-							processHarvest(player.getEntityWorld(), blockPos, stateIn, itemstack, player);
-						}
-					}
-				}
-			break;
 			case UP:
-				for(int x = -1; x < 2; x++)
-				{
-					for(int z = -1; z < 2; z++)
-					{
-						BlockPos blockPos = new BlockPos(pos.getX() + x, pos.getY(), pos.getZ() + z);
-						BlockState stateIn = player.getEntityWorld().getBlockState(blockPos);
-						if(canHarvestBlock(player.getEntityWorld(), blockPos, stateIn))
-						{
-							processHarvest(player.getEntityWorld(), blockPos, stateIn, itemstack, player);
-						}
-					}
-				}
-			break;
-			case SOUTH:	
-				for(int x = -1; x < 2; x++)
-				{
-					for(int y = -1; y < 2; y++)
-					{
-						BlockPos blockPos = new BlockPos(pos.getX() + x, pos.getY() + y, pos.getZ());
-						BlockState stateIn = player.getEntityWorld().getBlockState(blockPos);
-						if(canHarvestBlock(player.getEntityWorld(), blockPos, stateIn))
-						{
-							processHarvest(player.getEntityWorld(), blockPos, stateIn, itemstack, player);
-						}
-					}
-				}
-			break;
-			case NORTH:	
-				for(int x = -1; x < 2; x++)
-				{
-					for(int y = -1; y < 2; y++)
-					{
-						BlockPos blockPos = new BlockPos(pos.getX() + x, pos.getY() + y, pos.getZ());
-						BlockState stateIn = player.getEntityWorld().getBlockState(blockPos);
-						if(canHarvestBlock(player.getEntityWorld(), blockPos, stateIn))
-						{
-							processHarvest(player.getEntityWorld(), blockPos, stateIn, itemstack, player);
-						}
-					}
-				}
-			break;
-			case EAST:
-				for(int z = -1; z < 2; z++)
-				{
-					for(int y = -1; y < 2; y++)
-					{
-						BlockPos blockPos = new BlockPos(pos.getX(), pos.getY() + y, pos.getZ() + z);
-						BlockState stateIn = player.getEntityWorld().getBlockState(blockPos);
-						if(canHarvestBlock(player.getEntityWorld(), blockPos, stateIn))
-						{
-							processHarvest(player.getEntityWorld(), blockPos, stateIn, itemstack, player);
-						}
-					}
-				}
-			break;
 			case DOWN:
 				for(int x = -1; x < 2; x++)
 				{
 					for(int z = -1; z < 2; z++)
 					{
-						BlockPos blockPos = new BlockPos(pos.getX() + x, pos.getY(), pos.getZ() + z);
-						BlockState stateIn = player.getEntityWorld().getBlockState(blockPos);
-						if(canHarvestBlock(player.getEntityWorld(), blockPos, stateIn))
+						if(!(x == 0 && z == 0))
 						{
-							processHarvest(player.getEntityWorld(), blockPos, stateIn, itemstack, player);
+							BlockPos blockPos = new BlockPos(pos.getX() + x, pos.getY(), pos.getZ() + z);
+							BlockState stateIn = player.getEntityWorld().getBlockState(blockPos);
+							if(canHarvestBlock(player.getEntityWorld(), blockPos, stateIn))
+							{
+								processHarvest(player.getEntityWorld(), blockPos, stateIn, itemstack, player);
+							}
+						}
+					}
+				}
+			break;
+			case SOUTH:	
+			case NORTH:
+				for(int x = -1; x < 2; x++)
+				{
+					for(int y = -1; y < 2; y++)
+					{
+						if(!(x == 0 && y == 0))
+						{
+							BlockPos blockPos = new BlockPos(pos.getX() + x, pos.getY() + y, pos.getZ());
+							BlockState stateIn = player.getEntityWorld().getBlockState(blockPos);
+							if(canHarvestBlock(player.getEntityWorld(), blockPos, stateIn))
+							{
+								processHarvest(player.getEntityWorld(), blockPos, stateIn, itemstack, player);
+							}
+						}
+					}
+				}
+			break;
+			case EAST:
+			case WEST:
+				for(int z = -1; z < 2; z++)
+				{
+					for(int y = -1; y < 2; y++)
+					{
+						if(!(z == 0 && y == 0))
+						{
+							BlockPos blockPos = new BlockPos(pos.getX(), pos.getY() + y, pos.getZ() + z);
+							BlockState stateIn = player.getEntityWorld().getBlockState(blockPos);
+							if(canHarvestBlock(player.getEntityWorld(), blockPos, stateIn))
+							{
+								processHarvest(player.getEntityWorld(), blockPos, stateIn, itemstack, player);
+							}
 						}
 					}
 				}
@@ -166,6 +137,13 @@ public class ItemArachnonHammer extends PickaxeItem
 	public boolean canHarvestBlock(World world, BlockPos position, BlockState blockIn)
 	{
 	    int i = this.getTier().getHarvestLevel();
+	    TileEntity tileentity = world.getTileEntity(position);
+	    
+	    //Makes sure the Block has no Tile Entity
+	    if(tileentity != null)
+	    {
+	    	return false;
+	    }
 	    //Makes sure the Block isn't unbreakable
 	    if(blockIn.getBlockHardness(world, position) == -1)
 	    {

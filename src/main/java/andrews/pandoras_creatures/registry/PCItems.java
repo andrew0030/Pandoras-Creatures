@@ -43,6 +43,7 @@ public class PCItems
 	public static final RegistryObject<Item> BUFFLON_SMALL_STORAGE      = RegistryUtils.createItem("bufflon_small_storage", () -> new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).maxStackSize(1)));
 	public static final RegistryObject<Item> BUFFLON_LARGE_STORAGE      = RegistryUtils.createItem("bufflon_large_storage", () -> new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).maxStackSize(1)));
 	public static final RegistryObject<Item> PLANT_HAT                	= RegistryUtils.createItem("plant_hat", () -> new ItemPlantHat(PCArmorMaterials.PLANT_HAT, EquipmentSlotType.HEAD));
+	public static final RegistryObject<Item> END_TROLL_SKIN             = RegistryUtils.createItem("end_troll_skin", () -> new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP)));
 	
 	/*
 	 * Spawn Eggs

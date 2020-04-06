@@ -19,8 +19,12 @@ import net.minecraft.entity.Pose;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.HurtByTargetGoal;
+import net.minecraft.entity.ai.goal.LookAtGoal;
+import net.minecraft.entity.ai.goal.LookRandomlyGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
+import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.item.FallingBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
@@ -41,8 +45,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraftforge.event.ForgeEventFactory;
 
 public class EndTrollEntity extends AnimatedCreatureEntity
 {	
@@ -57,9 +63,11 @@ public class EndTrollEntity extends AnimatedCreatureEntity
 	public static final Animation RIGHT_PUNCH_ANIMATION = new Animation(28);
 	public static final Animation LEFT_PUNCH_ANIMATION = new Animation(28);
 	public static final Animation DOUBLE_PUNCH_ANIMATION = new Animation(28);
+	public static final Animation DEATH_ANIMATION = new Animation(50);
 	
 	public int shootCooldown = 300;
 	public int screamCooldown = 600;
+	private int animationDeathTime;
 	
     public EndTrollEntity(EntityType<? extends EndTrollEntity> type, World worldIn)
     {
@@ -82,9 +90,9 @@ public class EndTrollEntity extends AnimatedCreatureEntity
     	this.goalSelector.addGoal(3, new EndTrollScreamGoal(this));
     	this.goalSelector.addGoal(4, new EndTrollBulletAttackGoal(this));
     	this.goalSelector.addGoal(5, new EndTrollAttackGoal(this, 0.3D, false));
-//    	this.goalSelector.addGoal(4, new WaterAvoidingRandomWalkingGoal(this, 0.3D));
-//    	this.goalSelector.addGoal(5, new LookAtGoal(this, PlayerEntity.class, 10.0F));
-//    	this.goalSelector.addGoal(6, new LookRandomlyGoal(this));
+    	this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 0.3D));
+    	this.goalSelector.addGoal(7, new LookAtGoal(this, PlayerEntity.class, 10.0F));
+    	this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
     	//Target Selector
     	this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
@@ -158,7 +166,7 @@ public class EndTrollEntity extends AnimatedCreatureEntity
 			{	
 				if(this.isAnimationPlaying(BLANK_ANIMATION) && !this.getEntityWorld().isRemote())
 		    	{
-		    		NetworkUtil.setPlayingAnimationMessage(this, SCREAM_ANIMATION); //TODO REMOVE
+		    		NetworkUtil.setPlayingAnimationMessage(this, SCREAM_ANIMATION);
 		    	}
 			}
 		}
@@ -196,7 +204,7 @@ public class EndTrollEntity extends AnimatedCreatureEntity
 		}
 		
 		//Breaks Chorus Plants
-		if((this.ticksExisted % 10) == 0)//TODO MOVE THIS SHIT INTO WALKING TICK SOMETHING SO IT ONLY GETS CALLED WHILE WALKING
+		if((this.ticksExisted % 10) == 0)
 		{
 			breakChorusBlocks(this.getBoundingBox().grow(2, 0, 2), this.getEntityWorld());
 		}
@@ -207,7 +215,7 @@ public class EndTrollEntity extends AnimatedCreatureEntity
 	 * @param aabb - The Bounding Box in which the game looks for Blocks to break
 	 * @param world - The Entities World
 	 */
-	private void breakChorusBlocks(AxisAlignedBB aabb, World world)//TODO MAKE BETER CAUSE WHY 2 METHODS
+	private void breakChorusBlocks(AxisAlignedBB aabb, World world)
     {
         for(int x = MathHelper.floor(aabb.minX); x < MathHelper.floor(aabb.maxX); ++x)
         {
@@ -243,6 +251,69 @@ public class EndTrollEntity extends AnimatedCreatureEntity
 	}
 	
 	@Override
+	protected void onDeathUpdate()
+	{
+		if(this.isEntityStanding())
+		{
+			if(!this.isAnimationPlaying(DEATH_ANIMATION) && !this.getEntityWorld().isRemote())
+	    	{
+	    		NetworkUtil.setPlayingAnimationMessage(this, DEATH_ANIMATION);
+	    	}
+		}
+		else
+		{
+			super.onDeathUpdate();
+		}
+	}
+	
+	@Override
+	public void tick()
+	{
+		super.tick();
+		
+		if(this.getHealth() <= 0.0F)
+		{
+			/**
+			 * Once I make death animatins to Animated Entity Base I should replace the deathAnimation with a getter.
+			 */
+			this.onPCDeathUpdate(EndTrollEntity.DEATH_ANIMATION.getAnimationTickDuration());
+		}
+	}
+	
+	private void onPCDeathUpdate(int deathTime)
+	{
+		++this.animationDeathTime;
+		if(this.animationDeathTime == deathTime)
+		{
+			if(!this.world.isRemote && (this.isPlayer() || this.recentlyHit > 0 && this.canDropLoot() && this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT)))
+			{
+				int i = this.getExperiencePoints(this.attackingPlayer);
+
+				i = ForgeEventFactory.getExperienceDrop(this, this.attackingPlayer, i);
+				while(i > 0)
+				{
+					int j = ExperienceOrbEntity.getXPSplit(i);
+					i -= j;
+					this.world.addEntity(new ExperienceOrbEntity(this.world, this.posX, this.posY, this.posZ, j));
+				}
+			}
+			
+			this.remove();
+
+			for(int k = 0; k < 20; ++k)
+			{
+				double d2 = this.rand.nextGaussian() * 0.02D;
+				double d0 = this.rand.nextGaussian() * 0.02D;
+				double d1 = this.rand.nextGaussian() * 0.02D;
+				this.world.addParticle(ParticleTypes.POOF,
+						this.posX + (double) (this.rand.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(),
+						this.posY + (double) (this.rand.nextFloat() * this.getHeight()), this.posZ
+								  + (double) (this.rand.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(), d2, d0, d1);
+			}
+		}
+	}
+	
+	@Override
 	protected void onAnimationEnd(Animation animation)
 	{
 		if(animation == TRANSFORM_ANIMATION)
@@ -260,7 +331,7 @@ public class EndTrollEntity extends AnimatedCreatureEntity
     @Override
    	public Animation[] getAnimations()
     {
-   		return new Animation[] {TRANSFORM_ANIMATION, SCREAM_ANIMATION, SHOOT_ANIMATION, RIGHT_PUNCH_ANIMATION, LEFT_PUNCH_ANIMATION, DOUBLE_PUNCH_ANIMATION};
+   		return new Animation[] {TRANSFORM_ANIMATION, SCREAM_ANIMATION, SHOOT_ANIMATION, RIGHT_PUNCH_ANIMATION, LEFT_PUNCH_ANIMATION, DOUBLE_PUNCH_ANIMATION, DEATH_ANIMATION};
    	}
     
     @Override
@@ -279,7 +350,7 @@ public class EndTrollEntity extends AnimatedCreatureEntity
         {	
         	if(this.isAnimationPlaying(BLANK_ANIMATION) && !this.getEntityWorld().isRemote())
         	{
-        		NetworkUtil.setPlayingAnimationMessage(this, RIGHT_PUNCH_ANIMATION); //TODO REMOVE
+        		NetworkUtil.setPlayingAnimationMessage(this, DEATH_ANIMATION); //TODO REMOVE
         	}
         }
         if(itemstack.getItem() == Items.FERMENTED_SPIDER_EYE)
@@ -312,9 +383,9 @@ public class EndTrollEntity extends AnimatedCreatureEntity
     }
     
     @Override
-    protected int getExperiencePoints(PlayerEntity player)  //TODO
+    protected int getExperiencePoints(PlayerEntity player)
     {
-    	this.experienceValue = (int)((float)this.experienceValue * 2.0F);
+    	this.experienceValue = 40;
     	return super.getExperiencePoints(player);
     }
     
