@@ -14,6 +14,7 @@ import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.util.Direction;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 
 public class EndTrollBulletAttackGoal extends Goal
@@ -32,6 +33,10 @@ public class EndTrollBulletAttackGoal extends Goal
      */
 	public boolean shouldExecute()
 	{
+		if(goalOwner.getEntityWorld().getDifficulty() == Difficulty.PEACEFUL)
+		{
+			return false;
+		}
 		LivingEntity livingentity =  goalOwner.getAttackTarget();
 		if(livingentity != null && livingentity.isAlive() && !goalOwner.isAnimationPlaying(EndTrollEntity.SCREAM_ANIMATION) && !goalOwner.isAnimationPlaying(EndTrollEntity.DOUBLE_PUNCH_ANIMATION) && !goalOwner.isAnimationPlaying(EndTrollEntity.RIGHT_PUNCH_ANIMATION) && !goalOwner.isAnimationPlaying(EndTrollEntity.LEFT_PUNCH_ANIMATION) && !goalOwner.isWorldRemote())
 		{

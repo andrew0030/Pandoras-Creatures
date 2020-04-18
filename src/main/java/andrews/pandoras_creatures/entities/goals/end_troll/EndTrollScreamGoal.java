@@ -6,6 +6,7 @@ import andrews.pandoras_creatures.entities.EndTrollEntity;
 import andrews.pandoras_creatures.util.network.NetworkUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.world.Difficulty;
 
 public class EndTrollScreamGoal extends Goal
 {
@@ -22,10 +23,13 @@ public class EndTrollScreamGoal extends Goal
      */
 	public boolean shouldExecute()
 	{
+		if(goalOwner.getEntityWorld().getDifficulty() == Difficulty.PEACEFUL)
+		{
+			return false;
+		}
 		LivingEntity livingentity =  goalOwner.getAttackTarget();
 		if(livingentity != null && livingentity.isAlive() && goalOwner.isAnimationPlaying(EndTrollEntity.BLANK_ANIMATION) && !goalOwner.isWorldRemote())
 		{
-			System.out.println(this.goalOwner.getDistance(livingentity));
 			if(!this.goalOwner.getNavigator().noPath() && this.goalOwner.getDistance(livingentity) < 10)
 			{
 				return goalOwner.screamCooldown == 0;

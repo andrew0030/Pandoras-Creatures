@@ -30,7 +30,9 @@
         "category": "entity",
         "subtitle": "Hellhound Bark",
         "sounds": [
-        	{ "name": "pandoras_creatures:entity/hellhound_ambient_0", "stream": true}
+        	{ "name": "pandoras_creatures:entity/hellhound_ambient_0", "stream": true},
+        	{ "name": "pandoras_creatures:entity/hellhound_ambient_1", "stream": true},
+        	{ "name": "pandoras_creatures:entity/hellhound_ambient_2", "stream": true}
         ]
     },
     "entity.hellhound.hurt":

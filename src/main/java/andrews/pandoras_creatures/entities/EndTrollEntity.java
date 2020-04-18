@@ -29,7 +29,6 @@ import net.minecraft.entity.item.FallingBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -37,7 +36,6 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -335,57 +333,9 @@ public class EndTrollEntity extends AnimatedCreatureEntity
    	}
     
     @Override
-    protected boolean processInteract(PlayerEntity player, Hand hand)
-    {
-    	ItemStack itemstack = player.getHeldItem(hand);
-        if(itemstack.getItem() == Items.BLAZE_ROD)
-        {	
-        	this.setHasScreamed(false);//TODO REMOVE
-        	if(this.isAnimationPlaying(BLANK_ANIMATION) && !this.getEntityWorld().isRemote())
-        	{
-        		NetworkUtil.setPlayingAnimationMessage(this, TRANSFORM_ANIMATION); //TODO REMOVE
-        	}
-        }
-        if(itemstack.getItem() == Items.GUNPOWDER)
-        {	
-        	if(this.isAnimationPlaying(BLANK_ANIMATION) && !this.getEntityWorld().isRemote())
-        	{
-        		NetworkUtil.setPlayingAnimationMessage(this, DEATH_ANIMATION); //TODO REMOVE
-        	}
-        }
-        if(itemstack.getItem() == Items.FERMENTED_SPIDER_EYE)
-        {	
-        	if(this.isAnimationPlaying(BLANK_ANIMATION) && !this.getEntityWorld().isRemote())
-        	{
-        		NetworkUtil.setPlayingAnimationMessage(this, DOUBLE_PUNCH_ANIMATION); //TODO REMOVE
-        	}
-        }
-        if(itemstack.getItem() == Items.BLAZE_POWDER)
-        {	
-        	if(this.isAnimationPlaying(BLANK_ANIMATION) && !this.getEntityWorld().isRemote())
-        	{
-        		NetworkUtil.setPlayingAnimationMessage(this, SCREAM_ANIMATION); //TODO REMOVE
-        	}
-        }
-        if(itemstack.getItem() == Items.STICK)//TODO REMOVE
-        {	
-        	if(this.isEntityStanding())
-        	{
-        		this.setEntityStanding(false);//TODO REMOVE
-        		this.setHasScreamed(false);//TODO REMOVE
-        	}
-        }
-        if(itemstack.getItem() == Items.APPLE)//TODO REMOVE
-        {	
-        	this.getEntityWorld().addEntity(new EndTrollBulletPoisonEntity(world, this, null, null));
-        }
-        return true;
-    }
-    
-    @Override
     protected int getExperiencePoints(PlayerEntity player)
     {
-    	this.experienceValue = 40;
+    	this.experienceValue = 100;
     	return super.getExperiencePoints(player);
     }
     

@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class PCSpawnEggWithToolTipItem extends PCSpawnEggItem
+public class PCSpawnEggWithTooltipItem extends PCSpawnEggItem
 {
 	private String langPath;
 	
@@ -24,7 +24,7 @@ public class PCSpawnEggWithToolTipItem extends PCSpawnEggItem
 	 * @param langPath - The path to the lang file
 	 * @param properties - The Item properties
 	 */
-	public PCSpawnEggWithToolTipItem(Supplier<EntityType<?>> entityType, int primaryColor, int secondaryColor, String langPath, Properties properties)
+	public PCSpawnEggWithTooltipItem(Supplier<EntityType<?>> entityType, int primaryColor, int secondaryColor, String langPath, Properties properties)
 	{
 		super(entityType, primaryColor, secondaryColor, properties);
 		this.langPath = langPath;

@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "pandoras_creatures:end_troll_box",
+    "pandoras_creatures:white_end_troll_box",
+    "pandoras_creatures:orange_end_troll_box",
+    "pandoras_creatures:magenta_end_troll_box",
+    "pandoras_creatures:light_blue_end_troll_box",
+    "pandoras_creatures:yellow_end_troll_box",
+    "pandoras_creatures:lime_end_troll_box",
+    "pandoras_creatures:pink_end_troll_box",
+    "pandoras_creatures:gray_end_troll_box",
+    "pandoras_creatures:light_gray_end_troll_box",
+    "pandoras_creatures:cyan_end_troll_box",
+    "pandoras_creatures:purple_end_troll_box",
+    "pandoras_creatures:blue_end_troll_box",
+    "pandoras_creatures:brown_end_troll_box",
+    "pandoras_creatures:green_end_troll_box",
+    "pandoras_creatures:red_end_troll_box",
+    "pandoras_creatures:black_end_troll_box"
+    ]
+}

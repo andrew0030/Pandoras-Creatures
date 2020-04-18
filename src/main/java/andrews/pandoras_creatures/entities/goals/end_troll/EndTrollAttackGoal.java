@@ -11,6 +11,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.util.EntityPredicates;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.Difficulty;
 
 public class EndTrollAttackGoal extends Goal
 {
@@ -43,6 +44,10 @@ public class EndTrollAttackGoal extends Goal
 	@Override
 	public boolean shouldExecute()
 	{
+		if(attacker.getEntityWorld().getDifficulty() == Difficulty.PEACEFUL)
+		{
+			return false;
+		}
 		long i = this.attacker.world.getGameTime();
 		if (i - this.field_220720_k < 20L)
 		{
