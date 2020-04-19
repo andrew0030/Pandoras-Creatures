@@ -205,12 +205,6 @@ public class HellhoundEntity extends MonsterEntity
         return flag;
     }
     
-//    @Override
-//    protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn)
-//    {
-//        return sizeIn.height * 0.7F;
-//    }
-    
     @Override
     public CreatureAttribute getCreatureAttribute()
     {
@@ -245,7 +239,7 @@ public class HellhoundEntity extends MonsterEntity
     @Override
     protected float getSoundVolume()
     {
-    	return 0.6F;
+    	return 0.8F;
     }
     
     /**

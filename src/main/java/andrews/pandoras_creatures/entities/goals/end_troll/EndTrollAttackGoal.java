@@ -28,6 +28,7 @@ public class EndTrollAttackGoal extends Goal
 	private long field_220720_k;
 	private int failedPathFindingPenalty = 0;
 	private boolean canPenalize = false;
+	private boolean hasPerformedAttackLogic = false;
 	private Random rand = new Random();
 
 	public EndTrollAttackGoal(EndTrollEntity creature, double speedIn, boolean useLongMemory)
@@ -155,9 +156,15 @@ public class EndTrollAttackGoal extends Goal
 	 */
 	@Override
 	public void tick()
-	{
+	{	
 		if(!this.attacker.isAnimationPlaying(EndTrollEntity.RIGHT_PUNCH_ANIMATION) && !this.attacker.isAnimationPlaying(EndTrollEntity.LEFT_PUNCH_ANIMATION) && !this.attacker.isAnimationPlaying(EndTrollEntity.DOUBLE_PUNCH_ANIMATION))
 		{
+			//We need this because Minecraft is Minecraft and it skips ticks some times :/
+			if(this.hasPerformedAttackLogic)
+			{
+				this.hasPerformedAttackLogic = false;
+			}
+			
 			LivingEntity livingentity = this.attacker.getAttackTarget();
 			this.attacker.getLookController().setLookPositionWithEntity(livingentity, 30.0F, 30.0F);
 			double d0 = this.attacker.getDistanceSq(livingentity.posX, livingentity.getBoundingBox().minY, livingentity.posZ);
@@ -208,17 +215,21 @@ public class EndTrollAttackGoal extends Goal
 		}
 		else
 		{	
-			if((attacker.isAnimationPlaying(EndTrollEntity.RIGHT_PUNCH_ANIMATION) || attacker.isAnimationPlaying(EndTrollEntity.LEFT_PUNCH_ANIMATION) || attacker.isAnimationPlaying(EndTrollEntity.DOUBLE_PUNCH_ANIMATION)) && attacker.getAnimationTick() == 10)
+			if((attacker.isAnimationPlaying(EndTrollEntity.RIGHT_PUNCH_ANIMATION) || attacker.isAnimationPlaying(EndTrollEntity.LEFT_PUNCH_ANIMATION) || attacker.isAnimationPlaying(EndTrollEntity.DOUBLE_PUNCH_ANIMATION)) && attacker.getAnimationTick() >= 10)
 			{
-				LivingEntity livingentity = this.attacker.getAttackTarget();
-				this.attackTick = 20;
-				if(attacker.isAnimationPlaying(EndTrollEntity.DOUBLE_PUNCH_ANIMATION))
+				if(!this.hasPerformedAttackLogic)
 				{
-					this.attacker.attackEntityAsMob(livingentity, true);
-				}
-				else
-				{
-					this.attacker.attackEntityAsMob(livingentity, false);
+					LivingEntity livingentity = this.attacker.getAttackTarget();
+					this.attackTick = 20;
+					if(attacker.isAnimationPlaying(EndTrollEntity.DOUBLE_PUNCH_ANIMATION))
+					{
+						this.attacker.attackEntityAsMob(livingentity, true);
+					}
+					else
+					{
+						this.attacker.attackEntityAsMob(livingentity, false);
+					}
+					this.hasPerformedAttackLogic = true;
 				}
 			}
 		}

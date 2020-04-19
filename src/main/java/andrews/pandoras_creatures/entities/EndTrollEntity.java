@@ -2,7 +2,6 @@ package andrews.pandoras_creatures.entities;
 
 import andrews.pandoras_creatures.entities.bases.AnimatedCreatureEntity;
 import andrews.pandoras_creatures.entities.goals.end_troll.EndTrollAttackGoal;
-import andrews.pandoras_creatures.entities.goals.end_troll.EndTrollBulletAttackGoal;
 import andrews.pandoras_creatures.entities.goals.end_troll.EndTrollScreamGoal;
 import andrews.pandoras_creatures.entities.goals.end_troll.EndTrollTransformGoal;
 import andrews.pandoras_creatures.registry.PCEntities;
@@ -86,21 +85,21 @@ public class EndTrollEntity extends AnimatedCreatureEntity
     	this.goalSelector.addGoal(1, new SwimGoal(this));
     	this.goalSelector.addGoal(2, new EndTrollTransformGoal(this));
     	this.goalSelector.addGoal(3, new EndTrollScreamGoal(this));
-    	this.goalSelector.addGoal(4, new EndTrollBulletAttackGoal(this));
+//    	this.goalSelector.addGoal(4, new EndTrollBulletAttackGoal(this));
     	this.goalSelector.addGoal(5, new EndTrollAttackGoal(this, 0.3D, false));
     	this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 0.3D));
     	this.goalSelector.addGoal(7, new LookAtGoal(this, PlayerEntity.class, 10.0F));
     	this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
     	//Target Selector
-    	this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
-        this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
+    	this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
+    	this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
     }
 
     @Override
     protected void registerAttributes()
     {
         super.registerAttributes();
-//      this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(14.0D); //TODO
+        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(200.0D);
         this.getAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1.0D);
         this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(30.0D);
     }
@@ -170,7 +169,7 @@ public class EndTrollEntity extends AnimatedCreatureEntity
 		}
 		
 		if(this.isEntityStanding())
-		{
+		{	
 			//Breaks the Blocks during the Scream
 			if(this.isAnimationPlaying(SCREAM_ANIMATION))
 			{
@@ -381,11 +380,11 @@ public class EndTrollEntity extends AnimatedCreatureEntity
     	boolean flag;
     	if(doublePunch)
     	{
-    		flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float)(5 + this.rand.nextInt(2)));
+    		flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float)(14 + this.rand.nextInt(7)));
     	}
     	else
     	{
-    		flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float)(1 + this.rand.nextInt(1)));
+    		flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float)(12 + this.rand.nextInt(4)));
     	}
         return flag;
     }
