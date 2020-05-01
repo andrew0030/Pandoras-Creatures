@@ -65,11 +65,16 @@
 	"item.pandoras_creatures.seahorse_spawn_egg": "Uovo di spawn Cavallucio marino",
 	"item.pandoras_creatures.acidic_archvine_spawn_egg": "Uovo di spawn Archvine Acida",
 	"item.pandoras_creatures.bufflon_spawn_egg": "Uovo di spawn Bufflon",
+	"item.pandoras_creatures.end_troll_spawn_egg": "Uovo di spawn dell'End Troll",
 	
 //	 Item Tooltips, [Localising Tools] can be used here.
 	"item.pandoras_creatures.acidic_archvine_spawn_egg.tooltip": "#c7Deve essere piazzatta sotto le \n#c7foglie di Giungla o la Netherrack",
 	"item.pandoras_creatures.arachnon_hammer.tooltip": "#c7Questo strumento rompe\n#c7i blocchi in un'area 3x3",
-	
+	"item.pandoras_creatures.plant_hat.tooltip": "#c7Indossando questo cappello\n#c7sarai invisibile alle Archivne Acide",
+		
+//	 Block Tooltips, [Localising Tools] can be used here.
+"block.pandoras_creatures.end_troll_box.tooltip": "e %d altro...",
+
 //	 Items
 	"item.pandoras_creatures.arachnon_hammer": "Martello di Arachnon",
 	"item.pandoras_creatures.crab_meat": "Carne di Granchio",
@@ -87,12 +92,31 @@
 	"item.pandoras_creatures.bufflon_player_seats": "Seduta da player per Bufflon",
 	"item.pandoras_creatures.bufflon_small_storage": "Magazino piccolo per Bufflon",
 	"item.pandoras_creatures.bufflon_large_storage": "Magazino grande per Bufflon",
+	"item.pandoras_creatures.plant_hat": "Cappello pianta",
+	"item.pandoras_creatures.end_troll_skin": "Pelle d'End Troll",
 	
 //	 Blocks
 	"block.pandoras_creatures.arachnon_crystal": "Cristallo di Arachnon",
 	"block.pandoras_creatures.horsetail": "Equiseto",
 	"block.pandoras_creatures.dhania": "Dhania",
 	"block.pandoras_creatures.hill_bloom": "Hill Bloom",
+	"block.pandoras_creatures.end_troll_box": "Cassa dell'End Troll",
+	"block.pandoras_creatures.white_end_troll_box": "Cassa dell'End Troll bianca",
+	"block.pandoras_creatures.orange_end_troll_box": "Cassa dell'End Troll arancione",
+	"block.pandoras_creatures.magenta_end_troll_box": "Cassa dell'End Troll magenta",
+	"block.pandoras_creatures.light_blue_end_troll_box": "Cassa dell'End Troll azzura",
+	"block.pandoras_creatures.yellow_end_troll_box": "Cassa dell'End Troll gialla",
+	"block.pandoras_creatures.lime_end_troll_box": "Cassa dell'End Troll lime",
+	"block.pandoras_creatures.pink_end_troll_box": "Cassa dell'End Troll rosa",
+	"block.pandoras_creatures.gray_end_troll_box": "Cassa dell'End Troll grigio",
+	"block.pandoras_creatures.light_gray_end_troll_box": "Cassa dell'End Troll grigio chiaro",
+	"block.pandoras_creatures.cyan_end_troll_box": "Cassa dell'End Troll ciano",
+	"block.pandoras_creatures.purple_end_troll_box": "Cassa dell'End Troll viola",
+	"block.pandoras_creatures.blue_end_troll_box": "Cassa dell'End Troll blu",
+	"block.pandoras_creatures.brown_end_troll_box": "Cassa dell'End Troll marrone",
+	"block.pandoras_creatures.green_end_troll_box": "Cassa dell'End Troll verde",
+	"block.pandoras_creatures.red_end_troll_box": "Cassa dell'End Troll rosso",
+	"block.pandoras_creatures.black_end_troll_box": "Cassa dell'End Troll nero",
 	
 //	 Entities
 	"entity.pandoras_creatures.arachnon": "Arachnon",
@@ -101,7 +125,14 @@
 	"entity.pandoras_creatures.seahorse": "Cavallucio Marino",
 	"entity.pandoras_creatures.acidic_archvine": "Archvine Acida",
 	"entity.pandoras_creatures.bufflon": "Bufflon",
+	"entity.pandoras_creatures.end_troll": "End Troll",
+	"entity.pandoras_creatures.end_troll_bullet_poison": "Proiettile avvelenato dell'End Troll",
+	"entity.pandoras_creatures.end_troll_bullet_wither": "Proiettile con Withering dell'End Troll",
+	"entity.pandoras_creatures.end_troll_bullet_damage": "Proiettile di danno estintaneo dell'End Troll",
 
+//	 Containers
+"container.pandoras_creatures.end_troll_box": "Cassa dell'End Troll",
+	
 //	 Button Tool Tips
 	"gui.button.pandoras_creatures.discord": "Discord",
 	"gui.button.pandoras_creatures.curseforge": "CurseForge",

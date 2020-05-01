@@ -65,10 +65,15 @@
 	"item.pandoras_creatures.seahorse_spawn_egg": "Generar Caballito de Mar",
 	"item.pandoras_creatures.acidic_archvine_spawn_egg": "Generar Archídea Ácida",
 	"item.pandoras_creatures.bufflon_spawn_egg": "Generar Bufalon",
+	"item.pandoras_creatures.end_troll_spawn_egg": "Generar Troll del Fin",
 	
 //	 Item Tooltips, [Localising Tools] can be used here.
 	"item.pandoras_creatures.acidic_archvine_spawn_egg.tooltip": "#c7Necesita ser colocado debajo de\n#c7Hojas de Jungla o Netherrack",
 	"item.pandoras_creatures.arachnon_hammer.tooltip": "#c7Esta herramienta rompe\n#c7bloques en un radio de 3x3",
+	"item.pandoras_creatures.plant_hat.tooltip": "#c7Al llevar este sombrero te vuelves\n#c7invisible a las Archídeas Ácidas",
+	
+//	 Block Tooltips, [Localising Tools] can be used here.
+	"block.pandoras_creatures.end_troll_box.tooltip": "y %d más...",
 	
 //	 Items
 	"item.pandoras_creatures.arachnon_hammer": "Martillo de Arachnon",
@@ -87,12 +92,31 @@
 	"item.pandoras_creatures.bufflon_player_seats": "Asientos de Jugador de Bufalon",
 	"item.pandoras_creatures.bufflon_small_storage": "Pequeño Almacenamiento de Bufalon",
 	"item.pandoras_creatures.bufflon_large_storage": "Gran Almacenamiento de Bufalon",
+	"item.pandoras_creatures.plant_hat": "Sombrero de Planta",
+	"item.pandoras_creatures.end_troll_skin": "Piel de Troll del Fin",
 	
 //	 Blocks
 	"block.pandoras_creatures.arachnon_crystal": "Cristal de Arachnon",
 	"block.pandoras_creatures.horsetail": "Equiseto",
 	"block.pandoras_creatures.dhania": "Dhania",
 	"block.pandoras_creatures.hill_bloom": "Flor de Colina",
+	"block.pandoras_creatures.end_troll_box": "Caja de Troll del Fin",
+	"block.pandoras_creatures.white_end_troll_box": "Caja Blanca de Troll del Fin",
+	"block.pandoras_creatures.orange_end_troll_box": "Caja Naranja de Troll del Fin",
+	"block.pandoras_creatures.magenta_end_troll_box": "Caja Magenta de Troll del Fin",
+	"block.pandoras_creatures.light_blue_end_troll_box": "Caja Celeste de Troll del Fin",
+	"block.pandoras_creatures.yellow_end_troll_box": "Caja Amarilla de Troll del Fin",
+	"block.pandoras_creatures.lime_end_troll_box": "Caja Lima de Troll del Fin",
+	"block.pandoras_creatures.pink_end_troll_box": "Caja Rosa de Troll del Fin",
+	"block.pandoras_creatures.gray_end_troll_box": "Caja Gris de Troll del Fin",
+	"block.pandoras_creatures.light_gray_end_troll_box": "Caja Gris Claro de Troll del Fin",
+	"block.pandoras_creatures.cyan_end_troll_box": "Caja Cian de Troll del Fin",
+	"block.pandoras_creatures.purple_end_troll_box": "Caja Púrpura de Troll del Fin",
+	"block.pandoras_creatures.blue_end_troll_box": "Caja Azul de Troll del Fin",
+	"block.pandoras_creatures.brown_end_troll_box": "Caja Marrón de Troll del Fin",
+	"block.pandoras_creatures.green_end_troll_box": "Caja Verde de Troll del Fin",
+	"block.pandoras_creatures.red_end_troll_box": "Caja Roja de Troll del Fin",
+	"block.pandoras_creatures.black_end_troll_box": "Caja Negra de Troll del Fin",
 	
 //	 Entities
 	"entity.pandoras_creatures.arachnon": "Arachnon",
@@ -101,6 +125,13 @@
 	"entity.pandoras_creatures.seahorse": "Caballito de Mar",
 	"entity.pandoras_creatures.acidic_archvine": "Archídea Ácida",
 	"entity.pandoras_creatures.bufflon": "Bufalon",
+	"entity.pandoras_creatures.end_troll": "Troll del Fin",
+	"entity.pandoras_creatures.end_troll_bullet_poison": "Bala de Troll del Fin Envenenada",
+	"entity.pandoras_creatures.end_troll_bullet_wither": "Bala de Troll del Fin de Wither",
+	"entity.pandoras_creatures.end_troll_bullet_damage": "Bala de Troll del Fin de Daño",
+	
+//	 Containers
+	 "container.pandoras_creatures.end_troll_box": "Caja de Troll del Fin",
 	
 //	 Button Tool Tips
 	"gui.button.pandoras_creatures.discord": "Discord",

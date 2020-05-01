@@ -55,7 +55,7 @@
 // That's all have "fun" translating!
 
 {
-//	 Item Groups
+//	 物品组
 	"itemGroup.pandoras_creatures": "潘多拉生物",
 
 //	 刷怪蛋
@@ -64,11 +64,16 @@
 	"item.pandoras_creatures.crab_spawn_egg": "螃蟹刷怪蛋",
 	"item.pandoras_creatures.seahorse_spawn_egg": "海马刷怪蛋",
 	"item.pandoras_creatures.acidic_archvine_spawn_egg": "藤壶怪刷怪蛋",
-	"item.pandoras_creatures.bufflon_spawn_egg": "Bufflon Spawn Egg",
+	"item.pandoras_creatures.bufflon_spawn_egg": "水牛刷怪蛋",
+	"item.pandoras_creatures.end_troll_spawn_egg": "末影巨魔刷怪蛋",
 	
-//	 Item Tooltips, [Localising Tools] can be used here.
+//	 物品提示
 	"item.pandoras_creatures.acidic_archvine_spawn_egg.tooltip": "#c7藤壶怪只能在丛林树叶和地狱岩下面生长",
-	"item.pandoras_creatures.arachnon_hammer.tooltip": "#c7当你使用这个工具破坏方块时，\n#c7它会破坏玩家前方\n#c73x3范围内的方块。",
+	"item.pandoras_creatures.arachnon_hammer.tooltip": "#c7当你使用这个工具破坏方块时，\n#c7它会破坏玩家前方\n#c73x3范围内的方块",
+	"item.pandoras_creatures.plant_hat.tooltip": "#c7戴上这个帽子\n#c7可以让藤壶怪看不见你",
+	
+//	 方块提示
+	"block.pandoras_creatures.end_troll_box.tooltip": "以及更多%d个...",
 	
 //	 物品
 	"item.pandoras_creatures.arachnon_hammer": "巨型蜘蛛之锤",
@@ -79,20 +84,39 @@
 	"item.pandoras_creatures.seahorse": "生海马",
 	"item.pandoras_creatures.seahorse_cooked": "熟海马",
 	"item.pandoras_creatures.acidic_archvine_tongue": "藤壶怪之舌",
-	"item.pandoras_creatures.herb_bundle": "Herb Bundle",
-	"item.pandoras_creatures.bufflon_beef": "Bufflon肉",
-	"item.pandoras_creatures.bufflon_beef_cooked": "熟Bufflon肉",
-	"item.pandoras_creatures.bufflon_hide": "Bufflon Hide",
-	"item.pandoras_creatures.bufflon_saddle": "Bufflon鞍",
-	"item.pandoras_creatures.bufflon_player_seats": "Bufflon 玩家座位",
-	"item.pandoras_creatures.bufflon_small_storage": "Bufflon 小型存储",
-	"item.pandoras_creatures.bufflon_large_storage": "Bufflon 大型存储",	
+	"item.pandoras_creatures.herb_bundle": "草束",
+	"item.pandoras_creatures.bufflon_beef": "水牛肉",
+	"item.pandoras_creatures.bufflon_beef_cooked": "熟水牛肉",
+	"item.pandoras_creatures.bufflon_hide": "水牛皮",
+	"item.pandoras_creatures.bufflon_saddle": "水牛鞍",
+	"item.pandoras_creatures.bufflon_player_seats": "水牛玩家座位",
+	"item.pandoras_creatures.bufflon_small_storage": "水牛小型存储",
+	"item.pandoras_creatures.bufflon_large_storage": "水牛大型存储",
+	"item.pandoras_creatures.plant_hat": "植物帽",
+	"item.pandoras_creatures.end_troll_skin": "末影巨魔皮肤",
 	
-//	 Blocks
+//	 方块
 	"block.pandoras_creatures.arachnon_crystal": "巨型蜘蛛结晶",
 	"block.pandoras_creatures.horsetail": "马尾",
-	"block.pandoras_creatures.dhania": "Dhania",
-	"block.pandoras_creatures.hill_bloom": "Hill Bloom",	
+	"block.pandoras_creatures.dhania": "香菜",
+	"block.pandoras_creatures.hill_bloom": "山花",
+	"block.pandoras_creatures.end_troll_box": "末影巨魔盒",
+	"block.pandoras_creatures.white_end_troll_box": "白色末影巨魔盒",
+	"block.pandoras_creatures.orange_end_troll_box": "橙色末影巨魔盒",
+	"block.pandoras_creatures.magenta_end_troll_box": "品红色 末影巨魔盒",
+	"block.pandoras_creatures.light_blue_end_troll_box": "淡蓝色 末影巨魔盒",
+	"block.pandoras_creatures.yellow_end_troll_box": "黄色末影巨魔盒",
+	"block.pandoras_creatures.lime_end_troll_box": "黄绿色末影巨魔盒",
+	"block.pandoras_creatures.pink_end_troll_box": "粉色末影巨魔盒",
+	"block.pandoras_creatures.gray_end_troll_box": "灰色末影巨魔盒",
+	"block.pandoras_creatures.light_gray_end_troll_box": "淡灰色末影巨魔盒",
+	"block.pandoras_creatures.cyan_end_troll_box": "青色末影巨魔盒",
+	"block.pandoras_creatures.purple_end_troll_box": "紫色末影巨魔盒",
+	"block.pandoras_creatures.blue_end_troll_box": "蓝色末影巨魔盒",
+	"block.pandoras_creatures.brown_end_troll_box": "棕色末影巨魔盒",
+	"block.pandoras_creatures.green_end_troll_box": "绿色末影巨魔盒",
+	"block.pandoras_creatures.red_end_troll_box": "红色末影巨魔盒",
+	"block.pandoras_creatures.black_end_troll_box": "黑色末影巨魔盒",
 	
 //	 实体
 	"entity.pandoras_creatures.arachnon": "巨型蜘蛛",
@@ -100,7 +124,14 @@
 	"entity.pandoras_creatures.crab": "螃蟹",
 	"entity.pandoras_creatures.seahorse": "海马",
 	"entity.pandoras_creatures.acidic_archvine": "藤壶怪",
-	"entity.pandoras_creatures.bufflon": "Bufflon",
+	"entity.pandoras_creatures.bufflon": "水牛",
+	"entity.pandoras_creatures.end_troll": "末影巨魔",
+	"entity.pandoras_creatures.end_troll_bullet_poison": "末影巨魔剧毒子弹",
+	"entity.pandoras_creatures.end_troll_bullet_wither": "末影巨魔凋零子弹",
+	"entity.pandoras_creatures.end_troll_bullet_damage": "末影巨魔伤害子弹",
+	
+//	 容器
+	 "container.pandoras_creatures.end_troll_box": "末影巨魔盒",
 	
 //	 按钮工具提示
 	"gui.button.pandoras_creatures.discord": "Discord",

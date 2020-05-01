@@ -24,6 +24,9 @@ public class PCSounds
 	public static final RegistryObject<SoundEvent> BUFFLON_HURT = createSoundEvent("entity.bufflon.hurt");
 	public static final RegistryObject<SoundEvent> BUFFLON_DEATH = createSoundEvent("entity.bufflon.death");
 	public static final RegistryObject<SoundEvent> BUFFLON_ATTACK = createSoundEvent("entity.bufflon.attack");
+	public static final RegistryObject<SoundEvent> END_TROLL_SCREAM = createSoundEvent("entity.end_troll.scream");
+	public static final RegistryObject<SoundEvent> END_TROLL_ATTACK = createSoundEvent("entity.end_troll.attack");
+	public static final RegistryObject<SoundEvent> END_TROLL_DEATH = createSoundEvent("entity.end_troll.death");
 	
 	private static RegistryObject<SoundEvent> createSoundEvent(String name)
 	{

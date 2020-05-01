@@ -65,10 +65,15 @@
 	"item.pandoras_creatures.seahorse_spawn_egg": "ƃƃƎ uʍɐdS ǝsɹoɥɐǝS",
 	"item.pandoras_creatures.acidic_archvine_spawn_egg": "ƃƃƎ uʍɐdS ǝuᴉʌɥɔɹ∀ ɔᴉpᴉɔ∀",
 	"item.pandoras_creatures.bufflon_spawn_egg": "ƃƃƎ uʍɐdS uoʃɟɟn𐐒",
+	"item.pandoras_creatures.end_troll_spawn_egg": "ƃƃƎ uʍɐdS lloɹ┴ puƎ",
 	
 //	 Item Tooltips, [Localising Tools] can be used here.
 	"item.pandoras_creatures.acidic_archvine_spawn_egg.tooltip": "#c7ɹǝpun pǝɔɐld ǝq oʇ spǝǝN\n#c7ʞɔɐɹɹǝɥʇǝN ɹo sǝʌɐǝ˥ ǝlƃunſ",
 	"item.pandoras_creatures.arachnon_hammer.tooltip": "#c7ʞɐǝɹq llᴉʍ looʇ sᴉɥ┴\n#c7snᴉpɐɹ ƐxƐ ɐ uᴉ sʞɔolq",
+	"item.pandoras_creatures.plant_hat.tooltip": "#c7sǝuᴉʌɥɔɹ∀ ɔᴉpᴉɔ∀ oʇ ǝlqᴉsᴉʌuᴉ\n#c7noʎ sǝʞɐɯ ʇɐɥ sᴉɥʇ ƃuᴉɹɐǝM",
+	
+	//	 Block Tooltips, [Localising Tools] can be used here.
+	"block.pandoras_creatures.end_troll_box.tooltip": "˙˙˙ǝɹoɯ %d puɐ",
 	
 //	 Items
 	"item.pandoras_creatures.arachnon_hammer": "ɹǝɯɯɐH uouɥɔɐɹ∀",
@@ -87,12 +92,31 @@
 	"item.pandoras_creatures.bufflon_player_seats": "sʇɐǝS ɹǝʎɐʃԀ uoʃɟɟn𐐒",
 	"item.pandoras_creatures.bufflon_small_storage": "ǝƃɐɹoʇS ʃʃɐɯS uoʃɟɟn𐐒",
 	"item.pandoras_creatures.bufflon_large_storage": "ǝƃɐɹoʇS ǝƃɹɐ⅂ uoʃɟɟn𐐒",
+	"item.pandoras_creatures.plant_hat": "ʇɐH ʇuɐlԀ",
+	"item.pandoras_creatures.end_troll_skin": "uᴉʞS lloɹ┴ puƎ",
 	
 //	 Blocks
 	"block.pandoras_creatures.arachnon_crystal": "lɐʇsʎɹƆ uouɥɔɐɹ∀",
 	"block.pandoras_creatures.horsetail": "ʃıɐʇǝsɹoH",
 	"block.pandoras_creatures.dhania": "ɐıuɐɥ◖",
 	"block.pandoras_creatures.hill_bloom": "ɯooʃ𐐒 ʃʃıH",
+	"block.pandoras_creatures.end_troll_box": "xoq lloɹ┴ puƎ",
+	"block.pandoras_creatures.white_end_troll_box": "xoq lloɹ┴ puƎ ǝʇᴉɥM",
+	"block.pandoras_creatures.orange_end_troll_box": "xoq lloɹ┴ puƎ ǝƃuɐɹO",
+	"block.pandoras_creatures.magenta_end_troll_box": "xoq lloɹ┴ puƎ ɐʇuǝƃɐW",
+	"block.pandoras_creatures.light_blue_end_troll_box": "xoq lloɹ┴ puƎ ǝnlq ʇɥƃᴉ˥",
+	"block.pandoras_creatures.yellow_end_troll_box": "xoq lloɹ┴ puƎ ʍollǝ⅄",
+	"block.pandoras_creatures.lime_end_troll_box": "xoq lloɹ┴ puƎ ǝɯᴉ˥",
+	"block.pandoras_creatures.pink_end_troll_box": "xoq lloɹ┴ puƎ ʞuᴉԀ",
+	"block.pandoras_creatures.gray_end_troll_box": "xoq lloɹ┴ puƎ ʎɐɹפ",
+	"block.pandoras_creatures.light_gray_end_troll_box": "xoq lloɹ┴ puƎ ʎɐɹפ ʇɥƃᴉ˥",
+	"block.pandoras_creatures.cyan_end_troll_box": "xoq lloɹ┴ puƎ uɐʎƆ",
+	"block.pandoras_creatures.purple_end_troll_box": "xoq lloɹ┴ puƎ ǝldɹnԀ",
+	"block.pandoras_creatures.blue_end_troll_box": "xoq lloɹ┴ puƎ ǝnlq",
+	"block.pandoras_creatures.brown_end_troll_box": "xoq lloɹ┴ puƎ uʍoɹq",
+	"block.pandoras_creatures.green_end_troll_box": "xoq lloɹ┴ puƎ uǝǝɹפ",
+	"block.pandoras_creatures.red_end_troll_box": "xoq lloɹ┴ puƎ pǝɹ",
+	"block.pandoras_creatures.black_end_troll_box": "xoq lloɹ┴ puƎ ʞɔɐlq",
 	
 //	 Entities
 	"entity.pandoras_creatures.arachnon": "uouɥɔɐɹ∀",
@@ -101,6 +125,13 @@
 	"entity.pandoras_creatures.seahorse": "ǝsɹoɥɐǝS",
 	"entity.pandoras_creatures.acidic_archvine": "ǝuᴉʌɥɔɹ∀ ɔᴉpᴉɔ∀",
 	"entity.pandoras_creatures.bufflon": "uoʃɟɟn𐐒",
+	"entity.pandoras_creatures.end_troll": "lloɹ┴ puƎ",
+	"entity.pandoras_creatures.end_troll_bullet_poison": "ʇǝllnq lloɹ┴ puƎ uosᴉoԀ",
+	"entity.pandoras_creatures.end_troll_bullet_wither": "ʇǝllnq lloɹ┴ puƎ ɹǝɥʇᴉM",
+	"entity.pandoras_creatures.end_troll_bullet_damage": "ʇǝllnq lloɹ┴ puƎ ǝƃɐɯɐp",
+	
+	//	 Containers
+	 "container.pandoras_creatures.end_troll_box": "xoq lloɹ┴ puƎ",
 	
 //  Button Tool Tips
     "gui.button.pandoras_creatures.discord": "pɹoɔsᴉp",

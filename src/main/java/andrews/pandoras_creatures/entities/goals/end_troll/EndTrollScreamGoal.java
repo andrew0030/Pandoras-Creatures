@@ -54,7 +54,7 @@ public class EndTrollScreamGoal extends Goal
 			if(this.goalOwner.isAnimationPlaying(EndTrollEntity.BLANK_ANIMATION) && !this.goalOwner.isWorldRemote())
         	{
         		NetworkUtil.setPlayingAnimationMessage(this.goalOwner, EndTrollEntity.SCREAM_ANIMATION);
-        		goalOwner.screamCooldown = 600;
+        		goalOwner.screamCooldown = 400;
         	}
 		}
 	}

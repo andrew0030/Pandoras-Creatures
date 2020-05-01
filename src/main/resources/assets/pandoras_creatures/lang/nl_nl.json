@@ -65,11 +65,16 @@
 	"item.pandoras_creatures.seahorse_spawn_egg": "Zeepaardjespawnei",
 	"item.pandoras_creatures.acidic_archvine_spawn_egg": "zure Archvinespawnei",
 	"item.pandoras_creatures.bufflon_spawn_egg": "Bufflonspawnei",
+	"item.pandoras_creatures.end_troll_spawn_egg": "end Trolspawnei",
 	
 //	 Item Tooltips, [Localising Tools] can be used here.
 	"item.pandoras_creatures.acidic_archvine_spawn_egg.tooltip": "#c7Moet worden geplaatst onder\n#c7Jungle Bladeren of Netherrack",
 	"item.pandoras_creatures.arachnon_hammer.tooltip": "#c7Dit gereedschap breekt\n#c7blokken in een straal van 3x3",
-	
+	"item.pandoras_creatures.plant_hat.tooltip": "#c7Wanneer je dit draagt\n#c7ben je onzichtbaar\n#c7voor de zure Archvine",
+
+//	 Block Tooltips, [Localising Tools] can be used here.
+	"block.pandoras_creatures.end_troll_box.tooltip": "en %d meer...",
+
 //	 Items
 	"item.pandoras_creatures.arachnon_hammer": "Arachnon Hamer",
 	"item.pandoras_creatures.crab_meat": "Krabvlees",
@@ -87,12 +92,31 @@
 	"item.pandoras_creatures.bufflon_player_seats": "Bufflon Speler Zitplaatsen",
 	"item.pandoras_creatures.bufflon_small_storage": "Bufflon Kleine Opslag",
 	"item.pandoras_creatures.bufflon_large_storage": "Bufflon Grote Opslag",
+	"item.pandoras_creatures.plant_hat": "Planten Hoed",
+	"item.pandoras_creatures.end_troll_skin": "End Trol Huid",
 	
 //	 Blocks
 	"block.pandoras_creatures.arachnon_crystal": "Arachnon Kristal",
 	"block.pandoras_creatures.horsetail": "Paardenstaart",
 	"block.pandoras_creatures.dhania": "Koriander",
 	"block.pandoras_creatures.hill_bloom": "Heuvel Bloei",
+	"block.pandoras_creatures.end_troll_box": "End Trol Doos",
+	"block.pandoras_creatures.white_end_troll_box": "Witte End Trol Doos",
+	"block.pandoras_creatures.orange_end_troll_box": "Oranje End Trol Doos",
+	"block.pandoras_creatures.magenta_end_troll_box": "Magenta End Trol Doos",
+	"block.pandoras_creatures.light_blue_end_troll_box": "Licht Blauwe End Trol Doos",
+	"block.pandoras_creatures.yellow_end_troll_box": "Gele End Trol Doos",
+	"block.pandoras_creatures.lime_end_troll_box": "Limoenkleurige End Trol Doos",
+	"block.pandoras_creatures.pink_end_troll_box": "Roze End Trol Doos",
+	"block.pandoras_creatures.gray_end_troll_box": "Grijze End Trol Doos",
+	"block.pandoras_creatures.light_gray_end_troll_box": "Licht Grijze End Trol Doos",
+	"block.pandoras_creatures.cyan_end_troll_box": "Cyaan End Trol Doos",
+	"block.pandoras_creatures.purple_end_troll_box": "Paarse End Trol Doos",
+	"block.pandoras_creatures.blue_end_troll_box": "Blauwe End Trol Doos",
+	"block.pandoras_creatures.brown_end_troll_box": "Bruine End Trol Doos",
+	"block.pandoras_creatures.green_end_troll_box": "Groen End Trol Doos",
+	"block.pandoras_creatures.red_end_troll_box": "Rode End Trol Doos",
+	"block.pandoras_creatures.black_end_troll_box": "Zwarte End Trol Doos",
 	
 //	 Entities
 	"entity.pandoras_creatures.arachnon": "Arachnon",
@@ -101,6 +125,13 @@
 	"entity.pandoras_creatures.seahorse": "Zeepaardje",
 	"entity.pandoras_creatures.acidic_archvine": "Zure Archvine",
 	"entity.pandoras_creatures.bufflon": "Bufflon",
+	"entity.pandoras_creatures.end_troll": "End Trol",
+	"entity.pandoras_creatures.end_troll_bullet_poison": "Giftige End Trol Kogel",
+	"entity.pandoras_creatures.end_troll_bullet_wither": "Verdorrende End Trol Kogel",
+	"entity.pandoras_creatures.end_troll_bullet_damage": "Schadelijke End Troll Kogel",
+
+//	 Containers
+	 "container.pandoras_creatures.end_troll_box": "End Trol Doos",
 	
 //	 Button Tool Tips
 	"gui.button.pandoras_creatures.discord": "Discord",
@@ -117,11 +148,11 @@
 //	 Chat Messages
 	"chat.pandoras_creatures.invalidJarDownload": "[hier]",
 	"chat.pandoras_creatures.invalidJarDownloadTooltip": "Klik om de downloadpagina te openen.",
-	"chat.pandoras_creatures.invalidJarStopModReposts": "[here]",
+	"chat.pandoras_creatures.invalidJarStopModReposts": "[hier]",
 	"chat.pandoras_creatures.invalidJarStopModRepostsTooltip": "Klik om de Stop Mod Reposts pagina te openen.",
 	"chat.pandoras_creatures.invalidJar": "Pandora's wezens heeft heeft een invalid jar bestand gedetecteerd. Klik asltublieft %s om de officiele downloadpagina te openen of klik %s om meer te leren over onwettige mod reposts.",
-	"chat.pandoras_creatures.newVersionDownload": "[here]",
-	"chat.pandoras_creatures.newVersionDownloadTooltip": "Click to open the download page.",
+	"chat.pandoras_creatures.newVersionDownload": "[Hier]",
+	"chat.pandoras_creatures.newVersionDownloadTooltip": "Klik om de downloadpagina te openen.",
 	"chat.pandoras_creatures.newVersion": "Er is een nieuwe versie van Pandora's Wezens verkrijgbaar. Klik alstublieft %s om de officiele downloadpagina te openen.",
 	"chat.pandoras_creatures.failedCheck": "Pandora's Wezens was niet in staat om nieuwe versies te controlen.",
 	
@@ -146,5 +177,5 @@
 	"chat.pandoras_creatures.seahorseBucketTooltip.purple": "Paars Zeepaardje",
 	"chat.pandoras_creatures.seahorseBucketTooltip.pink": "Roze Zeepaardje",
 	"chat.pandoras_creatures.seahorseBucketTooltip.lime": "Limoenkleurig Zeepaardje",
-	"chat.pandoras_creatures.seahorseBucketTooltip.ghost": "geest Zeepaardje"
+	"chat.pandoras_creatures.seahorseBucketTooltip.ghost": "Geest Zeepaardje"
 }

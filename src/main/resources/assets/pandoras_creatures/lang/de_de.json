@@ -65,11 +65,16 @@
 	"item.pandoras_creatures.seahorse_spawn_egg": "Seepferdchen-Spawn-Ei",
 	"item.pandoras_creatures.acidic_archvine_spawn_egg": "ätzende-Teufelsranke-Spawn-Ei",
 	"item.pandoras_creatures.bufflon_spawn_egg": "Buffelon-Spawn-Ei",
+	"item.pandoras_creatures.end_troll_spawn_egg": "End-Kobold-Spawn-Ei",
 
 //	 Item Tooltips, [Localising Tools] can be used here.
 	"item.pandoras_creatures.acidic_archvine_spawn_egg.tooltip": "#c7Muss unter Dschungel Blättern\n#c7oder Netherstein platziert werden",
 	"item.pandoras_creatures.arachnon_hammer.tooltip": "#c7Beim zerstören von\n#c7Blöcken mit diesem\n#c7Werkzeug, wird ein\n#c73x3 Radius abgebaut.",
+	"item.pandoras_creatures.plant_hat.tooltip": "#c7Das Tragen dieses Hutes\n#c7macht dich unsichtbar für\n#c7Teufelsranken",
 
+//	 Block Tooltips, [Localising Tools] can be used here.
+	"block.pandoras_creatures.end_troll_box.tooltip": "und %d andere...",
+	
 //	 Items
 	"item.pandoras_creatures.arachnon_hammer": "Arachnon Hammer",
 	"item.pandoras_creatures.crab_meat": "Krabben Fleisch",
@@ -87,12 +92,31 @@
 	"item.pandoras_creatures.bufflon_player_seats": "Buffelon Spieler Sitz",
 	"item.pandoras_creatures.bufflon_small_storage": "Buffelon kleines Lager",
 	"item.pandoras_creatures.bufflon_large_storage": "Buffelon großes Lager",
+	"item.pandoras_creatures.plant_hat": "Pflanzen Hut",
+	"item.pandoras_creatures.end_troll_skin": "End Kobold Haut",
 
 //	 Blocks
 	"block.pandoras_creatures.arachnon_crystal": "Arachnon Kristall",
 	"block.pandoras_creatures.horsetail": "Schachtelhalm",
 	"block.pandoras_creatures.dhania": "Koriander",
 	"block.pandoras_creatures.hill_bloom": "Hügel Blüte",
+	"block.pandoras_creatures.end_troll_box": "End Kobold Kiste",
+	"block.pandoras_creatures.white_end_troll_box": "weiße End Kobold Kiste",
+	"block.pandoras_creatures.orange_end_troll_box": "orange End Kobold Kiste",
+	"block.pandoras_creatures.magenta_end_troll_box": "magenta End Kobold Kiste",
+	"block.pandoras_creatures.light_blue_end_troll_box": "hell blaue End Kobold Kiste",
+	"block.pandoras_creatures.yellow_end_troll_box": "gelbe End Kobold Kiste",
+	"block.pandoras_creatures.lime_end_troll_box": "lindgrüne End Kobold Kiste",
+	"block.pandoras_creatures.pink_end_troll_box": "pinke End Kobold Kiste",
+	"block.pandoras_creatures.gray_end_troll_box": "graue End Kobold Kiste",
+	"block.pandoras_creatures.light_gray_end_troll_box": "hell graue End Kobold Kiste",
+	"block.pandoras_creatures.cyan_end_troll_box": "cyan End Kobold Kiste",
+	"block.pandoras_creatures.purple_end_troll_box": "lila End Kobold Kiste",
+	"block.pandoras_creatures.blue_end_troll_box": "blaue End Kobold Kiste",
+	"block.pandoras_creatures.brown_end_troll_box": "braune End Kobold Kiste",
+	"block.pandoras_creatures.green_end_troll_box": "grüne End Kobold Kiste",
+	"block.pandoras_creatures.red_end_troll_box": "rote End Kobold Kiste",
+	"block.pandoras_creatures.black_end_troll_box": "schwarze End Kobold Kiste",
 
 //	 Entities
 	"entity.pandoras_creatures.arachnon": "Arachnon",
@@ -101,7 +125,14 @@
 	"entity.pandoras_creatures.seahorse": "Seepferdchen",
 	"entity.pandoras_creatures.acidic_archvine": "ätzende Teufelsranke",
 	"entity.pandoras_creatures.bufflon": "Buffelon",
+	"entity.pandoras_creatures.end_troll": "End Kobold",
+	"entity.pandoras_creatures.end_troll_bullet_poison": "giftige End Kobold Kugel",
+	"entity.pandoras_creatures.end_troll_bullet_wither": "verdorrende End Kobold Kugel",
+	"entity.pandoras_creatures.end_troll_bullet_damage": "schadens End Kobold Kugel",
 
+//	 Containers
+	 "container.pandoras_creatures.end_troll_box": "End Kobold Kiste",
+	
 //	 Button Tool Tips
 	"gui.button.pandoras_creatures.discord": "Discord",
 	"gui.button.pandoras_creatures.curseforge": "CurseForge",

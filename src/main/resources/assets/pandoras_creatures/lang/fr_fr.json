@@ -59,18 +59,22 @@
 	"itemGroup.pandoras_creatures": "Pandoras Creatures",
 
 //	 Spawn Eggs
-	"item.pandoras_creatures.arachnon_spawn_egg": "œuf d'Apparition d'Arachnon",
-	"item.pandoras_creatures.hellhound_spawn_egg": "œuf d'Apparition de Chien d'Enfer",
-	"item.pandoras_creatures.crab_spawn_egg": "œuf d'Apparition de Crabe",
-	"item.pandoras_creatures.seahorse_spawn_egg": "œuf d'Apparition d'Hippocampe",
-	"item.pandoras_creatures.acidic_archvine_spawn_egg": "œuf d'Apparition d'Archvine d'Acide",
-	"item.pandoras_creatures.bufflon_spawn_egg": "œuf d'Apparition de Bufflon",
-
+	"item.pandoras_creatures.arachnon_spawn_egg": "Oeuf d'Apparition d'Arachnon",
+	"item.pandoras_creatures.hellhound_spawn_egg": "Oeuf d'Apparition de Chien d'Enfer",
+	"item.pandoras_creatures.crab_spawn_egg": "Oeuf d'Apparition de Crabe",
+	"item.pandoras_creatures.seahorse_spawn_egg": "Oeuf d'Apparition d'Hippocampe",
+	"item.pandoras_creatures.acidic_archvine_spawn_egg": "Oeuf d'Apparition d'Archvine d'Acide",
+	"item.pandoras_creatures.bufflon_spawn_egg": "Oeuf d'Apparition de Bufflon",
+	"item.pandoras_creatures.end_troll_spawn_egg": "Oeuf d'Apparition d'End Troll",
 	
 //	 Item Tooltips, [Localising Tools] can be used here.
 	"item.pandoras_creatures.acidic_archvine_spawn_egg.tooltip": "#c7Doit être placé sous Feuilles de\n#c7la jungle ou sentier du Néant",
 	"item.pandoras_creatures.arachnon_hammer.tooltip": "#c7Cet outil va casser\n#c7des blocs dans un\n#c7rayon de 3x3",
-	
+	"item.pandoras_creatures.plant_hat.tooltip": "#c7Le port de ce chapeau vous rend\n#c7invisible pour l'Archvine d'Acide",
+
+//	 Block Tooltips, [Localising Tools] can be used here.
+	"block.pandoras_creatures.end_troll_box.tooltip": "et %d plus...",
+
 //	 Items
 	"item.pandoras_creatures.arachnon_hammer": "Marteau d'Arachnon",
 	"item.pandoras_creatures.crab_meat": "La chair de crabe",
@@ -87,13 +91,32 @@
 	"item.pandoras_creatures.bufflon_saddle": "Selle de Bufflon",
 	"item.pandoras_creatures.bufflon_player_seats": "Sièges de Joueur de Bufflon",
 	"item.pandoras_creatures.bufflon_small_storage": "Petit Rangement de Bufflon",
-	"item.pandoras_creatures.bufflon_large_storage": "Grand Rangement de Bufflon",
+    "item.pandoras_creatures.bufflon_large_storage": "Grand Rangement de Bufflon",
+	"item.pandoras_creatures.plant_hat": "Chapeau de Plante",
+    "item.pandoras_creatures.end_troll_skin": "Peau d'End Troll",
 	
 //	 Blocks
 	"block.pandoras_creatures.arachnon_crystal": "Cristal d'Arachnon",
 	"block.pandoras_creatures.horsetail": "Queue de Cheval ( Plante )",
 	"block.pandoras_creatures.dhania": "Dhania",
-	"block.pandoras_creatures.hill_bloom": "Floraison des Collines",
+    "block.pandoras_creatures.hill_bloom": "Floraison des Collines",
+	"block.pandoras_creatures.end_troll_box": "Boite d'End Troll",
+	"block.pandoras_creatures.white_end_troll_box": "Boite d'End Troll Blanche",
+	"block.pandoras_creatures.orange_end_troll_box": "Boite d'End Troll Orange",
+	"block.pandoras_creatures.magenta_end_troll_box": "Boite d'End Troll Magenta",
+	"block.pandoras_creatures.light_blue_end_troll_box": "Boite d'End Troll Bleue Clair",
+	"block.pandoras_creatures.yellow_end_troll_box": "Boite d'End Troll Jaune",
+	"block.pandoras_creatures.lime_end_troll_box": "Boite d'End Troll Citron",
+	"block.pandoras_creatures.pink_end_troll_box": "Boite d'End Troll Rose",
+	"block.pandoras_creatures.gray_end_troll_box": "Boite d'End Troll Grise",
+	"block.pandoras_creatures.light_gray_end_troll_box": "Boite d'End Troll Grise Clair",
+	"block.pandoras_creatures.cyan_end_troll_box": "Boite d'End Troll Bleue Ciel",
+	"block.pandoras_creatures.purple_end_troll_box": "Boite d'End Troll Violette",
+	"block.pandoras_creatures.blue_end_troll_box": "Boite d'End Troll Bleue",
+	"block.pandoras_creatures.brown_end_troll_box": "Boite d'End Troll Marron",
+	"block.pandoras_creatures.green_end_troll_box": "Boite d'End Troll Verte",
+	"block.pandoras_creatures.red_end_troll_box": "Boite d'End Troll Rouge",
+	"block.pandoras_creatures.black_end_troll_box": "Boite d'End Troll Noire",
 	
 //	 Entities
 	"entity.pandoras_creatures.arachnon": "Arachnon",
@@ -101,7 +124,14 @@
 	"entity.pandoras_creatures.crab": "Crabe",
 	"entity.pandoras_creatures.seahorse": "Hippocrampe",
 	"entity.pandoras_creatures.acidic_archvine": "Archvine d'Acide",
-	"entity.pandoras_creatures.bufflon": "Bufflon",
+    "entity.pandoras_creatures.bufflon": "Bufflon",
+	"entity.pandoras_creatures.end_troll": "End Troll",
+	"entity.pandoras_creatures.end_troll_bullet_poison": "Balle d'End Troll Bullet Empoisonnée",
+	"entity.pandoras_creatures.end_troll_bullet_wither": "Balle d'Troll Wither",
+	"entity.pandoras_creatures.end_troll_bullet_damage": "Balle d'End Troll Endommagée",
+
+	//	 Containers
+"container.pandoras_creatures.end_troll_box": "Boite d'End Troll",
 	
 //	 Button Tool Tips
 	"gui.button.pandoras_creatures.discord": "Discord",
@@ -146,6 +176,6 @@
 	"chat.pandoras_creatures.seahorseBucketTooltip.cyan": "Hippocampe Bleu Ciel",
 	"chat.pandoras_creatures.seahorseBucketTooltip.purple": "Hippocampe Violet",
 	"chat.pandoras_creatures.seahorseBucketTooltip.pink": "Hippocampe Rose",
-	"chat.pandoras_creatures.seahorseBucketTooltip.lime": "Hippocampe Lime",
+	"chat.pandoras_creatures.seahorseBucketTooltip.lime": "Hippocampe Citron",
 	"chat.pandoras_creatures.seahorseBucketTooltip.ghost": "Hippocampe Phontomme"
 }

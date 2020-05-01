@@ -107,5 +107,29 @@
         "sounds": [
         	{ "name": "pandoras_creatures:entity/bufflon_attack_0", "stream": true}
         ]
+    },
+    "entity.end_troll.scream":
+    {
+        "category": "entity",
+        "subtitle": "End Troll Scream",
+        "sounds": [
+        	{ "name": "pandoras_creatures:entity/end_troll_scream_0", "stream": true}
+        ]
+    },
+    "entity.end_troll.attack":
+    {
+        "category": "entity",
+        "subtitle": "End Troll Attack Roar",
+        "sounds": [
+        	{ "name": "pandoras_creatures:entity/end_troll_attack_0", "stream": true}
+        ]
+    },
+    "entity.end_troll.death":
+    {
+        "category": "entity",
+        "subtitle": "End Troll Death Sound",
+        "sounds": [
+        	{ "name": "pandoras_creatures:entity/end_troll_death_0", "stream": true}
+        ]
     }
 }

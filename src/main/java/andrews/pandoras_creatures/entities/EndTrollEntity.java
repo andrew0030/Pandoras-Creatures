@@ -2,10 +2,12 @@ package andrews.pandoras_creatures.entities;
 
 import andrews.pandoras_creatures.entities.bases.AnimatedCreatureEntity;
 import andrews.pandoras_creatures.entities.goals.end_troll.EndTrollAttackGoal;
+import andrews.pandoras_creatures.entities.goals.end_troll.EndTrollBulletAttackGoal;
 import andrews.pandoras_creatures.entities.goals.end_troll.EndTrollScreamGoal;
 import andrews.pandoras_creatures.entities.goals.end_troll.EndTrollTransformGoal;
 import andrews.pandoras_creatures.registry.PCEntities;
 import andrews.pandoras_creatures.registry.PCItems;
+import andrews.pandoras_creatures.registry.PCSounds;
 import andrews.pandoras_creatures.util.animation.Animation;
 import andrews.pandoras_creatures.util.network.NetworkUtil;
 import net.minecraft.block.Block;
@@ -14,6 +16,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Pose;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.SpawnReason;
@@ -36,7 +39,7 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -63,7 +66,7 @@ public class EndTrollEntity extends AnimatedCreatureEntity
 	public static final Animation DEATH_ANIMATION = new Animation(50);
 	
 	public int shootCooldown = 300;
-	public int screamCooldown = 600;
+	public int screamCooldown = 400;
 	private int animationDeathTime;
 	
     public EndTrollEntity(EntityType<? extends EndTrollEntity> type, World worldIn)
@@ -85,7 +88,7 @@ public class EndTrollEntity extends AnimatedCreatureEntity
     	this.goalSelector.addGoal(1, new SwimGoal(this));
     	this.goalSelector.addGoal(2, new EndTrollTransformGoal(this));
     	this.goalSelector.addGoal(3, new EndTrollScreamGoal(this));
-//    	this.goalSelector.addGoal(4, new EndTrollBulletAttackGoal(this));
+    	this.goalSelector.addGoal(4, new EndTrollBulletAttackGoal(this));
     	this.goalSelector.addGoal(5, new EndTrollAttackGoal(this, 0.3D, false));
     	this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 0.3D));
     	this.goalSelector.addGoal(7, new LookAtGoal(this, PlayerEntity.class, 10.0F));
@@ -176,14 +179,22 @@ public class EndTrollEntity extends AnimatedCreatureEntity
 				if(this.getAnimationTick() == 16)
 				{
 					screamBlockBreaking(this.getBoundingBox().grow(5, 2, 5).offset(0, 2, 0), this.getEntityWorld());
+					screamEntityKnockBack(this.getBoundingBox().grow(5, 2, 5).offset(0, 2, 0));
 				}
 				else if(this.getAnimationTick() == 12)
 				{
 					this.getEntityWorld().addOptionalParticle(ParticleTypes.EXPLOSION_EMITTER, this.getPosition().getX(), this.getPosition().getY() + this.getEyeHeight() / 2, this.getPosition().getZ(), 0, 0, 0);
 				}
-				else if(this.getAnimationTick() == 10)
+				else if(this.getAnimationTick() == 7)
 				{
-					this.getEntityWorld().playSound(this.getPosition().getX(), this.getPosition().getY() + this.getEyeHeight(), this.getPosition().getZ(), SoundEvents.ENTITY_WITHER_HURT, SoundCategory.HOSTILE, 1.0F, -3.0F, false);
+					this.getEntityWorld().playSound(this.getPosition().getX(), this.getPosition().getY() + this.getEyeHeight(), this.getPosition().getZ(), PCSounds.END_TROLL_SCREAM.get(), SoundCategory.HOSTILE, 2.0F, 1.0F, false);
+				}
+			}
+			else if(this.isAnimationPlaying(RIGHT_PUNCH_ANIMATION) || this.isAnimationPlaying(LEFT_PUNCH_ANIMATION) || this.isAnimationPlaying(DOUBLE_PUNCH_ANIMATION))
+			{
+				if(this.getAnimationTick() == 4)
+				{
+					this.getEntityWorld().playSound(this.getPosition().getX(), this.getPosition().getY() + this.getEyeHeight(), this.getPosition().getZ(), PCSounds.END_TROLL_ATTACK.get(), SoundCategory.HOSTILE, 2.0F, 1.0F, false);
 				}
 			}
 			
@@ -230,6 +241,18 @@ public class EndTrollEntity extends AnimatedCreatureEntity
             }
         }
     }
+	
+	@Override
+	protected SoundEvent getDeathSound()
+	{
+		return PCSounds.END_TROLL_DEATH.get();
+	}
+	
+	@Override
+	protected float getSoundVolume()
+	{
+		return 2.0F;
+	}
 	
 	@Override
 	public ILivingEntityData onInitialSpawn(IWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, ILivingEntityData spawnDataIn, CompoundNBT dataTag)
@@ -422,6 +445,35 @@ public class EndTrollEntity extends AnimatedCreatureEntity
 	                }
 	            }
 	        }
+		}
+    }
+	
+	/**
+	 * Used by the EndTroll to throw back Entities when he screams
+	 * @param aabb - The Bounding Box in which the game looks for Entities to throw
+	 */
+	private void screamEntityKnockBack(AxisAlignedBB aabb)
+    {
+		if(!this.getEntityWorld().isRemote)
+		{
+	        for(Entity entity : world.getEntitiesInAABBexcluding(null, aabb, null))
+    		{
+	        	double throwPower = 0.8D;
+	        	
+	        	if(entity instanceof PlayerEntity)
+	        	{
+	        		if(!((PlayerEntity) entity).isSpectator() && !((PlayerEntity) entity).isCreative())
+	        		{
+		        		entity.setMotion(entity.getMotion().add(this.getPositionVec().subtract(entity.getPositionVec()).mul(-throwPower, -throwPower, -throwPower)));
+		        		entity.velocityChanged = true;
+	        		}
+	        	}
+	        	else if(entity instanceof LivingEntity)
+	        	{
+	        		entity.setMotion(entity.getMotion().add(this.getPositionVec().subtract(entity.getPositionVec()).mul(-throwPower, -throwPower, -throwPower)));
+	        		entity.velocityChanged = true;
+				}
+    		}
 		}
     }
     

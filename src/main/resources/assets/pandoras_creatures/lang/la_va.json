@@ -1,0 +1,181 @@
+// Notes for translators, please read before starting.
+//
+// If you read this thank you for considering localising Pandoras Creatures.
+// Before you start consider messaging me (mod author) or one of my Discord moderators,
+// so you can get the Translator Role and have acces to the newest lang file.
+// This lang file will often have localisations for the next version of the mod,
+// that contains content that has not been released yet.
+//
+// When the localisation file is done send it to me, preferably in the discord channel made
+// for it, or by sending me a direct message.
+//
+// If you want a name other then your Discord name to be inside the credits, let me know.
+//
+// 					  <#########> Localising Tools <#########>
+//
+// By putting \n in the text the mod will split the text at that position, when spliting text
+// keep in mind that you have to add a color code again, if you used one in the line before
+// (see color codes bellow), as its a new line and the color will reset itself to default.
+//
+// The following color codes can be added to the start of text to color it:
+//
+// #c0 Black
+// #c1 Dark Blue
+// #c2 Dark Green
+// #c3 Dark Aqua
+// #c4 Dark Red
+// #c5 Dark Purple
+// #c6 Gold
+// #c7 Gray
+// #c8 Dark Gray
+// #c9 Blue
+// #ca Green
+// #cb Aqua
+// #cc Red
+// #cd Light Purple
+// #ce Yellow
+// #cf White
+//
+// The following color codes can be added to the start of text to apply some effects:
+//
+// #cl Bold
+// #cm Strikethrough
+// #cn Underline
+// #co Italic
+// #cr Reset the default color
+//
+// Feel free to add or remove new lines, in order to make the text look good in the language youre working on.
+// You should use a text editor that has JSON formating in order to avoid invalid files.
+// The text %s will be replace with text. Example: "Author: %s" could become "Author: andrew0030".  
+// The text %d will be replace with a number. Example: "Radius: %d*%d*%d" could become "Radius: 3*3*3"
+//
+// IMPORTANT: The [Localising Tools] will only work on the Item Tooltips Category, as the ingame chat splits
+// lines on its own when needed, and the colors are not ment to be changed!
+//
+// That's all have "fun" translating!
+
+{
+//	 Item Groups
+	"itemGroup.pandoras_creatures": "Pandora est Scriptor Creaturis",
+
+//	 Spawn Eggs
+	"item.pandoras_creatures.arachnon_spawn_egg": "Ovum Creationus Arachnonis",
+	"item.pandoras_creatures.hellhound_spawn_egg": "Ovum Creationus Hellhoundi",
+	"item.pandoras_creatures.crab_spawn_egg": "Ovum Creationus Cancri",
+	"item.pandoras_creatures.seahorse_spawn_egg": "Ovum Creationus Mare Equus",
+	"item.pandoras_creatures.acidic_archvine_spawn_egg": "Ovum Creationus Acidius Archvini",
+	"item.pandoras_creatures.bufflon_spawn_egg": "Ovum Creationus Bufflonis",
+	"item.pandoras_creatures.end_troll_spawn_egg": "Ovum Creationus Finem Troglodytarum",
+	
+//	 Item Tooltips, [Localising Tools] can be used here.
+	"item.pandoras_creatures.acidic_archvine_spawn_egg.tooltip": "#c7Debet poni sub,\n#c7Truncatis Folia, aut Netherrack",
+	"item.pandoras_creatures.arachnon_hammer.tooltip": "#c7Hoc instrumentum conteram\n#c7cuneos in tribus et per tres area",
+	"item.pandoras_creatures.plant_hat.tooltip": "#c7Gerens hoc hat facit\n#c7 invisibilis Acidius Archvini",
+	
+//	 Block Tooltips, [Localising Tools] can be used here.
+	"block.pandoras_creatures.end_troll_box.tooltip": "et %d plus...",
+	
+//	 Items
+	"item.pandoras_creatures.arachnon_hammer": "Arachnonis Malleo",
+	"item.pandoras_creatures.crab_meat": "Cancer Cibum",
+	"item.pandoras_creatures.crab_meat_cooked": "Cocta Cancer Cibum",
+	"item.pandoras_creatures.crab_bucket": "Situla Cancer",
+	"item.pandoras_creatures.seahorse_bucket": "Situla Mare Equus",
+	"item.pandoras_creatures.seahorse": "Rudis Mare Equus",
+	"item.pandoras_creatures.seahorse_cooked": "Cocta Mare Equus",
+	"item.pandoras_creatures.acidic_archvine_tongue": "Acidius Archvini Lingua",
+	"item.pandoras_creatures.herb_bundle": "Herba Fasciculus",
+	"item.pandoras_creatures.bufflon_beef": "Bufflonis Carnis",
+	"item.pandoras_creatures.bufflon_beef_cooked": "Cocta Bufflonis Carnis",
+	"item.pandoras_creatures.bufflon_hide": "Bufflonis Nulla",
+	"item.pandoras_creatures.bufflon_saddle": "Bufflonis Sagma",
+	"item.pandoras_creatures.bufflon_player_seats": "Bufflonis Ludio Sedem",
+	"item.pandoras_creatures.bufflon_small_storage": "Bufflon Parva Adipiscing",
+	"item.pandoras_creatures.bufflon_large_storage": "Bufflon Magna Adipiscing",
+	"item.pandoras_creatures.plant_hat": "Plantator Hat",
+	"item.pandoras_creatures.end_troll_skin": "Finem Troglodytarum Cutis",
+	
+//	 Blocks
+	"block.pandoras_creatures.arachnon_crystal": "Arachnonis Crystallum",
+	"block.pandoras_creatures.horsetail": "Cauda Equi",
+	"block.pandoras_creatures.dhania": "Dhanis",
+	"block.pandoras_creatures.hill_bloom": "Collis Flore",
+	"block.pandoras_creatures.end_troll_box": "Finem Troglodytarum Crateribus",
+	"block.pandoras_creatures.white_end_troll_box": "Album Finem Troglodytarum Crateribus",
+	"block.pandoras_creatures.orange_end_troll_box": "Rhoncus Finem Troglodytarum Crateribus",
+	"block.pandoras_creatures.magenta_end_troll_box": "Magentum Finem Troglodytarum Crateribus",
+	"block.pandoras_creatures.light_blue_end_troll_box": "Lux Hyacintho Finem Troglodytarum Crateribus",
+	"block.pandoras_creatures.yellow_end_troll_box": "Flavum Finem Troglodytarum Crateribus",
+	"block.pandoras_creatures.lime_end_troll_box": "Calce Finem Troglodytarum Crateribus",
+	"block.pandoras_creatures.pink_end_troll_box": "Rosea Finem Troglodytarum Crateribus",
+	"block.pandoras_creatures.gray_end_troll_box": "Cinereo Finem Troglodytarum Crateribus",
+	"block.pandoras_creatures.light_gray_end_troll_box": "Lux Cinereo Finem Troglodytarum Crateribus",
+	"block.pandoras_creatures.cyan_end_troll_box": "Cyan Finem Troglodytarum Crateribus",
+	"block.pandoras_creatures.purple_end_troll_box": "Purpura Finem Troglodytarum Crateribus",
+	"block.pandoras_creatures.blue_end_troll_box": "Hyacintho Finem Troglodytarum Crateribus",
+	"block.pandoras_creatures.brown_end_troll_box": "Bruneto Finem Troglodytarum Crateribus",
+	"block.pandoras_creatures.green_end_troll_box": "Viridis Finem Troglodytarum Crateribus",
+	"block.pandoras_creatures.red_end_troll_box": "Rubrum Finem Troglodytarum Crateribus",
+	"block.pandoras_creatures.black_end_troll_box": "Nigrum Finem Troglodytarum Crateribus",
+	
+//	 Entities
+	"entity.pandoras_creatures.arachnon": "Arachnonis",
+	"entity.pandoras_creatures.hellhound": "Hellhoundi",
+	"entity.pandoras_creatures.crab": "Cancer",
+	"entity.pandoras_creatures.seahorse": "Mare Equus",
+	"entity.pandoras_creatures.acidic_archvine": "Acidius Archvini",
+	"entity.pandoras_creatures.bufflon": "Bufflonis",
+	"entity.pandoras_creatures.end_troll": "Finem Troglodytarum",
+	"entity.pandoras_creatures.end_troll_bullet_poison": "Venenum Finem Troglodytarum Bulletis",
+	"entity.pandoras_creatures.end_troll_bullet_wither": "Arescet  Finem Troglodytarum Bulletis",
+	"entity.pandoras_creatures.end_troll_bullet_damage": "Damnum Finem Troglodytarum Bulletis",
+	
+//	 Containers
+	 "container.pandoras_creatures.end_troll_box": "Finem Troglodytarum Crateribus",
+	
+//	 Button Tool Tips
+	"gui.button.pandoras_creatures.discord": "Discordia",
+	"gui.button.pandoras_creatures.curseforge": "MaledictumFora",
+	"gui.button.pandoras_creatures.youtube": "YouTubia",
+	"gui.button.pandoras_creatures.twitch": "Pervellerit",
+	"gui.button.pandoras_creatures.patreon": "Patreon",
+	"gui.button.pandoras_creatures.bufflon.sit": "Manere",
+	"gui.button.pandoras_creatures.bufflon.follow": "Sequi",
+	"gui.button.pandoras_creatures.bufflon.move_freely": "Movere Libere",
+	"gui.button.pandoras_creatures.bufflon.combat": "Bellum Modum",
+	"gui.button.pandoras_creatures.bufflon.peaceful": "Pacis Modum",
+	
+//	 Chat Messages
+	"chat.pandoras_creatures.invalidJarDownload": "[hic]",
+	"chat.pandoras_creatures.invalidJarDownloadTooltip": "Aliquam et hoc aperire page maecenas.",
+	"chat.pandoras_creatures.invalidJarStopModReposts": "[hic]",
+	"chat.pandoras_creatures.invalidJarStopModRepostsTooltip": "Lego aperire immutatio repostarum.",
+	"chat.pandoras_creatures.invalidJar": "Pandora est Scriptor Creaturis habet deprehendi an invalidum .orca file. Commodo hanc %s  aperi officio page pro downloadius vel tortor %s  hoc discere magis de illicitum repostarum.",
+	"chat.pandoras_creatures.newVersionDownload": "[hic]",
+	"chat.pandoras_creatures.newVersionDownloadTooltip": "Aliquam et hoc aperire downloadius.",
+	"chat.pandoras_creatures.newVersion": "Illic est a novus poema poematis of Pandora est Creatura enim tibi. Commodo hanc %s  aperi officio page pro downloads.",
+	"chat.pandoras_creatures.failedCheck": "Pandora est Scriptor Creaturis erat non reprehendo pro novus rerum.",
+	
+//	 Crab Types
+	"chat.pandoras_creatures.crabBucketTooltip.sea": "Cancer Maris",
+	"chat.pandoras_creatures.crabBucketTooltip.tropical": "Cancer Tropicis",
+	
+//	Seahorse Sizes
+	"chat.pandoras_creatures.seahorseBucketTooltip.verySmall": "Magnitudine: Maxime Parva",
+	"chat.pandoras_creatures.seahorseBucketTooltip.small": "Magnitudine: Parva",
+	"chat.pandoras_creatures.seahorseBucketTooltip.normal": "Magnitudine: Vexillum",
+	"chat.pandoras_creatures.seahorseBucketTooltip.big": "Magnitudine: Magnus",
+	"chat.pandoras_creatures.seahorseBucketTooltip.veryBig": "Magnitudine: Maxime Magnus",
+	
+// 	Seahorse Types
+	"chat.pandoras_creatures.seahorseBucketTooltip.orange": "Rhoncus Mare Equus",
+	"chat.pandoras_creatures.seahorseBucketTooltip.green": "Viridi Mare Equus",	
+	"chat.pandoras_creatures.seahorseBucketTooltip.red": "Rubrum Mare Equus",
+	"chat.pandoras_creatures.seahorseBucketTooltip.yellow": "Flavum Mare Equus",
+	"chat.pandoras_creatures.seahorseBucketTooltip.chromatic": "Chroma Mare Equus",
+	"chat.pandoras_creatures.seahorseBucketTooltip.cyan": "Cyan Mare Equus",
+	"chat.pandoras_creatures.seahorseBucketTooltip.purple": "Purpura Mare Equus",
+	"chat.pandoras_creatures.seahorseBucketTooltip.pink": "Rosea Mare Equus",
+	"chat.pandoras_creatures.seahorseBucketTooltip.lime": "Calce Mare Equus",
+	"chat.pandoras_creatures.seahorseBucketTooltip.ghost": "Aetherium Mare Equus"
+}

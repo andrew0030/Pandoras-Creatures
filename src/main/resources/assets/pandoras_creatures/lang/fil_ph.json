@@ -1,0 +1,181 @@
+// Notes for translators, please read before starting.
+//
+// If you read this thank you for considering localising Pandoras Creatures.
+// Before you start consider messaging me (mod author) or one of my Discord moderators,
+// so you can get the Translator Role and have acces to the newest lang file.
+// This lang file will often have localisations for the next version of the mod,
+// that contains content that has not been released yet.
+//
+// When the localisation file is done send it to me, preferably in the discord channel made
+// for it, or by sending me a direct message.
+//
+// If you want a name other then your Discord name to be inside the credits, let me know.
+//
+// 					  <#########> Localising Tools <#########>
+//
+// By putting \n in the text the mod will split the text at that position, when spliting text
+// keep in mind that you have to add a color code again, if you used one in the line before
+// (see color codes bellow), as its a new line and the color will reset itself to default.
+//
+// The following color codes can be added to the start of text to color it:
+//
+// #c0 Black
+// #c1 Dark Blue
+// #c2 Dark Green
+// #c3 Dark Aqua
+// #c4 Dark Red
+// #c5 Dark Purple
+// #c6 Gold
+// #c7 Gray
+// #c8 Dark Gray
+// #c9 Blue
+// #ca Green
+// #cb Aqua
+// #cc Red
+// #cd Light Purple
+// #ce Yellow
+// #cf White
+//
+// The following color codes can be added to the start of text to apply some effects:
+//
+// #cl Bold
+// #cm Strikethrough
+// #cn Underline
+// #co Italic
+// #cr Reset the default color
+//
+// Feel free to add or remove new lines, in order to make the text look good in the language youre working on.
+// You should use a text editor that has JSON formating in order to avoid invalid files.
+// The text %s will be replace with text. Example: "Author: %s" could become "Author: andrew0030".  
+// The text %d will be replace with a number. Example: "Radius: %d*%d*%d" could become "Radius: 3*3*3"
+//
+// IMPORTANT: The [Localising Tools] will only work on the Item Tooltips Category, as the ingame chat splits
+// lines on its own when needed, and the colors are not ment to be changed!
+//
+// That's all have "fun" translating!
+
+{
+//	 Item Groups
+	"itemGroup.pandoras_creatures": "Pandoras Creatures",
+
+//	 Spawn Eggs
+	"item.pandoras_creatures.arachnon_spawn_egg": "Panlikhaang Itlog ng Batong Gagamba",
+	"item.pandoras_creatures.hellhound_spawn_egg": "Panlikhaang Itlog ng Impiyernong Aso sa Pangangaso",
+	"item.pandoras_creatures.crab_spawn_egg": "Panlikhaang Itlog ng Alimango",
+	"item.pandoras_creatures.seahorse_spawn_egg": "Panlikhaang Itlog ng Dagum-dagum",
+	"item.pandoras_creatures.acidic_archvine_spawn_egg": "Panlikhaang Itlog ng Asidong Archvine",
+	"item.pandoras_creatures.bufflon_spawn_egg": "Panlikhaang Itlog ng Kalabaw",
+	"item.pandoras_creatures.end_troll_spawn_egg": "Panlikhaang Itlog ng Troll ng Kawalan",
+	
+//	 Item Tooltips, [Localising Tools] can be used here.
+	"item.pandoras_creatures.acidic_archvine_spawn_egg.tooltip": "#c7Kailangang ilagay sa ilalim ng\n#c7Gubatang Dahon o Netherrack",
+	"item.pandoras_creatures.arachnon_hammer.tooltip": "#c7Ang kagamitang ito ay makakasira ng mga\n#c7tipak ng bloke sa lawak na 3x3",
+	"item.pandoras_creatures.plant_hat.tooltip": "#c7Kapag sinuot itong sumbrero na ito, ikaw ay\n#c7hindi makikita ng mga Asidong Archvine",
+	
+//	 Block Tooltips, [Localising Tools] can be used here.
+	"block.pandoras_creatures.end_troll_box.tooltip": "at %d iba pa...",
+	
+//	 Items
+	"item.pandoras_creatures.arachnon_hammer": "Martilyong yari sa Batong Gagamba",
+	"item.pandoras_creatures.crab_meat": "Laman ng Alimango",
+	"item.pandoras_creatures.crab_meat_cooked": "Nilutong Laman ng Alimango",
+	"item.pandoras_creatures.crab_bucket": "Balde ng Alimango",
+	"item.pandoras_creatures.seahorse_bucket": "Balde ng Dagum-dagum",
+	"item.pandoras_creatures.seahorse": "Hilaw na Dagum-dagum",
+	"item.pandoras_creatures.seahorse_cooked": "Nilutong Dagum-dagum",
+	"item.pandoras_creatures.acidic_archvine_tongue": "Dila ng Asidong Archvine",
+	"item.pandoras_creatures.herb_bundle": "Bigkis ng Lubigan",
+	"item.pandoras_creatures.bufflon_beef": "Karne ng Kalabaw",
+	"item.pandoras_creatures.bufflon_beef_cooked": "Nilutong Karne ng Kalabaw",
+	"item.pandoras_creatures.bufflon_hide": "Katad ng Kalabaw",
+	"item.pandoras_creatures.bufflon_saddle": "Siyahan sa Kalabaw",
+	"item.pandoras_creatures.bufflon_player_seats": "Mga Upuan ng Manlalaro sa Kalabaw",
+	"item.pandoras_creatures.bufflon_small_storage": "Maliit na Imbakan sa Kalabaw",
+	"item.pandoras_creatures.bufflon_large_storage": "Malaking Imabakan sa Kalabaw",
+	"item.pandoras_creatures.plant_hat": "Sumbrerong yari sa Halaman",
+	"item.pandoras_creatures.end_troll_skin": "Balat ng Troll ng Kawalan",
+	
+//	 Blocks
+	"block.pandoras_creatures.arachnon_crystal": "Kristal ng Batong Gagamba",
+	"block.pandoras_creatures.horsetail": "Buntot Kabayo",
+	"block.pandoras_creatures.dhania": "Perehil",
+	"block.pandoras_creatures.hill_bloom": "Hill Bloom",
+	"block.pandoras_creatures.end_troll_box": "Kaha na yari sa Troll ng Kawalan",
+	"block.pandoras_creatures.white_end_troll_box": "Puting Kaha na yari sa Troll ng Kawalan",
+	"block.pandoras_creatures.orange_end_troll_box": "Kahel na Kaha na yari sa Troll ng Kawalan",
+	"block.pandoras_creatures.magenta_end_troll_box": "Mahentang Kaha na yari sa Troll ng Kawalan",
+	"block.pandoras_creatures.light_blue_end_troll_box": "Maputlang Bughaw na Kaha na yari sa Troll ng Kawalan",
+	"block.pandoras_creatures.yellow_end_troll_box": "Dilaw Kaha na yari sa Troll ng Kawalan",
+	"block.pandoras_creatures.lime_end_troll_box": "Dayap Kaha na yari sa Troll ng Kawalan",
+	"block.pandoras_creatures.pink_end_troll_box": "Kalimbahing Kaha na yari sa Troll ng Kawalan",
+	"block.pandoras_creatures.gray_end_troll_box": "Kulay Abong Kaha na yari sa Troll ng Kawalan",
+	"block.pandoras_creatures.light_gray_end_troll_box": "Maputlang Kulay Abong Kaha na yari sa Troll ng Kawalan",
+	"block.pandoras_creatures.cyan_end_troll_box": "Siyanong Kaha na yari sa Troll ng Kawalan",
+	"block.pandoras_creatures.purple_end_troll_box": "Lila Kaha na yari sa Troll ng Kawalan",
+	"block.pandoras_creatures.blue_end_troll_box": "Bughaw na Kaha na yari sa Troll ng Kawalan",
+	"block.pandoras_creatures.brown_end_troll_box": "Kayumangging Kaha na yari sa Troll ng Kawalan",
+	"block.pandoras_creatures.green_end_troll_box": "Luntiang Kaha na yari sa Troll ng Kawalan",
+	"block.pandoras_creatures.red_end_troll_box": "Pulang Kaha na yari sa Troll ng Kawalan",
+	"block.pandoras_creatures.black_end_troll_box": "itim na Kaha na yari sa Troll ng Kawalan",
+	
+//	 Entities
+	"entity.pandoras_creatures.arachnon": "Batong Gagamba",
+	"entity.pandoras_creatures.hellhound": "Impiyernong Aso sa Pangangaso",
+	"entity.pandoras_creatures.crab": "Alimango",
+	"entity.pandoras_creatures.seahorse": "Dagum-dagum",
+	"entity.pandoras_creatures.acidic_archvine": "Asidong Archvine",
+	"entity.pandoras_creatures.bufflon": "Kalabaw",
+	"entity.pandoras_creatures.end_troll": "Troll ng Kawalan",
+	"entity.pandoras_creatures.end_troll_bullet_poison": "Balang Lason na yari sa Troll ng Kawalan",
+	"entity.pandoras_creatures.end_troll_bullet_wither": "Balang Panglanta na yari sa Troll ng Kawalan",
+	"entity.pandoras_creatures.end_troll_bullet_damage": "Balang Paminsala na yari sa Troll ng Kawalan",
+	
+//	 Containers
+	 "container.pandoras_creatures.end_troll_box": "Kaha na yari sa Troll ng Kawalan",
+	
+//	 Button Tool Tips
+	"gui.button.pandoras_creatures.discord": "Discord",
+	"gui.button.pandoras_creatures.curseforge": "CurseForge",
+	"gui.button.pandoras_creatures.youtube": "YouTube",
+	"gui.button.pandoras_creatures.twitch": "Twitch",
+	"gui.button.pandoras_creatures.patreon": "Patreon",
+	"gui.button.pandoras_creatures.bufflon.sit": "Upo",
+	"gui.button.pandoras_creatures.bufflon.follow": "Sunod",
+	"gui.button.pandoras_creatures.bufflon.move_freely": "Malayang Paggalaw",
+	"gui.button.pandoras_creatures.bufflon.combat": "Payapang Ayos",
+	"gui.button.pandoras_creatures.bufflon.peaceful": "Payapang Ayos",
+	
+//	 Chat Messages
+	"chat.pandoras_creatures.invalidJarDownload": "[dito]",
+	"chat.pandoras_creatures.invalidJarDownloadTooltip": "Pindutin upang mabuksan ang pahina ng pag-download.",
+	"chat.pandoras_creatures.invalidJarStopModReposts": "[dito]",
+	"chat.pandoras_creatures.invalidJarStopModRepostsTooltip": "Pindutin upang mabuksan ang pahina ng Stop Mod Reposts.",
+	"chat.pandoras_creatures.invalidJar": "Nakatuklas ang Mga Nilalang ng Padora ng hindi wastong jar file. Maaaring pindutin ang %s upang mabuksan ang opisyal na pahina ng pag-download o pindutin ang %s upang matuto ng higit pa tungkol sa ilegal na pagulit na pagpaskil ng mod.",
+	"chat.pandoras_creatures.newVersionDownload": "[dito]",
+	"chat.pandoras_creatures.newVersionDownloadTooltip": "Pindutin upang mabuksan ang pahina ng pag-download.",
+	"chat.pandoras_creatures.newVersion": "Mayroong bagong bersyon ng Mga Nilalang ng Pandora. Maaaring pindutin ang %s upang mabuksan ang pahina ng pag-download.",
+	"chat.pandoras_creatures.failedCheck": "Ang Mga Nilalang ng Pandora ay hindi kinayang magsuri ng mga bagong bersyon.",
+	
+//	 Crab Types
+	"chat.pandoras_creatures.crabBucketTooltip.sea": "Alimango ng Dagat",
+	"chat.pandoras_creatures.crabBucketTooltip.tropical": "Tropikal na Alimango",
+	
+//	Seahorse Sizes
+	"chat.pandoras_creatures.seahorseBucketTooltip.verySmall": "Laki: Napakaliit",
+	"chat.pandoras_creatures.seahorseBucketTooltip.small": "Laki:Maliit",
+	"chat.pandoras_creatures.seahorseBucketTooltip.normal": "Laki: Pangkaraniwan",
+	"chat.pandoras_creatures.seahorseBucketTooltip.big": "Laki: Malaki",
+	"chat.pandoras_creatures.seahorseBucketTooltip.veryBig": "Laki: Napakalaki",
+	
+// 	Seahorse Types
+	"chat.pandoras_creatures.seahorseBucketTooltip.orange": "Kahel na Dagum-dagum",
+	"chat.pandoras_creatures.seahorseBucketTooltip.green": "Luntiang Dagum-dagum",	
+	"chat.pandoras_creatures.seahorseBucketTooltip.red": "Pulang Dagum-dagum",
+	"chat.pandoras_creatures.seahorseBucketTooltip.yellow": "Dilaw na Dagum-dagum",
+	"chat.pandoras_creatures.seahorseBucketTooltip.chromatic": "Kromatikong Dagum-dagum",
+	"chat.pandoras_creatures.seahorseBucketTooltip.cyan": "Siyanong Dagum-dagum",
+	"chat.pandoras_creatures.seahorseBucketTooltip.purple": "Muradong Dagum-dagum",
+	"chat.pandoras_creatures.seahorseBucketTooltip.pink": "Kalimbahing Dagum-dagum",
+	"chat.pandoras_creatures.seahorseBucketTooltip.lime": "Dayap na Dagum-dagum",
+	"chat.pandoras_creatures.seahorseBucketTooltip.ghost": "Multo na Dagum-dagum"
+}
