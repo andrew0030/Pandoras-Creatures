@@ -18,97 +18,28 @@ public abstract class PCEntityModel<E extends Entity & IAnimatedEntity> extends 
 	protected Animator animator = new Animator();
 	protected E entity;
 
-//	protected PCModelRenderer[] bodyParts;
-//	private float movementScale = 1.0F;       //TODO update this shit
-	
-	//======================================================================================================================================================
-	//======================================================================================================================================================
-	//======================================================================================================================================================
-	//======================================================================================================================================================
-	
-	/**
-	 * Saves all needed information for both the loop animation system and the keyframe system
-	 */
-	public void saveAllDefaultValues()
-	{
-		saveDefaultBoxValues();
-//		saveAsDefaultPose();
-	}
-	
-	/**
-	 * Loads all needed information for both the loop animation system and the keyframe system
-	 */
-	public void loadAllDefaultValues()
-	{
-		loadDefaultBoxValues();
-//		loadDefaultPose();
-	}
-	
-	//======================================================================================================================================================
-	
-	/**
-	 * This will go through all body parts saved in the bodyParts array, and then save their information (rotation point. rotation angle, offset) as the default options
-	 */
-	public void saveDefaultBoxValues()
+	public void setDefaultBoxValues()
 	{
 		this.cuboids.forEach((rendererModel) ->
 		{
 			if(rendererModel instanceof PCModelRenderer)
 			{
-				((PCModelRenderer) rendererModel).saveDefaultBoxValues();
+				((PCModelRenderer) rendererModel).setDefaultBoxValues();
 			}
 		});
-//		for(PCModelRenderer bodyPart : bodyParts)
-//        {
-//        	bodyPart.saveDefaultBoxValues();
-//        }
 	}
 	
-	/**
-     * This will go through all body parts saved in the bodyParts array, and then load their information (rotation point. rotation angle, offset) from the default options
-     */
-	public void loadDefaultBoxValues()
+	public void revertToDefaultBoxValues()
 	{
 		this.cuboids.forEach((rendererModel) ->
 		{
 			if(rendererModel instanceof PCModelRenderer)
 			{
-				((PCModelRenderer) rendererModel).loadDefaultBoxValues();
+				((PCModelRenderer) rendererModel).revertToDefaultBoxValues();
 			}
 		});
-//		for(PCModelRenderer bodyPart : bodyParts)
-//        {
-//        	bodyPart.loadDefaultBoxValues();
-//        }
 	}
-	
-	/**
-	 * This will go through all body parts saved in the bodyParts array, and then save their information (position. rotation, offset) as the default options
-	 */
-//    public void saveAsDefaultPose()
-//    {
-//        for(PCModelRenderer bodyPart : bodyParts)
-//        {
-//        	bodyPart.saveAsDefaultPose();
-//        }
-//    }
-
-    /**
-     * This will go through all body parts saved in the bodyParts array, and then load their information (position. rotation, offset) from the default options
-     */
-//    public void loadDefaultPose()
-//    {
-//    	for(PCModelRenderer bodyPart : bodyParts)
-//        {
-//    		bodyPart.loadDefaultPose();
-//        }
-//    }
     
-    //======================================================================================================================================================
-    //======================================================================================================================================================
-    //======================================================================================================================================================
-    //======================================================================================================================================================
-
     public void animateModel(E animatedEntity) {}
     
     @Override
@@ -133,10 +64,6 @@ public abstract class PCEntityModel<E extends Entity & IAnimatedEntity> extends 
 	{
 		return this.scaleController;
 	}
-
-    //##########################################################################################################################################
-    //##########################################################################################################################################
-    //##########################################################################################################################################
     
     /**
      * Rotates this box back and forth (rotateAngleX)

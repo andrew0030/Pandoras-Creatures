@@ -773,9 +773,7 @@ public class ArachnonModel<T extends ArachnonEntity> extends PCEntityModel<T>
         this.leg_back_right.addChild(this.leg_back_right2);
         this.head.addChild(this.mouth_up_inside);
         
-//        bodyParts = new PCModelRenderer[] {body, body2, shoulders_front, body_top_plate, body_head_holder, spike_holder, spike_holder_1, body3, body_bottom, shoulders_back, body_top_plate2, spike_holder_2, spike_holder_3, back_cover_top, shape47, shape48, big_spike, big_spike_1, leg_back_right_rotation_point, leg_back_left_rotation_point, spike, spike_1, leg_back_right, leg_back_right2, leg_back_right_top, leg_back_right3, spike_2, spike_3, spike_4, leg_back_right4, spike_5, spike_6, leg_back_left, leg_back_left2, leg_back_left_top, leg_back_left3, spike_7, spike_8, spike_9, leg_back_left_4, spike_10, spike_11, spike2, spike1, spike3, spike_12, spike_13, spike_14, spike_15, spike_16, spike_17, big_spike_2, spike_18, shape49, shape50, leg_front_left_rotation_point, leg_front_right_rotation_point, leg_front_left, leg_front_left2, leg_front_left_top, leg_front_left3, spike_19, spike_20, spike_21, leg_front_left_4, spike_22, spike_23, leg_front_right, leg_front_right2, leg_front_right_top, leg_front_right3, spike_24, spike_25, spike_26, leg_front_right4, spike_27, spike_28, spike2_1, spike1_1, spike3_1, neck, neck_bottom, neck_front, head, eye, head_side_left, head_side_right, head_top, lip_up_1, mouth_left, mouth_right, mouth_up_front, mouth_up_inside, tooth_top_left, tooth_top_right, tooth_top_mid_right, tooth_top_mid_left, mouth_bottom, eye_ball, eye_brow, eye_brow_left, eye_brow_right, eye_protection_right, eye_protection_left, head_back_lid, head_back_con, head_back_lid_right, head_back_lid_left, lip_up_2, tooth_top_left_2, tooth_top_right_2, tooth_top_mid_right_2, tooth_top_mid_left_2, mouth_bottom_lip_front, tooth_bottom_mid, mouth_bottom_side_left, mouth_bottom_side_right, tooth_bottom_left, tooth_bottom_right, tooth_bottom_left_1, tooth_bottom_right_1, mouth_bottom_side_left_2, mouth_bottom_side_right_2, tooth_bottom_left_2, tooth_bottom_right_2, spike_29, spike_30, spike_31, spike_32, spike_33, spike_34};
-        
-        saveAllDefaultValues();//TODO Maybe replace with a different save method
+        setDefaultBoxValues();
     }
 
     @Override
@@ -803,13 +801,13 @@ public class ArachnonModel<T extends ArachnonEntity> extends PCEntityModel<T>
     {
     	super.setRotationAngles(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 	
-		if(entity.prevPosX != entity.getPosX() || entity.prevPosY != entity.getPosY() || entity.prevPosZ != entity.getPosZ()) //Walk Animation
-    	{	
+		if(entity.isEntityMoving()) //Walk Animation
+    	{
     		float globalHeight = 1;
     		float globalSpeed = 1.5F;
     		float globalDegree = 1;
     		
-    		loadAllDefaultValues(); //TODO Maybe replace with a different load method
+    		revertToDefaultBoxValues();
     		
     		//Makes the Head Rotate where the Entity is Looking
     		this.neck.rotateAngleY = (netHeadYaw * ((float)Math.PI / 180)) / 2;
@@ -872,7 +870,7 @@ public class ArachnonModel<T extends ArachnonEntity> extends PCEntityModel<T>
     		float globalSpeed = 1F;
     		float globalDegree = 1;
     		
-    		loadAllDefaultValues(); //TODO Maybe replace with a different load method
+    		revertToDefaultBoxValues();
     		
     		//Makes the Head Rotate where the Entity is Looking
     		this.neck.rotateAngleY = (netHeadYaw * ((float)Math.PI / 180)) / 2;

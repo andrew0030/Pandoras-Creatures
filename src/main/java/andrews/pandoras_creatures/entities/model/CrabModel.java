@@ -185,8 +185,7 @@ public class CrabModel<T extends CrabEntity> extends PCEntityModel<T>
         this.Body.addChild(this.ArmBackRight);
         this.Body.addChild(this.LegRightFirst_1);
         
-//        bodyParts = new PCModelRenderer[] {Body,BodyBottom,ArmBackRight,ArmBackLeft,LegLeftFirst_1,LegLeftSecond_1,LegLeftThird_1,LegLeftFourth_1,LegRightFirst_1,LegRightSecond_1,LegRightThird_1,LegRightFourth_1,BodyTop,Hat,HatTop,ArmFrontRight,ScissorBigRight,ScissorSmallRight,ArmFrontLeft,ScissorBigLeft,ScissorSmallLeft,LegLeftFirst_2,LegLeftSecond_2,LegLeftThird_2,LegLeftFourth_2,LegRightFirst_2,LegRightSecond_2,LegRightThird_2,LegRightFourth_2};
-        saveAllDefaultValues();//TODO Maybe replace with a different save method
+        setDefaultBoxValues();
     }
 
     @Override
@@ -214,13 +213,13 @@ public class CrabModel<T extends CrabEntity> extends PCEntityModel<T>
     	super.setRotationAngles(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
     	if(entity.getName().getString().equals("fredrick")) {this.Hat.showModel = true;} else {this.Hat.showModel = false;}
     	
-    	if(entity.prevPosX != entity.getPosX() || entity.prevPosY != entity.getPosY() || entity.prevPosZ != entity.getPosZ()) //Walk Animation
+    	if(entity.isEntityMoving()) //Walk Animation
     	{
     		float globalSpeed = 2.0F;
         	float globalHeight = 1.0F;
         	float globalDegree = 1.0F;
         	
-        	loadAllDefaultValues(); //TODO Maybe replace with a different load method
+        	revertToDefaultBoxValues();
     		
         	bounce(Body, 2.0F * globalSpeed, 0.3F * globalHeight, false, limbSwing, limbSwingAmount);
         	swing(Body, 2.0F * globalSpeed, 0.05F * globalDegree, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
@@ -297,7 +296,7 @@ public class CrabModel<T extends CrabEntity> extends PCEntityModel<T>
 	        	limbSwing = entity.ticksExisted;
 	        	limbSwingAmount = 1;
 	        	
-	        	loadAllDefaultValues(); //TODO Maybe replace with a different load method
+	        	revertToDefaultBoxValues();
 	        	
 	        	this.Body.rotateAngleX += Math.toRadians(-20);
 	        	bounce(Body, 1.0F * globalSpeed, 0.8F * globalHeight, false, limbSwing, limbSwingAmount);
@@ -364,7 +363,7 @@ public class CrabModel<T extends CrabEntity> extends PCEntityModel<T>
 	        	limbSwing = entity.ticksExisted;
 	        	limbSwingAmount = 1;
 	        	
-	        	loadAllDefaultValues(); //TODO Maybe replace with a different load method
+	        	revertToDefaultBoxValues();
 	        	
 	        	bounce(Body, 1.0F * globalSpeed, 0.2F * globalHeight, false, limbSwing, limbSwingAmount);
 	        	

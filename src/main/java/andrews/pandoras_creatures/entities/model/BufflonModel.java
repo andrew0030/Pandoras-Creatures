@@ -1003,34 +1003,21 @@ public class BufflonModel<T extends BufflonEntity> extends PCEntityModel<T>
         this.smallstorage_rod.addChild(this.smallstorage_rod_4);
         this.storage_holder_front_right.addChild(this.storage_strap_front_right);
         
-//        bodyParts = new PCModelRenderer[] {body,body_top,body_right,body_left,body_back,leg_front_left_1,leg_front_right_1,body_bottom,front_top,front_seat_base,
-//        back_top,leg_back_right_1,leg_back_left_1,back_bottom,storage_base,back_bottom_1,tail_base,tail_1,tail_2,tail_3,tail_4,leg_back_right_top,leg_back_right_2,
-//        leg_back_right_decoration,foot_back_right_base,nail_back_right,nail_back_right_top,leg_back_left_top,leg_back_left_2,leg_back_right_decoration_1,foot_back_left_base,
-//        nail_back_left,nail_back_left_top,storage_holder_front_left,storage_holder_back_left,storage_holder_mid_left,storage_holder_front_right,storage_holder_back_right,storage_holder_mid_right,storage_base_holder_bottom,
-//        seats_base,smallstorage_base,largestorage_base,storage_strap_front_left,storage_strap_back_left,storage_strap_left_1,storage_strap_left_holder,storage_strap_left_2,
-//        storage_strap_left_3,storage_strap_front_right,storage_strap_back_right,storage_strap_right_1,storage_strap_right_holder,storage_strap_right_2,storage_strap_right_3,
-//        seats_metal_plate,seats_mid_metal,seats_mid_metal_back,seats_main_part,seats_backpart_front,seats_backpart_back,seats_backpart_back_front,smallstorage_metal_front_left,
-//        smallstorage_metal_front_right,smallstorage_seat_metal,smallstorage_back_support,smallstorage_rod,smallstorage_rod_1,smallstorage_rod_2,smallstorage_box_1,smallstorage_box_2,
-//        smallstorage_box_3,smallstorage_seat_main,smallstorage_back_dec,smallstorage_rod_3,smallstorage_rod_4,smallstorage_rod_5,smallstorage_rod_6,smallstorage_rod_7,
-//        smallstorage_rod_8,smallstorage_rod_9,smallstorage_rod_10,smallstorage_rod_11,smallstorage_box_1_dec,smallstorage_box_2_dec,smallstorage_box_2_dec_1,smallstorage_box_2_dec_2,
-//        smallstorage_box_3_dec,storage_metal_front_left,storage_metal_front_right,storage_rod,storage_rod_1,storage_rod_2,storage_box_1,storage_box_2,storage_box_3,storage_metal_back_left,
-//        storage_metal_back_right,storage_box_4,storage_box_5,storage_box_6,storage_rod_3,storage_rod_4,storage_rod_5,storage_rod_6,storage_rod_7,storage_rod_8,storage_rod_9,
-//        storage_rod_10,storage_rod_11,storage_rod_12,storage_rod_13,storage_rod_14,storage_rod_15,storage_rod_16,storage_rod_17,storage_rod_18,storage_rod_19,storage_box_1_dec,
-//        storage_box_2_dec,storage_box_2_dec_1,storage_box_2_dec_2,storage_box_3_dec,storage_box_4_dec,storage_box_5_dec,storage_box_5_dec_1,storage_box_5_dec_2,storage_box_6_dec,
-//        leg_front_left_top,leg_front_left_2,leg_front_left_decoration,foot_front_left_base,nail_front_left,nail_front_left_top,leg_front_right_top,leg_front_right_2,leg_front_right_decoration,
-//        foot_front_right_base,nail_front_right,nail_front_right_top,front_bottom,neck,head_base,head_front,head_bottom,horn_base_left,horn_base_right,head_front_decoration,
-//        head_main,head_main_left,head_main_right,head_bottom_decoration,horn_left_1,horn_left_2,horn_right_1,horn_right_2,front_strap_left_1,front_strap_right_1,front_strap_bottom,
-//        head_strap_base,seat_bottom,shoulder_strap_base,front_strap_left_2,front_holder_left,front_strap_left_3,front_strap_right_2,front_holder_right,front_strap_right_3,
-//        head_strap_left_1,head_strap_right_1,seat_top,seat_front,seat_back,shoulder_strap_left_1,shoulder_strap_right_1,shoulder_holder,shoulder_strap_mid};
-        		
-        saveAllDefaultValues();
+        setDefaultBoxValues();
     }
     
     @Override
     public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha)
     {
     	this.animateModel(this.entity);
+    	
+    	matrixStackIn.push();
+    	if(this.entity.isSitting() && !this.entity.isBeingRidden())
+    	{
+    		matrixStackIn.translate(0, 0.15F, 0);
+    	}
     	this.body.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+    	matrixStackIn.pop();
     }
 
     /**
@@ -1049,14 +1036,12 @@ public class BufflonModel<T extends BufflonEntity> extends PCEntityModel<T>
     	super.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
     	processShouldShowModelParts(entity);
     	
-    	loadAllDefaultValues();
+    	revertToDefaultBoxValues();
     	
     	if(entityIn.isAnimationPlaying(BufflonEntity.BLANK_ANIMATION) || entityIn.isAnimationPlaying(BufflonEntity.ATTACK_HEAD_ANIMATION))
     	{
     		if(entityIn.isSitting() && !entityIn.isBeingRidden())
     		{
-    			//Some adjustments so the entity pose is sitting
-//    			body.offsetY += Math.toRadians(8); //TODO figure out a different way to offset the model.
     			body.rotateAngleX += Math.toRadians(-8);
     			body_back.rotateAngleX += Math.toRadians(-25);
     			

@@ -118,6 +118,36 @@ public abstract class AnimatedCreatureEntity extends CreatureEntity implements I
 	{
 		return null;
 	}
+	
+	/**
+	 * @return - Returns true if the entity is moving on any axis
+	 */
+	public boolean isEntityMoving()
+	{
+		if(this.prevPosX != this.getPosX() || this.prevPosY != this.getPosY() || this.prevPosZ != this.getPosZ())
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	/**
+	 * @return - Returns true if the entity is moving ignoring y axis movement
+	 */
+	public boolean isEntityMovingHorizontaly()
+	{
+		if(this.prevPosX != this.getPosX() || this.prevPosZ != this.getPosZ())
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 
 	/**
 	 * Used in movement controllers to get the distance between the entity's desired path location and its current position

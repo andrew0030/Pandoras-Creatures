@@ -995,7 +995,7 @@ public class EndTrollModel<T extends EndTrollEntity> extends PCEntityModel<T>
     	this.left_eyelid_base.rotateAngleY = (float) Math.toRadians(0.0F);
     	this.right_eyelid_base.rotateAngleY = (float) Math.toRadians(0.0F);
     	        		
-    	saveAllDefaultValues();
+    	setDefaultBoxValues();
     }
 
     @Override
@@ -1005,9 +1005,16 @@ public class EndTrollModel<T extends EndTrollEntity> extends PCEntityModel<T>
     	
     	matrixStackIn.push();
     	
-    	if(this.entity.isEntityStanding())
+    	if(this.entity.isEntityStanding() || this.entity.isAnimationPlaying(EndTrollEntity.TRANSFORM_ANIMATION))
     	{
-    		matrixStackIn.translate(0.0F, 0.0F, -1.26F);
+    		if(!this.entity.isAnimationPlaying(EndTrollEntity.TRANSFORM_ANIMATION) && !this.entity.isAnimationPlaying(EndTrollEntity.SCREAM_ANIMATION) && !this.entity.isAnimationPlaying(EndTrollEntity.DEATH_ANIMATION))
+    		{
+    			matrixStackIn.translate(0.0F, 0.0F, -1.26F);
+    			if(this.entity.isEntityMovingHorizontaly())
+    			{
+    				matrixStackIn.translate(0.0F, -0.06F, 0.0F);
+    			}
+    		}
     		this.leg_right_1.showModel = true;
     		this.leg_left_1.showModel = true;
     	}
@@ -1041,13 +1048,13 @@ public class EndTrollModel<T extends EndTrollEntity> extends PCEntityModel<T>
     public void setRotationAngles(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch)
     {
     	super.setRotationAngles(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-    	loadAllDefaultValues();
+    	revertToDefaultBoxValues();
     	
     	if(entity.isAnimationPlaying(EndTrollEntity.BLANK_ANIMATION) || entity.isAnimationPlaying(EndTrollEntity.SHOOT_ANIMATION) || entity.isAnimationPlaying(EndTrollEntity.RIGHT_PUNCH_ANIMATION) || entity.isAnimationPlaying(EndTrollEntity.LEFT_PUNCH_ANIMATION) || entity.isAnimationPlaying(EndTrollEntity.DOUBLE_PUNCH_ANIMATION))
     	{
     		if(!entity.isEntityStanding())
     		{
-				if(entity.prevPosX != entity.getPosX() || entity.prevPosZ != entity.getPosZ())
+				if(entity.isEntityMovingHorizontaly())
 				{
 		    		float globalSpeed = 4.0F;
 		        	float globalHeight = 1.0F;
@@ -1196,7 +1203,7 @@ public class EndTrollModel<T extends EndTrollEntity> extends PCEntityModel<T>
     			this.hand_right_thumb_1.rotateAngleZ = (float) Math.toRadians(14.0F);
     			this.hand_right_thumb_2.rotateAngleZ = (float) Math.toRadians(18.0F);
     			
-    			if(entity.prevPosX != entity.getPosX() || entity.prevPosZ != entity.getPosZ())
+    			if(entity.isEntityMovingHorizontaly())
     			{
     				if(entity.isEntityStanding())
 		    		{

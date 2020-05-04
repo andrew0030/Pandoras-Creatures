@@ -159,8 +159,7 @@ public class SeahorseModel<T extends SeahorseEntity> extends PCEntityModel<T>
         this.tail_2.addChild(this.tail_3);
         this.tail_1.addChild(this.tail_left);
         
-//        bodyParts = new PCModelRenderer[] {body, back_bottom, neck_front, tail_1, back_wing, back_top, neck, head, face_top, ear_left, ear_right, horn, face_top_1, tail_2, tail_front, tail_left, tail_right, tail_3, tail_4, tail_5, tail_6, tail_7, tail_8};
-        saveAllDefaultValues();//TODO Maybe replace with a different save method
+        setDefaultBoxValues();
     }
     
     @Override
@@ -207,7 +206,7 @@ public class SeahorseModel<T extends SeahorseEntity> extends PCEntityModel<T>
     		float globalSpeed = 0.5F;
     		float globalDegree = 1.0F;
     		
-    		loadAllDefaultValues(); //TODO Maybe replace with a different load method
+    		revertToDefaultBoxValues();
     		
     		if(entity.isAlive())
     		{
@@ -245,12 +244,12 @@ public class SeahorseModel<T extends SeahorseEntity> extends PCEntityModel<T>
     	}
     	else
     	{
-	    	if(entity.prevPosX != entity.getPosX() || entity.prevPosZ != entity.getPosZ()) //Move Animation
+	    	if(entity.isEntityMovingHorizontaly()) //Move Animation
 	    	{
 				float globalSpeed = 5.0F;
 				float globalDegree = 2.0F;
 				
-				loadAllDefaultValues(); //TODO Maybe replace with a different load method
+				revertToDefaultBoxValues();
 				
 				this.head.rotateAngleY = (netHeadYaw * ((float)Math.PI / 180) / 1.8F);
 				
@@ -286,7 +285,7 @@ public class SeahorseModel<T extends SeahorseEntity> extends PCEntityModel<T>
 				float globalDegree = 1.0F;
 				float globalHeight = 1.0F;
 				
-				loadAllDefaultValues(); //TODO Maybe replace with a different load method
+				revertToDefaultBoxValues();
 				
 				this.head.rotateAngleY = (netHeadYaw * ((float)Math.PI / 180) / 1.8F);
 	    		

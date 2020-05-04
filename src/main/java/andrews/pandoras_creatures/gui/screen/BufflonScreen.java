@@ -1,6 +1,5 @@
 package andrews.pandoras_creatures.gui.screen;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import andrews.pandoras_creatures.container.BufflonContainer;
@@ -15,13 +14,14 @@ import andrews.pandoras_creatures.util.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
+import net.minecraft.client.renderer.Matrix4f;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.client.gui.GuiUtils;
 
 @OnlyIn(Dist.CLIENT)
 public class BufflonScreen extends ContainerScreen<BufflonContainer>
@@ -93,11 +93,25 @@ public class BufflonScreen extends ContainerScreen<BufflonContainer>
 	    //The Saddle slot previews
 	    if(!bufflonEntity.isSaddled())
 	    {
-	    	Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(new ItemStack(PCItems.BUFFLON_SADDLE.get()), x + 23, y + 102);//TODO make darker somehow
+	    	RenderSystem.pushMatrix();
+	    	Matrix4f matrix4f = new Matrix4f();
+	        matrix4f.setIdentity();
+	        matrix4f.mul(Matrix4f.makeScale(1.0F, -1.0F, 1.0F));
+	        matrix4f.mul(Vector3f.XN.rotationDegrees(90.0F));
+	    	RenderSystem.setupLevelDiffuseLighting(matrix4f);
+	    	Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(new ItemStack(PCItems.BUFFLON_SADDLE.get()), x + 23, y + 102);
+	    	RenderSystem.setupGui3DDiffuseLighting();
+	    	RenderSystem.popMatrix();
 	    }
 	    
 	    if(!bufflonEntity.hasBackAttachment())
 	    {
+	    	RenderSystem.pushMatrix();
+	    	Matrix4f matrix4f = new Matrix4f();
+	        matrix4f.setIdentity();
+	        matrix4f.mul(Matrix4f.makeScale(1.0F, -1.0F, 1.0F));
+	        matrix4f.mul(Vector3f.XN.rotationDegrees(90.0F));
+	    	RenderSystem.setupLevelDiffuseLighting(matrix4f);
 		    switch(attachmentToRender) {
 			case 1:
 				Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(new ItemStack(PCItems.BUFFLON_PLAYER_SEATS.get()), x + 51, y + 102);
@@ -111,6 +125,8 @@ public class BufflonScreen extends ContainerScreen<BufflonContainer>
 			default:
 				break;
 		    }
+		    RenderSystem.setupGui3DDiffuseLighting();
+	    	RenderSystem.popMatrix();
 		}
 	}
 	

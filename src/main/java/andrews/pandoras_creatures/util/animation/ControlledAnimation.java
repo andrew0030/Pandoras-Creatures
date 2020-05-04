@@ -7,6 +7,8 @@ import net.minecraft.util.math.MathHelper;
 /**
  * Copied Library Functions and Classes from Endergetic
  * see {@link <a href="https://www.curseforge.com/minecraft/mc-mods/endergetic"> Mod Page</a>}.
+ * Class to make animations that can be "controlled" during their run time
+ * Can also be used as a way to make simple animations in a more clean/easy way.
  * @author SmellyModder(Luke Tonon)
  */
 public class ControlledAnimation
@@ -22,39 +24,52 @@ public class ControlledAnimation
 		this.tickDuration = tickDuration;
 	}
 	
+	/*
+	 * Updates prevTick value for lerping progress
+	 * Should be called before tick()
+	 */
 	public void update()
 	{
 		this.prevTick = this.tick;
 	}
 	
+	/*
+	 * Used to update logic and progress of the animation
+	 */
 	public void tick()
 	{
 		if(this.isPaused) return;
 		
-		if(this.shouldDecrement)
+		if(this.shouldDecrement && this.tick > 0)
 		{
-			if(this.tick > 0)
-			{
-				this.tick--;
-			}
+			this.tick--;
 		}
-		else
+		else if(!this.shouldDecrement && this.tick < this.tickDuration)
 		{
-			if(this.tick < this.tickDuration)
-			{
-				this.tick++;
-			}
+			this.tick++;
 		}
 	}
 	
+	/**
+	 * Sets the timer of the animation to begin decrementing its value rather than incrementing
+	 * @param shouldDecrement - Should the timer decrement
+	 */
 	public void setDecrementing(boolean shouldDecrement)
 	{
 		this.shouldDecrement = shouldDecrement;
 	}
 	
-	public boolean isDescrementing()
+	/**
+	 * @return - Is the timer decrementing
+	 */
+	public boolean isDecrementing()
 	{
 		return this.shouldDecrement;
+	}
+	
+	public boolean isAtMax()
+	{
+		return this.tick == this.tickDuration;
 	}
 	
 	public int getTick()
@@ -62,12 +77,12 @@ public class ControlledAnimation
 		return this.tick;
 	}
 	
-	public void setValue(int amount)
+	public void setTick(int amount)
 	{
 		this.tick = this.prevTick = amount;
 	}
 	
-	public void addValue(int amount)
+	public void addTick(int amount)
 	{
 		this.tick += amount;
 	}
@@ -77,17 +92,39 @@ public class ControlledAnimation
 		this.isPaused = paused;
 	}
 	
+	/*
+	 * Resets the timer
+	 */
 	public void resetTimer()
 	{
 		this.tick = this.prevTick = 0;
-		this.setTimerPaused(true);
+		this.isPaused = false;
+		this.shouldDecrement = false;
 	}
 	
+	/**
+	 * Gets the progress of the animation
+	 * @return - a lerped value of the animation's previous tick and new tick
+	 */
 	public float getAnimationProgress()
 	{
 		return MathHelper.lerp(getPartialTicks(), this.prevTick, this.tick) / this.tickDuration;
 	}
 	
+	/**
+	 * Gets the progress of the animation
+	 * @return - a lerped value of the animation's previous tick and new tick
+	 */
+	public float getAnimationProgressServer()
+	{
+		return MathHelper.lerp(1.0F, this.prevTick, this.tick) / this.tickDuration;
+	}
+	
+	/**
+	 * Writes data about the ControlledEndimation to a CompoundNBT
+	 * Can be used to save data about the animation when the world gets saved and for command use
+	 * Values must be synced(Server -> Client)
+	 */
 	public CompoundNBT write(CompoundNBT compound)
 	{
 		compound.putInt("Tick", this.tick);
@@ -97,6 +134,11 @@ public class ControlledAnimation
 		return compound;
 	}
 	
+	/**
+	 * Reads data about the ControlledEndimation from a CompoundNBT
+	 * Can be used to save data about the animation when the world gets saved and for command use
+	 * Values must be synced(Server -> Client)
+	 */
 	public void read(CompoundNBT nbt)
 	{
 		this.tick = nbt.getInt("Tick");

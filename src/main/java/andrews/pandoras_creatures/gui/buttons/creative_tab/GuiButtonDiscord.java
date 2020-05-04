@@ -3,7 +3,7 @@ package andrews.pandoras_creatures.gui.buttons.creative_tab;
 import java.util.Arrays;
 import java.util.List;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 
 import andrews.pandoras_creatures.config.Config;
 import andrews.pandoras_creatures.util.Reference;
@@ -38,49 +38,45 @@ public class GuiButtonDiscord extends Button
 	@Override
 	public void renderButton(int mouseX, int mouseY, float partial)
 	{
-//		if(visible && Config.CLIENT.shouldButtonsInCreativeTabBeEnabled.get() == true && Minecraft.getInstance().player.getActivePotionEffects().isEmpty())
-//		{
-//			this.active = true;
-//			calculateButtonAlpha();
-//			
-//			if(mouseX >= x && mouseX < x + width && mouseY >= y && mouseY < y + height)
-//			{
-//				this.isHovered = true;
-//			}
-//			else
-//			{
-//				this.isHovered = false;
-//			}
-//			
-//			//change the texture pick position so the texture of the button changes
-//			if(this.isHovered) { u = 22; }else{ u = 0; }
-//			Minecraft.getInstance().getRenderManager().textureManager.bindTexture(texture);
-//			GlStateManager.pushMatrix();
-//			GlStateManager.pushTextureAttributes();
-//			GlStateManager.disableLighting();
-//			GlStateManager.color4f(1, 1, 1, (buttonAlpha / 100F));
-//		    GlStateManager.enableBlend();
-//		    GlStateManager.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-//		    GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-//			GuiUtils.drawTexturedModalRect(x, y, u, v, width, height, 0);
-//			GlStateManager.color4f(1, 1, 1, 1);
-//			GlStateManager.disableBlend();
-//			GlStateManager.enableLighting();
-//			GlStateManager.popAttributes();
-//			GlStateManager.popMatrix();
-//			//This is used to render a tooltip above the button
-//			if(isHovered)
-//			{
-//				FontRenderer renderer = Minecraft.getInstance().fontRenderer;
-//				String text = new TranslationTextComponent("gui.button.pandoras_creatures.discord").getString();
-//				List<String> textAsList = Arrays.asList(text);
-//				Minecraft.getInstance().currentScreen.renderTooltip(textAsList, x - (15 + renderer.getStringWidth(text)), y + 19, Minecraft.getInstance().fontRenderer);
-//			}
-//		}
-//		else
-//		{
-//			this.active = false;
-//		}
+		if(visible && Config.CLIENT.shouldButtonsInCreativeTabBeEnabled.get() == true && Minecraft.getInstance().player.getActivePotionEffects().isEmpty())
+		{
+			this.active = true;
+			calculateButtonAlpha();
+			
+			if(mouseX >= x && mouseX < x + width && mouseY >= y && mouseY < y + height)
+			{
+				this.isHovered = true;
+			}
+			else
+			{
+				this.isHovered = false;
+			}
+			
+			//change the texture pick position so the texture of the button changes
+			if(this.isHovered) { u = 22; }else{ u = 0; }
+			
+			Minecraft.getInstance().getRenderManager().textureManager.bindTexture(texture);
+			RenderSystem.pushMatrix();
+			RenderSystem.enableBlend();
+			RenderSystem.color4f(1, 1, 1, (buttonAlpha / 100F));
+			GuiUtils.drawTexturedModalRect(x, y, u, v, width, height, 0);
+			RenderSystem.color4f(1, 1, 1, 1);
+			RenderSystem.disableBlend();
+			RenderSystem.popMatrix();
+			
+			//This is used to render a tooltip above the button
+			if(isHovered)
+			{
+				FontRenderer renderer = Minecraft.getInstance().fontRenderer;
+				String text = new TranslationTextComponent("gui.button.pandoras_creatures.discord").getString();
+				List<String> textAsList = Arrays.asList(text);
+				Minecraft.getInstance().currentScreen.renderTooltip(textAsList, x - (15 + renderer.getStringWidth(text)), y + 19, Minecraft.getInstance().fontRenderer);
+			}
+		}
+		else
+		{
+			this.active = false;
+		}
 	}
 
 	public static GuiButtonDiscord getButton()

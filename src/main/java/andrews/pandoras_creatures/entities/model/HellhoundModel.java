@@ -491,8 +491,7 @@ public class HellhoundModel<T extends HellhoundEntity> extends PCEntityModel<T>
         this.rib_1_6.addChild(this.rib_1_7);
         this.rib_2_7.addChild(this.rib_3_7);
         
-//        bodyParts = new PCModelRenderer[] {body,body2,rib_1,rib_1_1,spike,spike_1,spike_2,spike_3,neck,rotation_point_right_front,rotation_point_left_front,shoulder_left,shoulder_right,body3,spike_4,spike_5,hip,spike_6,spike_7,hip_front,hip_left,hip_right,spike_8,spike_9,rotation_point_left_back,rotation_point_right_back,tail,leg_left_back,leg_left_back_2,leg_left_back_3,leg_left_back_dec,leg_left_back_toe,leg_right_back,leg_right_back_2,leg_right_back_dec,leg_right_back_3,leg_right_back_toe,tail_1,rib_2,rib_1_2,rib_3,rib_2_1,rib_1_3,rib_3_1,rib_2_2,rib_1_4,rib_3_2,rib_2_3,rib_3_3,rib_2_4,rib_1_5,rib_3_4,rib_2_5,rib_1_6,rib_3_5,rib_2_6,rib_1_7,rib_3_6,rib_2_7,rib_3_7,head,mouth_top,head_top,head_bottom,ear_right,ear_left,mouth_top_2,tooth,tooth_1,tooth_2,tooth_3,tooth_4,mouth_bottom,leg_right_front,leg_right_front_2,leg_right_front_dec,leg_right_front_3,leg_right_front_toe,leg_left_front,leg_left_front_2,leg_left_front_3,leg_left_front_dec,leg_left_front_toe};
-        saveAllDefaultValues();//TODO Maybe replace with a different save method
+        setDefaultBoxValues();
     }
     
     @Override
@@ -524,7 +523,7 @@ public class HellhoundModel<T extends HellhoundEntity> extends PCEntityModel<T>
     {
     	super.setRotationAngles(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 		
-		if(entity.prevPosX != entity.getPosX() || entity.prevPosY != entity.getPosY() || entity.prevPosZ != entity.getPosZ()) //Walk Animation
+		if(entity.isEntityMoving()) //Walk Animation
     	{
 			if(entity.getIsCharging() != 0)
 			{
@@ -532,7 +531,7 @@ public class HellhoundModel<T extends HellhoundEntity> extends PCEntityModel<T>
 				float globalSpeed = 0.7F;
 				float globalDegree = 1;
 				
-				loadAllDefaultValues(); //TODO Maybe replace with a different load method
+				revertToDefaultBoxValues();
 				
 				//Makes the Head Rotate where the Entity is Looking
 	    		this.neck.rotateAngleY = (netHeadYaw * ((float)Math.PI / 180) / 2);
@@ -587,7 +586,7 @@ public class HellhoundModel<T extends HellhoundEntity> extends PCEntityModel<T>
 				float globalSpeed = 2.0F;
 				float globalDegree = 1;
 				
-				loadAllDefaultValues(); //TODO Maybe replace with a different load method
+				revertToDefaultBoxValues();
 				
 				//Makes the Head Rotate where the Entity is Looking
 	    		this.neck.rotateAngleY = (netHeadYaw * ((float)Math.PI / 180)) / 2;
@@ -645,7 +644,7 @@ public class HellhoundModel<T extends HellhoundEntity> extends PCEntityModel<T>
 			limbSwing = entity.ticksExisted;
 			limbSwingAmount = 1;
 			
-			loadAllDefaultValues(); //TODO Maybe replace with a different load method
+			revertToDefaultBoxValues();
 			
 			//Makes the Head Rotate where the Entity is Looking
     		this.neck.rotateAngleY = (netHeadYaw * ((float)Math.PI / 180) / 2);

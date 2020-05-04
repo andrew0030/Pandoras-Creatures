@@ -16,26 +16,20 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+/**
+ * Copied Library Functions and Classes from Endergetic
+ * see {@link <a href="https://www.curseforge.com/minecraft/mc-mods/endergetic"> Mod Page</a>}.
+ * @author SmellyModder(Luke Tonon)
+ */
 @OnlyIn(Dist.CLIENT)
 public class PCModelRenderer extends ModelRenderer
 {
-	//Used for Keyframe Animations
 	public float defaultRotationPointX, defaultRotationPointY, defaultRotationPointZ;
 	public float defaultRotateAngleX, defaultRotateAngleY, defaultRotateAngleZ;
-//	public float defaultOffsetX, defaultOffsetY, defaultOffsetZ;
-	//Comment made by Smelly: Gone it seems? Will try later public float defaultOffsetX, defaultOffsetY, defaultOffsetZ;
-	
-	//Used for Looped Animations
-    public float defaultRotationX, defaultRotationY, defaultRotationZ;
-    public float defaultdelayX, defaultdelayY, defaultdelayZ;
-//    public float defaultPositionX, defaultPositionY, defaultPositionZ; //TODO REMOVE THESE OR UPDATE DO SOMETHING
-    
-//    public float scaleX = 1.0F, scaleY = 1.0F, scaleZ = 1.0F; //TODO make it so these arent needed
     public int textureOffsetX, textureOffsetY;
     public float textureWidth, textureHeight;
     public boolean scaleChildren = true;
     public float[] scales = {1.0F, 1.0F, 1.0F};
-//    private PCEntityModel<?> model;   //TODO Probably not needed????!?!
     private final ObjectList<ModelBox> cubeList = new ObjectArrayList<>();
 	private final ObjectList<PCModelRenderer> childModels = new ObjectArrayList<>();
 
@@ -83,13 +77,6 @@ public class PCModelRenderer extends ModelRenderer
 		this.textureOffsetY = y;
 		return this;
 	}
-    
-//    public PCModelRenderer setTextureDelay(int x, int y)  //TODO Remove if not needed!
-//    {
-//        this.texturedelayX = x;
-//        this.texturedelayY = y;
-//        return this;
-//    }
 	
 	@Override
 	public PCModelRenderer setTextureSize(int textureWidthIn, int textureHeightIn)
@@ -144,7 +131,7 @@ public class PCModelRenderer extends ModelRenderer
 	/**
 	 * A method that sets the default box's values
 	 */
-    public void saveDefaultBoxValues()
+    public void setDefaultBoxValues()
     {
 		this.defaultRotationPointX = this.rotationPointX;
 		this.defaultRotationPointY = this.rotationPointY;
@@ -153,16 +140,12 @@ public class PCModelRenderer extends ModelRenderer
 		this.defaultRotateAngleX = this.rotateAngleX;
 		this.defaultRotateAngleY = this.rotateAngleY;
 		this.defaultRotateAngleZ = this.rotateAngleZ;
-		
-//		this.defaultOffsetX = this.offsetX;
-//		this.defaultOffsetY = this.offsetY;
-//		this.defaultOffsetZ = this.offsetZ;
 	}
 	
     /**
 	 * A method that reverts the current box's values back to the default values
 	 */
-	public void loadDefaultBoxValues()
+	public void revertToDefaultBoxValues()
 	{
 		this.rotationPointX = this.defaultRotationPointX;
 		this.rotationPointY = this.defaultRotationPointY;
@@ -171,43 +154,7 @@ public class PCModelRenderer extends ModelRenderer
 		this.rotateAngleX = this.defaultRotateAngleX;
 		this.rotateAngleY = this.defaultRotateAngleY;
 		this.rotateAngleZ = this.defaultRotateAngleZ;
-		
-//		this.offsetX = this.defaultOffsetX;
-//		this.offsetY = this.defaultOffsetY;
-//		this.offsetZ = this.defaultOffsetZ;
 	}
-
-	//Looped Animation System
-    public void saveAsDefaultPose()
-    {
-//        this.defaultRotationX = this.rotateAngleX;
-//        this.defaultRotationY = this.rotateAngleY;
-//        this.defaultRotationZ = this.rotateAngleZ;
-
-//        this.defaultdelayX = this.offsetX;
-//        this.defaultdelayY = this.offsetY;
-//        this.defaultdelayZ = this.offsetZ;
-//
-//        this.defaultPositionX = this.rotationPointX;
-//        this.defaultPositionY = this.rotationPointY;
-//        this.defaultPositionZ = this.rotationPointZ;
-    }
-
-    //Looped Animation System
-    public void loadDefaultPose()
-    {
-//        this.rotateAngleX = this.defaultRotationX;
-//        this.rotateAngleY = this.defaultRotationY;
-//        this.rotateAngleZ = this.defaultRotationZ;
-
-//        this.offsetX = this.defaultdelayX;
-//        this.offsetY = this.defaultdelayY;
-//        this.offsetZ = this.defaultdelayZ;
-//
-//        this.rotationPointX = this.defaultPositionX;
-//        this.rotationPointY = this.defaultPositionY;
-//        this.rotationPointZ = this.defaultPositionZ;
-    }
     
   //===============================================================================================================================================
   //Scaling Related Stuff Bellow.

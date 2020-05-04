@@ -589,8 +589,7 @@ public class AcidicArchvineModel<T extends AcidicArchvineEntity> extends PCEntit
         this.top_right_base.addChild(this.top_right_1);
         this.top_back_1.addChild(this.top_back_1_right);
         
-//      bodyParts = new PCModelRenderer[] {base,acid_blob_holder,root_front,root_back,root_right,root_left,rotation_point_front_right,rotation_point_front_left,rotation_point_back_right,rotation_point_back_left,leaf_right,leaf_left,leaf_front,leaf_back,base_top,root_front_right,leaf_front_right,leaf_front_right_top,root_front_left,leaf_front_left,leaf_front_left_top,root_back_right,leaf_back_right,leaf_back_right_top,root_back_left,leaft_back_left,leaft_back_left_top,leaf_right_top,leaf_left_top,leaf_front_top,leaf_back_top,top_front_base,top_back_base,top_left_base,top_right_base,tongue_1,top_front_1,top_front_2,top_front_1_right,top_front_1_left,tooth_front_1,top_front_3,tooth_front_2,top_front_3_right,top_front_3_left,top_front_4,tooth_front_3,top_front_4_left,top_front_4_right,top_front_4_top,top_back_1,top_back_2,top_back_1_right,top_back_1_left,tooth_back_1,top_back_3,tooth_back_2,top_back_3_right,top_back_3_left,top_back_4,tooth_back_3,top_back_4_left,top_back_4_right,top_back_4_top,top_left_1,top_left_2,top_left_1_right,top_left_1_left,tooth_left_1,top_left_3,tooth_left_2,top_left_3_right,top_left_3_left,top_left_4,tooth_left_3,top_left_4_left,top_left_4_right,top_left_4_top,top_right_1,top_right_2,top_right_1_right,top_right_1_left,tooth_right_1,top_right_3,tooth_right_2,top_right_3_right,top_right_3_left,top_right_4,tooth_right_3,top_right_4_left,top_right_4_right,top_right_4_top,tongue_2,tongue_3,tongue_4,acid_blob};
-        saveAllDefaultValues();//TODO Maybe replace with a different save method
+        setDefaultBoxValues();
     }
     
     @Override
@@ -637,7 +636,7 @@ public class AcidicArchvineModel<T extends AcidicArchvineEntity> extends PCEntit
 	    	limbSwing = entity.ticksExisted;
 	    	limbSwingAmount = 1;
 	    	
-	    	loadAllDefaultValues(); //TODO Maybe replace with a different load method
+	    	revertToDefaultBoxValues();
 	    	
 	    	float entityRotation = (float) (this.base.rotateAngleY - this.base.rotateAngleY + Math.toRadians(netHeadYaw) - Math.toRadians(entity.getYaw(this.partialTicks)));
 	    	base.rotateAngleY = 0 + entityRotation;
@@ -713,7 +712,7 @@ public class AcidicArchvineModel<T extends AcidicArchvineEntity> extends PCEntit
 	    	limbSwing = entity.ticksExisted;
 	    	limbSwingAmount = 1;
 	    	
-	    	loadAllDefaultValues(); //TODO Maybe replace with a different load method
+	    	revertToDefaultBoxValues();
 	    	
 	    	float entityRotation = (float) (this.base.rotateAngleY - this.base.rotateAngleY + Math.toRadians(netHeadYaw) - Math.toRadians(entity.getYaw(this.partialTicks)));
 	    	base.rotateAngleY = 0 + entityRotation;
@@ -801,7 +800,7 @@ public class AcidicArchvineModel<T extends AcidicArchvineEntity> extends PCEntit
 	    	limbSwing = entity.ticksExisted;
 	    	limbSwingAmount = 1;
 	    	
-	    	loadAllDefaultValues(); //TODO Maybe replace with a different load method
+	    	revertToDefaultBoxValues();
     		
     		swing(top_front_1, 0.2F * globalSpeed, 0.5F * globalDegree, false, 0.0F, 0.1F, limbSwing, limbSwingAmount);
 	    	swing(top_front_2, 0.2F * globalSpeed, 0.3F * globalDegree, false, -1.0F, 0.1F, limbSwing, limbSwingAmount);
