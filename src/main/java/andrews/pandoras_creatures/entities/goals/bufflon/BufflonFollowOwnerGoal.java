@@ -124,8 +124,8 @@ public class BufflonFollowOwnerGoal extends Goal
 					{
 						if(!(this.bufflonEntity.getDistanceSq(this.owner) < 144.0D))
 						{
-							int i = MathHelper.floor(this.owner.posX) - 2;
-							int j = MathHelper.floor(this.owner.posZ) - 2;
+							int i = MathHelper.floor(this.owner.getPosX()) - 2;
+							int j = MathHelper.floor(this.owner.getPosZ()) - 2;
 							int k = MathHelper.floor(this.owner.getBoundingBox().minY);
 
 							for(int l = 0; l <= 4; ++l)

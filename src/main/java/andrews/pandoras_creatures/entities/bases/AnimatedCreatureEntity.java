@@ -16,12 +16,10 @@ import net.minecraft.world.World;
  * see {@link <a href="https://www.curseforge.com/minecraft/mc-mods/endergetic"> Mod Page</a>}.
  * @author SmellyModder(Luke Tonon)
  */
-public class AnimatedCreatureEntity extends CreatureEntity
+public abstract class AnimatedCreatureEntity extends CreatureEntity implements IAnimatedEntity
 {
-	public int frame;
-	private int animationTick;
-	public static final Animation BLANK_ANIMATION = new Animation();
 	private Animation animation = BLANK_ANIMATION;
+	private int animationTick;
 
 	public AnimatedCreatureEntity(EntityType<? extends CreatureEntity> type, World worldIn)
 	{
@@ -35,30 +33,37 @@ public class AnimatedCreatureEntity extends CreatureEntity
 	public void tick()
 	{
 		super.tick();
-		this.frame++;
-		if(!this.isAnimationPlaying(BLANK_ANIMATION))
-		{
-			if(this.getAnimationTick() == 0)
-			{
-				this.onAnimationStart(this.animation);
-			}
-			this.setAnimationTick(this.getAnimationTick() + 1);
-			if(this.getAnimationTick() >= this.getPlayingAnimation().getAnimationTickDuration())
-			{
-				this.onAnimationEnd(this.animation);
-				this.resetPlayingAnimationToDefault();
-			}
-		}
+		this.animateTick();
 	}
 	
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount)
 	{
-		if(!this.isWorldRemote() && this.getHurtAnimation() != null && this.isAnimationPlaying(BLANK_ANIMATION))
+		if(!this.isWorldRemote() && this.getHurtAnimation() != null && this.isNoAnimationPlaying())
 		{
 			NetworkUtil.setPlayingAnimationMessage(this, this.getHurtAnimation());
 		}
 		return super.attackEntityFrom(source, amount);
+	}
+	
+	/**
+	 * Sets an animation to play
+	 * @param animationToPlay - The animation to play
+	 */
+	@Override
+	public void setPlayingAnimation(Animation animationToPlay)
+	{
+		this.onAnimationEnd(this.animation);
+		this.animation = animationToPlay;
+		this.setAnimationTick(0);
+	}
+	
+	/**
+	 * @return - Gets the playing animation
+	 */
+	public Animation getPlayingAnimation()
+	{
+		return this.animation;
 	}
 	
 	/**
@@ -79,25 +84,9 @@ public class AnimatedCreatureEntity extends CreatureEntity
 	}
 	
 	/**
-	 * @return - Gets the playing animation
+	 * @return - The progress; measured in ticks, of the current playing animation
 	 */
-	public Animation getPlayingAnimation()
-	{
-		return this.animation;
-	}
-	
-	/**
-	 * @return - Gets this entity's animations
-	 */
-	@Nullable
-	public Animation[] getAnimations()
-	{
-		return null;
-	}
-	
-	/**
-	 * @return  - The progress; measured in ticks, of the current playing animation
-	 */
+	@Override
 	public int getAnimationTick()
 	{
 		return this.animationTick;
@@ -107,40 +96,29 @@ public class AnimatedCreatureEntity extends CreatureEntity
 	 * Sets the progress of the current playing animation
 	 * @param animationTick - Progress; measured in ticks
 	 */
+	@Override
 	public void setAnimationTick(int animationTick)
 	{
 		this.animationTick = animationTick;
 	}
-	
-	/**
-	 * Sets an animation to play
-	 * @param animationToPlay - The animation to play
-	 */
-	public void setPlayingAnimation(Animation animationToPlay)
-	{
-		this.onAnimationEnd(this.animation);
-		this.animation = animationToPlay;
-		this.setAnimationTick(0);
-	}
-	
+
 	/**
 	 * Resets the current animation to a blank one
 	 */
-	public void resetPlayingAnimationToDefault()
+	public void resetAnimation()
 	{
 		this.setPlayingAnimation(BLANK_ANIMATION);
 	}
 	
-	protected void onAnimationStart(Animation animation) {}
-	
-	protected void onAnimationEnd(Animation animation) {}
-	
+	/**
+	 * The hurt animation if the creature has one
+	 */
 	@Nullable
 	public Animation getHurtAnimation()
 	{
 		return null;
 	}
-	
+
 	/**
 	 * Used in movement controllers to get the distance between the entity's desired path location and its current position
 	 * @param pathX - x location of the path
@@ -150,7 +128,7 @@ public class AnimatedCreatureEntity extends CreatureEntity
 	 */
 	public Vec3d getMoveControllerPathDistance(double pathX, double pathY, double pathZ)
 	{
-		return new Vec3d(pathX - this.posX, pathY - this.posY, pathY - this.posY);
+		return new Vec3d(pathX - this.getPosX(), pathY - this.getPosY(), pathY - this.getPosY());
 	}
 	
 	/**

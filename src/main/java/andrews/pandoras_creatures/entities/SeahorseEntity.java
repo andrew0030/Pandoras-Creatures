@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 import andrews.pandoras_creatures.entities.bases.BucketableMobEntity;
 import andrews.pandoras_creatures.registry.PCEntities;
 import andrews.pandoras_creatures.registry.PCItems;
+import andrews.pandoras_creatures.util.animation.Animation;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
@@ -87,6 +88,12 @@ public class SeahorseEntity extends BucketableMobEntity
     	return new ItemStack(PCItems.SEAHORSE_SPAWN_EGG.get());
     }
     
+    @Override
+   	public Animation[] getAnimations()
+    {
+   		return null;
+   	}
+    
     /**
      * Returns new PathNavigateGround instance
      */
@@ -132,13 +139,13 @@ public class SeahorseEntity extends BucketableMobEntity
 	        	{
 	        		Random rand = new Random();
 	        		
-	        		this.world.addParticle(new RedstoneParticleData(148, 0, 211, 1.0F), this.posX + ((rand.nextInt(31) - 15) / 5), this.posY + ((rand.nextInt(31) - 15) / 5), this.posZ + ((rand.nextInt(31) - 15) / 5), 0, 0, 0);
-	        		this.world.addParticle(new RedstoneParticleData(75, 0, 130, 1.0F), this.posX + ((rand.nextInt(31) - 15) / 5), this.posY + ((rand.nextInt(31) - 15) / 5), this.posZ + ((rand.nextInt(31) - 15) / 5), 0, 0, 0);
-	        		this.world.addParticle(new RedstoneParticleData(0, 0, 255, 1.0F), this.posX + ((rand.nextInt(31) - 15) / 5), this.posY + ((rand.nextInt(31) - 15) / 5), this.posZ + ((rand.nextInt(31) - 15) / 5), 0, 0, 0);
-	        		this.world.addParticle(new RedstoneParticleData(0, 255, 0, 1.0F), this.posX + ((rand.nextInt(31) - 15) / 5), this.posY + ((rand.nextInt(31) - 15) / 5), this.posZ + ((rand.nextInt(31) - 15) / 5), 0, 0, 0);
-	        		this.world.addParticle(new RedstoneParticleData(255, 255, 0, 1.0F), this.posX + ((rand.nextInt(31) - 15) / 5), this.posY + ((rand.nextInt(31) - 15) / 5), this.posZ + ((rand.nextInt(31) - 15) / 5), 0, 0, 0);
-	        		this.world.addParticle(new RedstoneParticleData(255, 127, 0, 1.0F), this.posX + ((rand.nextInt(31) - 15) / 5), this.posY + ((rand.nextInt(31) - 15) / 5), this.posZ + ((rand.nextInt(31) - 15) / 5), 0, 0, 0);
-	        		this.world.addParticle(new RedstoneParticleData(255, 0 , 0, 1.0F), this.posX + ((rand.nextInt(31) - 15) / 5), this.posY + ((rand.nextInt(31) - 15) / 5), this.posZ + ((rand.nextInt(31) - 15) / 5), 0, 0, 0);
+	        		this.world.addParticle(new RedstoneParticleData(148, 0, 211, 1.0F), this.getPosX() + ((rand.nextInt(31) - 15) / 5), this.getPosY() + ((rand.nextInt(31) - 15) / 5), this.getPosZ() + ((rand.nextInt(31) - 15) / 5), 0, 0, 0);
+	        		this.world.addParticle(new RedstoneParticleData(75, 0, 130, 1.0F), this.getPosX() + ((rand.nextInt(31) - 15) / 5), this.getPosY() + ((rand.nextInt(31) - 15) / 5), this.getPosZ() + ((rand.nextInt(31) - 15) / 5), 0, 0, 0);
+	        		this.world.addParticle(new RedstoneParticleData(0, 0, 255, 1.0F), this.getPosX() + ((rand.nextInt(31) - 15) / 5), this.getPosY() + ((rand.nextInt(31) - 15) / 5), this.getPosZ() + ((rand.nextInt(31) - 15) / 5), 0, 0, 0);
+	        		this.world.addParticle(new RedstoneParticleData(0, 255, 0, 1.0F), this.getPosX() + ((rand.nextInt(31) - 15) / 5), this.getPosY() + ((rand.nextInt(31) - 15) / 5), this.getPosZ() + ((rand.nextInt(31) - 15) / 5), 0, 0, 0);
+	        		this.world.addParticle(new RedstoneParticleData(255, 255, 0, 1.0F), this.getPosX() + ((rand.nextInt(31) - 15) / 5), this.getPosY() + ((rand.nextInt(31) - 15) / 5), this.getPosZ() + ((rand.nextInt(31) - 15) / 5), 0, 0, 0);
+	        		this.world.addParticle(new RedstoneParticleData(255, 127, 0, 1.0F), this.getPosX() + ((rand.nextInt(31) - 15) / 5), this.getPosY() + ((rand.nextInt(31) - 15) / 5), this.getPosZ() + ((rand.nextInt(31) - 15) / 5), 0, 0, 0);
+	        		this.world.addParticle(new RedstoneParticleData(255, 0 , 0, 1.0F), this.getPosX() + ((rand.nextInt(31) - 15) / 5), this.getPosY() + ((rand.nextInt(31) - 15) / 5), this.getPosZ() + ((rand.nextInt(31) - 15) / 5), 0, 0, 0);
 	        	}
 	        }
         }
@@ -157,13 +164,13 @@ public class SeahorseEntity extends BucketableMobEntity
 	        		Random rand = new Random();
 	        		float unit = (this.getHeight() - 0.2F - (this.getSeahorseSize() - 3) * -0.1F) / 7F;
 	        		
-	        		this.world.addParticle(new RedstoneParticleData(148, 0, 211, 1.0F), this.posX + (0.1F * (rand.nextInt(5) - 3)), this.posY + unit * 7, this.posZ + (0.1F * (rand.nextInt(5) - 3)), 0, 0, 0);
-	        		this.world.addParticle(new RedstoneParticleData(75, 0, 130, 1.0F), this.posX + (0.1F * (rand.nextInt(5) - 3)), this.posY + unit * 6, this.posZ + (0.1F * (rand.nextInt(5) - 3)), 0, 0, 0);
-	        		this.world.addParticle(new RedstoneParticleData(0, 0, 255, 1.0F), this.posX + (0.1F * (rand.nextInt(5) - 3)), this.posY + unit * 5, this.posZ + (0.1F * (rand.nextInt(5) - 3)), 0, 0, 0);
-	        		this.world.addParticle(new RedstoneParticleData(0, 255, 0, 1.0F), this.posX + (0.1F * (rand.nextInt(5) - 3)), this.posY + unit * 4, this.posZ + (0.1F * (rand.nextInt(5) - 3)), 0, 0, 0);
-	        		this.world.addParticle(new RedstoneParticleData(255, 255, 0, 1.0F), this.posX + (0.1F * (rand.nextInt(5) - 3)), this.posY + unit * 3, this.posZ + (0.1F * (rand.nextInt(5) - 3)), 0, 0, 0);
-	        		this.world.addParticle(new RedstoneParticleData(255, 127, 0, 1.0F), this.posX + (0.1F * (rand.nextInt(5) - 3)), this.posY + unit * 2, this.posZ + (0.1F * (rand.nextInt(5) - 3)), 0, 0, 0);
-	        		this.world.addParticle(new RedstoneParticleData(255, 0 , 0, 1.0F), this.posX + (0.1F * (rand.nextInt(5) - 3)), this.posY + unit, this.posZ + (0.1F * (rand.nextInt(5) - 3)), 0, 0, 0);
+	        		this.world.addParticle(new RedstoneParticleData(148, 0, 211, 1.0F), this.getPosX() + (0.1F * (rand.nextInt(5) - 3)), this.getPosY() + unit * 7, this.getPosZ() + (0.1F * (rand.nextInt(5) - 3)), 0, 0, 0);
+	        		this.world.addParticle(new RedstoneParticleData(75, 0, 130, 1.0F), this.getPosX() + (0.1F * (rand.nextInt(5) - 3)), this.getPosY() + unit * 6, this.getPosZ() + (0.1F * (rand.nextInt(5) - 3)), 0, 0, 0);
+	        		this.world.addParticle(new RedstoneParticleData(0, 0, 255, 1.0F), this.getPosX() + (0.1F * (rand.nextInt(5) - 3)), this.getPosY() + unit * 5, this.getPosZ() + (0.1F * (rand.nextInt(5) - 3)), 0, 0, 0);
+	        		this.world.addParticle(new RedstoneParticleData(0, 255, 0, 1.0F), this.getPosX() + (0.1F * (rand.nextInt(5) - 3)), this.getPosY() + unit * 4, this.getPosZ() + (0.1F * (rand.nextInt(5) - 3)), 0, 0, 0);
+	        		this.world.addParticle(new RedstoneParticleData(255, 255, 0, 1.0F), this.getPosX() + (0.1F * (rand.nextInt(5) - 3)), this.getPosY() + unit * 3, this.getPosZ() + (0.1F * (rand.nextInt(5) - 3)), 0, 0, 0);
+	        		this.world.addParticle(new RedstoneParticleData(255, 127, 0, 1.0F), this.getPosX() + (0.1F * (rand.nextInt(5) - 3)), this.getPosY() + unit * 2, this.getPosZ() + (0.1F * (rand.nextInt(5) - 3)), 0, 0, 0);
+	        		this.world.addParticle(new RedstoneParticleData(255, 0 , 0, 1.0F), this.getPosX() + (0.1F * (rand.nextInt(5) - 3)), this.getPosY() + unit, this.getPosZ() + (0.1F * (rand.nextInt(5) - 3)), 0, 0, 0);
 	        	}
 	        }
         }
@@ -359,9 +366,9 @@ public class SeahorseEntity extends BucketableMobEntity
 
             if(this.action == MovementController.Action.MOVE_TO && !this.seahorse.getNavigator().noPath())
             {
-            	double d0 = this.posX - this.seahorse.posX;
-            	double d1 = this.posY - this.seahorse.posY;
-            	double d2 = this.posZ - this.seahorse.posZ;
+            	double d0 = this.posX - this.seahorse.getPosX();
+            	double d1 = this.posY - this.seahorse.getPosY();
+            	double d2 = this.posZ - this.seahorse.getPosZ();
             	double d3 = (double)MathHelper.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
             	d1 = d1 / d3;
             	float f = (float)(MathHelper.atan2(d2, d0) * (double)(180F / (float)Math.PI)) - 90.0F;

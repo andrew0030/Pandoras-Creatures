@@ -75,11 +75,11 @@ public class RegistryUtils
 		RegistryObject<B> block = PCBlocks.BLOCKS.register(name, supplier);
 		if(isItemStackable)
 		{
-			PCItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().group(group).setTEISR(() -> PCTileEntityItemRenderer::new)));
+			PCItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().group(group).setISTER(() -> PCTileEntityItemRenderer::new)));
 		}
 		else
 		{
-			PCItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().group(group).maxStackSize(1).setTEISR(() -> PCTileEntityItemRenderer::new)));
+			PCItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().group(group).maxStackSize(1).setISTER(() -> PCTileEntityItemRenderer::new)));
 		}
 		return block;
 	}

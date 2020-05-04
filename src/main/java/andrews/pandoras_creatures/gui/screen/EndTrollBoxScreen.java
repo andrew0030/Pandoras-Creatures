@@ -1,6 +1,6 @@
 package andrews.pandoras_creatures.gui.screen;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 
 import andrews.pandoras_creatures.container.EndTrollBoxContainer;
 import andrews.pandoras_creatures.util.Reference;
@@ -41,7 +41,7 @@ public class EndTrollBoxScreen extends ContainerScreen<EndTrollBoxContainer>
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
 	{
-		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		this.minecraft.getTextureManager().bindTexture(GUI_TEXTURE);
 		int i = (this.width - this.xSize) / 2;
 		int j = (this.height - this.ySize) / 2;

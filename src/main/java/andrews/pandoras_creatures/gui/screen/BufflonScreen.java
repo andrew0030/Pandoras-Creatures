@@ -1,6 +1,7 @@
 package andrews.pandoras_creatures.gui.screen;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 
 import andrews.pandoras_creatures.container.BufflonContainer;
 import andrews.pandoras_creatures.entities.BufflonEntity;
@@ -20,6 +21,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.client.gui.GuiUtils;
 
 @OnlyIn(Dist.CLIENT)
 public class BufflonScreen extends ContainerScreen<BufflonContainer>
@@ -69,7 +71,7 @@ public class BufflonScreen extends ContainerScreen<BufflonContainer>
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
 	{
 		renderBackground();//Renders the dark background
-		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 	  	this.minecraft.getTextureManager().bindTexture(BUFFLON_GUI_TEXTURES);
 		int x = (this.width - this.xSize) / 2;
 		int y = (this.height - this.ySize) / 2;
@@ -91,7 +93,7 @@ public class BufflonScreen extends ContainerScreen<BufflonContainer>
 	    //The Saddle slot previews
 	    if(!bufflonEntity.isSaddled())
 	    {
-	    	Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(new ItemStack(PCItems.BUFFLON_SADDLE.get()), x + 23, y + 102);
+	    	Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(new ItemStack(PCItems.BUFFLON_SADDLE.get()), x + 23, y + 102);//TODO make darker somehow
 	    }
 	    
 	    if(!bufflonEntity.hasBackAttachment())

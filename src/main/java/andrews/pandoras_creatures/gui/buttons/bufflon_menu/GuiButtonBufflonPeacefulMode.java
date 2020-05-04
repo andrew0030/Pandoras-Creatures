@@ -3,7 +3,7 @@ package andrews.pandoras_creatures.gui.buttons.bufflon_menu;
 import java.util.Arrays;
 import java.util.List;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 
 import andrews.pandoras_creatures.entities.BufflonEntity;
 import andrews.pandoras_creatures.util.Reference;
@@ -14,7 +14,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.client.config.GuiUtils;
+import net.minecraftforge.fml.client.gui.GuiUtils;
 
 @OnlyIn(Dist.CLIENT)
 public class GuiButtonBufflonPeacefulMode extends Button
@@ -67,11 +67,11 @@ public class GuiButtonBufflonPeacefulMode extends Button
 		
 		//Renders the Button
 		Minecraft.getInstance().getRenderManager().textureManager.bindTexture(texture);
-		GlStateManager.pushMatrix();
-		GlStateManager.disableLighting();
+		RenderSystem.pushMatrix();
+		RenderSystem.enableBlend();
 		GuiUtils.drawTexturedModalRect(x, y, u, v, width, height, 0);
-		GlStateManager.enableLighting();
-		GlStateManager.popMatrix();
+		RenderSystem.disableBlend();
+		RenderSystem.popMatrix();
 		
 		//This is used to render a tooltip next to the button
 		if(isHovered)

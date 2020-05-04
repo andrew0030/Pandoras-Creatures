@@ -18,7 +18,7 @@ public class BufflonRenderer extends MobRenderer<BufflonEntity, BufflonModel<Buf
     }
 	
 	@Override
-	protected ResourceLocation getEntityTexture(BufflonEntity entity)
+	public ResourceLocation getEntityTexture(BufflonEntity entity)
 	{
 		return new ResourceLocation(Reference.MODID, "textures/entity/bufflon/bufflon_" + entity.getBufflonType() + ".png");
 	}

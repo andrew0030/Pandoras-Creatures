@@ -2,9 +2,11 @@ package andrews.pandoras_creatures.entities;
 
 import javax.annotation.Nullable;
 
+import andrews.pandoras_creatures.entities.bases.AnimatedMonsterEntity;
 import andrews.pandoras_creatures.entities.goals.acidic_archvine.TargetUnderneathGoal;
 import andrews.pandoras_creatures.registry.PCEntities;
 import andrews.pandoras_creatures.registry.PCItems;
+import andrews.pandoras_creatures.util.animation.Animation;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -12,7 +14,6 @@ import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -31,7 +32,7 @@ import net.minecraft.world.biome.Biomes;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class AcidicArchvineEntity extends MonsterEntity
+public class AcidicArchvineEntity extends AnimatedMonsterEntity
 {
 	private static final DataParameter<Integer> ARCHVINE_TYPE = EntityDataManager.createKey(AcidicArchvineEntity.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> TARGET_ENTITY = EntityDataManager.createKey(AcidicArchvineEntity.class, DataSerializers.VARINT);
@@ -77,6 +78,12 @@ public class AcidicArchvineEntity extends MonsterEntity
     {
     	return new ItemStack(PCItems.ACIDIC_ARCHVINE_SPAWN_EGG.get());
     }
+    
+    @Override
+	public Animation[] getAnimations()
+    {
+		return null;
+	}
     
     @Override
 	public void writeAdditional(CompoundNBT compound)
@@ -171,11 +178,11 @@ public class AcidicArchvineEntity extends MonsterEntity
     	}
     	else if(worldIn.getBlockState(new BlockPos(this).up()).getBlock() == Blocks.JUNGLE_LEAVES || worldIn.getBlockState(new BlockPos(this).up()).getBlock() == Blocks.NETHERRACK)
     	{
-    		this.setPosition(this.posX, this.posY - 0.5, this.posZ);
+    		this.setPosition(this.getPosX(), this.getPosY() - 0.5, this.getPosZ());
     	}
     	else if(worldIn.getBlockState(new BlockPos(this).up()).getBlock() == Blocks.AIR && (worldIn.getBlockState(new BlockPos(this).up(2)).getBlock() == Blocks.JUNGLE_LEAVES || worldIn.getBlockState(new BlockPos(this).up(2)).getBlock() == Blocks.NETHERRACK))
     	{
-    		this.setPosition(this.posX, this.posY + 0.5, this.posZ);
+    		this.setPosition(this.getPosX(), this.getPosY() + 0.5, this.getPosZ());
     	}
     	
     	return spawnDataIn;

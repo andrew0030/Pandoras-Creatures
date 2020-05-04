@@ -43,10 +43,10 @@ public class EndTrollBoxTileEntity extends LockableLootTileEntity implements ISi
 	private float progressOld;
 	private DyeColor color;
 	private boolean needsColorFromWorld;
-
+	
 	public EndTrollBoxTileEntity(@Nullable DyeColor colorIn)
 	{
-		super(PCTileEntities.END_TROLL_SHULKER.get());
+		super(PCTileEntities.END_TROLL_BOX.get());
 		this.color = colorIn;
 	}
 

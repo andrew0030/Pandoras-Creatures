@@ -117,13 +117,6 @@ public class BlockEndTrollBox extends ShulkerBoxBlock implements IWaterLoggable
         return tileentity == null ? false : tileentity.receiveClientEvent(id, param);
     }
 
-	@OnlyIn(Dist.CLIENT)
-	@Override
-	public boolean hasCustomBreakingProgress(BlockState state)
-	{
-		return true;
-	}
-
 	@Override
 	public BlockRenderType getRenderType(BlockState state)
 	{
@@ -131,15 +124,15 @@ public class BlockEndTrollBox extends ShulkerBoxBlock implements IWaterLoggable
 	}
 
 	@Override
-	public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
+	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
 	{
 		if(worldIn.isRemote)
 		{
-			return true;
+			return ActionResultType.SUCCESS;
 		}
 		else if(player.isSpectator())
 		{
-			return true;
+			return ActionResultType.SUCCESS;
 		}
 		else
 		{
@@ -149,11 +142,11 @@ public class BlockEndTrollBox extends ShulkerBoxBlock implements IWaterLoggable
 				EndTrollBoxTileEntity endTrollShulkerTileentity = (EndTrollBoxTileEntity) tileentity;
 				player.openContainer(endTrollShulkerTileentity);
 
-				return true;
+				return ActionResultType.SUCCESS;
 			}
 			else
 			{
-				return false;
+				return ActionResultType.PASS;
 			}
 		}
 	}
@@ -315,12 +308,6 @@ public class BlockEndTrollBox extends ShulkerBoxBlock implements IWaterLoggable
 	public PushReaction getPushReaction(BlockState state)
 	{
 		return PushReaction.DESTROY;
-	}
-
-	@Override
-	public boolean isSolid(BlockState state)
-	{
-		return false;
 	}
 
 	@Override

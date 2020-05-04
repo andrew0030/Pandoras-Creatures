@@ -8,6 +8,7 @@ import andrews.pandoras_creatures.entities.bases.BucketableMobEntity;
 import andrews.pandoras_creatures.registry.PCEntities;
 import andrews.pandoras_creatures.registry.PCItems;
 import andrews.pandoras_creatures.registry.PCSounds;
+import andrews.pandoras_creatures.util.animation.Animation;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
@@ -78,6 +79,12 @@ public class CrabEntity extends BucketableMobEntity
     {
     	return new ItemStack(PCItems.CRAB_SPAWN_EGG.get());
     }
+    
+    @Override
+	public Animation[] getAnimations()
+    {
+		return null;
+	}
     
     @Override
 	protected void setBucketData(ItemStack bucket)

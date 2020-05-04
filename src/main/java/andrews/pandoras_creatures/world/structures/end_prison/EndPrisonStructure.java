@@ -1,17 +1,14 @@
 package andrews.pandoras_creatures.world.structures.end_prison;
 
-import java.util.Random;
 import java.util.function.Function;
 
 import com.mojang.datafixers.Dynamic;
 
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.ScatteredStructure;
 import net.minecraft.world.gen.feature.structure.Structure;
@@ -49,24 +46,24 @@ public class EndPrisonStructure extends ScatteredStructure<NoFeatureConfig>
 		return 14357618; //TODO
 	}
 	
-	@Override
-	public boolean hasStartAt(ChunkGenerator<?> chunkGen, Random rand, int chunkPosX, int chunkPosZ)
-	{
-		ChunkPos chunkpos = this.getStartPositionForPosition(chunkGen, rand, chunkPosX, chunkPosZ, 0, 0);
-		if(chunkPosX == chunkpos.x && chunkPosZ == chunkpos.z)
-		{
-			Biome biome = chunkGen.getBiomeProvider().getBiome(new BlockPos(chunkPosX * 16 + 9, 0, chunkPosZ * 16 + 9));
-			if(!chunkGen.hasStructure(biome, Feature.END_CITY))
-			{
-	            return false;
-	        }
-			if(chunkGen.hasStructure(biome, this))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
+//	@Override
+//	public boolean hasStartAt(ChunkGenerator<?> chunkGen, Random rand, int chunkPosX, int chunkPosZ)
+//	{
+//		ChunkPos chunkpos = this.getStartPositionForPosition(chunkGen, rand, chunkPosX, chunkPosZ, 0, 0);
+//		if(chunkPosX == chunkpos.x && chunkPosZ == chunkpos.z)
+//		{
+//			Biome biome = chunkGen.getBiomeProvider().getBiome(new BlockPos(chunkPosX * 16 + 9, 0, chunkPosZ * 16 + 9));
+//			if(!chunkGen.hasStructure(biome, Feature.END_CITY))
+//			{
+//	            return false;
+//	        }
+//			if(chunkGen.hasStructure(biome, this))
+//			{
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
 
 	@Override
 	protected int getBiomeFeatureDistance(ChunkGenerator<?> generator)
@@ -82,9 +79,9 @@ public class EndPrisonStructure extends ScatteredStructure<NoFeatureConfig>
 
 	public static class Start extends StructureStart
 	{
-		public Start(Structure<?> structure, int chunkX, int chunkZ, Biome biome, MutableBoundingBox bounds, int references, long seed)
+		public Start(Structure<?> structure, int chunkX, int chunkZ, MutableBoundingBox bounds, int references, long seed)
 		{
-			super(structure, chunkX, chunkZ, biome, bounds, references, seed);
+			super(structure, chunkX, chunkZ, bounds, references, seed);
 		}
 
 		@Override

@@ -148,5 +148,5 @@ public class Config
     public static void onLoad(final ModConfig.Loading configEvent) {}
 
     @SubscribeEvent
-    public static void onFileChange(final ModConfig.ConfigReloading configEvent) {}  
+    public static void onFileChange(final ModConfig.Reloading configEvent) {}  
 }

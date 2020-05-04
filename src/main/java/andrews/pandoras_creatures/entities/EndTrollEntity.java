@@ -314,7 +314,7 @@ public class EndTrollEntity extends AnimatedCreatureEntity
 				{
 					int j = ExperienceOrbEntity.getXPSplit(i);
 					i -= j;
-					this.world.addEntity(new ExperienceOrbEntity(this.world, this.posX, this.posY, this.posZ, j));
+					this.world.addEntity(new ExperienceOrbEntity(this.world, this.getPosX(), this.getPosY(), this.getPosZ(), j));
 				}
 			}
 			
@@ -326,15 +326,15 @@ public class EndTrollEntity extends AnimatedCreatureEntity
 				double d0 = this.rand.nextGaussian() * 0.02D;
 				double d1 = this.rand.nextGaussian() * 0.02D;
 				this.world.addParticle(ParticleTypes.POOF,
-						this.posX + (double) (this.rand.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(),
-						this.posY + (double) (this.rand.nextFloat() * this.getHeight()), this.posZ
+						this.getPosX() + (double) (this.rand.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(),
+						this.getPosY() + (double) (this.rand.nextFloat() * this.getHeight()), this.getPosZ()
 								  + (double) (this.rand.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(), d2, d0, d1);
 			}
 		}
 	}
 	
 	@Override
-	protected void onAnimationEnd(Animation animation)
+	public void onAnimationEnd(Animation animation)
 	{
 		if(animation == TRANSFORM_ANIMATION)
 		{

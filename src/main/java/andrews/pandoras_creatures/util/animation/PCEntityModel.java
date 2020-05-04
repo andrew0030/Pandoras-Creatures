@@ -1,18 +1,30 @@
 package andrews.pandoras_creatures.util.animation;
 
+import java.util.List;
+
+import com.google.common.collect.Lists;
+
+import andrews.pandoras_creatures.entities.bases.IAnimatedEntity;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.entity.Entity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class PCEntityModel<entity extends Entity> extends EntityModel<entity>
+public abstract class PCEntityModel<E extends Entity & IAnimatedEntity> extends EntityModel<E>
 {
-	/**
-	 * An array containing all the body parts of the model
-	 */
-	protected PCRendererModel[] bodyParts;
-	private float movementScale = 1.0F;
+	protected List<PCModelRenderer> cuboids = Lists.newArrayList();
+	private PCModelRenderer scaleController;
+	protected Animator animator = new Animator();
+	protected E entity;
+
+//	protected PCModelRenderer[] bodyParts;
+//	private float movementScale = 1.0F;       //TODO update this shit
+	
+	//======================================================================================================================================================
+	//======================================================================================================================================================
+	//======================================================================================================================================================
+	//======================================================================================================================================================
 	
 	/**
 	 * Saves all needed information for both the loop animation system and the keyframe system
@@ -20,7 +32,7 @@ public class PCEntityModel<entity extends Entity> extends EntityModel<entity>
 	public void saveAllDefaultValues()
 	{
 		saveDefaultBoxValues();
-		saveAsDefaultPose();
+//		saveAsDefaultPose();
 	}
 	
 	/**
@@ -29,18 +41,27 @@ public class PCEntityModel<entity extends Entity> extends EntityModel<entity>
 	public void loadAllDefaultValues()
 	{
 		loadDefaultBoxValues();
-		loadDefaultPose();
+//		loadDefaultPose();
 	}
+	
+	//======================================================================================================================================================
 	
 	/**
 	 * This will go through all body parts saved in the bodyParts array, and then save their information (rotation point. rotation angle, offset) as the default options
 	 */
 	public void saveDefaultBoxValues()
 	{
-		for(PCRendererModel bodyPart : bodyParts)
-        {
-        	bodyPart.saveDefaultBoxValues();
-        }
+		this.cuboids.forEach((rendererModel) ->
+		{
+			if(rendererModel instanceof PCModelRenderer)
+			{
+				((PCModelRenderer) rendererModel).saveDefaultBoxValues();
+			}
+		});
+//		for(PCModelRenderer bodyPart : bodyParts)
+//        {
+//        	bodyPart.saveDefaultBoxValues();
+//        }
 	}
 	
 	/**
@@ -48,53 +69,69 @@ public class PCEntityModel<entity extends Entity> extends EntityModel<entity>
      */
 	public void loadDefaultBoxValues()
 	{
-		for(PCRendererModel bodyPart : bodyParts)
-        {
-        	bodyPart.loadDefaultBoxValues();
-        }
+		this.cuboids.forEach((rendererModel) ->
+		{
+			if(rendererModel instanceof PCModelRenderer)
+			{
+				((PCModelRenderer) rendererModel).loadDefaultBoxValues();
+			}
+		});
+//		for(PCModelRenderer bodyPart : bodyParts)
+//        {
+//        	bodyPart.loadDefaultBoxValues();
+//        }
 	}
 	
 	/**
 	 * This will go through all body parts saved in the bodyParts array, and then save their information (position. rotation, offset) as the default options
 	 */
-    public void saveAsDefaultPose()
-    {
-        for(PCRendererModel bodyPart : bodyParts)
-        {
-        	bodyPart.saveAsDefaultPose();
-        }
-    }
+//    public void saveAsDefaultPose()
+//    {
+//        for(PCModelRenderer bodyPart : bodyParts)
+//        {
+//        	bodyPart.saveAsDefaultPose();
+//        }
+//    }
 
     /**
      * This will go through all body parts saved in the bodyParts array, and then load their information (position. rotation, offset) from the default options
      */
-    public void loadDefaultPose()
-    {
-    	for(PCRendererModel bodyPart : bodyParts)
-        {
-    		bodyPart.loadDefaultPose();
-        }
-    }
+//    public void loadDefaultPose()
+//    {
+//    	for(PCModelRenderer bodyPart : bodyParts)
+//        {
+//    		bodyPart.loadDefaultPose();
+//        }
+//    }
+    
+    //======================================================================================================================================================
+    //======================================================================================================================================================
+    //======================================================================================================================================================
+    //======================================================================================================================================================
 
-    /**
-     * @return the movement scale of this Model
-     */
-    public float getMovementScale()
+    public void animateModel(E animatedEntity) {}
+    
+    @Override
+    public void setRotationAngles(E entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch)
     {
-        return this.movementScale;
-    }
-
-    /**
-     * Multiplies all rotation and position changes by this value
-     */
-    public void setMovementScale(float movementScale)
-    {
-        this.movementScale = movementScale;
+    	this.entity = entity;
     }
     
-    public void animateModel(entity animatedEntity, float f, float f1, float f2, float f3, float f4, float f5)
+    public void addCuboid(PCModelRenderer cuboid)
     {
-		this.setRotationAngles(animatedEntity, f, f1, f2, f3, f4, f5);
+		this.cuboids.add(cuboid);
+	}
+    
+    public void createScaleController()
+    {
+		this.scaleController = new PCModelRenderer(this, 0, 0);
+		this.scaleController.showModel = false;
+		this.scaleController.setRotationPoint(1, 1, 1);
+	}
+	
+	public PCModelRenderer getScaleController()
+	{
+		return this.scaleController;
 	}
 
     //##########################################################################################################################################
@@ -104,7 +141,7 @@ public class PCEntityModel<entity extends Entity> extends EntityModel<entity>
     /**
      * Rotates this box back and forth (rotateAngleX)
      */
-    public void swing(PCRendererModel box, float speed, float degree, boolean invert, float delay, float weight, float limbSwing, float limbSwingAmount)
+    public void swing(PCModelRenderer box, float speed, float degree, boolean invert, float delay, float weight, float limbSwing, float limbSwingAmount)
     {
         box.swing(speed, degree, invert, delay, weight, limbSwing, limbSwingAmount);
     }
@@ -112,7 +149,7 @@ public class PCEntityModel<entity extends Entity> extends EntityModel<entity>
     /**
      * Rotates this box right and left (rotateAngleZ)
      */
-    public void flap(PCRendererModel box, float speed, float degree, boolean invert, float delay, float weight, float limbSwing, float limbSwingAmount)
+    public void flap(PCModelRenderer box, float speed, float degree, boolean invert, float delay, float weight, float limbSwing, float limbSwingAmount)
     {
         box.flap(speed, degree, invert, delay, weight, limbSwing, limbSwingAmount);
     }
@@ -120,7 +157,7 @@ public class PCEntityModel<entity extends Entity> extends EntityModel<entity>
     /**
      * Rotates this box side to side (rotateAngleY)
      */
-    public void shake(PCRendererModel box, float speed, float degree, boolean invert, float delay, float weight, float limbSwing, float limbSwingAmount)
+    public void shake(PCModelRenderer box, float speed, float degree, boolean invert, float delay, float weight, float limbSwing, float limbSwingAmount)
     {
         box.shake(speed, degree, invert, delay, weight, limbSwing, limbSwingAmount);
     }
@@ -128,7 +165,7 @@ public class PCEntityModel<entity extends Entity> extends EntityModel<entity>
     /**
      * This makes the given Box move Up and Down on the Y Axis
      */
-    public void bounce(PCRendererModel box, float speed, float height, boolean extraBouncy, float limbSwing, float limbSwingAmount)
+    public void bounce(PCModelRenderer box, float speed, float height, boolean extraBouncy, float limbSwing, float limbSwingAmount)
     {
         box.bounce(speed, height, extraBouncy, limbSwing, limbSwingAmount);
     }

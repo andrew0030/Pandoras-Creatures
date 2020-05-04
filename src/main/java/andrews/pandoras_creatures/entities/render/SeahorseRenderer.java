@@ -18,7 +18,7 @@ public class SeahorseRenderer extends MobRenderer<SeahorseEntity, SeahorseModel<
     }
 	
 	@Override
-	protected ResourceLocation getEntityTexture(SeahorseEntity entity)
+	public ResourceLocation getEntityTexture(SeahorseEntity entity)
 	{
 		if(entity.getName().getString().equals("Mr.Sparkles"))
 		{

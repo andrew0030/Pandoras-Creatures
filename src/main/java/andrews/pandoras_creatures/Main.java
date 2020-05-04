@@ -10,6 +10,7 @@ import andrews.pandoras_creatures.registry.PCContainers;
 import andrews.pandoras_creatures.registry.PCCrafting;
 import andrews.pandoras_creatures.registry.PCEntities;
 import andrews.pandoras_creatures.registry.PCItems;
+import andrews.pandoras_creatures.registry.PCRenderLayers;
 import andrews.pandoras_creatures.registry.PCSounds;
 import andrews.pandoras_creatures.registry.PCTileEntities;
 import andrews.pandoras_creatures.registry.util.PCDispenserBehaviors;
@@ -53,12 +54,12 @@ public class Main
 		
 		PCItems.ITEMS.register(modEventBus);
 		PCBlocks.BLOCKS.register(modEventBus);
+		PCSounds.SOUNDS.register(modEventBus);
 		PCTileEntities.TILE_ENTITY_TYPES.register(modEventBus);
 		PCContainers.CONTAINERS.register(modEventBus);
 		PCEntities.ENTITY_TYPES.register(modEventBus);
 		PCFeatures.FEATURES.register(modEventBus);
 		PCStructurePieces.init();
-		PCSounds.SOUNDS.register(modEventBus);
 		PCCrafting.RECIPES.register(modEventBus);
 		
 		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {modEventBus.addListener(EventPriority.LOWEST, this::registerItemColors);});
@@ -103,6 +104,8 @@ public class Main
 	@SubscribeEvent
 	public static void setupClient(final FMLClientSetupEvent event)
 	{
+		//Block Render Layers
+		PCRenderLayers.setBlockRenderLayers();
 		//Tile Entities
 		PCTileEntities.registerTileRenders();
 		//Entities

@@ -18,7 +18,7 @@ public class HellhoundRenderer extends MobRenderer<HellhoundEntity, HellhoundMod
     }
 	
 	@Override
-	protected ResourceLocation getEntityTexture(HellhoundEntity entity)
+	public ResourceLocation getEntityTexture(HellhoundEntity entity)
 	{
 		return new ResourceLocation(Reference.MODID, "textures/entity/hellhound/hellhound_" + entity.getHellhoundType() + ".png");
 	}

@@ -1,7 +1,10 @@
 package andrews.pandoras_creatures.objects.armors;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
+
 import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.renderer.entity.model.RendererModel;
+import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
 import net.minecraft.util.math.MathHelper;
@@ -12,139 +15,140 @@ import net.minecraft.util.math.MathHelper;
  */
 public class PlantHatModel<T extends LivingEntity> extends BipedModel<T>
 {
-    public RendererModel hat_base;
-    public RendererModel wood_beam;
-    public RendererModel wood_beam_1;
-    public RendererModel wood_beam_2;
-    public RendererModel wood_beam_3;
-    public RendererModel wood_beam_4;
-    public RendererModel wood_beam_5;
-    public RendererModel wood_beam_6;
-    public RendererModel wood_beam_7;
-    public RendererModel plants;
-    public RendererModel plants_1;
-    public RendererModel plants_2;
-    public RendererModel plants_3;
-    public RendererModel plants_4;
-    public RendererModel plants_5;
-    public RendererModel plants_6;
-    public RendererModel plants_7;
-    public RendererModel top_plants;
-    public RendererModel top_plants_1;
-    public RendererModel top_plants_2;
-    public RendererModel top_plants_3;
-    public RendererModel hanging_plants;
-    public RendererModel hanging_plants_1;
-    public RendererModel hanging_plants_2;
-    public RendererModel strap;
-    public RendererModel strap_1;
-    public RendererModel strap_2;
+	T entity;
+    public ModelRenderer hat_base;
+    public ModelRenderer wood_beam;
+    public ModelRenderer wood_beam_1;
+    public ModelRenderer wood_beam_2;
+    public ModelRenderer wood_beam_3;
+    public ModelRenderer wood_beam_4;
+    public ModelRenderer wood_beam_5;
+    public ModelRenderer wood_beam_6;
+    public ModelRenderer wood_beam_7;
+    public ModelRenderer plants;
+    public ModelRenderer plants_1;
+    public ModelRenderer plants_2;
+    public ModelRenderer plants_3;
+    public ModelRenderer plants_4;
+    public ModelRenderer plants_5;
+    public ModelRenderer plants_6;
+    public ModelRenderer plants_7;
+    public ModelRenderer top_plants;
+    public ModelRenderer top_plants_1;
+    public ModelRenderer top_plants_2;
+    public ModelRenderer top_plants_3;
+    public ModelRenderer hanging_plants;
+    public ModelRenderer hanging_plants_1;
+    public ModelRenderer hanging_plants_2;
+    public ModelRenderer strap;
+    public ModelRenderer strap_1;
+    public ModelRenderer strap_2;
 
     public PlantHatModel(float scale)
     {
     	super(scale, 0, 128, 64);
-    	this.top_plants_1 = new RendererModel(this, 52, 14);
+    	this.top_plants_1 = new ModelRenderer(this, 52, 14);
         this.top_plants_1.setRotationPoint(0.0F, -13.0F, 3.0F);
         this.top_plants_1.addBox(-6.0F, 0.0F, -2.0F, 12, 0, 12, 0.0F);
         this.setRotateAngle(top_plants_1, -0.619591884457987F, 0.0F, 0.0F);
-        this.top_plants_3 = new RendererModel(this, 92, 26);
+        this.top_plants_3 = new ModelRenderer(this, 92, 26);
         this.top_plants_3.setRotationPoint(-3.0F, -13.0F, 0.0F);
         this.top_plants_3.addBox(-10.0F, 0.0F, -6.0F, 12, 0, 12, 0.0F);
         this.setRotateAngle(top_plants_3, 0.0F, 0.0F, -0.6283185307179586F);
-        this.wood_beam_2 = new RendererModel(this, 106, 2);
+        this.wood_beam_2 = new ModelRenderer(this, 106, 2);
         this.wood_beam_2.setRotationPoint(3.0F, -9.0F, 0.0F);
         this.wood_beam_2.addBox(0.0F, 0.0F, -0.5F, 10, 1, 1, 0.0F);
         this.setRotateAngle(wood_beam_2, 0.0F, 0.0F, 0.2181661564992912F);
-        this.wood_beam_5 = new RendererModel(this, 108, 10);
+        this.wood_beam_5 = new ModelRenderer(this, 108, 10);
         this.wood_beam_5.setRotationPoint(-3.0F, -9.01F, -3.0F);
         this.wood_beam_5.addBox(-1.0F, 0.0F, -0.5F, 9, 1, 1, 0.0F);
         this.setRotateAngle(wood_beam_5, 0.0F, 2.356194490192345F, 0.0F);
-        this.plants_3 = new RendererModel(this, 71, 45);
+        this.plants_3 = new ModelRenderer(this, 71, 45);
         this.plants_3.setRotationPoint(-0.2F, -8.7F, 3.0F);
         this.plants_3.addBox(-8.0F, 0.0F, 0.0F, 8, 0, 10, 0.0F);
         this.setRotateAngle(plants_3, -0.22689280275926282F, 0.0F, 0.08726646259971647F);
-        this.wood_beam = new RendererModel(this, 94, 2);
+        this.wood_beam = new ModelRenderer(this, 94, 2);
         this.wood_beam.setRotationPoint(0.0F, -9.0F, -2.8F);
         this.wood_beam.addBox(-0.5F, 0.0F, -10.0F, 1, 1, 10, 0.0F);
         this.setRotateAngle(wood_beam, -0.148352986419518F, 0.0F, 0.0F);
-        this.plants_7 = new RendererModel(this, 90, 38);
+        this.plants_7 = new ModelRenderer(this, 90, 38);
         this.plants_7.setRotationPoint(-3.0F, -8.7F, -0.3F);
         this.plants_7.addBox(-10.0F, 0.0F, -8.0F, 10, 0, 8, 0.0F);
         this.setRotateAngle(plants_7, -0.10471975511965977F, 0.0F, -0.22689280275926282F);
-        this.hanging_plants_1 = new RendererModel(this, 94, 1);
+        this.hanging_plants_1 = new ModelRenderer(this, 94, 1);
         this.hanging_plants_1.setRotationPoint(0.0F, -7.3F, 5.3F);
         this.hanging_plants_1.addBox(0.0F, 0.0F, 0.0F, 0, 6, 5, 0.0F);
-        this.plants_2 = new RendererModel(this, 54, 43);
+        this.plants_2 = new ModelRenderer(this, 54, 43);
         this.plants_2.setRotationPoint(0.2F, -8.7F, 3.0F);
         this.plants_2.addBox(0.0F, 0.0F, 0.0F, 8, 0, 10, 0.0F);
         this.setRotateAngle(plants_2, -0.22689280275926282F, 0.0F, -0.08726646259971647F);
-        this.plants_4 = new RendererModel(this, 94, 56);
+        this.plants_4 = new ModelRenderer(this, 94, 56);
         this.plants_4.setRotationPoint(3.0F, -8.8F, 0.3F);
         this.plants_4.addBox(0.0F, 0.0F, 0.0F, 10, 0, 8, 0.0F);
         this.setRotateAngle(plants_4, 0.06981317007977318F, 0.0F, 0.22689280275926282F);
-        this.strap_1 = new RendererModel(this, 119, 39);
+        this.strap_1 = new ModelRenderer(this, 119, 39);
         this.strap_1.setRotationPoint(4.5F, 0.0F, 0.0F);
         this.strap_1.addBox(-1.0F, -8.0F, 0.0F, 1, 8, 1, 0.0F);
-        this.plants = new RendererModel(this, 54, 54);
+        this.plants = new ModelRenderer(this, 54, 54);
         this.plants.setRotationPoint(0.2F, -8.8F, -3.0F);
         this.plants.addBox(0.0F, 0.0F, -10.0F, 8, 0, 10, 0.0F);
         this.setRotateAngle(plants, -0.1361356816555577F, 0.0F, 0.1361356816555577F);
-        this.strap_2 = new RendererModel(this, 124, 39);
+        this.strap_2 = new ModelRenderer(this, 124, 39);
         this.strap_2.setRotationPoint(-4.5F, 0.0F, 0.0F);
         this.strap_2.addBox(0.0F, -8.0F, 0.0F, 1, 8, 1, 0.0F);
-        this.wood_beam_1 = new RendererModel(this, 82, 3);
+        this.wood_beam_1 = new ModelRenderer(this, 82, 3);
         this.wood_beam_1.setRotationPoint(0.0F, -9.0F, 3.0F);
         this.wood_beam_1.addBox(-0.5F, 0.0F, 0.0F, 1, 1, 10, 0.0F);
         this.setRotateAngle(wood_beam_1, -0.2181661564992912F, 0.0F, 0.0F);
-        this.wood_beam_6 = new RendererModel(this, 108, 4);
+        this.wood_beam_6 = new ModelRenderer(this, 108, 4);
         this.wood_beam_6.setRotationPoint(3.0F, -9.01F, 3.0F);
         this.wood_beam_6.addBox(-1.0F, 0.0F, -0.5F, 9, 1, 1, 0.0F);
         this.setRotateAngle(wood_beam_6, 0.0F, -0.7853981633974483F, 0.08726646259971647F);
-        this.wood_beam_7 = new RendererModel(this, 108, 6);
+        this.wood_beam_7 = new ModelRenderer(this, 108, 6);
         this.wood_beam_7.setRotationPoint(-3.0F, -9.01F, 3.0F);
         this.wood_beam_7.addBox(-1.0F, 0.0F, -0.5F, 9, 1, 1, 0.0F);
         this.setRotateAngle(wood_beam_7, 0.0F, -2.356194490192345F, -0.08726646259971647F);
-        this.hanging_plants = new RendererModel(this, 94, -5);
+        this.hanging_plants = new ModelRenderer(this, 94, -5);
         this.hanging_plants.setRotationPoint(-8.0F, -8.4F, -8.0F);
         this.hanging_plants.addBox(0.0F, 0.0F, 0.0F, 0, 6, 5, 0.0F);
         this.setRotateAngle(hanging_plants, 0.0F, 0.7853981633974483F, 0.0F);
-        this.plants_6 = new RendererModel(this, 90, 47);
+        this.plants_6 = new ModelRenderer(this, 90, 47);
         this.plants_6.setRotationPoint(-3.0F, -8.8F, 0.3F);
         this.plants_6.addBox(-10.0F, 0.0F, 0.0F, 10, 0, 8, 0.0F);
         this.setRotateAngle(plants_6, 0.06981317007977318F, 0.0F, -0.22689280275926282F);
-        this.hat_base = new RendererModel(this, 104, 15);
+        this.hat_base = new ModelRenderer(this, 104, 15);
         this.hat_base.setRotationPoint(0.0F, 0.0F, 0.0F);
         this.hat_base.addBox(-3.0F, -13.0F, -3.0F, 6, 5, 6, 0.0F);
         this.setRotateAngle(hat_base, 0.0F, 0.0F, 0.012740903539558604F);
-        this.hanging_plants_2 = new RendererModel(this, 89, 9);
+        this.hanging_plants_2 = new ModelRenderer(this, 89, 9);
         this.hanging_plants_2.setRotationPoint(4.0F, -8.0F, -4.0F);
         this.hanging_plants_2.addBox(0.0F, 0.0F, 0.0F, 0, 6, 6, 0.0F);
         this.setRotateAngle(hanging_plants_2, 0.0F, 2.356194490192345F, 0.0F);
-        this.wood_beam_3 = new RendererModel(this, 106, 8);
+        this.wood_beam_3 = new ModelRenderer(this, 106, 8);
         this.wood_beam_3.setRotationPoint(-3.0F, -9.0F, 0.0F);
         this.wood_beam_3.addBox(-10.0F, 0.0F, -0.5F, 10, 1, 1, 0.0F);
         this.setRotateAngle(wood_beam_3, 0.0F, 0.0F, -0.2181661564992912F);
-        this.wood_beam_4 = new RendererModel(this, 108, 0);
+        this.wood_beam_4 = new ModelRenderer(this, 108, 0);
         this.wood_beam_4.setRotationPoint(3.0F, -9.01F, -3.0F);
         this.wood_beam_4.addBox(-1.0F, 0.0F, -0.5F, 9, 1, 1, 0.0F);
         this.setRotateAngle(wood_beam_4, 0.0F, 0.7853981633974483F, 0.0F);
-        this.plants_5 = new RendererModel(this, 73, 56);
+        this.plants_5 = new ModelRenderer(this, 73, 56);
         this.plants_5.setRotationPoint(3.0F, -8.7F, -0.3F);
         this.plants_5.addBox(0.0F, 0.0F, -8.0F, 10, 0, 8, 0.0F);
         this.setRotateAngle(plants_5, -0.10471975511965977F, 0.0F, 0.22689280275926282F);
-        this.plants_1 = new RendererModel(this, 54, 32);
+        this.plants_1 = new ModelRenderer(this, 54, 32);
         this.plants_1.setRotationPoint(-0.2F, -8.8F, -3.0F);
         this.plants_1.addBox(-8.0F, 0.0F, -10.0F, 8, 0, 10, 0.0F);
         this.setRotateAngle(plants_1, -0.1361356816555577F, 0.0F, -0.1361356816555577F);
-        this.strap = new RendererModel(this, 108, 13);
+        this.strap = new ModelRenderer(this, 108, 13);
         this.strap.setRotationPoint(0.0F, -0.5F, -3.5F);
         this.strap.addBox(-4.5F, 0.0F, 0.0F, 9, 1, 1, 0.0F);
         this.setRotateAngle(strap, -0.3700098014227978F, 0.0F, 0.0F);
-        this.top_plants_2 = new RendererModel(this, 68, 26);
+        this.top_plants_2 = new ModelRenderer(this, 68, 26);
         this.top_plants_2.setRotationPoint(3.0F, -13.0F, 0.0F);
         this.top_plants_2.addBox(-2.0F, 0.0F, -6.0F, 12, 0, 12, 0.0F);
         this.setRotateAngle(top_plants_2, 0.0F, 0.0F, 0.6283185307179586F);
-        this.top_plants = new RendererModel(this, 52, 0);
+        this.top_plants = new ModelRenderer(this, 52, 0);
         this.top_plants.setRotationPoint(0.0F, -13.0F, -3.0F);
         this.top_plants.addBox(-6.0F, 0.0F, -10.0F, 12, 0, 12, 0.0F);
         this.setRotateAngle(top_plants, 0.35779249665883756F, 0.0F, 0.0F);
@@ -174,20 +178,26 @@ public class PlantHatModel<T extends LivingEntity> extends BipedModel<T>
         this.hat_base.addChild(this.strap);
         this.hat_base.addChild(this.top_plants_2);
         this.hat_base.addChild(this.top_plants);
-        
-        this.bipedHead.addChild(this.hat_base);
     }
 
     @Override
-    public void render(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
+    public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha)
     {
-    	super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+    	super.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+    	matrixStackIn.push();
+    	//Moves the Hat slightly down on armor stands so it doesnt float in the air
+    	if(this.entity instanceof ArmorStandEntity)
+    	{
+    		matrixStackIn.translate(0.0F, 0.12F, 0.0F);
+    	}
+    	this.hat_base.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+    	matrixStackIn.pop();
     }
     
     /**
      * This is a helper function from Tabula to set the rotation of model parts
      */
-    public void setRotateAngle(RendererModel modelRenderer, float x, float y, float z)
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
     {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
@@ -195,21 +205,19 @@ public class PlantHatModel<T extends LivingEntity> extends BipedModel<T>
     }
     
     @Override
-    public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor)
+    public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch)
     {
+    	this.entity = entityIn;
+    	
     	if(!(entityIn instanceof ArmorStandEntity))
     	{
-    		super.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
+    		super.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
     	}
     	
-    	//Moves the Hat slightly down on armor stands so it doesnt float in the air
-    	if(entityIn instanceof ArmorStandEntity)
-    	{
-    		this.hat_base.offsetY = 0.12F;
-    	}
-    	
+    	this.hat_base.copyModelAngles(this.bipedHead);
+    		
     	//Some movement to make the hat look better
-    	if(entityIn.posX != entityIn.prevPosX || entityIn.posZ != entityIn.prevPosZ)
+    	if(entityIn.getPosX() != entityIn.prevPosX || entityIn.getPosZ() != entityIn.prevPosZ)
     	{
     		//Moves the hanging grass parts on the right side of the hat
     		this.hanging_plants.rotateAngleZ += calculateRotation(0.4F, 0.12F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
@@ -228,7 +236,7 @@ public class PlantHatModel<T extends LivingEntity> extends BipedModel<T>
     /**
      * Helper Method used to calculate rotation for moving model parts
      */
-    private float calculateRotation(float speed, float degree, boolean invert, float delay, float weight, float limbSwing, float limbSwingAmount)
+	private float calculateRotation(float speed, float degree, boolean invert, float delay, float weight, float limbSwing, float limbSwingAmount)
     {
         float movementScale = 1.0F;
         if(invert == true)

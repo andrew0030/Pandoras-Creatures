@@ -317,7 +317,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
         		if(feedingCooldown <= 0)
         		{
         			feedingCooldown = 10;
-        			this.world.playSound((PlayerEntity)null, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_HORSE_EAT, this.getSoundCategory(), 1.0F, 1.0F);
+        			this.world.playSound((PlayerEntity)null, this.getPosX(), this.getPosY(), this.getPosZ(), SoundEvents.ENTITY_HORSE_EAT, this.getSoundCategory(), 1.0F, 1.0F);
 		    		if(!player.abilities.isCreativeMode)
 		    		{
 		                itemstack.shrink(1);
@@ -340,7 +340,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
         		if(this.getHealth() < this.getMaxHealth())
         		{
         			this.heal(2.0F);
-        			this.world.playSound((PlayerEntity)null, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_HORSE_EAT, this.getSoundCategory(), 1.0F, 1.0F);
+        			this.world.playSound((PlayerEntity)null, this.getPosX(), this.getPosY(), this.getPosZ(), SoundEvents.ENTITY_HORSE_EAT, this.getSoundCategory(), 1.0F, 1.0F);
         			if(!player.abilities.isCreativeMode)
 		    		{
 		                itemstack.shrink(1);
@@ -348,7 +348,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
         		}
         		else
         		{
-        			if(player.isSneaking())
+        			if(player.isShiftKeyDown())//This is the new isSneaking().
             		{
             			this.openGUI(player);
             		}
@@ -372,11 +372,11 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
         }
         else if(itemstack.getItem() == Items.AIR)
         {
-        	if(this.isTamed() && player.isSneaking())
+        	if(this.isTamed() && player.isShiftKeyDown())//This is the new isSneaking().
         	{
                 this.openGUI(player);
         	}
-        	else if(this.isTamed() && !player.isSneaking())
+        	else if(this.isTamed() && !player.isShiftKeyDown())//This is the new isSneaking().
         	{
         		mountTo(player);
         	}
@@ -393,7 +393,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
     {
     	boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float)((int)this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getValue()));
     	//The attack sound
-    	this.world.playSound((PlayerEntity)null, this.posX, this.posY, this.posZ, PCSounds.BUFFLON_ATTACK.get(), this.getSoundCategory(), 0.6F, 0.8F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
+    	this.world.playSound((PlayerEntity)null, this.getPosX(), this.getPosY(), this.getPosZ(), PCSounds.BUFFLON_ATTACK.get(), this.getSoundCategory(), 0.6F, 0.8F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
     	//The attack animation
     	if(this.isAnimationPlaying(BLANK_ANIMATION) && !this.getEntityWorld().isRemote())
     	{
@@ -522,7 +522,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
         		}
         		else
         		{
-        			this.world.playSound((PlayerEntity)null, this.posX, this.posY, this.posZ, PCSounds.BUFFLON_ATTACK.get(), this.getSoundCategory(), 0.6F, 0.8F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
+        			this.world.playSound((PlayerEntity)null, this.getPosX(), this.getPosY(), this.getPosZ(), PCSounds.BUFFLON_ATTACK.get(), this.getSoundCategory(), 0.6F, 0.8F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
         			//Removes the Passengers
         			for(int i = this.getPassengers().size() - 1; i >= 0; --i)
         			{
@@ -631,7 +631,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
             }
 
             Vec3d vec3d = (new Vec3d((double)offsetX, 0.0D, 0.0D)).rotateYaw(-this.rotationYaw * ((float)Math.PI / 180F) - ((float)Math.PI / 2F));
-            passenger.setPosition(this.posX + vec3d.x, this.posY + (double)offsetY, this.posZ + vec3d.z);
+            passenger.setPosition(this.getPosX() + vec3d.x, this.getPosY() + (double)offsetY, this.getPosZ() + vec3d.z);
          }
     }
     
@@ -811,9 +811,9 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
 	    			
 	    			//Some code so other people see the walk animation
 	    			this.prevLimbSwingAmount = this.limbSwingAmount;
-	    		  	double finalPosX = this.posX - this.prevPosX;
-	    			double finalPosZ = this.posZ - this.prevPosZ;
-	    			double finalPosY = this instanceof IFlyingAnimal ? this.posY - this.prevPosY : 0.0D;
+	    		  	double finalPosX = this.getPosX() - this.prevPosX;
+	    			double finalPosZ = this.getPosZ() - this.prevPosZ;
+	    			double finalPosY = this instanceof IFlyingAnimal ? this.getPosY() - this.prevPosY : 0.0D;
 	    			float swingAmountModifier = MathHelper.sqrt(finalPosX * finalPosX + finalPosY * finalPosY + finalPosZ * finalPosZ) * 4.0F;
 	    		   	if(swingAmountModifier > 1.0F)
 	    		   	{
@@ -912,7 +912,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
     
     public boolean isMoving()
     {
-    	if(this.posX != prevPosX || this.posZ != this.prevPosZ)
+    	if(this.getPosX() != prevPosX || this.getPosZ() != this.prevPosZ)
     	{
     		return true;
     	}
@@ -935,7 +935,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
     		double d0 = this.rand.nextGaussian() * 0.02D;
     		double d1 = this.rand.nextGaussian() * 0.02D;
     		double d2 = this.rand.nextGaussian() * 0.02D;
-    		this.world.addParticle(iparticledata, this.posX + (double)(this.rand.nextFloat() * this.getWidth() * 2.0F) - (double)this.getWidth(), this.posY + 0.5D + (double)(this.rand.nextFloat() * this.getHeight()), this.posZ + (double)(this.rand.nextFloat() * this.getWidth() * 2.0F) - (double)this.getWidth(), d0, d1, d2);
+    		this.world.addParticle(iparticledata, this.getPosX() + (double)(this.rand.nextFloat() * this.getWidth() * 2.0F) - (double)this.getWidth(), this.getPosY() + 0.5D + (double)(this.rand.nextFloat() * this.getHeight()), this.getPosZ() + (double)(this.rand.nextFloat() * this.getWidth() * 2.0F) - (double)this.getWidth(), d0, d1, d2);
     	}
     }
 

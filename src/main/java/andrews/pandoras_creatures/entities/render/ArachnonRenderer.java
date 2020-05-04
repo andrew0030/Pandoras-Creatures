@@ -20,7 +20,7 @@ public class ArachnonRenderer extends MobRenderer<ArachnonEntity, ArachnonModel<
     }
 	
 	@Override
-	protected ResourceLocation getEntityTexture(ArachnonEntity entity)
+	public ResourceLocation getEntityTexture(ArachnonEntity entity)
 	{
 		return new ResourceLocation(Reference.MODID, "textures/entity/arachnon/arachnon.png");
 	}

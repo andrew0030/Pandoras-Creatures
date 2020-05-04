@@ -81,7 +81,7 @@ public class TargetUnderneathGoal<T extends LivingEntity> extends TargetGoal
 
 	protected void findNearestTarget()
 	{
-		this.nearestTarget = this.goalOwner.world.<T>func_225318_b(this.targetClass, this.targetEntitySelector, this.goalOwner, this.goalOwner.posX, this.goalOwner.posY + (double)this.goalOwner.getEyeHeight(), this.goalOwner.posZ, this.getTargetableArea(this.getTargetDistance()));
+		this.nearestTarget = this.goalOwner.world.<T>func_225318_b(this.targetClass, this.targetEntitySelector, this.goalOwner, this.goalOwner.getPosX(), this.goalOwner.getPosY() + (double)this.goalOwner.getEyeHeight(), this.goalOwner.getPosZ(), this.getTargetableArea(this.getTargetDistance()));
 	}
 
 	/**
@@ -136,7 +136,7 @@ public class TargetUnderneathGoal<T extends LivingEntity> extends TargetGoal
 				{
 					this.goalOwner.world.setEntityState(this.goalOwner, (byte)6);
 					((AcidicArchvineEntity) this.goalOwner).setAttackState(2);
-					this.nearestTarget.setPositionAndUpdate(this.goalOwner.posX, this.goalOwner.posY - 0.5, this.goalOwner.posZ);
+					this.nearestTarget.setPositionAndUpdate(this.goalOwner.getPosX(), this.goalOwner.getPosY() - 0.5, this.goalOwner.getPosZ());
 					this.nearestTarget.setMotion(0, 0, 0);
 					if(this.nearestTarget instanceof PlayerEntity)
 					{

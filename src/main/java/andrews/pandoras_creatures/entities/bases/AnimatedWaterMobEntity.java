@@ -3,7 +3,9 @@ package andrews.pandoras_creatures.entities.bases;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 
@@ -12,6 +14,7 @@ public abstract class AnimatedWaterMobEntity extends AnimatedCreatureEntity
 	protected AnimatedWaterMobEntity(EntityType<? extends AnimatedWaterMobEntity> type, World world)
 	{
 		super(type, world);
+		this.setPathPriority(PathNodeType.WATER, 0.0F);
 	}
 
 	@Override
@@ -29,7 +32,7 @@ public abstract class AnimatedWaterMobEntity extends AnimatedCreatureEntity
 	@Override
 	public boolean isNotColliding(IWorldReader worldIn)
 	{
-		return worldIn.checkNoEntityCollision(this);
+		return worldIn.checkNoEntityCollision(this, VoxelShapes.create(this.getBoundingBox()));
 	}
 
 	/**

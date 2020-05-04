@@ -13,7 +13,6 @@ import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.AttachFace;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -136,11 +135,5 @@ public class BlockArachnonCrystal extends HorizontalFaceBlock implements IWaterL
 	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder)
 	{
 		builder.add(FACE, HORIZONTAL_FACING, WATERLOGGED);
-	}
-	
-	@Override
-	public BlockRenderLayer getRenderLayer()
-	{
-		return BlockRenderLayer.CUTOUT;
 	}
 }

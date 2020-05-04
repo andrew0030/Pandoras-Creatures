@@ -4,10 +4,12 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
+import andrews.pandoras_creatures.entities.bases.AnimatedMonsterEntity;
 import andrews.pandoras_creatures.entities.goals.hellhound.HellHoundAttack;
 import andrews.pandoras_creatures.registry.PCEntities;
 import andrews.pandoras_creatures.registry.PCItems;
 import andrews.pandoras_creatures.registry.PCSounds;
+import andrews.pandoras_creatures.util.animation.Animation;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -20,7 +22,6 @@ import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.LookRandomlyGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
-import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -41,7 +42,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.Constants.NBT;
 
-public class HellhoundEntity extends MonsterEntity
+public class HellhoundEntity extends AnimatedMonsterEntity
 {
 	private static final DataParameter<Integer> HELLHOUND_TYPE = EntityDataManager.createKey(HellhoundEntity.class, DataSerializers.VARINT);
 	private int isCharging;
@@ -87,6 +88,12 @@ public class HellhoundEntity extends MonsterEntity
     {
     	return new ItemStack(PCItems.HELLHOUND_SPAWN_EGG.get());
     }
+    
+    @Override
+   	public Animation[] getAnimations()
+    {
+   		return null;
+   	}
     
     @Override
 	public void writeAdditional(CompoundNBT compound)
@@ -174,14 +181,14 @@ public class HellhoundEntity extends MonsterEntity
             
         	if((this.ticksExisted % 5) == 0)
         	{
-        		double particleY = this.posY + 0.8D;
+        		double particleY = this.getPosY() + 0.8D;
         		if(this.getHellhoundType() == 2)
         		{
         			particleY += 0.2D;
         		}
         		
-        		this.world.addParticle(ParticleTypes.FLAME, this.posX, particleY, this.posZ, (rand.nextDouble() - 0.5D) / 10, (rand.nextDouble() - 0.5D) / 10, (rand.nextDouble() - 0.5D) / 10);
-        		this.world.addParticle(ParticleTypes.SMOKE, this.posX, particleY, this.posZ, (rand.nextDouble() - 0.5D) / 10, (rand.nextDouble() - 0.5D) / 10, (rand.nextDouble() - 0.5D) / 10);
+        		this.world.addParticle(ParticleTypes.FLAME, this.getPosX(), particleY, this.getPosZ(), (rand.nextDouble() - 0.5D) / 10, (rand.nextDouble() - 0.5D) / 10, (rand.nextDouble() - 0.5D) / 10);
+        		this.world.addParticle(ParticleTypes.SMOKE, this.getPosX(), particleY, this.getPosZ(), (rand.nextDouble() - 0.5D) / 10, (rand.nextDouble() - 0.5D) / 10, (rand.nextDouble() - 0.5D) / 10);
         	}
         }
      }

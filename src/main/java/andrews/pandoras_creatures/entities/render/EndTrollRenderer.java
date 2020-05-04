@@ -20,7 +20,7 @@ public class EndTrollRenderer extends MobRenderer<EndTrollEntity, EndTrollModel<
     }
 	
 	@Override
-	protected ResourceLocation getEntityTexture(EndTrollEntity entity)
+	public ResourceLocation getEntityTexture(EndTrollEntity entity)
 	{
 		return new ResourceLocation(Reference.MODID, "textures/entity/end_troll/end_troll_1.png");
 	}

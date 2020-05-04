@@ -3,7 +3,6 @@ package andrews.pandoras_creatures.entities.bases;
 import andrews.pandoras_creatures.util.interfaces.IBucketableEntity;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.passive.WaterMobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -16,7 +15,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 
-public abstract class BucketableMobEntity extends WaterMobEntity implements IBucketableEntity
+public abstract class BucketableMobEntity extends AnimatedWaterMobEntity implements IBucketableEntity
 {
     private static final DataParameter<Boolean> FROM_BUCKET = EntityDataManager.createKey(BucketableMobEntity.class, DataSerializers.BOOLEAN);
 

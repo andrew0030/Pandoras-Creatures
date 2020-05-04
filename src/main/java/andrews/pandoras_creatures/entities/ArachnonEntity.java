@@ -1,9 +1,11 @@
 package andrews.pandoras_creatures.entities;
 
+import andrews.pandoras_creatures.entities.bases.AnimatedMonsterEntity;
 import andrews.pandoras_creatures.entities.goals.arachnon.MeleeAttackGoalWithRange;
 import andrews.pandoras_creatures.registry.PCEntities;
 import andrews.pandoras_creatures.registry.PCItems;
 import andrews.pandoras_creatures.registry.PCSounds;
+import andrews.pandoras_creatures.util.animation.Animation;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.Entity;
@@ -17,7 +19,6 @@ import net.minecraft.entity.ai.goal.LookRandomlyGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
-import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -30,7 +31,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class ArachnonEntity extends MonsterEntity
+public class ArachnonEntity extends AnimatedMonsterEntity
 {
 	private int attackTimer;
 	
@@ -72,6 +73,12 @@ public class ArachnonEntity extends MonsterEntity
     {
     	return new ItemStack(PCItems.ARACHNON_SPAWN_EGG.get());
     }
+    
+    @Override
+	public Animation[] getAnimations()
+    {
+		return null;
+	}
     
     @Override
     protected int getExperiencePoints(PlayerEntity player)

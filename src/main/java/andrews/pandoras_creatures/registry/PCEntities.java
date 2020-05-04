@@ -100,16 +100,16 @@ public class PCEntities
     @OnlyIn(Dist.CLIENT)
     public static void registerEntityRenders()
     {
-		RenderingRegistry.registerEntityRenderingHandler(ArachnonEntity.class, ArachnonRenderer::new);
-		RenderingRegistry.registerEntityRenderingHandler(HellhoundEntity.class, HellhoundRenderer::new);
-		RenderingRegistry.registerEntityRenderingHandler(CrabEntity.class, CrabRenderer::new);
-		RenderingRegistry.registerEntityRenderingHandler(SeahorseEntity.class, SeahorseRenderer::new);
-		RenderingRegistry.registerEntityRenderingHandler(AcidicArchvineEntity.class, AcidicArchvineRenderer::new);
-		RenderingRegistry.registerEntityRenderingHandler(BufflonEntity.class, BufflonRenderer::new);
-		RenderingRegistry.registerEntityRenderingHandler(EndTrollEntity.class, EndTrollRenderer::new);
-		RenderingRegistry.registerEntityRenderingHandler(EndTrollBulletPoisonEntity.class, EndTrollBulletPoisonRenderer::new);
-		RenderingRegistry.registerEntityRenderingHandler(EndTrollBulletWitherEntity.class, EndTrollBulletWitherRenderer::new);
-		RenderingRegistry.registerEntityRenderingHandler(EndTrollBulletDamageEntity.class, EndTrollBulletDamageRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(ARACHNON.get(), ArachnonRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(HELLHOUND.get(), HellhoundRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(CRAB.get(), CrabRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(SEAHORSE.get(), SeahorseRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(ACIDIC_ARCHVINE.get(), AcidicArchvineRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(BUFFLON.get(), BufflonRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(END_TROLL.get(), EndTrollRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(END_TROLL_BULLET_POISON.get(), EndTrollBulletPoisonRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(END_TROLL_BULLET_WITHER.get(), EndTrollBulletWitherRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(END_TROLL_BULLET_DAMAGE.get(), EndTrollBulletDamageRenderer::new);
     }
     
     //=========================================================================================================================================================================================================================================

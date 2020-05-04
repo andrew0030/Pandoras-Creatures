@@ -20,7 +20,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.feature.structure.TemplateStructurePiece;
@@ -130,12 +129,12 @@ public class EndPrisonPieces
 			}
         }
 
-        @Override
-        public boolean addComponentParts(IWorld world, Random random, MutableBoundingBox bounds, ChunkPos chunkPos)
-        {
-            this.templatePosition = new BlockPos(this.templatePosition.getX(), 120, this.templatePosition.getZ());
-            
-            return super.addComponentParts(world, random, bounds, chunkPos);
-        }
+//        @Override
+//        public boolean addComponentParts(IWorld world, Random random, MutableBoundingBox bounds, ChunkPos chunkPos)
+//        {
+//            this.templatePosition = new BlockPos(this.templatePosition.getX(), 120, this.templatePosition.getZ());
+//            
+//            return super.addComponentParts(world, random, bounds, chunkPos);
+//        }
     }
 }

@@ -194,7 +194,7 @@ public class EndTrollBulletDamageEntity extends Entity
 				this.setMotion(vec3d.add((this.targetDeltaX - vec3d.x) * 0.2D, (this.targetDeltaY - vec3d.y) * 0.2D, (this.targetDeltaZ - vec3d.z) * 0.2D));
 			}
 
-			RayTraceResult raytraceresult = ProjectileHelper.func_221266_a(this, true, false, this.owner, RayTraceContext.BlockMode.COLLIDER);
+			RayTraceResult raytraceresult = ProjectileHelper.rayTrace(this, true, false, this.owner, RayTraceContext.BlockMode.COLLIDER);
 			if(raytraceresult.getType() != RayTraceResult.Type.MISS && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult))
 			{
 				this.bulletHit(raytraceresult);
@@ -202,11 +202,11 @@ public class EndTrollBulletDamageEntity extends Entity
 		}
 
 		Vec3d vec3d1 = this.getMotion();
-		this.setPosition(this.posX + vec3d1.x, this.posY + vec3d1.y, this.posZ + vec3d1.z);
+		this.setPosition(this.getPosX() + vec3d1.x, this.getPosY() + vec3d1.y, this.getPosZ() + vec3d1.z);
      	ProjectileHelper.rotateTowardsMovement(this, 0.5F);
      	if(this.world.isRemote)
      	{
-     		this.world.addParticle(new RedstoneParticleData(141, 0, 0, 1.0F), this.posX - vec3d1.x, this.posY - vec3d1.y + 0.15D, this.posZ - vec3d1.z, 0.0D, 0.0D, 0.0D);
+     		this.world.addParticle(new RedstoneParticleData(141, 0, 0, 1.0F), this.getPosX() - vec3d1.x, this.getPosY() - vec3d1.y + 0.15D, this.getPosZ() - vec3d1.z, 0.0D, 0.0D, 0.0D);
      	}
      	else if(this.target != null && this.target.isAlive())
      	{
@@ -223,7 +223,7 @@ public class EndTrollBulletDamageEntity extends Entity
      		{
      			BlockPos blockpos1 = new BlockPos(this);
      			Direction.Axis direction$axis = this.direction.getAxis();
-     			if(this.world.func_217400_a(blockpos1.offset(this.direction), this))
+     			if(this.world.isTopSolid(blockpos1.offset(this.direction), this))
      			{
      				this.selectNextMoveDirection(direction$axis);
      			}
@@ -266,13 +266,6 @@ public class EndTrollBulletDamageEntity extends Entity
 	{
 		return distance < 16384.0D;
 	}
-   
-	@OnlyIn(Dist.CLIENT)
-	@Override
-	public int getBrightnessForRender()
-	{
-		return 15728880;
-	}
 	
 	/**
 	 * Returns true if other Entities should be prevented from moving through this Entity.
@@ -292,7 +285,7 @@ public class EndTrollBulletDamageEntity extends Entity
 		if(!this.world.isRemote)
 		{
 			this.playSound(SoundEvents.ENTITY_SHULKER_BULLET_HURT, 1.0F, 1.0F);
-			((ServerWorld)this.world).spawnParticle(ParticleTypes.CRIT, this.posX, this.posY, this.posZ, 15, 0.2D, 0.2D, 0.2D, 0.0D);
+			((ServerWorld)this.world).spawnParticle(ParticleTypes.CRIT, this.getPosX(), this.getPosY(), this.getPosZ(), 15, 0.2D, 0.2D, 0.2D, 0.0D);
 			this.remove();
 		}
 
@@ -336,7 +329,7 @@ public class EndTrollBulletDamageEntity extends Entity
 		else
 		{
 			hightModifier = (double)this.target.getHeight() * 0.5D;
-			blockpos = new BlockPos(this.target.posX, this.target.posY + hightModifier, this.target.posZ);
+			blockpos = new BlockPos(this.target.getPosX(), this.target.getPosY() + hightModifier, this.target.getPosZ());
 		}
 
 		double posX = (double)blockpos.getX() + 0.5D;
@@ -397,15 +390,15 @@ public class EndTrollBulletDamageEntity extends Entity
 				direction = list.get(this.rand.nextInt(list.size()));
 			}
 
-			posX = this.posX + (double)direction.getXOffset();
-			posY = this.posY + (double)direction.getYOffset();
-         	posZ = this.posZ + (double)direction.getZOffset();
+			posX = this.getPosX() + (double)direction.getXOffset();
+			posY = this.getPosY() + (double)direction.getYOffset();
+         	posZ = this.getPosZ() + (double)direction.getZOffset();
 		}
 
 		this.setDirection(direction);
-		double totalPosX = posX - this.posX;
-		double totalPosY = posY - this.posY;
-		double totalPosZ = posZ - this.posZ;
+		double totalPosX = posX - this.getPosX();
+		double totalPosY = posY - this.getPosY();
+		double totalPosZ = posZ - this.getPosZ();
 		double deltaTotal = (double)MathHelper.sqrt(totalPosX * totalPosX + totalPosY * totalPosY + totalPosZ * totalPosZ);
 		if(deltaTotal == 0.0D)
 		{
@@ -444,7 +437,7 @@ public class EndTrollBulletDamageEntity extends Entity
 		}
 		else
 		{
-			((ServerWorld)this.world).spawnParticle(ParticleTypes.EXPLOSION, this.posX, this.posY, this.posZ, 2, 0.2D, 0.2D, 0.2D, 0.0D);
+			((ServerWorld)this.world).spawnParticle(ParticleTypes.EXPLOSION, this.getPosX(), this.getPosY(), this.getPosZ(), 2, 0.2D, 0.2D, 0.2D, 0.0D);
 			this.playSound(SoundEvents.ENTITY_SHULKER_BULLET_HIT, 1.0F, 1.0F);
 		}
 

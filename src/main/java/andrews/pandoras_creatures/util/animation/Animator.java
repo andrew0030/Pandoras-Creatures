@@ -22,8 +22,8 @@ public class Animator
 	private int prevTempTick;
 	private boolean correctAnimation;
 	public AnimatedCreatureEntity animatedEntity;
-	private Map<PCRendererModel, float[]> boxValues;
-	private Map<PCRendererModel, float[]> prevBoxValues;
+	private Map<PCModelRenderer, float[]> boxValues;
+	private Map<PCModelRenderer, float[]> prevBoxValues;
     
 	public Animator()
 	{
@@ -102,7 +102,7 @@ public class Animator
 	 * @param model - The PCRendererModel to look up in the box values map
 	 * @return - The AnimatorRendererModel's float array of box values from the box values map
 	 */
-	public float[] getBoxValues(PCRendererModel model)
+	public float[] getBoxValues(PCModelRenderer model)
 	{
 		float[] empty = {0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F};
 		return this.boxValues.computeIfAbsent(model, a -> empty);
@@ -115,7 +115,7 @@ public class Animator
 	 * @param y - The y point
 	 * @param z - The z point
 	 */
-	public void move(PCRendererModel model, float x, float y, float z)
+	public void move(PCModelRenderer model, float x, float y, float z)
 	{
 		if(!this.correctAnimation) return;
 		this.getBoxValues(model)[0] = x;
@@ -130,7 +130,7 @@ public class Animator
 	 * @param y - The y rotation
 	 * @param z - The z rotation
 	 */
-	public void rotate(PCRendererModel model, float x, float y, float z)
+	public void rotate(PCModelRenderer model, float x, float y, float z)
 	{
 		if(!this.correctAnimation) return;
 		this.getBoxValues(model)[3] = x;
@@ -148,7 +148,7 @@ public class Animator
 		{
 			if(stationary)
 			{
-				for(PCRendererModel box : this.prevBoxValues.keySet())
+				for(PCModelRenderer box : this.prevBoxValues.keySet())
 				{
 					float[] transform = this.prevBoxValues.get(box);
 					box.rotationPointX += transform[0];
@@ -164,7 +164,7 @@ public class Animator
 				float tick = (animationTick - this.prevTempTick + getPartialTicks()) / (this.tempTick - this.prevTempTick);
 				float increment = MathHelper.sin((float) (tick * Math.PI / 2.0F));
 				float decrement = 1.0F - increment;	
-				for(PCRendererModel box : this.prevBoxValues.keySet())
+				for(PCModelRenderer box : this.prevBoxValues.keySet())
 				{
 					float[] transform = this.prevBoxValues.get(box);
 					box.rotationPointX += decrement * transform[0];
@@ -174,7 +174,7 @@ public class Animator
 					box.rotateAngleY += decrement * transform[4];
 					box.rotateAngleZ += decrement * transform[5];
 				}
-				for(PCRendererModel box : this.boxValues.keySet())
+				for(PCModelRenderer box : this.boxValues.keySet())
 				{
 					float[] transform = this.boxValues.get(box);       
 					box.rotationPointX += increment * transform[0];
