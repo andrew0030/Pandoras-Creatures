@@ -41,7 +41,7 @@ public class PCTileEntityItemRenderer extends ItemStackTileEntityRenderer
 				//Makes Sure the Box TileEntity has been registered
 				if(PCTileEntities.END_TROLL_BOX.get() != null)
 				{
-					tileentity = new EndTrollBoxTileEntity((DyeColor)null);
+					tileentity = new EndTrollBoxTileEntity((DyeColor)null); //TODO somehow get this out of here cause it gets called WAY TO MUCH
 				}
 			}
 			else
@@ -49,7 +49,13 @@ public class PCTileEntityItemRenderer extends ItemStackTileEntityRenderer
 				//Makes Sure the Box TileEntity has been registered
 				if(PCTileEntities.END_TROLL_BOX.get() != null)
 				{
-//					tileentity = END_TROLL_BOXES[dyecolor.getId()];
+					EndTrollBoxTileEntity[] END_TROLL_BOXES = Arrays.stream(DyeColor.values()) //TODO somehow get this out of here cause it gets called WAY TO MUCH
+						.sorted(Comparator.comparingInt(DyeColor::getId))					   //TODO ALSO LOOK AT IT WTF
+						.map(EndTrollBoxTileEntity::new).toArray((colorId) ->
+						{
+							return new EndTrollBoxTileEntity[colorId];
+						});
+					tileentity = END_TROLL_BOXES[dyecolor.getId()];
 				}
 			}
 			if(tileentity != null)

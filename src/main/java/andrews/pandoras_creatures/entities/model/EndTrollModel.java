@@ -994,21 +994,6 @@ public class EndTrollModel<T extends EndTrollEntity> extends PCEntityModel<T>
     	//Eye Lids
     	this.left_eyelid_base.rotateAngleY = (float) Math.toRadians(0.0F);
     	this.right_eyelid_base.rotateAngleY = (float) Math.toRadians(0.0F);
-    	
-//    	bodyParts = new PCModelRenderer[] {movement_base,bottom_body,stomach,leg_left_1,leg_right_1,torso,body_abs,right_eyelid_base,left_eyelid_base,eye,eye_details_top,eye_details_top_1,eye_details_bottom,
-//		eye_details_bottom_1,neck_bottom_front,yaw_right,yaw_left,mouth_cheeck_left,back,head_top,mouth_cheeck_right,meat_left,meat_right,shoulder_main_left,shoulder_main_right,
-//		arm_left_connection,arm_right_connection,shoulder_bone_left,shoulder_bone_left_1,right_eyelid_side,right_eyelid_top,right_eyelid_bottom,right_eyelid_side_top,right_eyelid_side_bottom,
-//		left_eyelid_side,left_eyelid_top,left_eyelid_bottom,left_eyelid_side_top,left_eyelid_side_bottom,mouth_bottom_front,mouth_bottom_left,mouth_bottom_right,tooth,tooth_1,
-//		neck_bottom_left,tooth_2,neck_bottom_right,tooth_3,tooth_4,mouth_top_lip,head_back,head_parts,head_parts_1,nose_main,mouth_top_front,mouth_top_left,mouth_top_right,tooth_5,
-//		tooth_6,mouth_top_lips_left,mouth_top_left_back,tooth_7,mouth_skin_left,shape62,mouth_top_lips_right,mouth_top_right_back,tooth_8,mouth_skin_right,shape72,head_left,head_right,
-//		head_back_cover,head_parts_2,head_parts_3,head_parts_4,head_parts_5,nose_bottom,nose_left,nose_right,nose_top,nose_front,nose_left_2,nose_left_3,nose_right_2,nose_right_3,
-//		nose_tip,shape90,shape91,shape92,shape95,shape97,shape93,shape96,shape90_1,shape91_1,shape92_1,shape95_1,shape97_1,shape93_1,shape96_1,arm_left_rotation_point,arm_left_main,
-//		arm_left_1,spike,arm_left_2,arm_left_1_decoration,arm_left_1_decoration_1,hand_left_main,hand_left_back,hand_left_finger_right_1,hand_left_finger_left_1,hand_left_2,hand_left_finger_right_2,
-//		hand_left_finger_right_3,hand_left_finger_left_2,hand_left_finger_left_3,hand_left_thumb_1,hand_left_thumb_2,spike_1,spike_2,arm_right_rotation_point,arm_right_main,arm_right_1,
-//		spike_3,arm_right_2,arm_right_1_decoration,arm_right_1_decoration_1,hand_right_main,hand_right_back,hand_right_finger_right_1,hand_right_finger_left_1,hand_right_2,hand_right_finger_right_2,
-//		hand_right_finger_right_3,hand_right_finger_left_2,hand_right_finger_left_3,hand_right_thumb_1,hand_right_thumb_2,spike_4,spike_5,spike_6,spike_7,spike_8,spike_9,spike_10,
-//		spike_11,body_abs_bottom,leg_left_2,leg_left_top_decoration,leg_left_3,leg_left_calf_muscle,leg_left_4,foot_left_front_slope,foot_left_back,foot_left_back_slope,leg_right_2,
-//		leg_right_top_decoration,leg_right_3,leg_right_calf_muscle,leg_right_4,foot_right_front_slope,foot_right_back,foot_right_back_slope};
     	        		
     	saveAllDefaultValues();
     }

@@ -180,9 +180,9 @@ public class PCModelRenderer extends ModelRenderer
 	//Looped Animation System
     public void saveAsDefaultPose()
     {
-        this.defaultRotationX = this.rotateAngleX;
-        this.defaultRotationY = this.rotateAngleY;
-        this.defaultRotationZ = this.rotateAngleZ;
+//        this.defaultRotationX = this.rotateAngleX;
+//        this.defaultRotationY = this.rotateAngleY;
+//        this.defaultRotationZ = this.rotateAngleZ;
 
 //        this.defaultdelayX = this.offsetX;
 //        this.defaultdelayY = this.offsetY;
@@ -196,9 +196,9 @@ public class PCModelRenderer extends ModelRenderer
     //Looped Animation System
     public void loadDefaultPose()
     {
-        this.rotateAngleX = this.defaultRotationX;
-        this.rotateAngleY = this.defaultRotationY;
-        this.rotateAngleZ = this.defaultRotationZ;
+//        this.rotateAngleX = this.defaultRotationX;
+//        this.rotateAngleY = this.defaultRotationY;
+//        this.rotateAngleZ = this.defaultRotationZ;
 
 //        this.offsetX = this.defaultdelayX;
 //        this.offsetY = this.defaultdelayY;
