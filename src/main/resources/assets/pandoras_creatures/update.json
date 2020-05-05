@@ -1,9 +1,10 @@
 {
   "homepage": "https://www.curseforge.com/minecraft/mc-mods/pandoras-creatures/files",
   "promos": {
-		"1.14.4-recommended": "1.14.4-0.13.0"
+		"1.14.4-recommended": "1.14.4-0.13.1"
 	},
 	"1.14.4": {
+		"1.14.4-0.13.1": "A Bug fix update that fixes the End Troll Spawning bug.",
 		"1.14.4-0.13.0": "The End Troll Update.",
 		"1.14.4-0.12.0": "Added Bufflon Entity.\n - The Bufflon has multiple variants and spawns in snowy grass lands.\nImproved Arachnon Hammer code and fixed some bugs.\nAdded Wither Hellhound.\nAdded French translation.\nAdded Spanish translation.\nUpdated all other langs.\n - Now they are all up to date.\nAdded Config system for mob spawning.\nAdded herb blocks that spawn in world.\nMade arachnon crystal a Block.\nFixed Update Message Spam on servers.",
 		"1.14.4-0.11.0": "Added buttons to Pandoras Creatures Creative Tab.\n - The Button fade in time can be increased or disabled in the config.\nReplaced the Arachnon Hammer model.\nMade Arachnon Hammer break blocks depending on the side of the block you break.\nAdded English Upside Down lang.\nUpdated all other langs.\n - Now they are all up to date.\nAdded tools for Mod translators.",
