@@ -1,5 +1,6 @@
 package andrews.pandoras_creatures.registry.util;
 
+import java.util.concurrent.Callable;
 import java.util.function.Supplier;
 
 import javax.annotation.Nullable;
@@ -9,8 +10,8 @@ import andrews.pandoras_creatures.objects.items.PCSpawnEggItem;
 import andrews.pandoras_creatures.objects.items.PCSpawnEggWithTooltipItem;
 import andrews.pandoras_creatures.registry.PCBlocks;
 import andrews.pandoras_creatures.registry.PCItems;
-import andrews.pandoras_creatures.tile_entities.item.PCTileEntityItemRenderer;
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -70,16 +71,16 @@ public class RegistryUtils
 	/**
 	 * Creates a Block that has a TESR
 	 */
-	public static <B extends Block> RegistryObject<B> createBlockWithTESIR(String name, Supplier<? extends B> supplier, boolean isItemStackable, @Nullable ItemGroup group)
+	public static <B extends Block> RegistryObject<B> createBlockWithTESIR(String name, Supplier<? extends B> supplier, boolean isItemStackable, final Supplier<Callable<ItemStackTileEntityRenderer>> ister, @Nullable ItemGroup group)
 	{
 		RegistryObject<B> block = PCBlocks.BLOCKS.register(name, supplier);
 		if(isItemStackable)
 		{
-			PCItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().group(group).setISTER(() -> PCTileEntityItemRenderer::new)));
+			PCItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().group(group).setISTER(ister)));
 		}
 		else
 		{
-			PCItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().group(group).maxStackSize(1).setISTER(() -> PCTileEntityItemRenderer::new)));
+			PCItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().group(group).maxStackSize(1).setISTER(ister)));
 		}
 		return block;
 	}

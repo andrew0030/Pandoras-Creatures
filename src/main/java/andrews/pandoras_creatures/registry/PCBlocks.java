@@ -1,13 +1,21 @@
 package andrews.pandoras_creatures.registry;
 
+import java.util.concurrent.Callable;
+
 import andrews.pandoras_creatures.Main;
 import andrews.pandoras_creatures.objects.blocks.BlockArachnonCrystal;
 import andrews.pandoras_creatures.objects.blocks.BlockEndTrollBox;
 import andrews.pandoras_creatures.objects.blocks.PCBlockBush;
 import andrews.pandoras_creatures.registry.util.RegistryUtils;
+import andrews.pandoras_creatures.tile_entities.EndTrollBoxTileEntity;
+import andrews.pandoras_creatures.tile_entities.item.PCTileEntityItemRenderer;
 import andrews.pandoras_creatures.util.Reference;
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
 import net.minecraft.item.DyeColor;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -22,21 +30,27 @@ public class PCBlocks
 	public static final RegistryObject<Block> HILL_BLOOM			  	= RegistryUtils.createBlock("hill_bloom", () -> new PCBlockBush(), Main.PANDORAS_CREATURES_GROUP);
 	
 	//End Troll Boxes
-	public static final RegistryObject<Block> END_TROLL_BOX	 		  	= RegistryUtils.createBlockWithTESIR("end_troll_box", () -> new BlockEndTrollBox(null), false, Main.PANDORAS_CREATURES_GROUP);
-	public static final RegistryObject<Block> WHITE_END_TROLL_BOX	  	= RegistryUtils.createBlockWithTESIR("white_end_troll_box", () -> new BlockEndTrollBox(DyeColor.WHITE), false, Main.PANDORAS_CREATURES_GROUP);
-	public static final RegistryObject<Block> ORANGE_END_TROLL_BOX	  	= RegistryUtils.createBlockWithTESIR("orange_end_troll_box", () -> new BlockEndTrollBox(DyeColor.ORANGE), false, Main.PANDORAS_CREATURES_GROUP);
-	public static final RegistryObject<Block> MAGENTA_END_TROLL_BOX	 	= RegistryUtils.createBlockWithTESIR("magenta_end_troll_box", () -> new BlockEndTrollBox(DyeColor.MAGENTA), false, Main.PANDORAS_CREATURES_GROUP);
-	public static final RegistryObject<Block> LIGHT_BLUE_END_TROLL_BOX	= RegistryUtils.createBlockWithTESIR("light_blue_end_troll_box", () -> new BlockEndTrollBox(DyeColor.LIGHT_BLUE), false, Main.PANDORAS_CREATURES_GROUP);
-	public static final RegistryObject<Block> YELLOW_END_TROLL_BOX		= RegistryUtils.createBlockWithTESIR("yellow_end_troll_box", () -> new BlockEndTrollBox(DyeColor.YELLOW), false, Main.PANDORAS_CREATURES_GROUP);
-	public static final RegistryObject<Block> LIME_END_TROLL_BOX		= RegistryUtils.createBlockWithTESIR("lime_end_troll_box", () -> new BlockEndTrollBox(DyeColor.LIME), false, Main.PANDORAS_CREATURES_GROUP);
-	public static final RegistryObject<Block> PINK_END_TROLL_BOX		= RegistryUtils.createBlockWithTESIR("pink_end_troll_box", () -> new BlockEndTrollBox(DyeColor.PINK), false, Main.PANDORAS_CREATURES_GROUP);
-	public static final RegistryObject<Block> GRAY_END_TROLL_BOX		= RegistryUtils.createBlockWithTESIR("gray_end_troll_box", () -> new BlockEndTrollBox(DyeColor.GRAY), false, Main.PANDORAS_CREATURES_GROUP);
-	public static final RegistryObject<Block> LIGHT_GRAY_END_TROLL_BOX	= RegistryUtils.createBlockWithTESIR("light_gray_end_troll_box", () -> new BlockEndTrollBox(DyeColor.LIGHT_GRAY), false, Main.PANDORAS_CREATURES_GROUP);
-	public static final RegistryObject<Block> CYAN_END_TROLL_BOX		= RegistryUtils.createBlockWithTESIR("cyan_end_troll_box", () -> new BlockEndTrollBox(DyeColor.CYAN), false, Main.PANDORAS_CREATURES_GROUP);
-	public static final RegistryObject<Block> PURPLE_END_TROLL_BOX		= RegistryUtils.createBlockWithTESIR("purple_end_troll_box", () -> new BlockEndTrollBox(DyeColor.PURPLE), false, Main.PANDORAS_CREATURES_GROUP);
-	public static final RegistryObject<Block> BLUE_END_TROLL_BOX		= RegistryUtils.createBlockWithTESIR("blue_end_troll_box", () -> new BlockEndTrollBox(DyeColor.BLUE), false, Main.PANDORAS_CREATURES_GROUP);
-	public static final RegistryObject<Block> BROWN_END_TROLL_BOX		= RegistryUtils.createBlockWithTESIR("brown_end_troll_box", () -> new BlockEndTrollBox(DyeColor.BROWN), false, Main.PANDORAS_CREATURES_GROUP);
-	public static final RegistryObject<Block> GREEN_END_TROLL_BOX		= RegistryUtils.createBlockWithTESIR("green_end_troll_box", () -> new BlockEndTrollBox(DyeColor.GREEN), false, Main.PANDORAS_CREATURES_GROUP);
-	public static final RegistryObject<Block> RED_END_TROLL_BOX			= RegistryUtils.createBlockWithTESIR("red_end_troll_box", () -> new BlockEndTrollBox(DyeColor.RED), false, Main.PANDORAS_CREATURES_GROUP);
-	public static final RegistryObject<Block> BLACK_END_TROLL_BOX		= RegistryUtils.createBlockWithTESIR("black_end_troll_box", () -> new BlockEndTrollBox(DyeColor.BLACK), false, Main.PANDORAS_CREATURES_GROUP);
+	public static final RegistryObject<Block> END_TROLL_BOX	 		  	= RegistryUtils.createBlockWithTESIR("end_troll_box", () -> new BlockEndTrollBox(null), false, () -> endTrollBoxISTER(), Main.PANDORAS_CREATURES_GROUP);
+	public static final RegistryObject<Block> WHITE_END_TROLL_BOX	  	= RegistryUtils.createBlockWithTESIR("white_end_troll_box", () -> new BlockEndTrollBox(DyeColor.WHITE), false, () -> endTrollBoxISTER(), Main.PANDORAS_CREATURES_GROUP);
+	public static final RegistryObject<Block> ORANGE_END_TROLL_BOX	  	= RegistryUtils.createBlockWithTESIR("orange_end_troll_box", () -> new BlockEndTrollBox(DyeColor.ORANGE), false, () -> endTrollBoxISTER(), Main.PANDORAS_CREATURES_GROUP);
+	public static final RegistryObject<Block> MAGENTA_END_TROLL_BOX	 	= RegistryUtils.createBlockWithTESIR("magenta_end_troll_box", () -> new BlockEndTrollBox(DyeColor.MAGENTA), false, () -> endTrollBoxISTER(), Main.PANDORAS_CREATURES_GROUP);
+	public static final RegistryObject<Block> LIGHT_BLUE_END_TROLL_BOX	= RegistryUtils.createBlockWithTESIR("light_blue_end_troll_box", () -> new BlockEndTrollBox(DyeColor.LIGHT_BLUE), false, () -> endTrollBoxISTER(), Main.PANDORAS_CREATURES_GROUP);
+	public static final RegistryObject<Block> YELLOW_END_TROLL_BOX		= RegistryUtils.createBlockWithTESIR("yellow_end_troll_box", () -> new BlockEndTrollBox(DyeColor.YELLOW), false, () -> endTrollBoxISTER(), Main.PANDORAS_CREATURES_GROUP);
+	public static final RegistryObject<Block> LIME_END_TROLL_BOX		= RegistryUtils.createBlockWithTESIR("lime_end_troll_box", () -> new BlockEndTrollBox(DyeColor.LIME), false, () -> endTrollBoxISTER(), Main.PANDORAS_CREATURES_GROUP);
+	public static final RegistryObject<Block> PINK_END_TROLL_BOX		= RegistryUtils.createBlockWithTESIR("pink_end_troll_box", () -> new BlockEndTrollBox(DyeColor.PINK), false, () -> endTrollBoxISTER(), Main.PANDORAS_CREATURES_GROUP);
+	public static final RegistryObject<Block> GRAY_END_TROLL_BOX		= RegistryUtils.createBlockWithTESIR("gray_end_troll_box", () -> new BlockEndTrollBox(DyeColor.GRAY), false, () -> endTrollBoxISTER(), Main.PANDORAS_CREATURES_GROUP);
+	public static final RegistryObject<Block> LIGHT_GRAY_END_TROLL_BOX	= RegistryUtils.createBlockWithTESIR("light_gray_end_troll_box", () -> new BlockEndTrollBox(DyeColor.LIGHT_GRAY), false, () -> endTrollBoxISTER(), Main.PANDORAS_CREATURES_GROUP);
+	public static final RegistryObject<Block> CYAN_END_TROLL_BOX		= RegistryUtils.createBlockWithTESIR("cyan_end_troll_box", () -> new BlockEndTrollBox(DyeColor.CYAN), false, () -> endTrollBoxISTER(), Main.PANDORAS_CREATURES_GROUP);
+	public static final RegistryObject<Block> PURPLE_END_TROLL_BOX		= RegistryUtils.createBlockWithTESIR("purple_end_troll_box", () -> new BlockEndTrollBox(DyeColor.PURPLE), false, () -> endTrollBoxISTER(), Main.PANDORAS_CREATURES_GROUP);
+	public static final RegistryObject<Block> BLUE_END_TROLL_BOX		= RegistryUtils.createBlockWithTESIR("blue_end_troll_box", () -> new BlockEndTrollBox(DyeColor.BLUE), false, () -> endTrollBoxISTER(), Main.PANDORAS_CREATURES_GROUP);
+	public static final RegistryObject<Block> BROWN_END_TROLL_BOX		= RegistryUtils.createBlockWithTESIR("brown_end_troll_box", () -> new BlockEndTrollBox(DyeColor.BROWN), false, () -> endTrollBoxISTER(), Main.PANDORAS_CREATURES_GROUP);
+	public static final RegistryObject<Block> GREEN_END_TROLL_BOX		= RegistryUtils.createBlockWithTESIR("green_end_troll_box", () -> new BlockEndTrollBox(DyeColor.GREEN), false, () -> endTrollBoxISTER(), Main.PANDORAS_CREATURES_GROUP);
+	public static final RegistryObject<Block> RED_END_TROLL_BOX			= RegistryUtils.createBlockWithTESIR("red_end_troll_box", () -> new BlockEndTrollBox(DyeColor.RED), false, () -> endTrollBoxISTER(), Main.PANDORAS_CREATURES_GROUP);
+	public static final RegistryObject<Block> BLACK_END_TROLL_BOX		= RegistryUtils.createBlockWithTESIR("black_end_troll_box", () -> new BlockEndTrollBox(DyeColor.BLACK), false, () -> endTrollBoxISTER(), Main.PANDORAS_CREATURES_GROUP);
+	
+	@OnlyIn(Dist.CLIENT)
+	private static Callable<ItemStackTileEntityRenderer> endTrollBoxISTER()
+	{
+		return () -> new PCTileEntityItemRenderer<TileEntity>(EndTrollBoxTileEntity::new);
+	}
 }
