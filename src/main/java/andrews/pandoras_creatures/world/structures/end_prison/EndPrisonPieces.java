@@ -45,7 +45,7 @@ public class EndPrisonPieces
         private final ResourceLocation templateLocation;
         private final Rotation rotation;
 
-        public Piece(TemplateManager templateManager, BlockPos position, Rotation rotation, EndPrisonPiece pieceType) //TODO Removed (ResourceLocation templateLocation,) and replaced with LOCATION
+        public Piece(TemplateManager templateManager, BlockPos position, Rotation rotation, EndPrisonPiece pieceType)
         {
         	super(PCStructurePieces.END_PRISON_PIECE_TYPE, 0);
             this.rotation = rotation;

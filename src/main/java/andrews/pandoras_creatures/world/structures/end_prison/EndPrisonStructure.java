@@ -46,7 +46,7 @@ public class EndPrisonStructure extends ScatteredStructure<NoFeatureConfig>
 	@Override
 	protected int getSeedModifier()
 	{
-		return 14357618; //TODO
+		return 14357618;
 	}
 	
 	@Override

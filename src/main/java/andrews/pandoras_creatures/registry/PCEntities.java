@@ -77,7 +77,6 @@ public class PCEntities
         registerAdvancedCustomSpawnEntry(SEAHORSE.get(), getSeahorseBiomes, EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnConditions::waterCondition);
         registerAdvancedCustomSpawnEntry(ACIDIC_ARCHVINE.get(), getAcidicArchvineBiomes, EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnConditions::acidicArchvineCondition);
         registerCustomSpawnEntry(BUFFLON.get(), getBufflonBiomes, 3, 1, 1, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnConditions::bufflonCondition);
-        registerCustomSpawnEntry(END_TROLL.get(), getEndTrollBiomes, 30, 1, 3, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnConditions::noDayLightMobCondition);//TODO
     }
     
     /*
@@ -87,9 +86,8 @@ public class PCEntities
     public static final List<Biome> getHellhoundBiomes = Lists.newArrayList(Biomes.NETHER);
     public static final List<Biome> getCrabBiomes = Lists.newArrayList(Biomes.BEACH, Biomes.WARM_OCEAN);
     public static final List<Biome> getSeahorseBiomes = Lists.newArrayList(Biomes.WARM_OCEAN, Biomes.DEEP_WARM_OCEAN, Biomes.OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.DEEP_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN);
-    public static final List<Biome> getAcidicArchvineBiomes = Lists.newArrayList(Biomes.NETHER, Biomes.JUNGLE, Biomes.JUNGLE_EDGE, Biomes.JUNGLE_HILLS, Biomes.MODIFIED_JUNGLE, Biomes.MODIFIED_JUNGLE_EDGE);//TODO
+    public static final List<Biome> getAcidicArchvineBiomes = Lists.newArrayList(Biomes.NETHER, Biomes.JUNGLE, Biomes.JUNGLE_EDGE, Biomes.JUNGLE_HILLS, Biomes.MODIFIED_JUNGLE, Biomes.MODIFIED_JUNGLE_EDGE);
     public static final List<Biome> getBufflonBiomes = Lists.newArrayList(Biomes.SNOWY_TUNDRA, Biomes.FROZEN_RIVER, Biomes.SNOWY_MOUNTAINS);
-    public static final List<Biome> getEndTrollBiomes = Lists.newArrayList(Biomes.SNOWY_TUNDRA, Biomes.FROZEN_RIVER, Biomes.SNOWY_MOUNTAINS);//TODO
 	
     //=========================================================================================================================================================================================================================================
     //=========================================================================================================================================================================================================================================
