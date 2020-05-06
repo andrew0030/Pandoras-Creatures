@@ -26,7 +26,6 @@ import net.minecraft.entity.ai.goal.LookRandomlyGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
-import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.item.FallingBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
@@ -45,10 +44,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.GameRules;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraftforge.event.ForgeEventFactory;
 
 public class EndTrollEntity extends AnimatedCreatureEntity
 {	
@@ -67,7 +64,6 @@ public class EndTrollEntity extends AnimatedCreatureEntity
 	
 	public int shootCooldown = 300;
 	public int screamCooldown = 400;
-	private int animationDeathTime;
 	
     public EndTrollEntity(EntityType<? extends EndTrollEntity> type, World worldIn)
     {
@@ -271,66 +267,9 @@ public class EndTrollEntity extends AnimatedCreatureEntity
 	}
 	
 	@Override
-	protected void onDeathUpdate()
+	public Animation getDeathAnimation()
 	{
-		if(this.isEntityStanding())
-		{
-			if(!this.isAnimationPlaying(DEATH_ANIMATION) && !this.getEntityWorld().isRemote())
-	    	{
-	    		NetworkUtil.setPlayingAnimationMessage(this, DEATH_ANIMATION);
-	    	}
-		}
-		else
-		{
-			super.onDeathUpdate();
-		}
-	}
-	
-	@Override
-	public void tick()
-	{
-		super.tick();
-		
-		if(this.getHealth() <= 0.0F)
-		{
-			/**
-			 * Once I make death animatins to Animated Entity Base I should replace the deathAnimation with a getter.
-			 */
-			this.onPCDeathUpdate(EndTrollEntity.DEATH_ANIMATION.getAnimationTickDuration());
-		}
-	}
-	
-	private void onPCDeathUpdate(int deathTime)
-	{
-		++this.animationDeathTime;
-		if(this.animationDeathTime == deathTime)
-		{
-			if(!this.world.isRemote && (this.isPlayer() || this.recentlyHit > 0 && this.canDropLoot() && this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT)))
-			{
-				int i = this.getExperiencePoints(this.attackingPlayer);
-
-				i = ForgeEventFactory.getExperienceDrop(this, this.attackingPlayer, i);
-				while(i > 0)
-				{
-					int j = ExperienceOrbEntity.getXPSplit(i);
-					i -= j;
-					this.world.addEntity(new ExperienceOrbEntity(this.world, this.getPosX(), this.getPosY(), this.getPosZ(), j));
-				}
-			}
-			
-			this.remove();
-
-			for(int k = 0; k < 20; ++k)
-			{
-				double d2 = this.rand.nextGaussian() * 0.02D;
-				double d0 = this.rand.nextGaussian() * 0.02D;
-				double d1 = this.rand.nextGaussian() * 0.02D;
-				this.world.addParticle(ParticleTypes.POOF,
-						this.getPosX() + (double) (this.rand.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(),
-						this.getPosY() + (double) (this.rand.nextFloat() * this.getHeight()), this.getPosZ()
-								  + (double) (this.rand.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(), d2, d0, d1);
-			}
-		}
+		return this.isEntityStanding() ? DEATH_ANIMATION : super.getDeathAnimation();
 	}
 	
 	@Override

@@ -6,10 +6,14 @@ import andrews.pandoras_creatures.util.animation.Animation;
 import andrews.pandoras_creatures.util.network.NetworkUtil;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.item.ExperienceOrbEntity;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
+import net.minecraftforge.event.ForgeEventFactory;
 
 /**
  * Copied Library Functions and Classes from Endergetic
@@ -20,6 +24,7 @@ public abstract class AnimatedCreatureEntity extends CreatureEntity implements I
 {
 	private Animation animation = BLANK_ANIMATION;
 	private int animationTick;
+	private int animationDeathTime;
 
 	public AnimatedCreatureEntity(EntityType<? extends CreatureEntity> type, World worldIn)
 	{
@@ -34,6 +39,28 @@ public abstract class AnimatedCreatureEntity extends CreatureEntity implements I
 	{
 		super.tick();
 		this.animateTick();
+		
+		//Handles the Death Animation logic
+		if(this.getHealth() <= 0.0F && this.getDeathAnimation() != null)
+		{
+			this.onPCDeathUpdate(this.getDeathAnimation().getAnimationTickDuration());
+		}
+	}
+	
+	@Override
+	protected void onDeathUpdate()
+	{
+		if(this.getDeathAnimation() != null)
+    	{
+			if(!this.isAnimationPlaying(this.getDeathAnimation()) && !this.getEntityWorld().isRemote())
+			{
+				NetworkUtil.setPlayingAnimationMessage(this, this.getDeathAnimation());
+			}
+    	}
+		else
+		{
+			super.onDeathUpdate();
+		}
 	}
 	
 	@Override
@@ -117,6 +144,48 @@ public abstract class AnimatedCreatureEntity extends CreatureEntity implements I
 	public Animation getHurtAnimation()
 	{
 		return null;
+	}
+	
+	/**
+	 * The death animation if the creature has one
+	 */
+	@Nullable
+	public Animation getDeathAnimation()
+	{
+		return null;
+	}
+	
+	private void onPCDeathUpdate(int deathTime)
+	{
+		++this.animationDeathTime;
+		if(this.animationDeathTime == deathTime)
+		{
+			if(!this.world.isRemote && (this.isPlayer() || this.recentlyHit > 0 && this.canDropLoot() && this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT)))
+			{
+				int i = this.getExperiencePoints(this.attackingPlayer);
+
+				i = ForgeEventFactory.getExperienceDrop(this, this.attackingPlayer, i);
+				while(i > 0)
+				{
+					int j = ExperienceOrbEntity.getXPSplit(i);
+					i -= j;
+					this.world.addEntity(new ExperienceOrbEntity(this.world, this.getPosX(), this.getPosY(), this.getPosZ(), j));
+				}
+			}
+			
+			this.remove();
+
+			for(int k = 0; k < 20; ++k)
+			{
+				double d2 = this.rand.nextGaussian() * 0.02D;
+				double d0 = this.rand.nextGaussian() * 0.02D;
+				double d1 = this.rand.nextGaussian() * 0.02D;
+				this.world.addParticle(ParticleTypes.POOF,
+						this.getPosX() + (double) (this.rand.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(),
+						this.getPosY() + (double) (this.rand.nextFloat() * this.getHeight()), this.getPosZ()
+								  + (double) (this.rand.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(), d2, d0, d1);
+			}
+		}
 	}
 	
 	/**
