@@ -20,8 +20,10 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.structure.TemplateStructurePiece;
 import net.minecraft.world.gen.feature.template.BlockIgnoreStructureProcessor;
 import net.minecraft.world.gen.feature.template.JigsawReplacementStructureProcessor;
@@ -44,7 +46,7 @@ public class EndPrisonPieces
         private final ResourceLocation templateLocation;
         private final Rotation rotation;
 
-        public Piece(TemplateManager templateManager, BlockPos position, Rotation rotation, EndPrisonPiece pieceType) //TODO Removed (ResourceLocation templateLocation,) and replaced with LOCATION
+        public Piece(TemplateManager templateManager, BlockPos position, Rotation rotation, EndPrisonPiece pieceType)
         {
         	super(PCStructurePieces.END_PRISON_PIECE_TYPE, 0);
             this.rotation = rotation;
@@ -129,12 +131,12 @@ public class EndPrisonPieces
 			}
         }
 
-//        @Override
-//        public boolean addComponentParts(IWorld world, Random random, MutableBoundingBox bounds, ChunkPos chunkPos)
-//        {
-//            this.templatePosition = new BlockPos(this.templatePosition.getX(), 120, this.templatePosition.getZ());
-//            
-//            return super.addComponentParts(world, random, bounds, chunkPos);
-//        }
+        @Override
+        public boolean func_225577_a_(IWorld world, ChunkGenerator<?> generator, Random rand, MutableBoundingBox bounds, ChunkPos chunkPos)
+        {
+            this.templatePosition = new BlockPos(this.templatePosition.getX(), 120, this.templatePosition.getZ());
+            
+            return super.func_225577_a_(world, generator, rand, bounds, chunkPos);
+        }
     }
 }

@@ -43,7 +43,7 @@ public class GuiButtonYouTube extends Button
 			this.active = true;
 			calculateButtonAlpha();
 			
-			if(mouseX >= x && mouseX < x + width && mouseY >= y && mouseY < y + height)
+			if(mouseX >= x && mouseX < x + width && mouseY >= y && mouseY < y + height || this.isFocused())
 			{
 				this.isHovered = true;
 			}

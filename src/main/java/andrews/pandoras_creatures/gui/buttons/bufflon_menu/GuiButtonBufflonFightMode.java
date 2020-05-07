@@ -46,7 +46,7 @@ public class GuiButtonBufflonFightMode extends Button
 			this.active = true;
 		}
 		
-		if(mouseX >= x && mouseX < x + width && mouseY >= y && mouseY < y + height)
+		if(mouseX >= x && mouseX < x + width && mouseY >= y && mouseY < y + height || this.isFocused())
 		{
 			this.isHovered = true;
 		}

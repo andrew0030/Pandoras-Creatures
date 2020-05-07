@@ -1,14 +1,18 @@
 package andrews.pandoras_creatures.world.structures.end_prison;
 
+import java.util.Random;
 import java.util.function.Function;
 
 import com.mojang.datafixers.Dynamic;
 
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeManager;
 import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.ScatteredStructure;
 import net.minecraft.world.gen.feature.structure.Structure;
@@ -43,7 +47,25 @@ public class EndPrisonStructure extends ScatteredStructure<NoFeatureConfig>
 	@Override
 	protected int getSeedModifier()
 	{
-		return 14357618; //TODO
+		return 14357618;
+	}
+	
+	@Override
+	public boolean func_225558_a_(BiomeManager biomeManager, ChunkGenerator<?> chunkGen, Random rand, int chunkPosX, int chunkPosZ, Biome biome)
+	{
+		ChunkPos chunkpos = this.getStartPositionForPosition(chunkGen, rand, chunkPosX, chunkPosZ, 0, 0);
+		if(chunkPosX == chunkpos.x && chunkPosZ == chunkpos.z)
+		{
+			if(!chunkGen.hasStructure(biome, Feature.END_CITY))
+			{
+				return false;
+			}
+			if(chunkGen.hasStructure(biome, this))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 	
 //	@Override

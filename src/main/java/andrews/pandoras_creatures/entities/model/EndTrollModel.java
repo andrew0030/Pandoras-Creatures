@@ -1003,35 +1003,7 @@ public class EndTrollModel<T extends EndTrollEntity> extends PCEntityModel<T>
     {
     	this.animateModel(this.entity);
     	
-    	matrixStackIn.push();
-    	
-    	if(this.entity.isEntityStanding() || this.entity.isAnimationPlaying(EndTrollEntity.TRANSFORM_ANIMATION))
-    	{
-    		if(!this.entity.isAnimationPlaying(EndTrollEntity.TRANSFORM_ANIMATION) && !this.entity.isAnimationPlaying(EndTrollEntity.SCREAM_ANIMATION) && !this.entity.isAnimationPlaying(EndTrollEntity.DEATH_ANIMATION))
-    		{
-    			matrixStackIn.translate(0.0F, 0.0F, -1.26F);
-    			if(this.entity.isEntityMovingHorizontaly())
-    			{
-    				matrixStackIn.translate(0.0F, -0.06F, 0.0F);
-    			}
-    		}
-    		this.leg_right_1.showModel = true;
-    		this.leg_left_1.showModel = true;
-    	}
-    	else
-    	{
-    		this.leg_right_1.showModel = true;
-    		this.leg_left_1.showModel = true;
-    		matrixStackIn.push();
-    		matrixStackIn.translate(0.0F, -0.15F, 1.26F);
-    		this.leg_right_1.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-    		this.leg_left_1.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-    		this.leg_right_1.showModel = false;
-    		this.leg_left_1.showModel = false;
-    		matrixStackIn.pop();
-    	}
         this.movement_base.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-        matrixStackIn.pop();
     }
 
     /**
@@ -1054,7 +1026,7 @@ public class EndTrollModel<T extends EndTrollEntity> extends PCEntityModel<T>
     	{
     		if(!entity.isEntityStanding())
     		{
-				if(entity.isEntityMovingHorizontaly())
+				if(entity.isEntityMovingHorizontaly())//Entity moving while not standing
 				{
 		    		float globalSpeed = 4.0F;
 		        	float globalHeight = 1.0F;
@@ -1111,7 +1083,7 @@ public class EndTrollModel<T extends EndTrollEntity> extends PCEntityModel<T>
 		        	//Head
 		        	swing(head_top, globalSpeed * 0.4F, globalDegree * 0.05F, false, 0.0F, -0.08F, limbSwing, limbSwingAmount);
 				}
-				else
+				else //Entity is not moving while not standing
 				{
 					limbSwing = entity.ticksExisted;
 		    		limbSwingAmount = 1;
@@ -1124,9 +1096,11 @@ public class EndTrollModel<T extends EndTrollEntity> extends PCEntityModel<T>
 		        	swing(torso, globalSpeed * 0.3F, globalDegree * 0.006F, true, 0.0F, 0.0F, limbSwing, limbSwingAmount);
 		        	swing(stomach, globalSpeed * 0.3F, globalDegree * 0.006F, true, 0.0F, 0.0F, limbSwing, limbSwingAmount);
 		        	
+		        	this.leg_left_1.rotationPointY = -1.4F;
 		        	bounce(leg_left_1, globalSpeed * 0.3F, globalHeight * -0.56F, false, limbSwing, limbSwingAmount);
 		        	flap(leg_left_top_decoration, globalSpeed * 0.3F, globalDegree * 0.14F, false, 1.4F, -0.1F, limbSwing, limbSwingAmount);
 		        	
+		        	this.leg_right_1.rotationPointY = -1.4F;
 		        	bounce(leg_right_1, globalSpeed * 0.3F, globalHeight * -0.56F, false, limbSwing, limbSwingAmount);
 		        	flap(leg_right_top_decoration, globalSpeed * 0.3F, globalDegree * 0.14F, true, 1.4F, 0.1F, limbSwing, limbSwingAmount);
 		        	
@@ -1181,6 +1155,7 @@ public class EndTrollModel<T extends EndTrollEntity> extends PCEntityModel<T>
     		else //Standing Entity
     		{
     			//Adjustments to the rotations of the body parts when the entity is Standing
+    			this.movement_base.rotationPointZ = -20.0F;
     			this.bottom_body.rotateAngleX = (float) Math.toRadians(-90F);
     			this.leg_left_1.rotateAngleX = (float) Math.toRadians(56.5F);
     			this.leg_right_1.rotateAngleX = (float) Math.toRadians(56.5F);
@@ -1234,6 +1209,9 @@ public class EndTrollModel<T extends EndTrollEntity> extends PCEntityModel<T>
 		        	swing(leg_right_3, globalSpeed * 0.15F, globalDegree * 0.2F, false, 1.3F, 0.1F, limbSwing, limbSwingAmount);
 		        	swing(leg_right_4, globalSpeed * 0.15F, globalDegree * 0.28F, false, 3.3F, -0.03F, limbSwing, limbSwingAmount);
 		        	swing(foot_right_front_slope, globalSpeed * 0.15F, globalDegree * 0.2F, true, 1.0F, -0.11F, limbSwing, limbSwingAmount);
+		        	
+		        	this.leg_left_1.rotationPointZ = -1.8F;
+		        	this.leg_right_1.rotationPointZ = -1.8F;
 		        	
 		        	swing(stomach, globalSpeed * 0.3F, globalDegree * 0.02F, true, 1.2F, 0.0F, limbSwing, limbSwingAmount);
 		        	swing(torso, globalSpeed * 0.3F, globalDegree * 0.02F, true, 1.2F, 0.0F, limbSwing, limbSwingAmount);

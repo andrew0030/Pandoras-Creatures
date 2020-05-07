@@ -191,13 +191,7 @@ public class CrabModel<T extends CrabEntity> extends PCEntityModel<T>
     @Override
     public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha)
     {
-    	matrixStackIn.push();
-    	if(this.entity.isPartying())
-    	{
-    		matrixStackIn.translate(0.0F, -0.05F, 0.0F);
-    	}
     	this.Body.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-    	matrixStackIn.pop();
     }
 
     public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
@@ -298,6 +292,7 @@ public class CrabModel<T extends CrabEntity> extends PCEntityModel<T>
 	        	
 	        	revertToDefaultBoxValues();
 	        	
+	        	this.Body.rotationPointY -= 0.7F;
 	        	this.Body.rotateAngleX += Math.toRadians(-20);
 	        	bounce(Body, 1.0F * globalSpeed, 0.8F * globalHeight, false, limbSwing, limbSwingAmount);
 	        	swing(Body, 1.0F * globalSpeed, 0.1F * globalDegree, true, 0.0F, 0.0F, limbSwing, limbSwingAmount);

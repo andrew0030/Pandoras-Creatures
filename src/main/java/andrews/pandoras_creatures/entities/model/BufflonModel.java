@@ -1011,13 +1011,7 @@ public class BufflonModel<T extends BufflonEntity> extends PCEntityModel<T>
     {
     	this.animateModel(this.entity);
     	
-    	matrixStackIn.push();
-    	if(this.entity.isSitting() && !this.entity.isBeingRidden())
-    	{
-    		matrixStackIn.translate(0, 0.15F, 0);
-    	}
     	this.body.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-    	matrixStackIn.pop();
     }
 
     /**
@@ -1042,6 +1036,8 @@ public class BufflonModel<T extends BufflonEntity> extends PCEntityModel<T>
     	{
     		if(entityIn.isSitting() && !entityIn.isBeingRidden())
     		{
+    			body.rotationPointY += 1.7F;
+    			body.rotateAngleX += 0.05F;
     			body.rotateAngleX += Math.toRadians(-8);
     			body_back.rotateAngleX += Math.toRadians(-25);
     			
