@@ -1,7 +1,11 @@
 {
   "homepage": "https://www.curseforge.com/minecraft/mc-mods/pandoras-creatures/files",
   "promos": {
+  		"1.15.2-recommended": "1.15.2-1.0.0",
 		"1.14.4-recommended": "1.14.4-0.13.1"
+	},
+	"1.15.2": {
+		"1.15.2-1.0.0": "Updated the mod to 1.15.2"
 	},
 	"1.14.4": {
 		"1.14.4-0.13.1": "A Bug fix update that fixes the End Troll Spawning bug.",

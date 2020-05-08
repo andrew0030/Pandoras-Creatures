@@ -348,7 +348,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
         		}
         		else
         		{
-        			if(player.isShiftKeyDown())//This is the new isSneaking().
+        			if(player.isSneaking())
             		{
             			this.openGUI(player);
             		}
@@ -372,11 +372,11 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
         }
         else if(itemstack.getItem() == Items.AIR)
         {
-        	if(this.isTamed() && player.isShiftKeyDown())//This is the new isSneaking().
+        	if(this.isTamed() && player.isSneaking())
         	{
                 this.openGUI(player);
         	}
-        	else if(this.isTamed() && !player.isShiftKeyDown())//This is the new isSneaking().
+        	else if(this.isTamed() && !player.isSneaking())
         	{
         		mountTo(player);
         	}

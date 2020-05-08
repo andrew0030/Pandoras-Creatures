@@ -2,6 +2,7 @@ package andrews.pandoras_creatures.util;
 
 import andrews.pandoras_creatures.registry.PCBlocks;
 import andrews.pandoras_creatures.world.PCFeatures;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.blockplacer.SimpleBlockPlacer;
@@ -12,6 +13,8 @@ import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.placement.FrequencyConfig;
 import net.minecraft.world.gen.placement.IPlacementConfig;
 import net.minecraft.world.gen.placement.Placement;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 
 public class FeatureInjector
 {
@@ -31,20 +34,11 @@ public class FeatureInjector
 		Biomes.MOUNTAINS.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Feature.RANDOM_PATCH.withConfiguration(HILL_BLOOM_CONFIG).withPlacement(Placement.COUNT_HEIGHTMAP_DOUBLE.configure(new FrequencyConfig(1))));
 		
 		//End Prison
-		Biomes.SMALL_END_ISLANDS.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, PCFeatures.END_PRISON.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
-		Biomes.END_BARRENS.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, PCFeatures.END_PRISON.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
-		Biomes.END_MIDLANDS.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, PCFeatures.END_PRISON.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
-		Biomes.END_HIGHLANDS.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, PCFeatures.END_PRISON.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
+		for(Biome biome : BiomeDictionary.getBiomes(Type.END))
+		{
+				biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, PCFeatures.END_PRISON.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
+		}
 		Biomes.END_MIDLANDS.addStructure(PCFeatures.END_PRISON.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
 		Biomes.END_HIGHLANDS.addStructure(PCFeatures.END_PRISON.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
-		
-		
-		//End Prison
-//		Biomes.SMALL_END_ISLANDS.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(PCFeatures.END_PRISON.get(), IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, IPlacementConfig.NO_PLACEMENT_CONFIG));
-//		Biomes.END_BARRENS.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(PCFeatures.END_PRISON.get(), IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, IPlacementConfig.NO_PLACEMENT_CONFIG));
-//		Biomes.END_MIDLANDS.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(PCFeatures.END_PRISON.get(), IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, IPlacementConfig.NO_PLACEMENT_CONFIG));
-//		Biomes.END_HIGHLANDS.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(PCFeatures.END_PRISON.get(), IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, IPlacementConfig.NO_PLACEMENT_CONFIG));
-//		Biomes.END_MIDLANDS.addStructure(PCFeatures.END_PRISON.get(), IFeatureConfig.NO_FEATURE_CONFIG);
-//		Biomes.END_HIGHLANDS.addStructure(PCFeatures.END_PRISON.get(), IFeatureConfig.NO_FEATURE_CONFIG);
 	}
 }
