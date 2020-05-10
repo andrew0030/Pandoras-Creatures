@@ -7,6 +7,7 @@ import com.google.common.collect.Lists;
 import andrews.pandoras_creatures.Main;
 import andrews.pandoras_creatures.objects.items.ItemArachnonHammer;
 import andrews.pandoras_creatures.objects.items.ItemCrabBucket;
+import andrews.pandoras_creatures.objects.items.ItemPandoricShard;
 import andrews.pandoras_creatures.objects.items.ItemPlantHat;
 import andrews.pandoras_creatures.objects.items.ItemSeahorseBucket;
 import andrews.pandoras_creatures.objects.util.PCArmorMaterials;
@@ -55,4 +56,6 @@ public class PCItems
 	public static final RegistryObject<Item> ACIDIC_ARCHVINE_SPAWN_EGG	= RegistryUtils.createSpawnEggWithToolTipItem("acidic_archvine", () -> PCEntities.ACIDIC_ARCHVINE.get(), 0x14661f, 0x7b34ad, "item.pandoras_creatures.acidic_archvine_spawn_egg.tooltip");
 	public static final RegistryObject<Item> BUFFLON_SPAWN_EGG			= RegistryUtils.createSpawnEggItem("bufflon", () -> PCEntities.BUFFLON.get(), 0x4f3914, 0x1a1d29);
 	public static final RegistryObject<Item> END_TROLL_SPAWN_EGG		= RegistryUtils.createSpawnEggItem("end_troll", () -> PCEntities.END_TROLL.get(), 0x2a234d, 0x4db4bf);
+	
+	public static final RegistryObject<Item> PANDORIC_SHARD             = RegistryUtils.createItem("pandoric_shard", () -> new ItemPandoricShard());
 }

@@ -12,7 +12,6 @@ import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeManager;
 import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.ScatteredStructure;
 import net.minecraft.world.gen.feature.structure.Structure;
@@ -47,7 +46,8 @@ public class EndPrisonStructure extends ScatteredStructure<NoFeatureConfig>
 	@Override
 	protected int getSeedModifier()
 	{
-		return 14357618;
+//		return 14357618; TODO
+		return 0;
 	}
 	
 	@Override
@@ -56,10 +56,10 @@ public class EndPrisonStructure extends ScatteredStructure<NoFeatureConfig>
 		ChunkPos chunkpos = this.getStartPositionForPosition(chunkGen, rand, chunkPosX, chunkPosZ, 0, 0);
 		if(chunkPosX == chunkpos.x && chunkPosZ == chunkpos.z)
 		{
-			if(!chunkGen.hasStructure(biome, Feature.END_CITY))
-			{
-				return false;
-			}
+//			if(!chunkGen.hasStructure(biome, Feature.END_CITY))
+//			{
+//				return false;
+//			} TODO do some testing
 			if(chunkGen.hasStructure(biome, this))
 			{
 				return true;
@@ -68,24 +68,7 @@ public class EndPrisonStructure extends ScatteredStructure<NoFeatureConfig>
 		return false;
 	}
 	
-//	@Override
-//	public boolean hasStartAt(ChunkGenerator<?> chunkGen, Random rand, int chunkPosX, int chunkPosZ)
-//	{
-//		ChunkPos chunkpos = this.getStartPositionForPosition(chunkGen, rand, chunkPosX, chunkPosZ, 0, 0);
-//		if(chunkPosX == chunkpos.x && chunkPosZ == chunkpos.z)
-//		{
-//			Biome biome = chunkGen.getBiomeProvider().getBiome(new BlockPos(chunkPosX * 16 + 9, 0, chunkPosZ * 16 + 9));
-//			if(!chunkGen.hasStructure(biome, Feature.END_CITY))
-//			{
-//	            return false;
-//	        }
-//			if(chunkGen.hasStructure(biome, this))
-//			{
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
+	
 
 	@Override
 	protected int getBiomeFeatureDistance(ChunkGenerator<?> generator)

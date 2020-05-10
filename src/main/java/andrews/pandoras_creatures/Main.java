@@ -6,6 +6,7 @@ import andrews.pandoras_creatures.item_groups.PCItemGroup;
 import andrews.pandoras_creatures.network.PCNetwork;
 import andrews.pandoras_creatures.objects.items.PCSpawnEggItem;
 import andrews.pandoras_creatures.registry.PCBlocks;
+import andrews.pandoras_creatures.registry.PCCapabilities;
 import andrews.pandoras_creatures.registry.PCContainers;
 import andrews.pandoras_creatures.registry.PCCrafting;
 import andrews.pandoras_creatures.registry.PCEntities;
@@ -90,6 +91,7 @@ public class Main
 	public static void setupCommon(final FMLCommonSetupEvent event)
 	{
 		PCDispenserBehaviors.registerAll();
+		PCCapabilities.registerAll();
 		PCNetwork.setupMessages();
 		
 		ModFile file = ModList.get().getModFileById(Reference.MODID).getFile();
