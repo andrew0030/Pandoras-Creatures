@@ -1,18 +1,15 @@
 package andrews.pandoras_creatures.gui.buttons.bufflon_menu;
 
-import java.awt.Button;
-import java.util.Arrays;
-import java.util.List;
-
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import andrews.pandoras_creatures.entities.BufflonEntity;
 import andrews.pandoras_creatures.util.Reference;
 import andrews.pandoras_creatures.util.network.NetworkUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.gui.GuiUtils;
@@ -31,12 +28,12 @@ public class GuiButtonBufflonSit extends Button
 	
 	public GuiButtonBufflonSit(BufflonEntity entityIn, int xPos, int yPos) 
 	{
-		super(xPos, yPos, buttonWidth, buttonHeight, "", (button) -> { handleButtonPress(); });
+		super(xPos, yPos, buttonWidth, buttonHeight, new StringTextComponent(""), (button) -> { handleButtonPress(); });
 		bufflonEntity = entityIn;
 	}
 	
 	@Override
-	public void renderButton(int mouseX, int mouseY, float partial)
+	public void renderButton(MatrixStack matrixStack,int mouseX, int mouseY, float partial)
 	{
 		if(bufflonEntity.getOwner() != Minecraft.getInstance().player)
 		{
@@ -68,19 +65,19 @@ public class GuiButtonBufflonSit extends Button
 		
 		//Renders the Button
 		Minecraft.getInstance().getRenderManager().textureManager.bindTexture(texture);
-		RenderSystem.pushMatrix();
+		matrixStack.push();
 		RenderSystem.enableBlend();
 		GuiUtils.drawTexturedModalRect(x, y, u, v, width, height, 0);
 		RenderSystem.disableBlend();
-		RenderSystem.popMatrix();
+		matrixStack.pop();
 		
 		//This is used to render a tooltip next to the button
 		if(isHovered)
 		{
-			FontRenderer renderer = Minecraft.getInstance().fontRenderer;
-			String text = new TranslationTextComponent("gui.button.pandoras_creatures.bufflon.sit").getString();
-			List<String> textAsList = Arrays.asList(text);
-			Minecraft.getInstance().currentScreen.renderTooltip(textAsList, x - (15 + renderer.getStringWidth(text)), y + 21, Minecraft.getInstance().fontRenderer);
+//			FontRenderer renderer = Minecraft.getInstance().fontRenderer; TODO figure out how to get this to work
+//			String text = new TranslationTextComponent("gui.button.pandoras_creatures.bufflon.sit").getString();
+//			List<String> textAsList = Arrays.asList(text);
+//			Minecraft.getInstance().currentScreen.renderTooltip(textAsList, x - (15 + renderer.getStringWidth(text)), y + 21, Minecraft.getInstance().fontRenderer);
 		}
 	}
 	

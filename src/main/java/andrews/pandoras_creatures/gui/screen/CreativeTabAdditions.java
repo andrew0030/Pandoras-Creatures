@@ -1,6 +1,5 @@
 package andrews.pandoras_creatures.gui.screen;
 
-import java.awt.Button;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +13,7 @@ import andrews.pandoras_creatures.gui.buttons.creative_tab.GuiButtonYouTube;
 import andrews.pandoras_creatures.util.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.CreativeScreen;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

@@ -5,6 +5,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalFaceBlock;
 import net.minecraft.block.IWaterLoggable;
 import net.minecraft.block.material.Material;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
@@ -45,7 +46,8 @@ public class BlockArachnonCrystal extends HorizontalFaceBlock implements IWaterL
 	{
 		Properties properties = Block.Properties.create(Material.ROCK);
 		properties.hardnessAndResistance(1.5F, 6.0F);
-		properties.lightValue(9);
+		properties.setLightLevel(value -> 9);
+		properties.setRequiresTool();
 		
 		return properties;
 	}
@@ -55,7 +57,7 @@ public class BlockArachnonCrystal extends HorizontalFaceBlock implements IWaterL
 	{
 		for(Direction direction : context.getNearestLookingDirections())
 		{
-			IFluidState fluidState = context.getWorld().getFluidState(context.getPos());
+			FluidState fluidState = context.getWorld().getFluidState(context.getPos());
 			BlockState blockstate;
 			if(direction.getAxis() == Direction.Axis.Y)
 			{
@@ -85,7 +87,7 @@ public class BlockArachnonCrystal extends HorizontalFaceBlock implements IWaterL
 	}
 	
 	@Override
-	public IFluidState getFluidState(BlockState state)
+	public FluidState getFluidState(BlockState state)
 	{
 		return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : Fluids.EMPTY.getDefaultState();
 	}

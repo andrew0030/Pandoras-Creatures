@@ -83,10 +83,10 @@ public class PCEntities
      * Biome Lists for Entities
      */
     public static final List<Biome> getArachnonBiomes = Lists.newArrayList(Biomes.PLAINS, Biomes.MOUNTAINS, Biomes.GRAVELLY_MOUNTAINS);
-    public static final List<Biome> getHellhoundBiomes = Lists.newArrayList(Biomes.NETHER);
+    public static final List<Biome> getHellhoundBiomes = Lists.newArrayList(Biomes.NETHER_WASTES);//TODO figure out all the new nether biomes yay
     public static final List<Biome> getCrabBiomes = Lists.newArrayList(Biomes.BEACH, Biomes.WARM_OCEAN);
     public static final List<Biome> getSeahorseBiomes = Lists.newArrayList(Biomes.WARM_OCEAN, Biomes.DEEP_WARM_OCEAN, Biomes.OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.DEEP_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN);
-    public static final List<Biome> getAcidicArchvineBiomes = Lists.newArrayList(Biomes.NETHER, Biomes.JUNGLE, Biomes.JUNGLE_EDGE, Biomes.JUNGLE_HILLS, Biomes.MODIFIED_JUNGLE, Biomes.MODIFIED_JUNGLE_EDGE);
+    public static final List<Biome> getAcidicArchvineBiomes = Lists.newArrayList(Biomes.NETHER_WASTES, /* TODO figure out the nether biomes */ Biomes.JUNGLE, Biomes.JUNGLE_EDGE, Biomes.JUNGLE_HILLS, Biomes.MODIFIED_JUNGLE, Biomes.MODIFIED_JUNGLE_EDGE);
     public static final List<Biome> getBufflonBiomes = Lists.newArrayList(Biomes.SNOWY_TUNDRA, Biomes.FROZEN_RIVER, Biomes.SNOWY_MOUNTAINS);
 	
     //=========================================================================================================================================================================================================================================

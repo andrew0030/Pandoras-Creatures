@@ -14,6 +14,7 @@ import andrews.pandoras_creatures.registry.PCRenderLayers;
 import andrews.pandoras_creatures.registry.PCSounds;
 import andrews.pandoras_creatures.registry.PCTileEntities;
 import andrews.pandoras_creatures.registry.util.PCDispenserBehaviors;
+import andrews.pandoras_creatures.registry.util.PCEntityAttributes;
 import andrews.pandoras_creatures.util.FeatureInjector;
 import andrews.pandoras_creatures.util.Reference;
 import andrews.pandoras_creatures.util.RehostedJarHandler;
@@ -91,7 +92,7 @@ public class Main
 	{
 		DeferredWorkQueue.runLater(() ->
 		{
-			
+			PCEntityAttributes.putAttributes();
 		});
 		
 		PCDispenserBehaviors.registerAll();

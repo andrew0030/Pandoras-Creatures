@@ -14,7 +14,6 @@ import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.Pose;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.LookRandomlyGoal;
 import net.minecraft.entity.ai.goal.PanicGoal;
@@ -58,13 +57,6 @@ public class CrabEntity extends BucketableMobEntity
     	this.goalSelector.addGoal(1, new PanicGoal(this, 0.3D));
     	this.goalSelector.addGoal(2, new RandomWalkingGoal(this, 0.3D, 240));
     	this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
-    }
-
-    @Override
-    protected void registerAttributes()
-    {
-        super.registerAttributes();
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(6.0D);
     }
     
     @Override
@@ -130,16 +122,16 @@ public class CrabEntity extends BucketableMobEntity
 	@Override
 	protected void updateAir(int air) {}
     
-    @Override
-    public boolean handleWaterMovement()
-    {
-    	if(this.underWater)
-    	{
-    		this.fallDistance = 0.0F;
-    	    this.extinguish();
-    	}
-    	return false;
-    }
+//    @Override
+//    public boolean handleWaterMovement()
+//    {
+//    	if(this.underWater)
+//    	{
+//    		this.fallDistance = 0.0F; TODO find a replacement for this, else A LOT OF CRABS WILL DIE
+//    	    this.extinguish();
+//    	}
+//    	return false;
+//    }
     
     @Override
     protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn)
@@ -162,11 +154,11 @@ public class CrabEntity extends BucketableMobEntity
     		
     		if(!entity.getEntityWorld().isRemote)
     		{
-	    		if(this.world.getBlockState(new BlockPos(entity)).getBlock().equals(Blocks.WATER) && this.underWater == false)
+	    		if(this.world.getBlockState(entity.getPosition()).getBlock().equals(Blocks.WATER) && this.underWater == false)
 	    		{
 	    			this.underWater = true;
 	    		}
-	    		else if(!this.world.getBlockState(new BlockPos(entity)).getBlock().equals(Blocks.WATER) && this.underWater == true)
+	    		else if(!this.world.getBlockState(entity.getPosition()).getBlock().equals(Blocks.WATER) && this.underWater == true)
 	    		{
 	    			this.underWater = false;
 	    		}

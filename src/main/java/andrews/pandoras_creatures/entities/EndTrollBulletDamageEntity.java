@@ -36,6 +36,7 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.Constants.NBT;
+import net.minecraftforge.fml.network.FMLPlayMessages;
 
 public class EndTrollBulletDamageEntity extends ShulkerBulletEntity
 {
@@ -53,6 +54,11 @@ public class EndTrollBulletDamageEntity extends ShulkerBulletEntity
 	{
 		super(entity, world);
 		this.noClip = true;
+	}
+	
+	public EndTrollBulletDamageEntity(FMLPlayMessages.SpawnEntity spawnEntity, World world)
+	{
+		this(PCEntities.END_TROLL_BULLET_DAMAGE.get(), world);
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -188,12 +194,12 @@ public class EndTrollBulletDamageEntity extends ShulkerBulletEntity
 				}
 			}
 
-			direction = Direction.func_239631_a_(this.rand);
+			direction = Direction.getRandomDirection(this.rand);
 			if(list.isEmpty())
 			{
 				for(int i = 5; !this.world.isAirBlock(blockpos1.offset(direction)) && i > 0; --i)
 				{
-					direction = Direction.func_239631_a_(this.rand);
+					direction = Direction.getRandomDirection(this.rand);
 				}
 			}
 			else
@@ -280,7 +286,7 @@ public class EndTrollBulletDamageEntity extends ShulkerBulletEntity
 		ProjectileHelper.rotateTowardsMovement(this, 0.5F);
 		if(this.world.isRemote)
 		{
-			this.world.addParticle(new RedstoneParticleData(0, 255, 0, 1.0F), this.getPosX() - vector3d1.x, this.getPosY() - vector3d1.y + 0.15D, this.getPosZ() - vector3d1.z, 0.0D, 0.0D, 0.0D);
+			this.world.addParticle(new RedstoneParticleData(141, 0, 0, 1.0F), this.getPosX() - vector3d1.x, this.getPosY() - vector3d1.y + 0.15D, this.getPosZ() - vector3d1.z, 0.0D, 0.0D, 0.0D);
 		}
 		else if(this.target != null && this.target.isAlive())
 		{

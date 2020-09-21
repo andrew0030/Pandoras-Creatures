@@ -1,6 +1,5 @@
 package andrews.pandoras_creatures.objects.blocks;
 
-import java.awt.Container;
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -23,10 +22,11 @@ import net.minecraft.dispenser.OptionalDispenseBehavior;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.fluid.IFluidState;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ItemStackHelper;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.DirectionalPlaceContext;
@@ -38,6 +38,7 @@ import net.minecraft.loot.LootParameters;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.EnumProperty;
+import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tileentity.TileEntity;
@@ -51,6 +52,7 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -154,7 +156,7 @@ public class BlockEndTrollBox extends ShulkerBoxBlock implements IWaterLoggable
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext context)
 	{
-		IFluidState fluidState = context.getWorld().getFluidState(context.getPos());
+		FluidState fluidState = context.getWorld().getFluidState(context.getPos());
 		return this.getDefaultState().with(FACING, context.getFace()).with(WATERLOGGED, fluidState.isTagged(FluidTags.WATER) && fluidState.getLevel() >= 8);
 	}
 	
@@ -170,13 +172,13 @@ public class BlockEndTrollBox extends ShulkerBoxBlock implements IWaterLoggable
 	}
 	
 	@Override
-	public IFluidState getFluidState(BlockState state)
+	public FluidState getFluidState(BlockState state)
 	{
 		return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : Fluids.EMPTY.getDefaultState();
 	}
 
 	@Override
-	protected void fillStateContainer(Builder<Block, BlockState> builder)
+	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder)
 	{
 		builder.add(WATERLOGGED, FACING);
 	}
@@ -288,8 +290,8 @@ public class BlockEndTrollBox extends ShulkerBoxBlock implements IWaterLoggable
 						if(i <= 4)
 						{
 							++i;
-							ITextComponent itextcomponent = itemstack.getDisplayName().deepCopy();
-							itextcomponent.appendText(" x").appendText(String.valueOf(itemstack.getCount()));
+							IFormattableTextComponent itextcomponent = itemstack.getDisplayName().deepCopy();
+							itextcomponent.appendString(" x").appendString(String.valueOf(itemstack.getCount()));
 							tooltip.add(itextcomponent);
 						}
 					}
@@ -297,7 +299,7 @@ public class BlockEndTrollBox extends ShulkerBoxBlock implements IWaterLoggable
 
 				if(j - i > 0)
 				{
-					tooltip.add((new TranslationTextComponent("block." + Reference.MODID + ".end_troll_box.tooltip", j - i)).applyTextStyle(TextFormatting.ITALIC));
+					tooltip.add((new TranslationTextComponent("block." + Reference.MODID + ".end_troll_box.tooltip", j - i)).mergeStyle(TextFormatting.ITALIC));
 				}
 			}
 		}

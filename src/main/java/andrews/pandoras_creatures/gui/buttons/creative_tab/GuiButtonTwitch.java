@@ -1,19 +1,15 @@
 package andrews.pandoras_creatures.gui.buttons.creative_tab;
 
-import java.awt.Button;
-import java.util.Arrays;
-import java.util.List;
-
-import javax.rmi.CORBA.Util;
-
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import andrews.pandoras_creatures.config.Config;
 import andrews.pandoras_creatures.util.Reference;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.Util;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.gui.GuiUtils;
@@ -31,13 +27,14 @@ public class GuiButtonTwitch extends Button
 	
 	public GuiButtonTwitch(int xPos, int yPos) 
 	{
-		super(xPos, yPos, buttonWidth, buttonHeight, "", (button) -> { handleButtonPress(); });
+		super(xPos, yPos, buttonWidth, buttonHeight, new StringTextComponent(""), (button) -> { handleButtonPress(); });
 		twitchButton = this;
 		setButtonAlphaToStart();
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Override
-	public void renderButton(int mouseX, int mouseY, float partial)
+	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partial)
 	{
 		if(visible && Config.CLIENT.shouldButtonsInCreativeTabBeEnabled.get() == true && Minecraft.getInstance().player.getActivePotionEffects().isEmpty())
 		{
@@ -57,21 +54,21 @@ public class GuiButtonTwitch extends Button
 			if(this.isHovered) { u = 22; }else{ u = 0; }
 			
 			Minecraft.getInstance().getRenderManager().textureManager.bindTexture(texture);
-			RenderSystem.pushMatrix();
+			matrixStack.push();
 			RenderSystem.enableBlend();
 			RenderSystem.color4f(1, 1, 1, (buttonAlpha / 100F));
 			GuiUtils.drawTexturedModalRect(x, y, u, v, width, height, 0);
 			RenderSystem.color4f(1, 1, 1, 1);
 			RenderSystem.disableBlend();
-			RenderSystem.popMatrix();
+			matrixStack.pop();
 			
 			//This is used to render a tooltip above the button
 			if(isHovered)
 			{
-				FontRenderer renderer = Minecraft.getInstance().fontRenderer;
-				String text = new TranslationTextComponent("gui.button.pandoras_creatures.twitch").getString();
-				List<String> textAsList = Arrays.asList(text);
-				Minecraft.getInstance().currentScreen.renderTooltip(textAsList, x - (15 + renderer.getStringWidth(text)), y + 19, Minecraft.getInstance().fontRenderer);
+//				FontRenderer renderer = Minecraft.getInstance().fontRenderer; TODO figure this shit out
+//				String text = new TranslationTextComponent("gui.button.pandoras_creatures.twitch").getString();
+//				List<String> textAsList = Arrays.asList(text);
+//				Minecraft.getInstance().currentScreen.renderTooltip(textAsList, x - (15 + renderer.getStringWidth(text)), y + 19, Minecraft.getInstance().fontRenderer);
 			}
 		}
 		else

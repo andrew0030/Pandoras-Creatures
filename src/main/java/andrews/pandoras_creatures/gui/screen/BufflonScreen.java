@@ -1,5 +1,6 @@
 package andrews.pandoras_creatures.gui.screen;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import andrews.pandoras_creatures.container.BufflonContainer;
@@ -59,33 +60,34 @@ public class BufflonScreen extends ContainerScreen<BufflonContainer>
 	}
 	
 	@Override
-	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
+	protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int mouseX, int mouseY)
 	{
 		//The Bufflon Name
-		this.font.drawString(this.title.getFormattedText(), -29.0F, -22.0F, 0x000000);
+		this.font.drawString(matrixStack, this.title.getString(), -29.0F, -22.0F, 0x000000);//TODO added .getString() make sure it works!
 		//The Inventory Display Name
-		this.font.drawString(this.playerInventory.getDisplayName().getFormattedText(), 8.0F, (float)(this.ySize - 126), 0x000000);
+		this.font.drawString(matrixStack, this.playerInventory.getDisplayName().getString(), 8.0F, (float)(this.ySize - 126), 0x000000); //TODO added .getString() make sure it works!
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
+	protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY)
 	{
-		renderBackground();//Renders the dark background
+		renderBackground(matrixStack);//Renders the dark background
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 	  	this.minecraft.getTextureManager().bindTexture(BUFFLON_GUI_TEXTURES);
 		int x = (this.width - this.xSize) / 2;
 		int y = (this.height - this.ySize) / 2;
-		this.blit(x, y, 0, 0, this.xSize, this.ySize);
+		this.blit(matrixStack, x, y, 0, 0, this.xSize, this.ySize);
 		
 		if(bufflonEntity.hasBackAttachment())
 		{
 			if(bufflonEntity.getBackAttachmentType() == 2)
 			{
-				renderBufflonInventorySlots(x, y, 3);
+				renderBufflonInventorySlots(matrixStack, x, y, 3);
 			}
 			else if(bufflonEntity.getBackAttachmentType() == 3)
 			{
-				renderBufflonInventorySlots(x, y, 6);
+				renderBufflonInventorySlots(matrixStack, x, y, 6);
 			}
 		}
 	    //The Bufflon Entity inside the Menu
@@ -93,25 +95,25 @@ public class BufflonScreen extends ContainerScreen<BufflonContainer>
 	    //The Saddle slot previews
 	    if(!bufflonEntity.isSaddled())
 	    {
-	    	RenderSystem.pushMatrix();
+	    	matrixStack.push();
 	    	Matrix4f matrix4f = new Matrix4f();
 	        matrix4f.setIdentity();
 	        matrix4f.mul(Matrix4f.makeScale(1.0F, -1.0F, 1.0F));
 	        matrix4f.mul(Vector3f.XN.rotationDegrees(90.0F));
-	    	RenderSystem.setupLevelDiffuseLighting(matrix4f);
+	    	RenderSystem.setupLevelDiffuseLighting(null, null, matrix4f); //TODO vectors???
 	    	Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(new ItemStack(PCItems.BUFFLON_SADDLE.get()), x + 23, y + 102);
-	    	RenderSystem.setupGui3DDiffuseLighting();
-	    	RenderSystem.popMatrix();
+	    	RenderSystem.setupGui3DDiffuseLighting(null, null); //TODO vectors???
+	    	matrixStack.pop();
 	    }
 	    
 	    if(!bufflonEntity.hasBackAttachment())
 	    {
-	    	RenderSystem.pushMatrix();
+	    	matrixStack.push();
 	    	Matrix4f matrix4f = new Matrix4f();
 	        matrix4f.setIdentity();
 	        matrix4f.mul(Matrix4f.makeScale(1.0F, -1.0F, 1.0F));
 	        matrix4f.mul(Vector3f.XN.rotationDegrees(90.0F));
-	    	RenderSystem.setupLevelDiffuseLighting(matrix4f);
+	    	RenderSystem.setupLevelDiffuseLighting(null, null, matrix4f); //TODO vectors???
 		    switch(attachmentToRender) {
 			case 1:
 				Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(new ItemStack(PCItems.BUFFLON_PLAYER_SEATS.get()), x + 51, y + 102);
@@ -125,8 +127,8 @@ public class BufflonScreen extends ContainerScreen<BufflonContainer>
 			default:
 				break;
 		    }
-		    RenderSystem.setupGui3DDiffuseLighting();
-	    	RenderSystem.popMatrix();
+		    RenderSystem.setupGui3DDiffuseLighting(null, null); //TODO vectors???
+	    	matrixStack.pop();
 		}
 	}
 	
@@ -148,13 +150,13 @@ public class BufflonScreen extends ContainerScreen<BufflonContainer>
 	}
 	
 	@Override
-	public void render(int mouseX, int mouseY, float partialTicks)
+	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
 	{
-		this.renderBackground();
+		this.renderBackground(matrixStack); //TODO I may not need render background inside render and renderBackground
 		this.mousePosx = (float)mouseX;
 		this.mousePosY = (float)mouseY;
-	    super.render(mouseX, mouseY, partialTicks);
-	    this.renderHoveredToolTip(mouseX, mouseY);
+	    super.render(matrixStack, mouseX, mouseY, partialTicks);
+	    this.renderHoveredTooltip(matrixStack, mouseX, mouseY);
 	}
 	
 	/**
@@ -163,11 +165,11 @@ public class BufflonScreen extends ContainerScreen<BufflonContainer>
 	 * @param posY - The y position this is relative to
 	 * @param rows - The amount of rows that should be rendered
 	 */
-	private void renderBufflonInventorySlots(int posX, int posY, int rows)
+	private void renderBufflonInventorySlots(MatrixStack matrixStack, int posX, int posY, int rows)
 	{
 		for(int i = 0; i < rows; i++)
 		{
-			this.blit(posX + 84, (posY + 19 + (i * 18)), 0, 238, 162, 18);
+			this.blit(matrixStack, posX + 84, (posY + 19 + (i * 18)), 0, 238, 162, 18);
 		}
 	}
 }

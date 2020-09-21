@@ -8,7 +8,6 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import andrews.pandoras_creatures.container.BufflonContainer;
-import andrews.pandoras_creatures.entities.SeahorseEntity.SwimGoal;
 import andrews.pandoras_creatures.entities.bases.AnimatedCreatureEntity;
 import andrews.pandoras_creatures.entities.goals.bufflon.BufflonFollowOwnerGoal;
 import andrews.pandoras_creatures.entities.goals.bufflon.BufflonMeleeAttackGoal;
@@ -27,11 +26,12 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Pose;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.LookRandomlyGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.monster.GhastEntity;
@@ -61,13 +61,14 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.scoreboard.Team;
 import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.GameRules;
@@ -138,15 +139,6 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
         this.targetSelector.addGoal(3, (new HurtByTargetGoal(this)).setCallsForHelp());
         this.targetSelector.addGoal(4, new BufflonNonTamedTargetGoal<>(this, PlayerEntity.class, false));
     }
-
-    @Override
-    protected void registerAttributes()
-    {
-        super.registerAttributes();
-        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.55D);
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(60.0D);
-        this.getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(10.0D);
-    }
     
     @Override
 	protected void registerData()
@@ -185,14 +177,10 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
 		//The back attachment type this Entity has
 		compound.putInt("BackAttachmentType", this.getBackAttachmentType());
 		//The Owner of the Bufflon
-		if(this.getOwnerId() == null)
+		if(this.getOwnerId() != null)
 		{
-			compound.putString("OwnerUUID", "");
-	   	}
-		else
-		{
-			compound.putString("OwnerUUID", this.getOwnerId().toString());
-	   	}
+			compound.putUniqueId("OwnerUUID", this.getOwnerId());
+	    }
 		
 		//Storing the Items inside the Bufflons Inventory
 		if(this.isTamed())
@@ -234,29 +222,29 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
 		//The back attachment type this Entity has
 		this.setBackAttachment(compound.getInt("BackAttachmentType"));
 		//The Owner of the Bufflon
-		String s;
-	    if(compound.contains("OwnerUUID", NBT.TAG_STRING))
+		UUID uuid;
+	    if(compound.hasUniqueId("OwnerUUID"))
 	    {
-	    	s = compound.getString("OwnerUUID");
+	    	uuid = compound.getUniqueId("OwnerUUID");
 	  	}
 	    else
 	    {
-	    	String s1 = compound.getString("Owner");
-	    	s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
+	    	String s = compound.getString("OwnerUUID");
+	    	uuid = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s);
 		}
 	    //Attempts to set the Bufflon as tamed 
-		if(!s.isEmpty())
-		{
-			try
-			{
-	        	this.setOwnerId(UUID.fromString(s));
-	            this.setTamed(true);
-	        }
-			catch(Throwable var4)
-			{
-				this.setTamed(false);
-	        }
-		}
+	    if(uuid != null)
+	    {
+	    	try
+	    	{
+	    		this.setOwnerId(uuid);
+	    		this.setTamed(true);
+	    	}
+	    	catch(Throwable throwable)
+	    	{
+	    		this.setTamed(false);
+	    	}
+	    }
 		
 		//Loading the stored Items inside the Bufflons Inventory
 		if(this.isTamed())
@@ -306,7 +294,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
 	}
     
     @Override
-    protected boolean processInteract(PlayerEntity player, Hand hand)
+    protected ActionResultType func_230254_b_(PlayerEntity player, Hand hand)
     {
     	ItemStack itemstack = player.getHeldItem(hand);
         if(itemstack.getItem() == PCItems.HERB_BUNDLE.get())
@@ -358,17 +346,17 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
             		}
         		}
         	}
-        	return true;
+        	return ActionResultType.SUCCESS;
         }
         else if(this.isTamed() && !this.isSaddled() && itemstack.getItem() == SADDLE_ITEM)
         {
         	this.openGUI(player);
-            return true;
+            return ActionResultType.SUCCESS;
         }
         else if(this.isTamed() && !this.hasBackAttachment() && Arrays.asList(VALID_BACK_ATTACHMENTS).contains(itemstack.getItem()))
         {
         	this.openGUI(player);
-            return true;
+            return ActionResultType.SUCCESS;
         }
         else if(itemstack.getItem() == Items.AIR)
         {
@@ -380,18 +368,18 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
         	{
         		mountTo(player);
         	}
-        	return true;
+        	return ActionResultType.SUCCESS;
         }
         else
         {
-        	return super.processInteract(player, hand);
+        	return super.func_230254_b_(player, hand);
         }
     }
     
     @Override
     public boolean attackEntityAsMob(Entity entityIn)
     {
-    	boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float)((int)this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getValue()));
+    	boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float)this.getAttributeValue(Attributes.ATTACK_DAMAGE));//Just make sure this works because I changed it to just cast it to a float instead of first an int and then a float
     	//The attack sound
     	this.world.playSound((PlayerEntity)null, this.getPosX(), this.getPosY(), this.getPosZ(), PCSounds.BUFFLON_ATTACK.get(), this.getSoundCategory(), 0.6F, 0.8F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
     	//The attack animation
@@ -630,7 +618,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
             	}
             }
 
-            Vec3d vec3d = (new Vec3d((double)offsetX, 0.0D, 0.0D)).rotateYaw(-this.rotationYaw * ((float)Math.PI / 180F) - ((float)Math.PI / 2F));
+            Vector3d vec3d = (new Vector3d((double)offsetX, 0.0D, 0.0D)).rotateYaw(-this.rotationYaw * ((float)Math.PI / 180F) - ((float)Math.PI / 2F));
             passenger.setPosition(this.getPosX() + vec3d.x, this.getPosY() + (double)offsetY, this.getPosZ() + vec3d.z);
          }
     }
@@ -776,7 +764,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
     //======================================================================================================================================================
     
     @Override
-    public void travel(Vec3d p_213352_1_)
+    public void travel(Vector3d vector)
     {
     	if(this.isAlive())
     	{
@@ -802,11 +790,11 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
 	    			if(this.canPassengerSteer())
 	    			{
 	    				this.setAIMoveSpeed(0.2F);
-	    				super.travel(new Vec3d((double)f, p_213352_1_.y, (double)f1));
+	    				super.travel(new Vector3d((double)f, vector.y, (double)f1));
 	    			}
 	    			else if(livingentity instanceof PlayerEntity)
 	    			{
-	    				this.setMotion(Vec3d.ZERO);
+	    				this.setMotion(Vector3d.ZERO);
 	    			}
 	    			
 	    			//Some code so other people see the walk animation
@@ -826,7 +814,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
     		}
 	    	else
     		{
-    			super.travel(p_213352_1_);
+    			super.travel(vector);
             }
     	}
     }
@@ -1268,7 +1256,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
 	{
 		if(!this.world.isRemote && this.world.getGameRules().getBoolean(GameRules.SHOW_DEATH_MESSAGES) && this.getOwner() instanceof ServerPlayerEntity)
 		{
-			this.getOwner().sendMessage(this.getCombatTracker().getDeathMessage());
+			this.getOwner().sendMessage(this.getCombatTracker().getDeathMessage(), this.getOwnerId());//TODO make sure [this.getOwnerId()] is ok as the UUID
         }
         super.onDeath(cause);
 	}

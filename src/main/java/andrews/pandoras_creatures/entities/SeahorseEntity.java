@@ -13,7 +13,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.Pose;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.controller.MovementController;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
@@ -36,7 +35,6 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorld;
@@ -66,13 +64,6 @@ public class SeahorseEntity extends BucketableMobEntity
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, PlayerEntity.class, 8.0F, 1.6D, 1.4D, EntityPredicates.NOT_SPECTATING::test));
         this.goalSelector.addGoal(3, new SeahorseEntity.SwimGoal(this));
         this.goalSelector.addGoal(4, new LookRandomlyGoal(this));
-    }
-
-    @Override
-    protected void registerAttributes()
-    {
-        super.registerAttributes();
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(3.0D);
     }
     
     @Override
@@ -375,7 +366,7 @@ public class SeahorseEntity extends BucketableMobEntity
             	float f = (float)(MathHelper.atan2(d2, d0) * (double)(180F / (float)Math.PI)) - 90.0F;
             	this.seahorse.rotationYaw = this.limitAngle(this.seahorse.rotationYaw, f, 90.0F);
             	this.seahorse.renderYawOffset = this.seahorse.rotationYaw;
-            	float f1 = (float)(this.speed * this.seahorse.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getValue());
+            	float f1 = (float)(MathHelper.atan2(d2, d0) * (double)(180F / (float)Math.PI)) - 90.0F; //TODO figure out if this seahorse speed is ok
             	this.seahorse.setAIMoveSpeed(MathHelper.lerp(0.125F, this.seahorse.getAIMoveSpeed(), f1));
             	this.seahorse.setMotion(this.seahorse.getMotion().add(0.0D, (double)this.seahorse.getAIMoveSpeed() * d1 * 0.1D, 0.0D));
             }

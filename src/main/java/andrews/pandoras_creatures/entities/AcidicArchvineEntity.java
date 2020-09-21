@@ -12,7 +12,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -21,7 +20,6 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.DifficultyInstance;
@@ -55,15 +53,6 @@ public class AcidicArchvineEntity extends AnimatedMonsterEntity
     protected void registerGoals()
     {
     	this.targetSelector.addGoal(1, new TargetUnderneathGoal<>(this, PlayerEntity.class, true));
-    }
-
-    @Override
-    protected void registerAttributes()
-    {
-        super.registerAttributes();
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
-        this.getAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1.0D);
-        this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(30.0D);
     }
     
     @Override
@@ -173,15 +162,15 @@ public class AcidicArchvineEntity extends AnimatedMonsterEntity
 		}
 		this.setArchvineType(type);
     	
-    	if((worldIn.getBlockState(new BlockPos(this).up(2)).getBlock() != Blocks.JUNGLE_LEAVES && worldIn.getBlockState(new BlockPos(this).up(2)).getBlock() != Blocks.NETHERRACK) && (worldIn.getBlockState(new BlockPos(this).up()).getBlock() != Blocks.JUNGLE_LEAVES && worldIn.getBlockState(new BlockPos(this).up()).getBlock() != Blocks.NETHERRACK))
+    	if((worldIn.getBlockState(this.getPosition().up(2)).getBlock() != Blocks.JUNGLE_LEAVES && worldIn.getBlockState(this.getPosition().up(2)).getBlock() != Blocks.NETHERRACK) && (worldIn.getBlockState(this.getPosition().up()).getBlock() != Blocks.JUNGLE_LEAVES && worldIn.getBlockState(this.getPosition().up()).getBlock() != Blocks.NETHERRACK))
     	{
     		this.damageEntity(DamageSource.CRAMMING, Float.MAX_VALUE);
     	}
-    	else if(worldIn.getBlockState(new BlockPos(this).up()).getBlock() == Blocks.JUNGLE_LEAVES || worldIn.getBlockState(new BlockPos(this).up()).getBlock() == Blocks.NETHERRACK)
+    	else if(worldIn.getBlockState(this.getPosition().up()).getBlock() == Blocks.JUNGLE_LEAVES || worldIn.getBlockState(this.getPosition().up()).getBlock() == Blocks.NETHERRACK)
     	{
     		this.setPosition(this.getPosX(), this.getPosY() - 0.5, this.getPosZ());
     	}
-    	else if(worldIn.getBlockState(new BlockPos(this).up()).getBlock() == Blocks.AIR && (worldIn.getBlockState(new BlockPos(this).up(2)).getBlock() == Blocks.JUNGLE_LEAVES || worldIn.getBlockState(new BlockPos(this).up(2)).getBlock() == Blocks.NETHERRACK))
+    	else if(worldIn.getBlockState(this.getPosition().up()).getBlock() == Blocks.AIR && (worldIn.getBlockState(this.getPosition().up(2)).getBlock() == Blocks.JUNGLE_LEAVES || worldIn.getBlockState(this.getPosition().up(2)).getBlock() == Blocks.NETHERRACK))
     	{
     		this.setPosition(this.getPosX(), this.getPosY() + 0.5, this.getPosZ());
     	}
@@ -191,7 +180,7 @@ public class AcidicArchvineEntity extends AnimatedMonsterEntity
     
     private int getTypeForBiome(IWorld world)
     {
-		Biome biome = world.getBiome(new BlockPos(this));
+		Biome biome = world.getBiome(this.getPosition());
 		if(biome == BiomeDictionary.getBiomes(Type.END)) //TODO make sure this didnt break everything
 		{
 			return 2;
@@ -203,7 +192,7 @@ public class AcidicArchvineEntity extends AnimatedMonsterEntity
     public void tick()
     {
     	super.tick();
-    	if(this.getEntityWorld().getBlockState(new BlockPos(this).up(2)).getBlock().equals(Blocks.JUNGLE_LEAVES) || this.getEntityWorld().getBlockState(new BlockPos(this).up(2)).getBlock().equals(Blocks.NETHERRACK))
+    	if(this.getEntityWorld().getBlockState(this.getPosition().up(2)).getBlock().equals(Blocks.JUNGLE_LEAVES) || this.getEntityWorld().getBlockState(this.getPosition().up(2)).getBlock().equals(Blocks.NETHERRACK))
     	{
     		this.setMotion(Vector3d.ZERO);
     	}

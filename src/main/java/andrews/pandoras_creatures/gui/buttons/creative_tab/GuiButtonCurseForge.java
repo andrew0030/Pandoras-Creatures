@@ -1,20 +1,15 @@
 package andrews.pandoras_creatures.gui.buttons.creative_tab;
 
-import java.util.Arrays;
-import java.util.List;
-
-import javax.rmi.CORBA.Util;
-
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import andrews.pandoras_creatures.config.Config;
 import andrews.pandoras_creatures.util.Reference;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.Util;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.gui.GuiUtils;
@@ -32,11 +27,12 @@ public class GuiButtonCurseForge extends Button
 	
 	public GuiButtonCurseForge(int xPos, int yPos) 
 	{
-		super(xPos, yPos, buttonWidth, buttonHeight, "", (button) -> { handleButtonPress(); });
+		super(xPos, yPos, buttonWidth, buttonHeight, new StringTextComponent(""), (button) -> { handleButtonPress(); });
 		curseForgeButton = this;
 		setButtonAlphaToStart();
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public void renderButton(MatrixStack matrix, int mouseX, int mouseY, float partial)
 	{
@@ -69,10 +65,10 @@ public class GuiButtonCurseForge extends Button
 			//This is used to render a tooltip above the button
 			if(isHovered)
 			{
-				FontRenderer renderer = Minecraft.getInstance().fontRenderer;
-				String text = new TranslationTextComponent("gui.button.pandoras_creatures.curseforge").getString();
-				List<String> textAsList = Arrays.asList(text);
-				Minecraft.getInstance().currentScreen.renderTooltip(textAsList, x - (15 + renderer.getStringWidth(text)), y + 19, Minecraft.getInstance().fontRenderer);
+//				FontRenderer renderer = Minecraft.getInstance().fontRenderer; TODO figure this shit out
+//				String text = new TranslationTextComponent("gui.button.pandoras_creatures.curseforge").getString();
+//				List<String> textAsList = Arrays.asList(text);
+//				Minecraft.getInstance().currentScreen.renderTooltip(textAsList, x - (15 + renderer.getStringWidth(text)), y + 19, Minecraft.getInstance().fontRenderer);
 			}
 		}
 		else
