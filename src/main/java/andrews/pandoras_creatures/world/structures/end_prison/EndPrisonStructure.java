@@ -46,7 +46,6 @@ public class EndPrisonStructure extends ScatteredStructure<NoFeatureConfig>
 	@Override
 	protected int getSeedModifier()
 	{
-//		return 14357618; TODO
 		return 0;
 	}
 	
@@ -56,10 +55,6 @@ public class EndPrisonStructure extends ScatteredStructure<NoFeatureConfig>
 		ChunkPos chunkpos = this.getStartPositionForPosition(chunkGen, rand, chunkPosX, chunkPosZ, 0, 0);
 		if(chunkPosX == chunkpos.x && chunkPosZ == chunkpos.z)
 		{
-//			if(!chunkGen.hasStructure(biome, Feature.END_CITY))
-//			{
-//				return false;
-//			} TODO do some testing
 			if(chunkGen.hasStructure(biome, this))
 			{
 				return true;
