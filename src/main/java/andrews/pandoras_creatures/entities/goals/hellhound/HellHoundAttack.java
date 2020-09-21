@@ -1,11 +1,11 @@
 package andrews.pandoras_creatures.entities.goals.hellhound;
 
 import andrews.pandoras_creatures.entities.HellhoundEntity;
+import andrews.pandoras_creatures.entities.goals.bases.PCMeleeAttackGoal;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 
-public class HellHoundAttack extends MeleeAttackGoal
+public class HellHoundAttack extends PCMeleeAttackGoal
 {	
 	public HellHoundAttack(CreatureEntity creature, double speedIn, boolean useLongMemory)
 	{

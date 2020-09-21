@@ -50,7 +50,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class PCEntities
 {
-	public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = new DeferredRegister<>(ForgeRegistries.ENTITIES, Reference.MODID);
+	public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, Reference.MODID);
 	
 	public static final RegistryObject<EntityType<ArachnonEntity>> ARACHNON = ENTITY_TYPES.register("arachnon", () -> createLivingEntity(ArachnonEntity::new, EntityClassification.MONSTER, "arachnon", 2.8F, 1.8F));
 	public static final RegistryObject<EntityType<HellhoundEntity>> HELLHOUND = ENTITY_TYPES.register("hellhound", () -> createLivingNetherEntity(HellhoundEntity::new, EntityClassification.MONSTER, "hellhound", 1.0F, 1.2F));
@@ -128,6 +128,11 @@ public class PCEntities
   	}
   	
   	//Entity Creation Method
+  	
+//  private static <T extends Entity> RegistryObject<EntityType<T>> createEntity(String name, EntityType.IFactory<T> factory, BiFunction<FMLPlayMessages.SpawnEntity, World, T> clientFactory, EntityClassification entityClassification, float width, float height)
+//  	{
+//		return this.entityRegister.register(name, () -> createEntity(factory, clientFactory, entityClassification, name, width, height));
+//	}
   	private static <T extends Entity> EntityType<T> createEntity(EntityType.IFactory<T> factory, BiFunction<FMLPlayMessages.SpawnEntity, World, T> clientFactory, EntityClassification entityClassification, String name, float width, float height)
   	{
 		ResourceLocation location = new ResourceLocation(Reference.MODID, name);

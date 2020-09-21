@@ -15,13 +15,19 @@ import andrews.pandoras_creatures.util.Reference;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemModelsProperties;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class PCItems
 {
-	public static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, Reference.MODID);
+	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Reference.MODID);
 	public static final List<RegistryObject<Item>> SPAWN_EGGS = Lists.newArrayList();
 	/*
 	 * Items
@@ -29,8 +35,8 @@ public class PCItems
 	public static final RegistryObject<Item> ARACHNON_HAMMER			= RegistryUtils.createItem("arachnon_hammer", () -> new ItemArachnonHammer());
 	public static final RegistryObject<Item> CRAB_MEAT					= RegistryUtils.createItem("crab_meat", () -> new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.CRAB_MEAT(false))));
 	public static final RegistryObject<Item> CRAB_MEAT_COOKED			= RegistryUtils.createItem("crab_meat_cooked", () -> new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.CRAB_MEAT(true))));
-	public static final RegistryObject<Item> CRAB_BUCKET                = RegistryUtils.createItem("crab_bucket", () -> new ItemCrabBucket(() -> PCEntities.CRAB.get(), () -> Fluids.WATER));
-	public static final RegistryObject<Item> SEAHORSE_BUCKET            = RegistryUtils.createItem("seahorse_bucket", () -> new ItemSeahorseBucket(() -> PCEntities.SEAHORSE.get(), () -> Fluids.WATER));
+	public static final RegistryObject<Item> CRAB_BUCKET                = RegistryUtils.createItem("crab_bucket", () -> new ItemCrabBucket(() -> Fluids.WATER));
+	public static final RegistryObject<Item> SEAHORSE_BUCKET            = RegistryUtils.createItem("seahorse_bucket", () -> new ItemSeahorseBucket(() -> Fluids.WATER));
 	public static final RegistryObject<Item> SEAHORSE               	= RegistryUtils.createItem("seahorse", () -> new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.SEAHORSE(false))));
 	public static final RegistryObject<Item> SEAHORSE_COOKED            = RegistryUtils.createItem("seahorse_cooked", () -> new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.SEAHORSE(true))));
 	public static final RegistryObject<Item> ACIDIC_ARCHVINE_TONGUE     = RegistryUtils.createItem("acidic_archvine_tongue", () -> new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP)));
@@ -57,4 +63,41 @@ public class PCItems
 	public static final RegistryObject<Item> END_TROLL_SPAWN_EGG		= RegistryUtils.createSpawnEggItem("end_troll", () -> PCEntities.END_TROLL.get(), 0x2a234d, 0x4db4bf);
 	
 //	public static final RegistryObject<Item> PANDORIC_SHARD             = RegistryUtils.createItem("pandoric_shard", () -> new ItemPandoricShard());
+	
+	@OnlyIn(Dist.CLIENT)
+	public static void setupItemProperties()
+	{
+		//The Crab Variant
+		ItemModelsProperties.func_239418_a_(CRAB_BUCKET.get(), new ResourceLocation("variant"), (stack, world, entity) ->
+		{
+			CompoundNBT compoundnbt = stack.getTag();
+			if(compoundnbt != null && compoundnbt.contains("BucketVariantTag", NBT.TAG_INT))
+			{
+				return compoundnbt.getInt("BucketVariantTag");
+			}
+			return 2;
+		});
+		
+		//The Seahorse Variant
+		ItemModelsProperties.func_239418_a_(SEAHORSE_BUCKET.get(), new ResourceLocation("variant"), (stack, world, entity) ->
+		{
+			CompoundNBT compoundnbt = stack.getTag();
+			if(compoundnbt != null && compoundnbt.contains("BucketVariantTag", NBT.TAG_INT))
+			{
+				return compoundnbt.getInt("BucketVariantTag");
+			}
+			return 2;
+		});
+		
+		//The Seahorse Size
+		ItemModelsProperties.func_239418_a_(SEAHORSE_BUCKET.get(), new ResourceLocation("size"), (stack, world, entity) ->
+		{
+			CompoundNBT compoundnbt = stack.getTag();
+			if(compoundnbt != null && compoundnbt.contains("BucketSizeTag", NBT.TAG_INT))
+			{
+				return compoundnbt.getInt("BucketSizeTag");
+			}
+			return 2;
+		});
+	}
 }

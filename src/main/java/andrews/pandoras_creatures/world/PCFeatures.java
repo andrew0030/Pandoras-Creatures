@@ -13,7 +13,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class PCFeatures
 {
-	public static final DeferredRegister<Feature<?>> FEATURES = new DeferredRegister<>(ForgeRegistries.FEATURES, Reference.MODID);
+	public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, Reference.MODID);
 	
 	public static final RegistryObject<Structure<NoFeatureConfig>> END_PRISON 		 = createFeature("end_prison", () -> new EndPrisonStructure(NoFeatureConfig::deserialize));
 	

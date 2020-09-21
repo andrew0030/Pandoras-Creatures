@@ -10,7 +10,7 @@ import net.minecraft.util.SoundEvents;
 
 public enum PCArmorMaterials implements IArmorMaterial
 {
-	PLANT_HAT("plant_hat", new int[] {30, 30, 30, 30}, new int[] {1, 1, 1, 1}, 15, PCItems.ACIDIC_ARCHVINE_TONGUE.get(), SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F);
+	PLANT_HAT("plant_hat", new int[] {30, 30, 30, 30}, new int[] {1, 1, 1, 1}, 15, PCItems.ACIDIC_ARCHVINE_TONGUE.get(), SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F, 0.0F);
 	
 	private int[] durabilities, damageReduction;
 	private int enchantability;
@@ -18,8 +18,9 @@ public enum PCArmorMaterials implements IArmorMaterial
 	private Item repairItem;
 	private String name;
 	private float toughness;
+	private float knockbackResistance;
 	
-	private PCArmorMaterials(String name, int[] durabilities, int[] damageReduction, int enchantability, Item repairItem, SoundEvent sound, float toughness)
+	private PCArmorMaterials(String name, int[] durabilities, int[] damageReduction, int enchantability, Item repairItem, SoundEvent sound, float toughness, float knockbackResistance)
 	{
 		this.durabilities = durabilities;
 		this.damageReduction = damageReduction;
@@ -28,6 +29,7 @@ public enum PCArmorMaterials implements IArmorMaterial
 		this.repairItem = repairItem;
 		this.name = name;
 		this.toughness = toughness;
+		this.knockbackResistance = knockbackResistance;
 	}
 	
 	@Override
@@ -70,5 +72,11 @@ public enum PCArmorMaterials implements IArmorMaterial
 	public float getToughness()
 	{
 		return this.toughness;
+	}
+
+	@Override
+	public float getKnockbackResistance()
+	{
+		return this.knockbackResistance;
 	}
 }

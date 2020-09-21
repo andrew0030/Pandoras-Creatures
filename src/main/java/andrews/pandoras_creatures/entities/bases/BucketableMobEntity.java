@@ -11,6 +11,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
@@ -80,7 +81,7 @@ public abstract class BucketableMobEntity extends AnimatedWaterMobEntity impleme
      * @param hand - The players hand that got used to interact
      */
     @Override
-    protected boolean processInteract(PlayerEntity player, Hand hand)
+    protected ActionResultType func_230254_b_(PlayerEntity player, Hand hand)
     {
         ItemStack itemstack = player.getHeldItem(hand);
         if(itemstack.getItem() == Items.WATER_BUCKET && this.isAlive())
@@ -103,11 +104,11 @@ public abstract class BucketableMobEntity extends AnimatedWaterMobEntity impleme
                 player.dropItem(itemstack1, false);
             }
             this.remove();
-            return true;
+            return ActionResultType.SUCCESS;
         }
         else
         {
-            return super.processInteract(player, hand);
+            return super.func_230254_b_(player, hand);
         }
     }
 

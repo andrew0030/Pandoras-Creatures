@@ -3,6 +3,9 @@ package andrews.pandoras_creatures.gui.buttons.creative_tab;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.rmi.CORBA.Util;
+
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import andrews.pandoras_creatures.config.Config;
@@ -11,7 +14,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Util;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -36,7 +38,7 @@ public class GuiButtonCurseForge extends Button
 	}
 	
 	@Override
-	public void renderButton(int mouseX, int mouseY, float partial)
+	public void renderButton(MatrixStack matrix, int mouseX, int mouseY, float partial)
 	{
 		if(visible && Config.CLIENT.shouldButtonsInCreativeTabBeEnabled.get() == true && Minecraft.getInstance().player.getActivePotionEffects().isEmpty())
 		{
@@ -56,13 +58,13 @@ public class GuiButtonCurseForge extends Button
 			if(this.isHovered) { u = 22; }else{ u = 0; }
 			
 			Minecraft.getInstance().getRenderManager().textureManager.bindTexture(texture);
-			RenderSystem.pushMatrix();
+			matrix.push();
 			RenderSystem.enableBlend();
 			RenderSystem.color4f(1, 1, 1, (buttonAlpha / 100F));
 			GuiUtils.drawTexturedModalRect(x, y, u, v, width, height, 0);
 			RenderSystem.color4f(1, 1, 1, 1);
 			RenderSystem.disableBlend();
-			RenderSystem.popMatrix();
+			matrix.pop();
 			
 			//This is used to render a tooltip above the button
 			if(isHovered)

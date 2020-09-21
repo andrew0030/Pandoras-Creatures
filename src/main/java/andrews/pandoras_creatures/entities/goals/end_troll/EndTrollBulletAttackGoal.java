@@ -84,6 +84,7 @@ public class EndTrollBulletAttackGoal extends Goal
     	
 		switch(rand.nextInt(3) + 1)
 		{
+		default:
 		case 1:
 			EndTrollBulletPoisonEntity bulletEntity0 = new EndTrollBulletPoisonEntity(world, owner, targetEntity, directionAxis);
 			bulletEntity0.addVelocity(xMotion, yMotion, zMotion);
@@ -96,10 +97,6 @@ public class EndTrollBulletAttackGoal extends Goal
 			EndTrollBulletDamageEntity bulletEntity2 = new EndTrollBulletDamageEntity(world, owner, targetEntity, directionAxis);
 			bulletEntity2.addVelocity(xMotion, yMotion, zMotion);
 			return bulletEntity2;
-		default:
-			EndTrollBulletPoisonEntity bulletEntity = new EndTrollBulletPoisonEntity(world, owner, targetEntity, directionAxis);
-			bulletEntity.addVelocity(xMotion, yMotion, zMotion);
-			return bulletEntity;
 		}
     }
     

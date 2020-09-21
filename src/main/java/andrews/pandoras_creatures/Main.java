@@ -89,6 +89,11 @@ public class Main
 	@SubscribeEvent
 	public static void setupCommon(final FMLCommonSetupEvent event)
 	{
+		DeferredWorkQueue.runLater(() ->
+		{
+			
+		});
+		
 		PCDispenserBehaviors.registerAll();
 		PCNetwork.setupMessages();
 		
@@ -104,6 +109,11 @@ public class Main
 	@SubscribeEvent
 	public static void setupClient(final FMLClientSetupEvent event)
 	{
+		DeferredWorkQueue.runLater(() ->
+		{
+			PCItems.setupItemProperties();
+		});
+		
 		//Block Render Layers
 		PCRenderLayers.setBlockRenderLayers();
 		//Tile Entities

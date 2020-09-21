@@ -9,7 +9,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class PCSounds
 {
-	public static final DeferredRegister<SoundEvent> SOUNDS = new DeferredRegister<>(ForgeRegistries.SOUND_EVENTS, Reference.MODID);
+	public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Reference.MODID);
 	
 	public static final RegistryObject<SoundEvent> ARACHNON_AMBIENT = createSoundEvent("entity.arachnon.ambient");
 	public static final RegistryObject<SoundEvent> ARACHNON_HURT = createSoundEvent("entity.arachnon.hurt");

@@ -23,14 +23,15 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biomes;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 
 public class AcidicArchvineEntity extends AnimatedMonsterEntity
 {
@@ -191,7 +192,7 @@ public class AcidicArchvineEntity extends AnimatedMonsterEntity
     private int getTypeForBiome(IWorld world)
     {
 		Biome biome = world.getBiome(new BlockPos(this));
-		if(biome == Biomes.NETHER)
+		if(biome == BiomeDictionary.getBiomes(Type.END)) //TODO make sure this didnt break everything
 		{
 			return 2;
 		}
@@ -204,7 +205,7 @@ public class AcidicArchvineEntity extends AnimatedMonsterEntity
     	super.tick();
     	if(this.getEntityWorld().getBlockState(new BlockPos(this).up(2)).getBlock().equals(Blocks.JUNGLE_LEAVES) || this.getEntityWorld().getBlockState(new BlockPos(this).up(2)).getBlock().equals(Blocks.NETHERRACK))
     	{
-    		this.setMotion(Vec3d.ZERO);
+    		this.setMotion(Vector3d.ZERO);
     	}
     }
     

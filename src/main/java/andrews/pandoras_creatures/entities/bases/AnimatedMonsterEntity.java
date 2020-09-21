@@ -4,7 +4,6 @@ import java.util.Random;
 import java.util.function.Predicate;
 
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.monster.MonsterEntity;
@@ -100,10 +99,11 @@ public abstract class AnimatedMonsterEntity extends AnimatedCreatureEntity imple
 		return this.isInvulnerableTo(source) ? false : super.attackEntityFrom(source, amount);
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public float getBlockPathWeight(BlockPos pos, IWorldReader worldIn)
 	{
-		return 0.5F - worldIn.getDimension().getLightBrightness(worldIn.getLight(pos));
+		return 0.5F - worldIn.getBrightness(pos);
 	}
 	
 	/**
@@ -142,12 +142,12 @@ public abstract class AnimatedMonsterEntity extends AnimatedCreatureEntity imple
 		return worldIn.getDifficulty() != Difficulty.PEACEFUL && canSpawnOn(type, worldIn, reason, pos, randomIn);
 	}
 	
-	@Override
-	protected void registerAttributes()
-	{
-		super.registerAttributes();
-		this.getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
-	}
+//	@Override
+//	protected void registerAttributes()   TODO GREAT ATTRIBUTES ARE FUCKED UP
+//	{
+//		super.registerAttributes();
+//		this.getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
+//	}
 	
 	@Override
 	protected boolean canDropLoot()

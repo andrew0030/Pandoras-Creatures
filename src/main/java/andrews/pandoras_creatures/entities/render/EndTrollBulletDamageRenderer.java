@@ -8,12 +8,13 @@ import andrews.pandoras_creatures.entities.model.EndTrollBulletModel;
 import andrews.pandoras_creatures.util.Reference;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -31,7 +32,7 @@ public class EndTrollBulletDamageRenderer extends EntityRenderer<EndTrollBulletD
 	}
 	
 	@Override
-	protected int getBlockLight(EndTrollBulletDamageEntity entityIn, float partialTicks)
+	protected int getBlockLight(EndTrollBulletDamageEntity entity, BlockPos pos)
 	{
 		return 15;
 	}

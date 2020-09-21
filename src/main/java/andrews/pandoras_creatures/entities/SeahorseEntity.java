@@ -37,6 +37,7 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -103,11 +104,11 @@ public class SeahorseEntity extends BucketableMobEntity
     }
 
     @Override
-    public void travel(Vec3d p_213352_1_)
+    public void travel(Vector3d vector)
     {
     	if(this.isServerWorld() && this.isInWater())
     	{
-    		this.moveRelative(0.01F, p_213352_1_);
+    		this.moveRelative(0.01F, vector);
     		this.move(MoverType.SELF, this.getMotion());
     		this.setMotion(this.getMotion().scale(0.9D));
     		if(this.getAttackTarget() == null)
@@ -117,7 +118,7 @@ public class SeahorseEntity extends BucketableMobEntity
     	}
     	else
     	{
-    		super.travel(p_213352_1_);
+    		super.travel(vector);
     	}
     }
     

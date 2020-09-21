@@ -1,7 +1,10 @@
 package andrews.pandoras_creatures.gui.buttons.creative_tab;
 
+import java.awt.Button;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.rmi.CORBA.Util;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 
@@ -9,9 +12,7 @@ import andrews.pandoras_creatures.config.Config;
 import andrews.pandoras_creatures.util.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Util;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;

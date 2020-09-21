@@ -9,6 +9,7 @@ import andrews.pandoras_creatures.objects.blocks.BlockEndTrollBox;
 import andrews.pandoras_creatures.registry.PCTileEntities;
 import andrews.pandoras_creatures.util.Reference;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -174,7 +175,7 @@ public class EndTrollBoxTileEntity extends LockableLootTileEntity implements ISi
 	 */
 	private void updateSurroundingBlocks()
 	{
-		this.getBlockState().updateNeighbors(this.getWorld(), this.getPos(), 3);
+		this.getBlockState().updateNeighbours(this.getWorld(), this.getPos(), 3);
 	}
 
 	@Override
@@ -184,9 +185,9 @@ public class EndTrollBoxTileEntity extends LockableLootTileEntity implements ISi
 	}
 
 	@Override
-	public void read(CompoundNBT compound)
+	public void read(BlockState state, CompoundNBT compound)
 	{
-		super.read(compound);
+		super.read(state, compound);
 		this.loadFromNbt(compound);
 	}
 

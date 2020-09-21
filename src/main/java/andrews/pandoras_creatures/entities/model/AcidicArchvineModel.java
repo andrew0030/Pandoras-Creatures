@@ -6,8 +6,8 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import andrews.pandoras_creatures.entities.AcidicArchvineEntity;
 import andrews.pandoras_creatures.util.animation.PCEntityModel;
 import andrews.pandoras_creatures.util.animation.PCModelRenderer;
-import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 

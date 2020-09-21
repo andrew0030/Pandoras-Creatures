@@ -3,7 +3,7 @@ package andrews.pandoras_creatures.world.structures.end_prison;
 import java.util.Random;
 import java.util.function.Function;
 
-import com.mojang.datafixers.Dynamic;
+import com.mojang.serialization.Dynamic;
 
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;

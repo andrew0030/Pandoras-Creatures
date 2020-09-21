@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
+import javax.swing.text.html.parser.Entity;
 
 import com.google.common.collect.Lists;
 
 import andrews.pandoras_creatures.registry.PCEntities;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;

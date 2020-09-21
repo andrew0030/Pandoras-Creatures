@@ -15,7 +15,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class PCTileEntities
 {
-	public static final DeferredRegister<TileEntityType<?>> TILE_ENTITY_TYPES = new DeferredRegister<>(ForgeRegistries.TILE_ENTITIES, Reference.MODID);
+	public static final DeferredRegister<TileEntityType<?>> TILE_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, Reference.MODID);
 	
 	public static final RegistryObject<TileEntityType<EndTrollBoxTileEntity>> END_TROLL_BOX = TILE_ENTITY_TYPES.register("end_troll_shulker", () -> new TileEntityType<>(EndTrollBoxTileEntity::new, Sets.newHashSet(PCBlocks.END_TROLL_BOX.get(), PCBlocks.WHITE_END_TROLL_BOX.get(), PCBlocks.ORANGE_END_TROLL_BOX.get(), PCBlocks.MAGENTA_END_TROLL_BOX.get(), PCBlocks.LIGHT_BLUE_END_TROLL_BOX.get(), PCBlocks.YELLOW_END_TROLL_BOX.get(), PCBlocks.LIME_END_TROLL_BOX.get(), PCBlocks.PINK_END_TROLL_BOX.get(), PCBlocks.GRAY_END_TROLL_BOX.get(), PCBlocks.LIGHT_GRAY_END_TROLL_BOX.get(), PCBlocks.CYAN_END_TROLL_BOX.get(), PCBlocks.PURPLE_END_TROLL_BOX.get(), PCBlocks.BLUE_END_TROLL_BOX.get(), PCBlocks.BROWN_END_TROLL_BOX.get(), PCBlocks.GREEN_END_TROLL_BOX.get(), PCBlocks.RED_END_TROLL_BOX.get(), PCBlocks.BLACK_END_TROLL_BOX.get()), null));
 	

@@ -4,7 +4,6 @@ package andrews.pandoras_creatures.events;
 import andrews.pandoras_creatures.config.Config;
 import andrews.pandoras_creatures.util.Reference;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.event.ClickEvent;
 import net.minecraft.util.text.event.HoverEvent;
@@ -71,13 +70,13 @@ public class EventHandler
 	{	
 		TranslationTextComponent downloadLink = new TranslationTextComponent("chat.pandoras_creatures.newVersionDownload");
         downloadLink.getStyle().setUnderlined(true);
-        downloadLink.getStyle().setColor(TextFormatting.BLUE);
+//        downloadLink.getStyle().setColor(TextFormatting.BLUE); TODO
         downloadLink.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TranslationTextComponent("chat.pandoras_creatures.newVersionDownloadTooltip", (Object)null)));
         downloadLink.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.curseforge.com/minecraft/mc-mods/pandoras-creatures/files"));
         
         TranslationTextComponent warning = new TranslationTextComponent("chat.pandoras_creatures.newVersion", downloadLink);
-		warning.getStyle().setColor(TextFormatting.YELLOW);
-        player.sendMessage(warning);
+//		warning.getStyle().setColor(TextFormatting.YELLOW); TODO
+        player.sendMessage(warning, player.getUniqueID()); //TODO make sure this UUID is ok
 	}
 	
 	/**
@@ -87,7 +86,7 @@ public class EventHandler
 	private static void failedMessage(PlayerEntity player)
 	{	
         TranslationTextComponent warning = new TranslationTextComponent("chat.pandoras_creatures.failedCheck");
-		warning.getStyle().setColor(TextFormatting.RED);
-        player.sendMessage(warning);
+//		warning.getStyle().setColor(TextFormatting.RED); TODO
+        player.sendMessage(warning, player.getUniqueID()); //TODO make sure this UUID is ok
 	}
 }

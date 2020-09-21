@@ -1,5 +1,6 @@
 package andrews.pandoras_creatures.entities;
 
+import andrews.pandoras_creatures.entities.SeahorseEntity.SwimGoal;
 import andrews.pandoras_creatures.entities.bases.AnimatedMonsterEntity;
 import andrews.pandoras_creatures.entities.goals.arachnon.MeleeAttackGoalWithRange;
 import andrews.pandoras_creatures.registry.PCEntities;
@@ -8,7 +9,6 @@ import andrews.pandoras_creatures.registry.PCSounds;
 import andrews.pandoras_creatures.util.animation.Animation;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.CreatureAttribute;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.Pose;
@@ -17,7 +17,6 @@ import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.LookRandomlyGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;

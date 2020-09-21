@@ -8,6 +8,7 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import andrews.pandoras_creatures.container.BufflonContainer;
+import andrews.pandoras_creatures.entities.SeahorseEntity.SwimGoal;
 import andrews.pandoras_creatures.entities.bases.AnimatedCreatureEntity;
 import andrews.pandoras_creatures.entities.goals.bufflon.BufflonFollowOwnerGoal;
 import andrews.pandoras_creatures.entities.goals.bufflon.BufflonMeleeAttackGoal;
@@ -31,7 +32,6 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.monster.GhastEntity;

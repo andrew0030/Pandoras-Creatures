@@ -1,13 +1,13 @@
 package andrews.pandoras_creatures.entities.goals.arachnon;
 
+import andrews.pandoras_creatures.entities.goals.bases.PCMeleeAttackGoal;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 
-public class MeleeAttackGoalWithRange extends MeleeAttackGoal
+public class MeleeAttackGoalWithRange extends PCMeleeAttackGoal
 {
 	private double attackRange;
-//	private LivingEntity enemy;
+//	private LivingEntity enemy; TODO figure out if I can remove all this commented out code
 	
 	public MeleeAttackGoalWithRange(CreatureEntity creature, double speedIn, boolean useLongMemory, double attackRange)
 	{

@@ -1,5 +1,6 @@
 package andrews.pandoras_creatures.gui.buttons.bufflon_menu;
 
+import java.awt.Button;
 import java.util.Arrays;
 import java.util.List;
 
@@ -9,7 +10,6 @@ import andrews.pandoras_creatures.entities.BufflonEntity;
 import andrews.pandoras_creatures.util.Reference;
 import andrews.pandoras_creatures.util.network.NetworkUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;

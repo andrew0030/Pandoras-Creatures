@@ -14,6 +14,7 @@ import net.minecraft.entity.item.ItemFrameEntity;
 import net.minecraft.entity.monster.ShulkerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.loot.LootTables;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.LockableLootTileEntity;
 import net.minecraft.util.Direction;
@@ -30,7 +31,6 @@ import net.minecraft.world.gen.feature.template.JigsawReplacementStructureProces
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
-import net.minecraft.world.storage.loot.LootTables;
 
 public class EndPrisonPieces
 {

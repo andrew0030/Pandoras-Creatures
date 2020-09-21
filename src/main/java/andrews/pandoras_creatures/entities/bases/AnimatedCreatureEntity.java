@@ -10,7 +10,7 @@ import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraftforge.event.ForgeEventFactory;
@@ -225,9 +225,9 @@ public abstract class AnimatedCreatureEntity extends CreatureEntity implements I
 	 * @param pathZ - z location of the path
 	 * @return - A vector containing the mid-position of the entity's path end location and its current location
 	 */
-	public Vec3d getMoveControllerPathDistance(double pathX, double pathY, double pathZ)
+	public Vector3d getMoveControllerPathDistance(double pathX, double pathY, double pathZ)
 	{
-		return new Vec3d(pathX - this.getPosX(), pathY - this.getPosY(), pathY - this.getPosY());
+		return new Vector3d(pathX - this.getPosX(), pathY - this.getPosY(), pathY - this.getPosY());
 	}
 	
 	/**
@@ -235,7 +235,7 @@ public abstract class AnimatedCreatureEntity extends CreatureEntity implements I
 	 * @param vec3d - The distance vector
 	 * @return - A vector that gets the target angle for a path's distance
 	 */
-	public float getTargetAngleForPathDistance(Vec3d vec3d)
+	public float getTargetAngleForPathDistance(Vector3d vec3d)
 	{
 		return (float) (MathHelper.atan2(vec3d.z, vec3d.x) * (double) (180F / (float) Math.PI)) - 90F;
 	}

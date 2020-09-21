@@ -38,7 +38,7 @@ public class BufflonSitGoal extends Goal
 		{
 			return false;
 		}
-		else if(!this.bufflonEntity.onGround)
+		else if(!this.bufflonEntity.isOnGround())
 		{
 			return false;
 		}

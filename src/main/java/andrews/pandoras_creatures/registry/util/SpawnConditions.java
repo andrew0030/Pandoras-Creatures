@@ -10,7 +10,6 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.IWorld;
-import net.minecraft.world.dimension.DimensionType;
 
 public class SpawnConditions
 {
@@ -24,10 +23,10 @@ public class SpawnConditions
 		{
 			return false;
 		}
-    	if(world.getDimension().getType() != DimensionType.OVERWORLD)
-    	{
-    		return false;
-    	}
+//    	if(world.getDimension().getType() != DimensionType.OVERWORLD) TODO I may not need these checks as mobs wont spawn in other dimensions on their own any ways
+//    	{
+//    		return false;
+//    	}
     	else
     	{
     		if(world.getLight(pos) > 7)
@@ -47,10 +46,10 @@ public class SpawnConditions
 		{
 			return false;
 		}
-    	if(world.getDimension().getType() != DimensionType.OVERWORLD)
-    	{
-    		return false;
-    	}
+//    	if(world.getDimension().getType() != DimensionType.OVERWORLD) TODO same as above
+//    	{
+//    		return false;
+//    	}
     	else
     	{
     		if(world.getBlockState(pos.down()).getBlock() == Blocks.SAND)
@@ -74,10 +73,10 @@ public class SpawnConditions
 		{
 			return false;
 		}
-    	if(world.getDimension().getType() != DimensionType.THE_NETHER)
-    	{
-    		return false;
-    	}
+//    	if(world.getDimension().getType() != DimensionType.THE_NETHER) TODO same as above
+//    	{
+//    		return false;
+//    	}
     	else
     	{
     		return true;
@@ -90,10 +89,10 @@ public class SpawnConditions
 		{
 			return false;
 		}
-    	if(world.getDimension().getType() != DimensionType.OVERWORLD)
-    	{
-    		return false;
-    	}
+//    	if(world.getDimension().getType() != DimensionType.OVERWORLD) TODO same as above
+//    	{
+//    		return false;
+//    	}
     	else
     	{
     		return true;
@@ -110,14 +109,26 @@ public class SpawnConditions
 		{
 			return false;
 		}
-    	if(world.getDimension().getType() == DimensionType.OVERWORLD && pos.getY() < 62)
+    	
+    	//TODO same as above
+//    	if(world.getDimension().getType() == DimensionType.OVERWORLD && pos.getY() < 62)
+//    	{
+//    		return false;
+//    	}
+//    	if(world.getDimension().getType() == DimensionType.THE_NETHER && pos.getY() < 40)
+//    	{
+//    		return false;
+//    	}
+    	if(pos.getY() < 62)
     	{
     		return false;
     	}
-    	if(world.getDimension().getType() == DimensionType.THE_NETHER && pos.getY() < 40)
+    	if(pos.getY() < 40)
     	{
     		return false;
     	}
+    	//I created the 2 checks above for temporary use TODO remove them and replace them with the real thing
+    	
     	if(!world.getBlockState(pos).getBlock().equals(Blocks.AIR))
     	{
     		return false;
@@ -152,10 +163,10 @@ public class SpawnConditions
 		{
 			return false;
 		}
-    	if(world.getDimension().getType() != DimensionType.OVERWORLD)
-    	{
-    		return false;
-    	}
+//    	if(world.getDimension().getType() != DimensionType.OVERWORLD) TODO same as above
+//    	{
+//    		return false;
+//    	}
     	else
     	{
     		return world.getLightSubtracted(pos, 0) > 8 && world.getBlockState(pos.down()).getBlock() == Blocks.GRASS_BLOCK;

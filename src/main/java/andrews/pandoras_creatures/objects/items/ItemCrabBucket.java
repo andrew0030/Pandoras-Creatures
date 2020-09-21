@@ -5,13 +5,11 @@ import java.util.function.Supplier;
 
 import andrews.pandoras_creatures.Main;
 import andrews.pandoras_creatures.entities.CrabEntity;
-import andrews.pandoras_creatures.entities.bases.BucketableMobEntity;
+import andrews.pandoras_creatures.registry.PCEntities;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -21,19 +19,24 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class ItemCrabBucket extends ItemMobBucket
 {
-	public ItemCrabBucket(Supplier<EntityType<? extends BucketableMobEntity>> entityType, Supplier<? extends Fluid> supplier)
+	public ItemCrabBucket(Supplier<? extends Fluid> supplier)
 	{
-		super(entityType, supplier, getProperties());
-		this.addPropertyOverride(new ResourceLocation("variant"), (stack, world, entity) ->
-		{
-			CompoundNBT compoundnbt = stack.getTag();
-			if(compoundnbt != null && compoundnbt.contains("BucketVariantTag", 3))
-			{
-				return compoundnbt.getInt("BucketVariantTag");
-			}
-			return 2;
-		});
+		super(() -> PCEntities.CRAB.get(), supplier, getProperties());
 	}
+	
+//	public ItemCrabBucket(Supplier<EntityType<? extends BucketableMobEntity>> entityType, Supplier<? extends Fluid> supplier) TODO remove if not needed
+//	{
+//		super(entityType, supplier, getProperties());
+//		this.addPropertyOverride(new ResourceLocation("variant"), (stack, world, entity) ->
+//		{
+//			CompoundNBT compoundnbt = stack.getTag();
+//			if(compoundnbt != null && compoundnbt.contains("BucketVariantTag", 3))
+//			{
+//				return compoundnbt.getInt("BucketVariantTag");
+//			}
+//			return 2;
+//		});
+//	}
 	
 	private static Properties getProperties()
 	{
@@ -54,7 +57,7 @@ public class ItemCrabBucket extends ItemMobBucket
 			int i = compoundnbt.getInt("BucketVariantTag");
 			TextFormatting[] atextformatting = new TextFormatting[] {TextFormatting.ITALIC, TextFormatting.GRAY};
 			
-			tooltip.add((new TranslationTextComponent(CrabEntity.getNameById(i)).applyTextStyles(atextformatting)));
+			tooltip.add((new TranslationTextComponent(CrabEntity.getNameById(i)).mergeStyle(atextformatting)));
 		}
 	}
 }

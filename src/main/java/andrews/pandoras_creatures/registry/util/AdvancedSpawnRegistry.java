@@ -6,6 +6,8 @@ import andrews.pandoras_creatures.registry.PCEntities;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 
 public class AdvancedSpawnRegistry
 {
@@ -36,7 +38,7 @@ public class AdvancedSpawnRegistry
 		{
 			for(Biome biome : biomes)
 			{
-				if(biome == Biomes.NETHER)
+				if(biome == BiomeDictionary.getBiomes(Type.NETHER))//TODO make sure this didnt break everything
 				{
 					biome.getSpawns(entity.getClassification()).add(new Biome.SpawnListEntry(entity, 30, 1, 1));
 				}

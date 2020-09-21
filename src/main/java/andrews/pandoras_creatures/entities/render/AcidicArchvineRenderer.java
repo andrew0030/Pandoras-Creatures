@@ -7,17 +7,17 @@ import andrews.pandoras_creatures.entities.AcidicArchvineEntity;
 import andrews.pandoras_creatures.entities.model.AcidicArchvineModel;
 import andrews.pandoras_creatures.util.Reference;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.Matrix3f;
-import net.minecraft.client.renderer.Matrix4f;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Matrix3f;
+import net.minecraft.util.math.vector.Matrix4f;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -56,12 +56,12 @@ public class AcidicArchvineRenderer extends MobRenderer<AcidicArchvineEntity, Ac
 		}
 	}
 	
-	private Vec3d getPosition(LivingEntity entityLivingBaseIn, double p_177110_2_, float p_177110_4_)
+	private Vector3d getPosition(LivingEntity entityLivingBaseIn, double p_177110_2_, float p_177110_4_)
 	{
 		double d0 = MathHelper.lerp((double)p_177110_4_, entityLivingBaseIn.lastTickPosX, entityLivingBaseIn.getPosX());
 		double d1 = MathHelper.lerp((double)p_177110_4_, entityLivingBaseIn.lastTickPosY, entityLivingBaseIn.getPosY()) + p_177110_2_;
 		double d2 = MathHelper.lerp((double)p_177110_4_, entityLivingBaseIn.lastTickPosZ, entityLivingBaseIn.getPosZ());
-		return new Vec3d(d0, d1, d2);
+		return new Vector3d(d0, d1, d2);
 	}
 	
 	@Override
@@ -77,9 +77,9 @@ public class AcidicArchvineRenderer extends MobRenderer<AcidicArchvineEntity, Ac
 			float f3 = entityIn.getEyeHeight();
 			matrixStackIn.push();
 			matrixStackIn.translate(0.0D, (double) f3, 0.0D);
-			Vec3d vec3d = this.getPosition(livingentity, (double) livingentity.getHeight() * 0.5D, partialTicks);
-			Vec3d vec3d1 = this.getPosition(entityIn, (double) f3, partialTicks);
-			Vec3d vec3d2 = vec3d.subtract(vec3d1);
+			Vector3d vec3d = this.getPosition(livingentity, (double) livingentity.getHeight() * 0.5D, partialTicks);
+			Vector3d vec3d1 = this.getPosition(entityIn, (double) f3, partialTicks);
+			Vector3d vec3d2 = vec3d.subtract(vec3d1);
 			float f4 = (float) (vec3d2.length() + 1.0D);
 			vec3d2 = vec3d2.normalize();
 			float f5 = (float) Math.acos(vec3d2.y);

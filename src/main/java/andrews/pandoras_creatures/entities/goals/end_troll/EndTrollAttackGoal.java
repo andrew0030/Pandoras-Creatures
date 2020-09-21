@@ -1,5 +1,6 @@
 package andrews.pandoras_creatures.entities.goals.end_troll;
 
+import java.nio.file.Path;
 import java.util.EnumSet;
 import java.util.Random;
 
@@ -8,7 +9,6 @@ import andrews.pandoras_creatures.util.network.NetworkUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.pathfinding.Path;
 import net.minecraft.util.EntityPredicates;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Difficulty;

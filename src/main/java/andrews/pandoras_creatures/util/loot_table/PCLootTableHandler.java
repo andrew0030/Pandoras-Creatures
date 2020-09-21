@@ -5,10 +5,10 @@ import java.util.Set;
 import com.google.common.collect.Sets;
 
 import andrews.pandoras_creatures.util.Reference;
+import net.minecraft.loot.LootPool;
+import net.minecraft.loot.LootTables;
+import net.minecraft.loot.TableLootEntry;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.storage.loot.LootPool;
-import net.minecraft.world.storage.loot.LootTables;
-import net.minecraft.world.storage.loot.TableLootEntry;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;

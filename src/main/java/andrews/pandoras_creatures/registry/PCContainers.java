@@ -18,7 +18,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class PCContainers
 {
-    public static final DeferredRegister<ContainerType<?>> CONTAINERS = new DeferredRegister<>(ForgeRegistries.CONTAINERS, Reference.MODID);
+    public static final DeferredRegister<ContainerType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, Reference.MODID);
     
     public static final RegistryObject<ContainerType<BufflonContainer>> BUFFLON = createContainer("bufflon_container", BufflonContainer::new);
     public static final RegistryObject<ContainerType<EndTrollBoxContainer>> END_TROLL_BOX = createContainer("end_troll_box_container", EndTrollBoxContainer::new);
