@@ -361,11 +361,11 @@ public class BlockEndTrollBox extends ShulkerBoxBlock implements IWaterLoggable
 		return null;
 	}
 	
-	@Override
-	public boolean causesSuffocation(BlockState state, IBlockReader worldIn, BlockPos pos)
-	{
-		return false;
-	}
+//	@Override TODO make sure this was removed in 1.16 (Its very likely as the method also isnt in ShulkerBoxBlock)
+//	public boolean causesSuffocation(BlockState state, IBlockReader worldIn, BlockPos pos)
+//	{
+//		return false;
+//	}
 	
 	@Override
 	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context)
@@ -461,23 +461,26 @@ public class BlockEndTrollBox extends ShulkerBoxBlock implements IWaterLoggable
 		protected ItemStack dispenseStack(IBlockSource source, ItemStack stack)
 		{
 			World world = source.getWorld();
-			this.successful = true;
+			this.setSuccessful(true);
+//			this.setSuccessful(true); TODO make sure it works you can look at ShulkerBoxDispenseBehavior
             BlockPos blockpos = source.getBlockPos().offset(source.getBlockState().get(DispenserBlock.FACING));
             BlockState blockstate = world.getBlockState(blockpos);
             if(!blockstate.getMaterial().isReplaceable())
             {
-            	this.successful = false;
+            	this.setSuccessful(false);
+//            	this.successful = false; TODO make sure it works
             }
             else
             {
-            	this.successful = true;
+            	this.setSuccessful(true);
+//            	this.successful = true; TODO make sure it works
             }
             
-            if(this.successful)
+            if(this.isSuccessful())
             {
             	Item item = stack.getItem();
             	Direction direction = source.getBlockState().get(DispenserBlock.FACING);
-            	this.successful = ((BlockItem)item).tryPlace(new DirectionalPlaceContext(source.getWorld(), blockpos, direction, stack, direction)) == ActionResultType.SUCCESS;
+            	this.setSuccessful(((BlockItem)item).tryPlace(new DirectionalPlaceContext(source.getWorld(), blockpos, direction, stack, direction)) == ActionResultType.SUCCESS);
             }
             
             return stack;

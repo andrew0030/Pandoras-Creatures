@@ -126,7 +126,8 @@ public class CreativeTabAdditions
 		{
 			int configOffsetX = Config.CLIENT.buttonDiscordOffsetX.get();
 			int configOffsetY = Config.CLIENT.buttonDiscordOffsetY.get();
-			creativeTab.addButton(new GuiButtonDiscord(calculateOffsetX(screenWidth, -121 + configOffsetX), calculateOffsetY(screenHeight, -52 + configOffsetY)));
+//			creativeTab.addButton(new GuiButtonDiscord(calculateOffsetX(screenWidth, -121 + configOffsetX), calculateOffsetY(screenHeight, -52 + configOffsetY))); TODO make sure the replacement works
+			creativeTab.buttons.add(new GuiButtonDiscord(calculateOffsetX(screenWidth, -121 + configOffsetX), calculateOffsetY(screenHeight, -52 + configOffsetY)));
 			discordButton = GuiButtonDiscord.getButton();
 			buttons.add(discordButton);
 		}
@@ -135,7 +136,8 @@ public class CreativeTabAdditions
 		{
 			int configOffsetX = Config.CLIENT.buttonCurseForgeOffsetX.get();
 			int configOffsetY = Config.CLIENT.buttonCurseForgeOffsetY.get();
-			creativeTab.addButton(new GuiButtonCurseForge(calculateOffsetX(screenWidth, -121 + configOffsetX), calculateOffsetY(screenHeight, -29 + configOffsetY)));
+//			creativeTab.addButton(new GuiButtonCurseForge(calculateOffsetX(screenWidth, -121 + configOffsetX), calculateOffsetY(screenHeight, -29 + configOffsetY))); TODO make sure the replacement works
+			creativeTab.buttons.add(new GuiButtonCurseForge(calculateOffsetX(screenWidth, -121 + configOffsetX), calculateOffsetY(screenHeight, -29 + configOffsetY)));
 			curseForgeButton = GuiButtonCurseForge.getButton();
 			buttons.add(curseForgeButton);
 		}
@@ -144,7 +146,8 @@ public class CreativeTabAdditions
 		{
 			int configOffsetX = Config.CLIENT.buttonYouTubeOffsetX.get();
 			int configOffsetY = Config.CLIENT.buttonYouTubeOffsetY.get();
-			creativeTab.addButton(new GuiButtonYouTube(calculateOffsetX(screenWidth, -121 + configOffsetX), calculateOffsetY(screenHeight, -6 + configOffsetY)));
+//			creativeTab.addButton(new GuiButtonYouTube(calculateOffsetX(screenWidth, -121 + configOffsetX), calculateOffsetY(screenHeight, -6 + configOffsetY))); TODO
+			creativeTab.buttons.add(new GuiButtonYouTube(calculateOffsetX(screenWidth, -121 + configOffsetX), calculateOffsetY(screenHeight, -6 + configOffsetY)));
 			youtubeButton = GuiButtonYouTube.getButton();
 			buttons.add(youtubeButton);
 		}
@@ -153,7 +156,8 @@ public class CreativeTabAdditions
 		{
 			int configOffsetX = Config.CLIENT.buttonTwitchOffsetX.get();
 			int configOffsetY = Config.CLIENT.buttonTwitchOffsetY.get();
-			creativeTab.addButton(new GuiButtonTwitch(calculateOffsetX(screenWidth, -121 + configOffsetX), calculateOffsetY(screenHeight, 17 + configOffsetY)));
+//			creativeTab.addButton(new GuiButtonTwitch(calculateOffsetX(screenWidth, -121 + configOffsetX), calculateOffsetY(screenHeight, 17 + configOffsetY))); TODO
+			creativeTab.buttons.add(new GuiButtonTwitch(calculateOffsetX(screenWidth, -121 + configOffsetX), calculateOffsetY(screenHeight, 17 + configOffsetY)));
 			twitchButton = GuiButtonTwitch.getButton();
 			buttons.add(twitchButton);
 		}
@@ -162,7 +166,8 @@ public class CreativeTabAdditions
 		{
 			int configOffsetX = Config.CLIENT.buttonPatreonOffsetX.get();
 			int configOffsetY = Config.CLIENT.buttonPatreonOffsetY.get();
-			creativeTab.addButton(new GuiButtonPatreon(calculateOffsetX(screenWidth, -121 + configOffsetX), calculateOffsetY(screenHeight, 40 + configOffsetY)));
+//			creativeTab.addButton(new GuiButtonPatreon(calculateOffsetX(screenWidth, -121 + configOffsetX), calculateOffsetY(screenHeight, 40 + configOffsetY))); TODO
+			creativeTab.buttons.add(new GuiButtonPatreon(calculateOffsetX(screenWidth, -121 + configOffsetX), calculateOffsetY(screenHeight, 40 + configOffsetY)));
 			patreonButton = GuiButtonPatreon.getButton();
 			buttons.add(patreonButton);
 		}

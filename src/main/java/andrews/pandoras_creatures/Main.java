@@ -19,7 +19,6 @@ import andrews.pandoras_creatures.util.FeatureInjector;
 import andrews.pandoras_creatures.util.Reference;
 import andrews.pandoras_creatures.util.RehostedJarHandler;
 import andrews.pandoras_creatures.world.PCFeatures;
-import andrews.pandoras_creatures.world.PCStructurePieces;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.api.distmarker.Dist;
@@ -60,7 +59,7 @@ public class Main
 		PCContainers.CONTAINERS.register(modEventBus);
 		PCEntities.ENTITY_TYPES.register(modEventBus);
 		PCFeatures.FEATURES.register(modEventBus);
-		PCStructurePieces.init();
+//		PCStructurePieces.init(); TODO
 		PCCrafting.RECIPES.register(modEventBus);
 		
 		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {modEventBus.addListener(EventPriority.LOWEST, this::registerItemColors);});
