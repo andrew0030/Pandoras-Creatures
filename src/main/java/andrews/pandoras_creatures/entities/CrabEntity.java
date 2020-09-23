@@ -121,12 +121,6 @@ public class CrabEntity extends BucketableMobEntity
 		return spawnData;
 	}
 	
-//	@Override
-//	public boolean canSpawn(IWorld worldIn, SpawnReason spawnReasonIn)
-//	{
-//		return true; //TODO
-//	}
-	
 	@Override
 	protected void updateAir(int air) {}
 	

@@ -73,7 +73,7 @@ public class PCEntities
     {
         registerCustomSpawnEntry(ARACHNON.get(), getArachnonBiomes, 20, 1, 1, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnConditions::noDayLightMobCondition);
         registerCustomSpawnEntry(HELLHOUND.get(), getHellhoundBiomes, 30, 3, 6, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnConditions::netherCondition);
-        registerCustomSpawnEntry(CRAB.get(), getCrabBiomes, 400, 2, 5, EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnConditions::amphibianstMobCondition);
+        registerCustomSpawnEntry(CRAB.get(), getCrabBiomes, 500, 2, 5, EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnConditions::amphibianstMobCondition);
         registerAdvancedCustomSpawnEntry(SEAHORSE.get(), getSeahorseBiomes, EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnConditions::waterCondition);
         registerAdvancedCustomSpawnEntry(ACIDIC_ARCHVINE.get(), getAcidicArchvineBiomes, EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnConditions::acidicArchvineCondition);
         registerCustomSpawnEntry(BUFFLON.get(), getBufflonBiomes, 3, 1, 1, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnConditions::bufflonCondition);

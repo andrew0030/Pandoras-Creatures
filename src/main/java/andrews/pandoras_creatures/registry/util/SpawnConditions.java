@@ -48,24 +48,11 @@ public class SpawnConditions
 		{
 			return false;
 		}
-		if(world.getBiome(pos) == Biomes.BEACH && pos.getY() < 60)
+		if(world.getBlockState(pos).getBlock() != Blocks.WATER && world.getBlockState(pos).getBlock() != Blocks.AIR)
 		{
 			return false;
 		}
-		if(world.getBiome(pos) == Biomes.WARM_OCEAN && pos.getY() > 62)
-		{
-			return false;
-		}		
-		if(world.getBlockState(pos.down()).isIn(Blocks.SAND))
-		{
-			System.out.println("It was TRUE");
-			System.out.println(pos.getX() + " " + pos.getY() + " " + pos.getZ());
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return world.getBlockState(pos.down()).getBlock().equals(Blocks.SAND);
     }
     
     public static boolean netherCondition(EntityType<? extends MobEntity> entityType, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random)
