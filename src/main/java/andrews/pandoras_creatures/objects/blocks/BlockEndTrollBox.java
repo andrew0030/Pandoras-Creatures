@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 import andrews.pandoras_creatures.registry.PCBlocks;
 import andrews.pandoras_creatures.tile_entities.EndTrollBoxTileEntity;
 import andrews.pandoras_creatures.util.Reference;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -92,8 +93,23 @@ public class BlockEndTrollBox extends ShulkerBoxBlock implements IWaterLoggable
 	 */
 	private static Properties getProperties()
 	{
+		AbstractBlock.IPositionPredicate shouldSuffocate = (state, reader, pos) ->
+		{
+			TileEntity tileentity = reader.getTileEntity(pos);
+			if(!(tileentity instanceof EndTrollBoxTileEntity))
+			{
+				return true;
+			}
+			else
+			{
+				EndTrollBoxTileEntity endTrollBoxTileEntity = (EndTrollBoxTileEntity) tileentity;
+				return endTrollBoxTileEntity.isBoxClosed();
+			}
+		};
+		
 		Properties properties = Block.Properties.create(Material.SHULKER);
 		properties.hardnessAndResistance(2.0F);
+		properties.setSuffocates(shouldSuffocate);
 		properties.harvestTool(ToolType.PICKAXE);
 		
 		return properties;
@@ -361,12 +377,6 @@ public class BlockEndTrollBox extends ShulkerBoxBlock implements IWaterLoggable
 		return null;
 	}
 	
-//	@Override TODO make sure this was removed in 1.16 (Its very likely as the method also isnt in ShulkerBoxBlock)
-//	public boolean causesSuffocation(BlockState state, IBlockReader worldIn, BlockPos pos)
-//	{
-//		return false;
-//	}
-	
 	@Override
 	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context)
 	{
@@ -462,18 +472,15 @@ public class BlockEndTrollBox extends ShulkerBoxBlock implements IWaterLoggable
 		{
 			World world = source.getWorld();
 			this.setSuccessful(true);
-//			this.setSuccessful(true); TODO make sure it works you can look at ShulkerBoxDispenseBehavior
             BlockPos blockpos = source.getBlockPos().offset(source.getBlockState().get(DispenserBlock.FACING));
             BlockState blockstate = world.getBlockState(blockpos);
             if(!blockstate.getMaterial().isReplaceable())
             {
             	this.setSuccessful(false);
-//            	this.successful = false; TODO make sure it works
             }
             else
             {
             	this.setSuccessful(true);
-//            	this.successful = true; TODO make sure it works
             }
             
             if(this.isSuccessful())

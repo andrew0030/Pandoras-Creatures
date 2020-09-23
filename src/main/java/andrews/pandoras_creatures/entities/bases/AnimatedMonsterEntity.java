@@ -142,13 +142,6 @@ public abstract class AnimatedMonsterEntity extends AnimatedCreatureEntity imple
 		return worldIn.getDifficulty() != Difficulty.PEACEFUL && canSpawnOn(type, worldIn, reason, pos, randomIn);
 	}
 	
-//	@Override
-//	protected void registerAttributes()   TODO GREAT ATTRIBUTES ARE FUCKED UP
-//	{
-//		super.registerAttributes();
-//		this.getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
-//	}
-	
 	@Override
 	protected boolean canDropLoot()
 	{

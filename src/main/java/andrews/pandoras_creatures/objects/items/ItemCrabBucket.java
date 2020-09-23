@@ -16,6 +16,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.util.Constants.NBT;
 
 public class ItemCrabBucket extends ItemMobBucket
 {
@@ -23,20 +24,6 @@ public class ItemCrabBucket extends ItemMobBucket
 	{
 		super(() -> PCEntities.CRAB.get(), supplier, getProperties());
 	}
-	
-//	public ItemCrabBucket(Supplier<EntityType<? extends BucketableMobEntity>> entityType, Supplier<? extends Fluid> supplier) TODO remove if not needed
-//	{
-//		super(entityType, supplier, getProperties());
-//		this.addPropertyOverride(new ResourceLocation("variant"), (stack, world, entity) ->
-//		{
-//			CompoundNBT compoundnbt = stack.getTag();
-//			if(compoundnbt != null && compoundnbt.contains("BucketVariantTag", 3))
-//			{
-//				return compoundnbt.getInt("BucketVariantTag");
-//			}
-//			return 2;
-//		});
-//	}
 	
 	private static Properties getProperties()
 	{
@@ -52,7 +39,7 @@ public class ItemCrabBucket extends ItemMobBucket
 	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
 	{
 		CompoundNBT compoundnbt = stack.getTag();
-		if(compoundnbt != null && compoundnbt.contains("BucketVariantTag", 3))
+		if(compoundnbt != null && compoundnbt.contains("BucketVariantTag", NBT.TAG_INT))
 		{
 			int i = compoundnbt.getInt("BucketVariantTag");
 			TextFormatting[] atextformatting = new TextFormatting[] {TextFormatting.ITALIC, TextFormatting.GRAY};

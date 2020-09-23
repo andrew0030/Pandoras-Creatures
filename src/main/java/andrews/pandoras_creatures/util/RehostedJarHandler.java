@@ -6,6 +6,7 @@ import com.google.common.base.Charsets;
 
 import andrews.pandoras_creatures.config.Config;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.event.ClickEvent;
 import net.minecraft.util.text.event.HoverEvent;
@@ -96,19 +97,20 @@ public final class RehostedJarHandler
         PlayerEntity player = event.player;
         
         TranslationTextComponent downloadLink = new TranslationTextComponent("chat.pandoras_creatures.invalidJarDownload");
-        downloadLink.getStyle().setUnderlined(true);
-//        downloadLink.getStyle().setColor(Color.BLUE); TODO
-        downloadLink.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TranslationTextComponent("chat.pandoras_creatures.invalidJarDownloadTooltip")));
-        downloadLink.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.curseforge.com/minecraft/mc-mods/pandoras-creatures/files"));
+        TextFormatting[] downloadTextformatting = new TextFormatting[] {TextFormatting.UNDERLINE, TextFormatting.BLUE};
+        downloadLink.mergeStyle(downloadTextformatting);
+        downloadLink.mergeStyle(downloadLink.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TranslationTextComponent("chat.pandoras_creatures.invalidJarDownloadTooltip"))));
+        downloadLink.mergeStyle(downloadLink.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.curseforge.com/minecraft/mc-mods/pandoras-creatures/files")));
         
         TranslationTextComponent stopModRepostsLink = new TranslationTextComponent("chat.pandoras_creatures.invalidJarStopModReposts");
-        stopModRepostsLink.getStyle().setUnderlined(true);
-//        stopModRepostsLink.getStyle().setColor(TextFormatting.BLUE); TODO
-        stopModRepostsLink.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TranslationTextComponent("chat.pandoras_creatures.invalidJarStopModRepostsTooltip")));
-        stopModRepostsLink.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, STOP_MOD_REPOSTS_URL));
+        TextFormatting[] stopModRepostsTextformatting = new TextFormatting[] {TextFormatting.UNDERLINE, TextFormatting.BLUE};
+        stopModRepostsLink.mergeStyle(stopModRepostsTextformatting);
+        stopModRepostsLink.mergeStyle(stopModRepostsLink.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TranslationTextComponent("chat.pandoras_creatures.invalidJarStopModRepostsTooltip"))));
+        stopModRepostsLink.mergeStyle(stopModRepostsLink.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, STOP_MOD_REPOSTS_URL)));
         
         TranslationTextComponent updateMessage = new TranslationTextComponent("chat.pandoras_creatures.invalidJar", downloadLink, stopModRepostsLink);
-//        updateMessage.getStyle().setColor(TextFormatting.RED); TODO
-        player.sendMessage(updateMessage, player.getUniqueID()); //TODO make sure the player UUID is ok to be here
+        TextFormatting[] updateTextformatting = new TextFormatting[] {TextFormatting.RED};
+        updateMessage.mergeStyle(updateTextformatting);
+        player.sendMessage(updateMessage, player.getUniqueID());
     }
 }

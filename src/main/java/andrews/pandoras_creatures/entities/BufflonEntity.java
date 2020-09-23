@@ -1256,7 +1256,7 @@ public class BufflonEntity extends AnimatedCreatureEntity implements IInventoryC
 	{
 		if(!this.world.isRemote && this.world.getGameRules().getBoolean(GameRules.SHOW_DEATH_MESSAGES) && this.getOwner() instanceof ServerPlayerEntity)
 		{
-			this.getOwner().sendMessage(this.getCombatTracker().getDeathMessage(), this.getOwnerId());//TODO make sure [this.getOwnerId()] is ok as the UUID
+			this.getOwner().sendMessage(this.getCombatTracker().getDeathMessage(), this.getOwnerId());
         }
         super.onDeath(cause);
 	}

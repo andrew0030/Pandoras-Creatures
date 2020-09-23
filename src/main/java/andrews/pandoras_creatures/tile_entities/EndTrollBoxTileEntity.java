@@ -304,6 +304,11 @@ public class EndTrollBoxTileEntity extends LockableLootTileEntity implements ISi
 		return new EndTrollBoxContainer(id, player, this);
 	}
 	
+	public boolean isBoxClosed()
+	{
+		return this.animationStatus == EndTrollBoxTileEntity.AnimationStatus.CLOSED;
+	}
+	
 	@Override
 	protected IItemHandler createUnSidedHandler()
 	{

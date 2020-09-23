@@ -1,5 +1,6 @@
 package andrews.pandoras_creatures.registry.util;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import andrews.pandoras_creatures.config.Config;
@@ -10,9 +11,14 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biomes;
 
 public class SpawnConditions
 {
+	private static Biome[] acidicArchvineBiomesOverworld = {Biomes.JUNGLE, Biomes.JUNGLE_EDGE, Biomes.JUNGLE_HILLS, Biomes.MODIFIED_JUNGLE, Biomes.MODIFIED_JUNGLE_EDGE};
+	private static Biome[] acidicArchvineBiomesNether = {Biomes.NETHER_WASTES, Biomes.CRIMSON_FOREST};
+	
 	public static boolean noDayLightMobCondition(EntityType<? extends MobEntity> entityType, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random)
     {
 		if(!Config.COMMON.arachnonSpawning.get())
@@ -23,10 +29,6 @@ public class SpawnConditions
 		{
 			return false;
 		}
-//    	if(world.getDimension().getType() != DimensionType.OVERWORLD) TODO I may not need these checks as mobs wont spawn in other dimensions on their own any ways
-//    	{
-//    		return false;
-//    	}
     	else
     	{
     		if(world.getLight(pos) > 7)
@@ -46,21 +48,24 @@ public class SpawnConditions
 		{
 			return false;
 		}
-//    	if(world.getDimension().getType() != DimensionType.OVERWORLD) TODO same as above
-//    	{
-//    		return false;
-//    	}
-    	else
-    	{
-    		if(world.getBlockState(pos.down()).getBlock() == Blocks.SAND)
-    		{
-    			return true;
-    		}
-    		else
-    		{
-    			return false;
-    		}
-    	}
+		if(world.getBiome(pos) == Biomes.BEACH && pos.getY() < 60)
+		{
+			return false;
+		}
+		if(world.getBiome(pos) == Biomes.WARM_OCEAN && pos.getY() > 62)
+		{
+			return false;
+		}		
+		if(world.getBlockState(pos.down()).isIn(Blocks.SAND))
+		{
+			System.out.println("It was TRUE");
+			System.out.println(pos.getX() + " " + pos.getY() + " " + pos.getZ());
+			return true;
+		}
+		else
+		{
+			return false;
+		}
     }
     
     public static boolean netherCondition(EntityType<? extends MobEntity> entityType, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random)
@@ -73,10 +78,6 @@ public class SpawnConditions
 		{
 			return false;
 		}
-//    	if(world.getDimension().getType() != DimensionType.THE_NETHER) TODO same as above
-//    	{
-//    		return false;
-//    	}
     	else
     	{
     		return true;
@@ -89,10 +90,6 @@ public class SpawnConditions
 		{
 			return false;
 		}
-//    	if(world.getDimension().getType() != DimensionType.OVERWORLD) TODO same as above
-//    	{
-//    		return false;
-//    	}
     	else
     	{
     		return true;
@@ -109,26 +106,14 @@ public class SpawnConditions
 		{
 			return false;
 		}
-    	
-    	//TODO same as above
-//    	if(world.getDimension().getType() == DimensionType.OVERWORLD && pos.getY() < 62)
-//    	{
-//    		return false;
-//    	}
-//    	if(world.getDimension().getType() == DimensionType.THE_NETHER && pos.getY() < 40)
-//    	{
-//    		return false;
-//    	}
-    	if(pos.getY() < 62)
+    	if(Arrays.asList(acidicArchvineBiomesOverworld).contains(world.getBiome(pos)) && pos.getY() < 62)
     	{
     		return false;
     	}
-    	if(pos.getY() < 40)
+    	if(Arrays.asList(acidicArchvineBiomesNether).contains(world.getBiome(pos)) && pos.getY() < 40)
     	{
     		return false;
     	}
-    	//I created the 2 checks above for temporary use TODO remove them and replace them with the real thing
-    	
     	if(!world.getBlockState(pos).getBlock().equals(Blocks.AIR))
     	{
     		return false;
@@ -163,10 +148,6 @@ public class SpawnConditions
 		{
 			return false;
 		}
-//    	if(world.getDimension().getType() != DimensionType.OVERWORLD) TODO same as above
-//    	{
-//    		return false;
-//    	}
     	else
     	{
     		return world.getLightSubtracted(pos, 0) > 8 && world.getBlockState(pos.down()).getBlock() == Blocks.GRASS_BLOCK;

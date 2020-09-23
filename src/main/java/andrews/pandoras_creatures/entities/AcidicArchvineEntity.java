@@ -1,5 +1,7 @@
 package andrews.pandoras_creatures.entities;
 
+import java.util.Arrays;
+
 import javax.annotation.Nullable;
 
 import andrews.pandoras_creatures.entities.bases.AnimatedMonsterEntity;
@@ -26,10 +28,9 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biomes;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeDictionary.Type;
 
 public class AcidicArchvineEntity extends AnimatedMonsterEntity
 {
@@ -37,6 +38,7 @@ public class AcidicArchvineEntity extends AnimatedMonsterEntity
 	private static final DataParameter<Integer> TARGET_ENTITY = EntityDataManager.createKey(AcidicArchvineEntity.class, DataSerializers.VARINT);
 	private LivingEntity targetedEntity;
 	private int attackState;
+	private Biome[] netherBiomes = {Biomes.NETHER_WASTES, Biomes.SOUL_SAND_VALLEY, Biomes.CRIMSON_FOREST, Biomes.WARPED_FOREST, Biomes.BASALT_DELTAS};
 	
     public AcidicArchvineEntity(EntityType<? extends AcidicArchvineEntity> type, World worldIn)
     {
@@ -181,7 +183,7 @@ public class AcidicArchvineEntity extends AnimatedMonsterEntity
     private int getTypeForBiome(IWorld world)
     {
 		Biome biome = world.getBiome(this.getPosition());
-		if(biome == BiomeDictionary.getBiomes(Type.END)) //TODO make sure this didnt break everything
+		if(Arrays.asList(this.netherBiomes).contains(biome))
 		{
 			return 2;
 		}

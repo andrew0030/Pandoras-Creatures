@@ -15,6 +15,7 @@ import andrews.pandoras_creatures.util.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -63,9 +64,9 @@ public class BufflonScreen extends ContainerScreen<BufflonContainer>
 	protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int mouseX, int mouseY)
 	{
 		//The Bufflon Name
-		this.font.drawString(matrixStack, this.title.getString(), -29.0F, -22.0F, 0x000000);//TODO added .getString() make sure it works!
+		this.font.drawString(matrixStack, this.title.getString(), -29.0F, -22.0F, 0x000000);
 		//The Inventory Display Name
-		this.font.drawString(matrixStack, this.playerInventory.getDisplayName().getString(), 8.0F, (float)(this.ySize - 126), 0x000000); //TODO added .getString() make sure it works!
+		this.font.drawString(matrixStack, this.playerInventory.getDisplayName().getString(), 8.0F, (float)(this.ySize - 126), 0x000000);
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -100,9 +101,9 @@ public class BufflonScreen extends ContainerScreen<BufflonContainer>
 	        matrix4f.setIdentity();
 	        matrix4f.mul(Matrix4f.makeScale(1.0F, -1.0F, 1.0F));
 	        matrix4f.mul(Vector3f.XN.rotationDegrees(90.0F));
-	    	RenderSystem.setupLevelDiffuseLighting(null, null, matrix4f); //TODO vectors???
+	        RenderHelper.setupLevelDiffuseLighting(matrix4f);
 	    	Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(new ItemStack(PCItems.BUFFLON_SADDLE.get()), x + 23, y + 102);
-	    	RenderSystem.setupGui3DDiffuseLighting(null, null); //TODO vectors???
+	    	RenderHelper.setupGui3DDiffuseLighting();
 	    	matrixStack.pop();
 	    }
 	    
@@ -113,7 +114,7 @@ public class BufflonScreen extends ContainerScreen<BufflonContainer>
 	        matrix4f.setIdentity();
 	        matrix4f.mul(Matrix4f.makeScale(1.0F, -1.0F, 1.0F));
 	        matrix4f.mul(Vector3f.XN.rotationDegrees(90.0F));
-	    	RenderSystem.setupLevelDiffuseLighting(null, null, matrix4f); //TODO vectors???
+	        RenderHelper.setupLevelDiffuseLighting(matrix4f);
 		    switch(attachmentToRender) {
 			case 1:
 				Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(new ItemStack(PCItems.BUFFLON_PLAYER_SEATS.get()), x + 51, y + 102);
@@ -127,7 +128,7 @@ public class BufflonScreen extends ContainerScreen<BufflonContainer>
 			default:
 				break;
 		    }
-		    RenderSystem.setupGui3DDiffuseLighting(null, null); //TODO vectors???
+		    RenderHelper.setupGui3DDiffuseLighting();
 	    	matrixStack.pop();
 		}
 	}
@@ -152,7 +153,6 @@ public class BufflonScreen extends ContainerScreen<BufflonContainer>
 	@Override
 	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
 	{
-		this.renderBackground(matrixStack); //TODO I may not need render background inside render and renderBackground
 		this.mousePosx = (float)mouseX;
 		this.mousePosY = (float)mouseY;
 	    super.render(matrixStack, mouseX, mouseY, partialTicks);

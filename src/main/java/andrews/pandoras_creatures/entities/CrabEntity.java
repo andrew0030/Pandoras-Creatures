@@ -18,11 +18,13 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.LookRandomlyGoal;
 import net.minecraft.entity.ai.goal.PanicGoal;
 import net.minecraft.entity.ai.goal.RandomWalkingGoal;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.tags.ITag;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -119,19 +121,20 @@ public class CrabEntity extends BucketableMobEntity
 		return spawnData;
 	}
 	
+//	@Override
+//	public boolean canSpawn(IWorld worldIn, SpawnReason spawnReasonIn)
+//	{
+//		return true; //TODO
+//	}
+	
 	@Override
 	protected void updateAir(int air) {}
-    
-//    @Override
-//    public boolean handleWaterMovement()
-//    {
-//    	if(this.underWater)
-//    	{
-//    		this.fallDistance = 0.0F; TODO find a replacement for this, else A LOT OF CRABS WILL DIE
-//    	    this.extinguish();
-//    	}
-//    	return false;
-//    }
+	
+	@Override
+	public boolean handleFluidAcceleration(ITag<Fluid> fluidTag, double p_210500_2_)
+	{
+		return false;
+	}
     
     @Override
     protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn)
@@ -144,6 +147,18 @@ public class CrabEntity extends BucketableMobEntity
     {
 		return new ItemStack(PCItems.CRAB_BUCKET.get());
 	}
+    
+    @Override
+    public void baseTick()
+    {
+    	super.baseTick();
+    	
+    	if(this.underWater)
+    	{
+    		this.fallDistance = 0.0F;
+    	    this.extinguish();
+    	}
+    }
     
     @Override
     public void livingTick()

@@ -14,6 +14,7 @@ import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.Pose;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.controller.MovementController;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.ai.goal.LookRandomlyGoal;
@@ -356,7 +357,7 @@ public class SeahorseEntity extends BucketableMobEntity
                this.seahorse.setMotion(this.seahorse.getMotion().add(0.0D, 0.005D, 0.0D));
             }
 
-            if(this.action == MovementController.Action.MOVE_TO && !this.seahorse.getNavigator().noPath())
+        	if(this.action == MovementController.Action.MOVE_TO && !this.seahorse.getNavigator().noPath())
             {
             	double d0 = this.posX - this.seahorse.getPosX();
             	double d1 = this.posY - this.seahorse.getPosY();
@@ -366,7 +367,7 @@ public class SeahorseEntity extends BucketableMobEntity
             	float f = (float)(MathHelper.atan2(d2, d0) * (double)(180F / (float)Math.PI)) - 90.0F;
             	this.seahorse.rotationYaw = this.limitAngle(this.seahorse.rotationYaw, f, 90.0F);
             	this.seahorse.renderYawOffset = this.seahorse.rotationYaw;
-            	float f1 = (float)(MathHelper.atan2(d2, d0) * (double)(180F / (float)Math.PI)) - 90.0F; //TODO figure out if this seahorse speed is ok
+            	float f1 = (float)(this.speed * this.seahorse.getAttribute(Attributes.MOVEMENT_SPEED).getValue());
             	this.seahorse.setAIMoveSpeed(MathHelper.lerp(0.125F, this.seahorse.getAIMoveSpeed(), f1));
             	this.seahorse.setMotion(this.seahorse.getMotion().add(0.0D, (double)this.seahorse.getAIMoveSpeed() * d1 * 0.1D, 0.0D));
             }

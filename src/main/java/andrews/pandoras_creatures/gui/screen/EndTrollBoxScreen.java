@@ -35,8 +35,8 @@ public class EndTrollBoxScreen extends ContainerScreen<EndTrollBoxContainer>
 	@Override
 	protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int mouseX, int mouseY)
 	{
-		this.font.drawString(matrixStack, this.title.getString(), 8.0F, 6.0F, 4210752); //TODO added .getString() make sure it works!
-		this.font.drawString(matrixStack, this.playerInventory.getDisplayName().getString(), 8.0F, (float) (this.ySize - 93), 4210752); //TODO added .getString() make sure it works!
+		this.font.drawString(matrixStack, this.title.getString(), 8.0F, 6.0F, 4210752);
+		this.font.drawString(matrixStack, this.playerInventory.getDisplayName().getString(), 8.0F, (float) (this.ySize - 93), 4210752);
 	}
 
 	@SuppressWarnings("deprecation")

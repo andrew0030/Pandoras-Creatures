@@ -59,7 +59,7 @@ public class Main
 		PCContainers.CONTAINERS.register(modEventBus);
 		PCEntities.ENTITY_TYPES.register(modEventBus);
 		PCFeatures.FEATURES.register(modEventBus);
-//		PCStructurePieces.init(); TODO
+//		PCStructurePieces.init(); TODO uncomment this once its fixed
 		PCCrafting.RECIPES.register(modEventBus);
 		
 		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {modEventBus.addListener(EventPriority.LOWEST, this::registerItemColors);});

@@ -33,6 +33,6 @@ public class FeatureInjector
 //				biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, PCFeatures.END_PRISON.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
 //		}
 //		Biomes.END_MIDLANDS.addStructure(PCFeatures.END_PRISON.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
-//		Biomes.END_HIGHLANDS.addStructure(PCFeatures.END_PRISON.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG)); TODO
+//		Biomes.END_HIGHLANDS.addStructure(PCFeatures.END_PRISON.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG)); TODO fix the structure injection
 	} 
 }

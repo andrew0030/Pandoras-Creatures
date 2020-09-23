@@ -1,15 +1,21 @@
 package andrews.pandoras_creatures.gui.buttons.creative_tab;
 
+import java.util.List;
+
+import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import andrews.pandoras_creatures.config.Config;
 import andrews.pandoras_creatures.util.Reference;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.gui.GuiUtils;
@@ -25,10 +31,15 @@ public class GuiButtonDiscord extends Button
 	private int u = 0;
 	private int v = 0;
 	
+	private FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
+	private List<ITextComponent> list = Lists.newArrayList();
+	private String buttonText = new TranslationTextComponent("gui.button.pandoras_creatures.discord").getString();
+	
 	public GuiButtonDiscord(int xPos, int yPos) 
 	{
 		super(xPos, yPos, buttonWidth, buttonHeight, new StringTextComponent(""), (button) -> { handleButtonPress(); });
 		discordButton = this;
+		this.list.add(new StringTextComponent(this.buttonText));
 		setButtonAlphaToStart();
 	}
 	
@@ -65,10 +76,7 @@ public class GuiButtonDiscord extends Button
 			//This is used to render a tooltip above the button
 			if(isHovered)
 			{
-//				FontRenderer renderer = Minecraft.getInstance().fontRenderer; TODO figure it out
-//				String text = new TranslationTextComponent("gui.button.pandoras_creatures.discord").getString();
-//				List<String> textAsList = Arrays.asList(text);
-//				Minecraft.getInstance().currentScreen.renderTooltip(textAsList, x - (15 + renderer.getStringWidth(text)), y + 19, Minecraft.getInstance().fontRenderer);
+				Minecraft.getInstance().currentScreen.renderToolTip(matrixStack, this.list, x - (15 + fontRenderer.getStringWidth(this.buttonText)), y + 19, this.fontRenderer);
 			}
 		}
 		else

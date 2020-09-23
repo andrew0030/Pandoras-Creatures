@@ -24,28 +24,6 @@ public class ItemSeahorseBucket extends ItemMobBucket
 	{
 		super(() -> PCEntities.SEAHORSE.get(), supplier, getProperties());
 	}
-//	public ItemSeahorseBucket(Supplier<EntityType<? extends BucketableMobEntity>> entityType, Supplier<? extends Fluid> supplier) TODO make sure this is fine
-//	{
-//		super(entityType, supplier, getProperties());
-//		this.addPropertyOverride(new ResourceLocation("variant"), (stack, world, entity) ->
-//		{
-//			CompoundNBT compoundnbt = stack.getTag();
-//			if(compoundnbt != null && compoundnbt.contains("BucketVariantTag", 3))
-//			{
-//				return compoundnbt.getInt("BucketVariantTag");
-//			}
-//			return 2;
-//		});
-//		this.addPropertyOverride(new ResourceLocation("size"), (stack, world, entity) ->
-//		{
-//			CompoundNBT compoundnbt = stack.getTag();
-//			if(compoundnbt != null && compoundnbt.contains("BucketSizeTag", 3))
-//			{
-//				return compoundnbt.getInt("BucketSizeTag");
-//			}
-//			return 2;
-//		});
-//	}
 	
 	private static Properties getProperties()
 	{
