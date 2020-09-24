@@ -1,6 +1,6 @@
 package andrews.pandoras_creatures.world.structures.end_prison;
 
-public class EndPrisonPieces
+public class EndPrisonPieces //TODO
 {
 //	private static final ResourceLocation LOCATION_MAIN = new ResourceLocation(Reference.MODID, "end_prison/end_prison_main");
 //    private static final ResourceLocation LOCATION_BACK = new ResourceLocation(Reference.MODID, "end_prison/end_prison_back");
@@ -99,12 +99,20 @@ public class EndPrisonPieces
 //			}
 //        }
 //
+////        @Override TODO make sure the method bellow is the replacement
+////        public boolean func_225577_a_(IWorld world, ChunkGenerator<?> generator, Random rand, MutableBoundingBox bounds, ChunkPos chunkPos)
+////        {
+////            this.templatePosition = new BlockPos(this.templatePosition.getX(), 120, this.templatePosition.getZ());
+////            
+////            return super.func_225577_a_(world, generator, rand, bounds, chunkPos);
+////        }
+//        
 //        @Override
-//        public boolean func_225577_a_(IWorld world, ChunkGenerator<?> generator, Random rand, MutableBoundingBox bounds, ChunkPos chunkPos)
+//        public boolean func_230383_a_(ISeedReader seedReader, StructureManager structureManager, ChunkGenerator chunkGenerator, Random random, MutableBoundingBox mutableBB, ChunkPos chunkPos, BlockPos blockPos)
 //        {
-//            this.templatePosition = new BlockPos(this.templatePosition.getX(), 120, this.templatePosition.getZ());
-//            
-//            return super.func_225577_a_(world, generator, rand, bounds, chunkPos);
+//        	this.templatePosition = new BlockPos(this.templatePosition.getX(), 120, this.templatePosition.getZ());
+//        	
+//        	return super.func_230383_a_(seedReader, structureManager, chunkGenerator, random, mutableBB, chunkPos, blockPos);
 //        }
 //    }
 }

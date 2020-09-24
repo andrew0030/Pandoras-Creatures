@@ -71,16 +71,30 @@ public class RegistryUtils
 	/**
 	 * Creates a Block that has a TESR
 	 */
-	public static <B extends Block> RegistryObject<B> createBlockWithTESIR(String name, Supplier<? extends B> supplier, boolean isItemStackable, final Supplier<Callable<ItemStackTileEntityRenderer>> ister, @Nullable ItemGroup group)
+	public static <B extends Block> RegistryObject<B> createBlockWithTESIR(String name, Supplier<? extends B> supplier, boolean isItemStackable, boolean isImmuneToFire, final Supplier<Callable<ItemStackTileEntityRenderer>> ister, @Nullable ItemGroup group)
 	{
 		RegistryObject<B> block = PCBlocks.BLOCKS.register(name, supplier);
 		if(isItemStackable)
 		{
-			PCItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().group(group).setISTER(ister)));
+			if(isImmuneToFire)
+			{
+				PCItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().group(group).isImmuneToFire().setISTER(ister)));
+			}
+			else
+			{
+				PCItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().group(group).setISTER(ister)));
+			}
 		}
 		else
 		{
-			PCItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().group(group).maxStackSize(1).setISTER(ister)));
+			if(isImmuneToFire)
+			{
+				PCItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().group(group).maxStackSize(1).isImmuneToFire().setISTER(ister)));
+			}
+			else
+			{
+				PCItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().group(group).maxStackSize(1).setISTER(ister)));
+			}
 		}
 		return block;
 	}

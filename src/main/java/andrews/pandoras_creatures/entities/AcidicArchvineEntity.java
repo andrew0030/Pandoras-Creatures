@@ -31,6 +31,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.util.Constants.NBT;
 
 public class AcidicArchvineEntity extends AnimatedMonsterEntity
 {
@@ -38,7 +39,7 @@ public class AcidicArchvineEntity extends AnimatedMonsterEntity
 	private static final DataParameter<Integer> TARGET_ENTITY = EntityDataManager.createKey(AcidicArchvineEntity.class, DataSerializers.VARINT);
 	private LivingEntity targetedEntity;
 	private int attackState;
-	private Biome[] netherBiomes = {Biomes.NETHER_WASTES, Biomes.SOUL_SAND_VALLEY, Biomes.CRIMSON_FOREST, Biomes.WARPED_FOREST, Biomes.BASALT_DELTAS};
+	private Biome[] netherBiomes = {Biomes.NETHER_WASTES, Biomes.SOUL_SAND_VALLEY, Biomes.WARPED_FOREST, Biomes.BASALT_DELTAS};
 	
     public AcidicArchvineEntity(EntityType<? extends AcidicArchvineEntity> type, World worldIn)
     {
@@ -157,7 +158,7 @@ public class AcidicArchvineEntity extends AnimatedMonsterEntity
     {	
     	spawnDataIn = super.onInitialSpawn(world, difficultyIn, reason, spawnDataIn, dataTag);
     	int type = this.getTypeForBiome(worldIn);
-    	if(dataTag != null && dataTag.contains("ArchvineType", 3))
+    	if(dataTag != null && dataTag.contains("ArchvineType", NBT.TAG_INT))
 		{
 			this.setArchvineType(dataTag.getInt("ArchvineType"));
 			return spawnDataIn;
@@ -186,6 +187,10 @@ public class AcidicArchvineEntity extends AnimatedMonsterEntity
 		if(Arrays.asList(this.netherBiomes).contains(biome))
 		{
 			return 2;
+		}
+		else if(biome == Biomes.CRIMSON_FOREST)
+		{
+			return 3;
 		}
 		return 1;
 	}

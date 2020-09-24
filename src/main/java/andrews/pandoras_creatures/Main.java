@@ -18,7 +18,6 @@ import andrews.pandoras_creatures.registry.util.PCEntityAttributes;
 import andrews.pandoras_creatures.util.FeatureInjector;
 import andrews.pandoras_creatures.util.Reference;
 import andrews.pandoras_creatures.util.RehostedJarHandler;
-import andrews.pandoras_creatures.world.PCFeatures;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.api.distmarker.Dist;
@@ -58,8 +57,8 @@ public class Main
 		PCTileEntities.TILE_ENTITY_TYPES.register(modEventBus);
 		PCContainers.CONTAINERS.register(modEventBus);
 		PCEntities.ENTITY_TYPES.register(modEventBus);
-		PCFeatures.FEATURES.register(modEventBus);
-//		PCStructurePieces.init(); TODO uncomment this once its fixed
+//		PCFeatures.FEATURES.register(modEventBus); // TODO replace with the new method from the new Registry Class for structures
+//		PCStructurePieces.init();// TODO replace with the new method from the new Registry Class for structures
 		PCCrafting.RECIPES.register(modEventBus);
 		
 		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {modEventBus.addListener(EventPriority.LOWEST, this::registerItemColors);});

@@ -26,8 +26,10 @@ public class AcidicArchvineRenderer extends MobRenderer<AcidicArchvineEntity, Ac
 {	
 	private ResourceLocation TONGUE_1 = new ResourceLocation(Reference.MODID, "textures/entity/acidic_archvine/acidic_archvine_tongue_1.png");
 	private ResourceLocation TONGUE_2 = new ResourceLocation(Reference.MODID, "textures/entity/acidic_archvine/acidic_archvine_tongue_2.png");
+	private ResourceLocation TONGUE_3 = new ResourceLocation(Reference.MODID, "textures/entity/acidic_archvine/acidic_archvine_tongue_3.png");
 	private final RenderType TONGUE_RENDER_TYPE_1 = RenderType.getEntityCutoutNoCull(TONGUE_1);
 	private final RenderType TONGUE_RENDER_TYPE_2 = RenderType.getEntityCutoutNoCull(TONGUE_2);
+	private final RenderType TONGUE_RENDER_TYPE_3 = RenderType.getEntityCutoutNoCull(TONGUE_3);
 	
 	public AcidicArchvineRenderer(EntityRendererManager renderManager)
 	{
@@ -47,12 +49,13 @@ public class AcidicArchvineRenderer extends MobRenderer<AcidicArchvineEntity, Ac
 	{
 		switch(entity.getArchvineType())
 		{
+			default:
 			case 1:
 				return TONGUE_RENDER_TYPE_1;
 			case 2:
 				return TONGUE_RENDER_TYPE_2;
-			default:
-				return TONGUE_RENDER_TYPE_1;
+			case 3:
+				return TONGUE_RENDER_TYPE_3;
 		}
 	}
 	
