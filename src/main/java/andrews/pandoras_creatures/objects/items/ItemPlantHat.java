@@ -55,6 +55,8 @@ public class ItemPlantHat extends ArmorItem
 	@OnlyIn(Dist.CLIENT)
 	public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack stack, EquipmentSlotType armorSlot, A _default)
 	{
-		return (A) new PlantHatModel(entityLiving, 1.0F);
+		PlantHatModel plantHatModel = new PlantHatModel(entityLiving, 1.0F);
+		plantHatModel.setRotationAngles(entityLiving, entityLiving.limbSwing, entityLiving.limbSwingAmount, entityLiving.ticksExisted, entityLiving.rotationYaw, entityLiving.rotationPitch);
+		return (A) plantHatModel;
 	}
 }

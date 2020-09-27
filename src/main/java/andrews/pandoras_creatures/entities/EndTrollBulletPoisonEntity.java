@@ -27,7 +27,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
@@ -198,7 +197,7 @@ public class EndTrollBulletPoisonEntity extends Entity
 				this.setMotion(vec3d.add((this.targetDeltaX - vec3d.x) * 0.2D, (this.targetDeltaY - vec3d.y) * 0.2D, (this.targetDeltaZ - vec3d.z) * 0.2D));
 			}
 
-			RayTraceResult raytraceresult = ProjectileHelper.func_234618_a_(this, this::entityHitAble, RayTraceContext.BlockMode.COLLIDER);
+			RayTraceResult raytraceresult = ProjectileHelper.func_234618_a_(this, this::entityHitAble);
 			if(raytraceresult.getType() != RayTraceResult.Type.MISS && !ForgeEventFactory.onProjectileImpact(this, raytraceresult))
 			{
 				this.bulletHit(raytraceresult);

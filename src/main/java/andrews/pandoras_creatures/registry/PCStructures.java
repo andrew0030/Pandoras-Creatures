@@ -3,9 +3,10 @@ package andrews.pandoras_creatures.registry;
 import java.util.function.Supplier;
 
 import andrews.pandoras_creatures.util.Reference;
+import andrews.pandoras_creatures.world.structures.end_prison.EndPrisonPieces;
+import andrews.pandoras_creatures.world.structures.end_prison.EndPrisonStructure;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.IStructurePieceType;
 import net.minecraft.world.gen.feature.structure.Structure;
@@ -24,22 +25,22 @@ public class PCStructures
     public static final IStructurePieceType END_PRISON_PIECE = EndPrisonPieces.Piece::new;
     
     /**
-     * Structure Feature registration
-     */
-    private static <T extends Structure<?>> RegistryObject<T> registerStructure(String name, Supplier<T> structure)
-    {
-        Structure.field_236365_a_.put(Reference.MODID + ":" + name, structure.get());
-        Structure.field_236385_u_.put(structure.get(), GenerationStage.Decoration.SURFACE_STRUCTURES);
-        
-        return STRUCTURE_FEATURES.register(name, structure);
-    }
-    
-    /**
      * Registers all StructurePieces
      */
     public static void registerPieces()
     {
         registerPiece("end_prison_piece", END_PRISON_PIECE);
+    }
+    
+    /**
+     * Structure Feature registration
+     */
+    private static <T extends Structure<?>> RegistryObject<T> registerStructure(String name, Supplier<T> structure)
+    {
+//        Structure.field_236365_a_.put(Reference.MODID + ":" + name, structure.get()); //TODO maybe use this instead of getName???
+//        Structure.field_236385_u_.put(structure.get(), GenerationStage.Decoration.SURFACE_STRUCTURES); //TODO remove AT and use func_236396_f_ instead
+        
+        return STRUCTURE_FEATURES.register(name, structure);
     }
 
     /**

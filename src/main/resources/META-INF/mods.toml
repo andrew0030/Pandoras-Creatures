@@ -1,60 +1,31 @@
-# The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
-modLoader="javafml" #mandatory
+modLoader="javafml"
+loaderVersion="[34,)"
+issueTrackerURL="https://www.curseforge.com/minecraft/mc-mods/pandoras-creatures/issues"
+logoFile="logo.png"
+license="MIT"
 
-# A version range to match for said mod loader - for regular FML @Mod it will be the forge version
-loaderVersion="[31,)" #mandatory (26 is current forge version)
-
-# A URL to refer people to when problems occur with this mod
-issueTrackerURL="https://www.curseforge.com/minecraft/mc-mods/pandoras-creatures/issues" #optional
-
-# A list of mods - how many allowed here is determined by the individual mod loader
-[[mods]] #mandatory
-
-# The modid of the mod
-modId="pandoras_creatures" #mandatory
-
-# The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
-version="1.15.2-1.0.1" #mandatory
-
- # A display name for the mod
-displayName="Pandoras Creatures" #mandatory
-
-# A URL to query for updates for this mod. See the JSON update specification <here>
-updateJSONURL="https://raw.githubusercontent.com/andrew0030/Pandoras-Creatures/master/src/main/resources/assets/pandoras_creatures/update.json" #optional
-
-# A URL for the "homepage" for this mod, displayed in the mod UI
-displayURL="https://www.curseforge.com/minecraft/mc-mods/pandoras-creatures" #optional
-
-# A file name (in the root of the mod JAR) containing a logo for display
-logoFile="logo.png" #optional
-
-# A text field displayed in the mod UI
-credits="\nIgrek, for his amazing textures.\nFlummie2000 for translating and textures.\nGdG_Metiu19 for translating.\nqsefthuopq for translating.\nGhanou Craft for translating.\nEl Limbo for translating.\nGun_Man1 for translating.\nWanadi for translating.\nMinzhire for translating.\n" #optional
-
-# A text field displayed in the mod UI
-authors="andrew0030\n" #optional
-
-# The description text for the mod (multi line!) (#mandatory)
-description='''
+[[mods]]
+    modId="pandoras_creatures"
+	version="1.16.3-2.0.0"
+	displayName="Pandoras Creatures"
+	updateJSONURL="https://raw.githubusercontent.com/andrew0030/Pandoras-Creatures/master/src/main/resources/assets/pandoras_creatures/update.json"
+	displayURL="https://www.curseforge.com/minecraft/mc-mods/pandoras-creatures"
+	credits="\nIgrek, for his amazing textures.\nFlummie2000 for translating and textures.\nGdG_Metiu19 for translating.\nqsefthuopq for translating.\nGhanou Craft for translating.\nEl Limbo for translating.\nGun_Man1 for translating.\nWanadi for translating.\nMinzhire for translating.\n"
+	authors="andrew0030\n"
+	description='''
 Pandoras Creatures is a Mod that aims to make your game experience harder. If you got bored of the normal mobs or just want to walk around and enjoy exploring the new creatures and how they affect the world, then this Mod is exactly what you need.
-'''
+	'''
 
-# A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.pandoras_creatures]] #optional
-    # the modid of the dependency
-    modId="forge" #mandatory
-    # Does this dependency have to exist - if not, ordering below must be specified
-    mandatory=true #mandatory
-    # The version range of the dependency
-    versionRange="[32,)" #mandatory
-    # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
+    modId="forge"
+    mandatory=true
+    versionRange="[34,)"
     ordering="NONE"
-    # Side this dependency is applied on - BOTH, CLIENT or SERVER
     side="BOTH"
-# Here's another dependency
+
 [[dependencies.pandoras_creatures]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.1]"
+    versionRange="[1.16.3]"
     ordering="NONE"
     side="BOTH"

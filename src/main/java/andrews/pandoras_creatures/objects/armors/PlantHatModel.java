@@ -7,9 +7,10 @@ import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
+import net.minecraft.util.math.MathHelper;
 
 /**
- * ModelPlayer - Either Mojang or a mod author
+ * PlantHatModel - andrew0030
  * Created using Tabula 7.1.0
  */
 public class PlantHatModel<T extends LivingEntity> extends BipedModel<T>
@@ -205,50 +206,40 @@ public class PlantHatModel<T extends LivingEntity> extends BipedModel<T>
         modelRenderer.rotateAngleZ = z;
     }
     
-//    @Override
-//    public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) TODO RotationAngles need some testing
-//    {
-//    	this.entity = entityIn;
-//    	
-//    	if(!(entityIn instanceof ArmorStandEntity))
-//    	{
-//    		super.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-//    	}
-//    	
-//    	this.hat_base.copyModelAngles(this.bipedHead);
-//    		
-//    	//Some movement to make the hat look better
-//    	if(entityIn.getPosX() != entityIn.prevPosX || entityIn.getPosZ() != entityIn.prevPosZ)
-//    	{
-//    		//Moves the hanging grass parts on the right side of the hat
-//    		this.hanging_plants.rotateAngleZ += calculateRotation(0.4F, 0.12F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
-//    		this.hanging_plants.rotateAngleY += calculateRotation(0.4F, 0.1F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
-//    		
-//    		//Moves the hanging grass parts on the back side of the hat
-//    		this.hanging_plants_1.rotateAngleZ += calculateRotation(0.4F, 0.12F, false, 0.0F, 0.05F, limbSwing, limbSwingAmount);
-//    		this.hanging_plants_1.rotateAngleY += calculateRotation(0.4F, 0.1F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
-//    		
-//    		//Moves the hanging grass parts on the left side of the hat
-//    		this.hanging_plants_2.rotateAngleZ += calculateRotation(0.4F, 0.02F, false, 0.0F, -0.1F, limbSwing, limbSwingAmount);
-//    		this.hanging_plants_2.rotateAngleY += calculateRotation(0.4F, 0.04F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
-//    	}
-//    }
+    public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch)
+    {
+    	//Some movement to make the hat look better
+    	if(entityIn.getPosX() != entityIn.prevPosX || entityIn.getPosZ() != entityIn.prevPosZ)
+    	{
+    		//Moves the hanging grass parts on the right side of the hat
+    		this.hanging_plants.rotateAngleZ += calculateRotation(0.4F, 0.12F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+    		this.hanging_plants.rotateAngleY += calculateRotation(0.4F, 0.1F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+    		
+    		//Moves the hanging grass parts on the back side of the hat
+    		this.hanging_plants_1.rotateAngleZ += calculateRotation(0.4F, 0.12F, false, 0.0F, 0.05F, limbSwing, limbSwingAmount);
+    		this.hanging_plants_1.rotateAngleY += calculateRotation(0.4F, 0.1F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+    		
+    		//Moves the hanging grass parts on the left side of the hat
+    		this.hanging_plants_2.rotateAngleZ += calculateRotation(0.4F, 0.02F, false, 0.0F, -0.1F, limbSwing, limbSwingAmount);
+    		this.hanging_plants_2.rotateAngleY += calculateRotation(0.4F, 0.04F, false, 0.0F, 0.0F, limbSwing, limbSwingAmount);
+    	}
+    }
     
     /**
      * Helper Method used to calculate rotation for moving model parts
      */
-//	private float calculateRotation(float speed, float degree, boolean invert, float delay, float weight, float limbSwing, float limbSwingAmount)
-//    {
-//        float movementScale = 1.0F;
-//        if(invert == true)
-//        {
-//        	float rotation = (MathHelper.cos(limbSwing * (speed * movementScale) + delay) * (degree * movementScale) * limbSwingAmount) - (weight * limbSwingAmount);
-//        	return -rotation;
-//        }
-//        else
-//        {
-//        	float rotation = (MathHelper.cos(limbSwing * (speed * movementScale) + delay) * (degree * movementScale) * limbSwingAmount) + (weight * limbSwingAmount);
-//        	return rotation;
-//        }
-//    }
+	private float calculateRotation(float speed, float degree, boolean invert, float delay, float weight, float limbSwing, float limbSwingAmount)
+    {
+        float movementScale = 1.0F;
+        if(invert == true)
+        {
+        	float rotation = (MathHelper.cos(limbSwing * (speed * movementScale) + delay) * (degree * movementScale) * limbSwingAmount) - (weight * limbSwingAmount);
+        	return -rotation;
+        }
+        else
+        {
+        	float rotation = (MathHelper.cos(limbSwing * (speed * movementScale) + delay) * (degree * movementScale) * limbSwingAmount) + (weight * limbSwingAmount);
+        	return rotation;
+        }
+    }
 }

@@ -68,7 +68,7 @@ public class PCItems
 	public static void setupItemProperties()
 	{
 		//The Crab Variant
-		ItemModelsProperties.func_239418_a_(CRAB_BUCKET.get(), new ResourceLocation("variant"), (stack, world, entity) ->
+		ItemModelsProperties.registerProperty(CRAB_BUCKET.get(), new ResourceLocation("variant"), (stack, world, entity) ->
 		{
 			CompoundNBT compoundnbt = stack.getTag();
 			if(compoundnbt != null && compoundnbt.contains("BucketVariantTag", NBT.TAG_INT))
@@ -79,7 +79,7 @@ public class PCItems
 		});
 		
 		//The Seahorse Variant
-		ItemModelsProperties.func_239418_a_(SEAHORSE_BUCKET.get(), new ResourceLocation("variant"), (stack, world, entity) ->
+		ItemModelsProperties.registerProperty(SEAHORSE_BUCKET.get(), new ResourceLocation("variant"), (stack, world, entity) ->
 		{
 			CompoundNBT compoundnbt = stack.getTag();
 			if(compoundnbt != null && compoundnbt.contains("BucketVariantTag", NBT.TAG_INT))
@@ -90,7 +90,7 @@ public class PCItems
 		});
 		
 		//The Seahorse Size
-		ItemModelsProperties.func_239418_a_(SEAHORSE_BUCKET.get(), new ResourceLocation("size"), (stack, world, entity) ->
+		ItemModelsProperties.registerProperty(SEAHORSE_BUCKET.get(), new ResourceLocation("size"), (stack, world, entity) ->
 		{
 			CompoundNBT compoundnbt = stack.getTag();
 			if(compoundnbt != null && compoundnbt.contains("BucketSizeTag", NBT.TAG_INT))

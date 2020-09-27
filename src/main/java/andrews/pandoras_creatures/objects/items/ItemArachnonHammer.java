@@ -173,7 +173,7 @@ public class ItemArachnonHammer extends PickaxeItem
 		world.destroyBlock(pos, false);
 		if(!player.isCreative())//Checks if the player is Creative as there is no point in dropping the loot if he is.
 		{
-			LootContext.Builder builder = new LootContext.Builder((ServerWorld) world).withParameter(LootParameters.POSITION, pos).withParameter(LootParameters.TOOL, stack);
+			LootContext.Builder builder = (new LootContext.Builder((ServerWorld) world)).withRandom(world.rand).withParameter(LootParameters.field_237457_g_, Vector3d.copyCentered(pos)).withParameter(LootParameters.TOOL, stack);
 			for(ItemStack itemStack : state.getDrops(builder))
 		    {
 				ItemEntity item = new ItemEntity(world, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, itemStack);
@@ -189,7 +189,10 @@ public class ItemArachnonHammer extends PickaxeItem
 		int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
 		int silktouch = EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack);
 		int exp = block.getExpDrop(block.getDefaultState(), player.getEntityWorld(), pos, fortune, silktouch);
-		block.dropXpOnBlockBreak(player.getEntityWorld(), pos, exp);
+		if(!player.getEntityWorld().isRemote)
+		{
+			block.dropXpOnBlockBreak((ServerWorld) player.getEntityWorld(), pos, exp);
+		}
 	}	
 	
 	/**

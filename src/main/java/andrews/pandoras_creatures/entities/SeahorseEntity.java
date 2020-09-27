@@ -38,8 +38,9 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.IWorld;
+import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.Constants.NBT;
 
 public class SeahorseEntity extends BucketableMobEntity
 {
@@ -219,13 +220,13 @@ public class SeahorseEntity extends BucketableMobEntity
 	
 	@Nullable
 	@Override
-	public ILivingEntityData onInitialSpawn(IWorld world, DifficultyInstance difficulty, SpawnReason reason, ILivingEntityData spawnData, CompoundNBT dataTag)
-	{	
-		spawnData = super.onInitialSpawn(world, difficulty, reason, spawnData, dataTag);
+	public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, ILivingEntityData spawnData, CompoundNBT dataTag)
+	{
+		spawnData = super.onInitialSpawn(worldIn, difficultyIn, reason, spawnData, dataTag);
 		Random rand = new Random();
 		int type = rand.nextInt(10) + 1;
 		int size = rand.nextInt(5) + 1;
-		if(dataTag != null && dataTag.contains("BucketVariantTag", 3) && dataTag.contains("BucketSizeTag", 3))
+		if(dataTag != null && dataTag.contains("BucketVariantTag", NBT.TAG_INT) && dataTag.contains("BucketSizeTag", NBT.TAG_INT))
 		{
 			this.setSeahorseType(dataTag.getInt("BucketVariantTag"));
 			this.setSeahorseSize(dataTag.getInt("BucketSizeTag"));

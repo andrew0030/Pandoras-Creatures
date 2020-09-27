@@ -1,5 +1,6 @@
 package andrews.pandoras_creatures.entities;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.annotation.Nullable;
@@ -9,6 +10,7 @@ import andrews.pandoras_creatures.entities.goals.acidic_archvine.TargetUnderneat
 import andrews.pandoras_creatures.registry.PCEntities;
 import andrews.pandoras_creatures.registry.PCItems;
 import andrews.pandoras_creatures.util.animation.Animation;
+import andrews.pandoras_creatures.util.biome_utils.PCBiomeUtils;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -22,9 +24,11 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.IServerWorld;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -39,7 +43,7 @@ public class AcidicArchvineEntity extends AnimatedMonsterEntity
 	private static final DataParameter<Integer> TARGET_ENTITY = EntityDataManager.createKey(AcidicArchvineEntity.class, DataSerializers.VARINT);
 	private LivingEntity targetedEntity;
 	private int attackState;
-	private Biome[] netherBiomes = {Biomes.NETHER_WASTES, Biomes.SOUL_SAND_VALLEY, Biomes.WARPED_FOREST, Biomes.BASALT_DELTAS};
+	private ArrayList<RegistryKey<Biome>> netherBiomes = new ArrayList<RegistryKey<Biome>>(Arrays.asList(Biomes.NETHER_WASTES, Biomes.SOUL_SAND_VALLEY, Biomes.WARPED_FOREST, Biomes.BASALT_DELTAS));
 	
     public AcidicArchvineEntity(EntityType<? extends AcidicArchvineEntity> type, World worldIn)
     {
@@ -154,9 +158,9 @@ public class AcidicArchvineEntity extends AnimatedMonsterEntity
     
     //Moves the plant up or down by half a Block, depending on the position it got placed at.
     @Override
-    public ILivingEntityData onInitialSpawn(IWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, ILivingEntityData spawnDataIn, CompoundNBT dataTag)
+    public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, ILivingEntityData spawnDataIn, CompoundNBT dataTag)
     {	
-    	spawnDataIn = super.onInitialSpawn(world, difficultyIn, reason, spawnDataIn, dataTag);
+    	spawnDataIn = super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     	int type = this.getTypeForBiome(worldIn);
     	if(dataTag != null && dataTag.contains("ArchvineType", NBT.TAG_INT))
 		{
@@ -181,14 +185,13 @@ public class AcidicArchvineEntity extends AnimatedMonsterEntity
     	return spawnDataIn;
     }
     
-    private int getTypeForBiome(IWorld world)
+    private int getTypeForBiome(IServerWorld world)
     {
-		Biome biome = world.getBiome(this.getPosition());
-		if(Arrays.asList(this.netherBiomes).contains(biome))
+		if(PCBiomeUtils.isBiomeEqualTo(this.netherBiomes, world, this.getPosition()))
 		{
 			return 2;
 		}
-		else if(biome == Biomes.CRIMSON_FOREST)
+		else if(PCBiomeUtils.isBiomeEqualTo(Biomes.CRIMSON_FOREST, world, this.getPosition()))
 		{
 			return 3;
 		}

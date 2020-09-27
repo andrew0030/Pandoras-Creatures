@@ -1,236 +1,158 @@
 package andrews.pandoras_creatures.world.structures.end_prison;
 
-public class EndPrisonStructure //extends Structure<NoFeatureConfig> //TODO
-{
-//	public EndPrisonStructure(Codec<NoFeatureConfig> codec)
-//	{
-//		super(codec);
-//	}
-//	
+import com.mojang.serialization.Codec;
+
+import andrews.pandoras_creatures.util.Reference;
+import net.minecraft.util.Rotation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MutableBoundingBox;
+import net.minecraft.util.registry.DynamicRegistries;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.GenerationStage.Decoration;
+import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.world.gen.feature.structure.Structure;
+import net.minecraft.world.gen.feature.structure.StructureStart;
+import net.minecraft.world.gen.feature.template.TemplateManager;
+
+public class EndPrisonStructure extends Structure<NoFeatureConfig>
+{	
+	private static final int RARITY = 32; //TODO figure out a good value
+	
+	public EndPrisonStructure(Codec<NoFeatureConfig> codec)
+	{
+		super(codec);
+	}
+
+	@Override
+	public String getStructureName()
+	{
+		return Reference.MODID + ":end_prison";
+	}
+	
+	/**
+	 * @return - The structure size
+	 */
+	private int getSize()
+	{
+		return 8;
+	}
+	
+	@Override
+	public Decoration func_236396_f_()
+	{
+		return GenerationStage.Decoration.SURFACE_STRUCTURES;
+	}
+	
+	/**
+	 * @return - The seed modifier
+	 */
+	protected int getSeedModifier()
+	{
+        return 0;
+    }
+	
+	/**
+	 * @return - The separation modifier
+	 */
+	protected int getSeparationModifier()
+	{
+        return 5;
+    }
+	
+	@Override
+	public IStartFactory<NoFeatureConfig> getStartFactory()
+	{
+		return Start::new;
+	}
+	
 //	@Override
-//	public String getStructureName()
+//    protected boolean func_230365_b_()//TODO figure out what this is
 //	{
-//		return this.getRegistryName().toString();
-//	}
-//	
-//	@Override
-//	public Structure.IStartFactory<NoFeatureConfig> getStartFactory()
-//	{
-//		return EndPrisonStructure.Start::new;
-//	}
-//	
+//        return false;
+//    }
+	
 //	@Nullable
 //    @Override
-//    public BlockPos func_236388_a_(IWorldReader worldReader, StructureManager structureManager, BlockPos blockPos, int p_236388_4_, boolean p_236388_5_, long p_236388_6_, StructureSeparationSettings separationSettings)
+//    public BlockPos func_236388_a_(IWorldReader world, StructureManager manager, BlockPos pos, int radius, boolean skipExistingChunks, long seed, StructureSeparationSettings separationSettings)
 //	{
-//        return super.func_236388_a_(worldReader, structureManager, blockPos, p_236388_4_, p_236388_5_, p_236388_6_, new StructureSeparationSettings(32, getBiomeFeatureSeparation(), getSeedModifier()));//TODO make sure the rarity is ok
+//        return super.func_236388_a_(world, manager, pos, radius, skipExistingChunks, seed, new StructureSeparationSettings(RARITY, getSeparationModifier(), getSeedModifier()));//TODO replace first int (rarity)
 //    }
-//	
-//	@Override
-//    protected boolean func_230363_a_(ChunkGenerator chunkGen, BiomeProvider biomeProvider, long p_230363_3_, SharedSeedRandom sharedSeedRandom, int chunkPosX, int chunkPosZ, Biome biome, ChunkPos chunkPos, NoFeatureConfig p_230363_10_)
-//	{
-//		return true; //TODO
+
+	/**
+	 * This method is something like:
+	 * canBeGenerated
+	 */
+//    @Override
+//    protected boolean func_230363_a_(ChunkGenerator generator, BiomeProvider provider, long seed, SharedSeedRandom rand, int x, int z, Biome biome, ChunkPos chunkPos, NoFeatureConfig config)
+//    {
+//        return isSurfaceFlat(generator, x, z);
 //    }
 //
-////	@Override TODO got removed?
-////	public int getSize()
-////	{
-////		return 8;
-////	}
+//    protected boolean isSurfaceFlat(@Nonnull ChunkGenerator generator, int chunkX, int chunkZ)
+//    {
+//        // Size of the area to check.
+//        int offset = getSize() * 16;
 //
-//	private int getSeedModifier()
-//	{
-//		return 0;
-//	}
-//	
-////	@Override
-////	public boolean func_225558_a_(BiomeManager biomeManager, ChunkGenerator<?> chunkGen, Random rand, int chunkPosX, int chunkPosZ, Biome biome)
-////	{
-////		ChunkPos chunkpos = this.getStartPositionForPosition(chunkGen, rand, chunkPosX, chunkPosZ, 0, 0);
-////		if(chunkPosX == chunkpos.x && chunkPosZ == chunkpos.z)
-////		{
-////			if(chunkGen.hasStructure(biome, this))
-////			{
-////				return true;
-////			}
-////		}
-////		return false;
-////	}
-//	
-////	@Override
-////	protected int getBiomeFeatureDistance(ChunkGenerator<?> generator)
-////	{
-////		return 32;
-////	}
+//        int xStart = (chunkX << 4);
+//        int zStart = (chunkZ << 4);
 //
-//	private int getBiomeFeatureSeparation()
-//	{
-//		return 16;
-//	}
+//        int i1 = generator.getNoiseHeightMinusOne(xStart, zStart, Heightmap.Type.WORLD_SURFACE_WG);
+//        int j1 = generator.getNoiseHeightMinusOne(xStart, zStart + offset, Heightmap.Type.WORLD_SURFACE_WG);
+//        int k1 = generator.getNoiseHeightMinusOne(xStart + offset, zStart, Heightmap.Type.WORLD_SURFACE_WG);
+//        int l1 = generator.getNoiseHeightMinusOne(xStart + offset, zStart + offset, Heightmap.Type.WORLD_SURFACE_WG);
+//        int minHeight = Math.min(Math.min(i1, j1), Math.min(k1, l1));
+//        int maxHeight = Math.max(Math.max(i1, j1), Math.max(k1, l1));
+//        return Math.abs(maxHeight - minHeight) <= 20;
+//    }
+
+    /**
+     * This method is something like:
+     * getChunkPosForStructure
+     */
+//    @Override
+//    public ChunkPos func_236392_a_(StructureSeparationSettings separationSettings, long seed, SharedSeedRandom rand, int x, int z)
+//    {
+//        int spacing = RARITY;
+//        int gridX = ((x / spacing) * spacing);
+//        int gridZ = ((z / spacing) * spacing);
 //
-//	public static class Start extends StructureStart<NoFeatureConfig>
-//	{
-//		public Start(Structure<NoFeatureConfig> structure, int chunkX, int chunkZ, MutableBoundingBox bounds, int references, long seed)
-//		{
-//			super(structure, chunkX, chunkZ, bounds, references, seed);
-//		}
+//        int offset = getSeparationModifier() + 1;
+//        rand.setLargeFeatureSeedWithSalt(seed, gridX, gridZ, this.getSeedModifier());
+//        int offsetX = rand.nextInt(offset);
+//        int offsetZ = rand.nextInt(offset);
 //
-//		@Override
-//		public void func_230364_a_(ChunkGenerator generator, TemplateManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn, NoFeatureConfig config)
-//		{
-//			int x = chunkX * 16;
-//			int z = chunkZ * 16;
-//			BlockPos blockpos1 = new BlockPos(x, 120, z);
-//			Rotation rotation = Rotation.values()[this.rand.nextInt(Rotation.values().length)];
-//			this.components.add(new EndPrisonPieces.Piece(templateManagerIn, blockpos1, rotation, EndPrisonPiece.MAIN));
-//			this.components.add(new EndPrisonPieces.Piece(templateManagerIn, getFrontBlockPos(x, z, rotation), rotation, EndPrisonPiece.FRONT));
-//			this.components.add(new EndPrisonPieces.Piece(templateManagerIn, getBackBlockPos(x, z, rotation), rotation, EndPrisonPiece.BACK));
-//			this.components.add(new EndPrisonPieces.Piece(templateManagerIn, getRightBlockPos(x, z, rotation), rotation, EndPrisonPiece.RIGHT));
-//			this.components.add(new EndPrisonPieces.Piece(templateManagerIn, getLeftBlockPos(x, z, rotation), rotation, EndPrisonPiece.LEFT));
-//			if(rand.nextInt(3) == 0)
-//			{
-//				this.components.add(new EndPrisonPieces.Piece(templateManagerIn, getShipBlockPos(x, z, rotation), getShipRotation(rotation), EndPrisonPiece.SHIP));
-//			}
-//			this.recalculateStructureSize();
-//		}
+//        int gridOffsetX = gridX + offsetX;
+//        int gridOffsetZ = gridZ + offsetZ;
 //
-////		@Override TODO make sure the above method is the replacement
-////		public void init(ChunkGenerator<?> generator, TemplateManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn)
-////		{
-////			int x = chunkX * 16;
-////			int z = chunkZ * 16;
-////			BlockPos blockpos1 = new BlockPos(x, 120, z);
-////			Rotation rotation = Rotation.values()[this.rand.nextInt(Rotation.values().length)];
-////			this.components.add(new EndPrisonPieces.Piece(templateManagerIn, blockpos1, rotation, EndPrisonPiece.MAIN));
-////			this.components.add(new EndPrisonPieces.Piece(templateManagerIn, getFrontBlockPos(x, z, rotation), rotation, EndPrisonPiece.FRONT));
-////			this.components.add(new EndPrisonPieces.Piece(templateManagerIn, getBackBlockPos(x, z, rotation), rotation, EndPrisonPiece.BACK));
-////			this.components.add(new EndPrisonPieces.Piece(templateManagerIn, getRightBlockPos(x, z, rotation), rotation, EndPrisonPiece.RIGHT));
-////			this.components.add(new EndPrisonPieces.Piece(templateManagerIn, getLeftBlockPos(x, z, rotation), rotation, EndPrisonPiece.LEFT));
-////			if(rand.nextInt(3) == 0)
-////			{
-////				this.components.add(new EndPrisonPieces.Piece(templateManagerIn, getShipBlockPos(x, z, rotation), getShipRotation(rotation), EndPrisonPiece.SHIP));
-////			}
-////			this.recalculateStructureSize();
-////		}
-//	}
-//	
-//	/**
-//	 * Used to get the correct position for the front piece of the End Prison.
-//	 */
-//	private static BlockPos getFrontBlockPos(int x, int z, Rotation rot)
-//	{
-//		switch(rot)
-//		{
-//		default:
-//		case NONE:
-//			return new BlockPos(x, 120, z + 31);
-//		case CLOCKWISE_90:
-//			return new BlockPos(x - 31, 120, z);
-//		case COUNTERCLOCKWISE_90:
-//			return new BlockPos(x + 31, 120, z);
-//		case CLOCKWISE_180:
-//			return new BlockPos(x, 120, z - 31);
-//		}
-//	}
-//	
-//	/**
-//	 * Used to get the correct position for the back piece of the End Prison.
-//	 */
-//	private static BlockPos getBackBlockPos(int x, int z, Rotation rot)
-//	{
-//		switch(rot)
-//		{
-//		default:
-//		case NONE:
-//			return new BlockPos(x, 120, z - 3);
-//		case CLOCKWISE_90:
-//			return new BlockPos(x + 3, 120, z);
-//		case COUNTERCLOCKWISE_90:
-//			return new BlockPos(x - 3, 120, z);
-//		case CLOCKWISE_180:
-//			return new BlockPos(x, 120, z + 3);
-//		}
-//	}
-//	
-//	/**
-//	 * Used to get the correct position for the right piece of the End Prison.
-//	 */
-//	private static BlockPos getRightBlockPos(int x, int z, Rotation rot)
-//	{
-//		switch(rot)
-//		{
-//		default:
-//		case NONE:
-//			return new BlockPos(x + 31, 120, z);
-//		case CLOCKWISE_90:
-//			return new BlockPos(x, 120, z + 31);
-//		case COUNTERCLOCKWISE_90:
-//			return new BlockPos(x, 120, z - 31);
-//		case CLOCKWISE_180:
-//			return new BlockPos(x - 31, 120, z);
-//		}
-//	}
-//	
-//	/**
-//	 * Used to get the correct position for the left piece of the End Prison.
-//	 */
-//	private static BlockPos getLeftBlockPos(int x, int z, Rotation rot)
-//	{
-//		switch(rot)
-//		{
-//		default:
-//		case NONE:
-//			return new BlockPos(x - 3, 120, z);
-//		case CLOCKWISE_90:
-//			return new BlockPos(x, 120, z - 3);
-//		case COUNTERCLOCKWISE_90:
-//			return new BlockPos(x, 120, z + 3);
-//		case CLOCKWISE_180:
-//			return new BlockPos(x + 3, 120, z);
-//		}
-//	}
-//	
-//	/**
-//	 * Used to get the correct position for the ship piece of the End Prison.
-//	 */
-//	private static BlockPos getShipBlockPos(int x, int z, Rotation rot)
-//	{
-//		switch(rot)
-//		{
-//		default:
-//		case NONE:
-//			return new BlockPos(x + 1, 120, z + 57);
-//		case CLOCKWISE_90:
-//			return new BlockPos(x - 45, 120, z + 29);
-//		case COUNTERCLOCKWISE_90:
-//			return new BlockPos(x + 45, 120, z - 29);
-//		case CLOCKWISE_180:
-//			return new BlockPos(x - 1, 120, z - 57);
-//		}
-//	}
-//	
-//	/**
-//	 * Used to adjust the rotation of the ship.
-//	 * @param rot - The Rotation of the End Prison
-//	 */
-//	private static Rotation getShipRotation(Rotation rot)
-//	{
-//		switch(rot)
-//		{
-//		default:
-//		case NONE:
-//			return Rotation.COUNTERCLOCKWISE_90;
-//		case CLOCKWISE_90:
-//			return Rotation.CLOCKWISE_180;
-//		case COUNTERCLOCKWISE_90:
-//			return Rotation.NONE;
-//		case CLOCKWISE_180:
-//			return Rotation.CLOCKWISE_90;
-//		}
-//	}
-//	
-//	public static enum EndPrisonPiece
-//	{
-//		MAIN, BACK, FRONT, LEFT, RIGHT, SHIP;
-//	}
+//        return new ChunkPos(gridOffsetX, gridOffsetZ);
+//    }
+
+    public static class Start extends StructureStart<NoFeatureConfig>
+    {
+    	public Start(Structure<NoFeatureConfig> structure, int x, int z, MutableBoundingBox boundingBox, int refCount, long seed)
+    	{
+            super(structure, x, z, boundingBox, refCount, seed);
+        }
+
+    	/**
+    	 * This method is something like:
+    	 * init
+    	 */
+        @Override
+        public void func_230364_a_(DynamicRegistries dynamicRegistries, ChunkGenerator generator, TemplateManager templateManager, int chunkX, int chunkZ, Biome biomeIn, NoFeatureConfig config)
+        {
+            int x = chunkX * 16;
+            int z = chunkZ * 16;
+            BlockPos blockpos = new BlockPos(x, 120, z); //TODO figure out why this is 90??
+            Rotation rotation = Rotation.values()[this.rand.nextInt(Rotation.values().length)];
+            /*
+             * this.components is an Array that stores all the pieces of a Structure, I used it in the old version, by passing it
+             * here all the Pieces will be added to that Array.
+             */
+            EndPrisonPieces.addPieces(templateManager, blockpos, rotation, this.components, this.rand);
+            this.recalculateStructureSize();
+        }
+    }
 }

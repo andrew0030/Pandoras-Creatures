@@ -59,6 +59,8 @@ public class Main
 		PCEntities.ENTITY_TYPES.register(modEventBus);
 //		PCFeatures.FEATURES.register(modEventBus); // TODO replace with the new method from the new Registry Class for structures
 //		PCStructurePieces.init();// TODO replace with the new method from the new Registry Class for structures
+//		PCStructures.STRUCTURE_FEATURES.register(modEventBus);
+//		PCStructures.registerPieces();
 		PCCrafting.RECIPES.register(modEventBus);
 		
 		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {modEventBus.addListener(EventPriority.LOWEST, this::registerItemColors);});

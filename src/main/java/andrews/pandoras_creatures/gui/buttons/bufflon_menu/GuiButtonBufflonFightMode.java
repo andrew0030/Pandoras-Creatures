@@ -1,8 +1,7 @@
 package andrews.pandoras_creatures.gui.buttons.bufflon_menu;
 
-import java.util.List;
+import java.util.Arrays;
 
-import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
@@ -13,7 +12,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
@@ -33,13 +31,11 @@ public class GuiButtonBufflonFightMode extends Button
 	private int v = 78;
 	
 	private FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
-	private List<ITextComponent> list = Lists.newArrayList();
-	private String buttonText = new TranslationTextComponent("gui.button.pandoras_creatures.bufflon.combat").getString();
+	private TranslationTextComponent buttonText = new TranslationTextComponent("gui.button.pandoras_creatures.bufflon.combat");
 	
 	public GuiButtonBufflonFightMode(BufflonEntity entityIn, int xPos, int yPos) 
 	{
 		super(xPos, yPos, buttonWidth, buttonHeight, new StringTextComponent(""), (button) -> { handleButtonPress(); });
-		this.list.add(new StringTextComponent(this.buttonText));
 		bufflonEntity = entityIn;
 	}
 	
@@ -78,14 +74,14 @@ public class GuiButtonBufflonFightMode extends Button
 		Minecraft.getInstance().getRenderManager().textureManager.bindTexture(texture);
 		matrixStack.push();
 		RenderSystem.enableBlend();
-		GuiUtils.drawTexturedModalRect(x, y, u, v, width, height, 0);
+		GuiUtils.drawTexturedModalRect(matrixStack, x, y, u, v, width, height, 0);
 		RenderSystem.disableBlend();
 		matrixStack.pop();
 		
 		//This is used to render a tooltip next to the button
 		if(isHovered)
 		{
-			Minecraft.getInstance().currentScreen.renderToolTip(matrixStack, this.list, x + 17, y + 21, this.fontRenderer);
+			Minecraft.getInstance().currentScreen.renderToolTip(matrixStack, Arrays.asList(this.buttonText.func_241878_f()), x + 17, y + 21, this.fontRenderer);
 		}
 	}
 	

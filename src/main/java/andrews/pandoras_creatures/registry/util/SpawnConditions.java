@@ -1,6 +1,5 @@
 package andrews.pandoras_creatures.registry.util;
 
-import java.util.Arrays;
 import java.util.Random;
 
 import andrews.pandoras_creatures.config.Config;
@@ -11,13 +10,12 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.IWorld;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biomes;
 
 public class SpawnConditions
 {
-	private static Biome[] acidicArchvineBiomesOverworld = {Biomes.JUNGLE, Biomes.JUNGLE_EDGE, Biomes.JUNGLE_HILLS, Biomes.MODIFIED_JUNGLE, Biomes.MODIFIED_JUNGLE_EDGE};
-	private static Biome[] acidicArchvineBiomesNether = {Biomes.NETHER_WASTES, Biomes.CRIMSON_FOREST};
+	//TODO find a replacement for the system bellow
+//	private static Biome[] acidicArchvineBiomesOverworld = {Biomes.JUNGLE, Biomes.JUNGLE_EDGE, Biomes.JUNGLE_HILLS, Biomes.MODIFIED_JUNGLE, Biomes.MODIFIED_JUNGLE_EDGE};
+//	private static Biome[] acidicArchvineBiomesNether = {Biomes.NETHER_WASTES, Biomes.CRIMSON_FOREST};
 	
 	public static boolean noDayLightMobCondition(EntityType<? extends MobEntity> entityType, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random)
     {
@@ -93,14 +91,14 @@ public class SpawnConditions
 		{
 			return false;
 		}
-    	if(Arrays.asList(acidicArchvineBiomesOverworld).contains(world.getBiome(pos)) && pos.getY() < 62)
-    	{
-    		return false;
-    	}
-    	if(Arrays.asList(acidicArchvineBiomesNether).contains(world.getBiome(pos)) && pos.getY() < 40)
-    	{
-    		return false;
-    	}
+//    	if(Arrays.asList(acidicArchvineBiomesOverworld).contains(world.getBiome(pos)) && pos.getY() < 62) TODO find a replacement for this
+//    	{
+//    		return false;
+//    	}
+//    	if(Arrays.asList(acidicArchvineBiomesNether).contains(world.getBiome(pos)) && pos.getY() < 40)
+//    	{
+//    		return false;
+//    	}
     	if(!world.getBlockState(pos).getBlock().equals(Blocks.AIR))
     	{
     		return false;

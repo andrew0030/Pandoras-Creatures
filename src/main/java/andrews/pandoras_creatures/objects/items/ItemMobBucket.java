@@ -18,6 +18,7 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 
 public class ItemMobBucket extends BucketItem
 {
@@ -39,7 +40,7 @@ public class ItemMobBucket extends BucketItem
 	{
 		if(!worldIn.isRemote)
 		{
-			this.placeEntity(worldIn, stack, pos);
+			this.placeEntity((ServerWorld) worldIn, stack, pos);
 		}
 	}
 	
@@ -60,7 +61,7 @@ public class ItemMobBucket extends BucketItem
 	 * @param stack - The ItemStack
 	 * @param pos - The BlockPos
 	 */
-	private void placeEntity(World worldIn, ItemStack stack, BlockPos pos)
+	private void placeEntity(ServerWorld worldIn, ItemStack stack, BlockPos pos)
 	{
 		Entity entity = this.entityType.get().spawn(worldIn, stack, (PlayerEntity)null, pos, SpawnReason.BUCKET, true, false);
 		

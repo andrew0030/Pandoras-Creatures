@@ -17,6 +17,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.IServerWorld;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.LightType;
@@ -110,7 +111,7 @@ public abstract class AnimatedMonsterEntity extends AnimatedCreatureEntity imple
 	 * Static predicate for determining if the current light level and environmental
 	 * conditions allow for a monster to spawn.
 	 */
-	public static boolean isValidLightLevel(IWorld worldIn, BlockPos pos, Random randomIn)
+	public static boolean isValidLightLevel(IServerWorld worldIn, BlockPos pos, Random randomIn)
 	{
 		if(worldIn.getLightFor(LightType.SKY, pos) > randomIn.nextInt(32))
 		{
@@ -128,7 +129,7 @@ public abstract class AnimatedMonsterEntity extends AnimatedCreatureEntity imple
 	 * provided location, incorporating a check of the current light level at the
 	 * location.
 	 */
-	public static boolean canMonsterSpawnInLight(EntityType<? extends MonsterEntity> type, IWorld worldIn, SpawnReason reason, BlockPos pos, Random randomIn)
+	public static boolean canMonsterSpawnInLight(EntityType<? extends MonsterEntity> type, IServerWorld worldIn, SpawnReason reason, BlockPos pos, Random randomIn)
 	{
 		return worldIn.getDifficulty() != Difficulty.PEACEFUL && isValidLightLevel(worldIn, pos, randomIn) && canSpawnOn(type, worldIn, reason, pos, randomIn);
 	}
