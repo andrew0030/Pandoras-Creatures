@@ -1,7 +1,7 @@
 package andrews.pandoras_creatures.util.biome_utils;
 
-import java.util.ArrayList;
 import java.util.Optional;
+import java.util.Set;
 
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.math.BlockPos;
@@ -36,7 +36,7 @@ public class PCBiomeUtils
 	 * @param pos - The BlockPos to check for the Biome
 	 * @return - Whether or not the Biome at the given BlockPos matches one of the Biomes in the List
 	 */
-	public static boolean isBiomeEqualTo(ArrayList<RegistryKey<Biome>> biomeList, IServerWorld world, BlockPos pos)
+	public static boolean isBiomeEqualTo(Set<RegistryKey<Biome>> biomeList, IServerWorld world, BlockPos pos)
 	{
 		Optional<RegistryKey<Biome>> optional = world.func_241828_r().getRegistry(Registry.BIOME_KEY).getOptionalKey(world.getBiome(pos));
 		

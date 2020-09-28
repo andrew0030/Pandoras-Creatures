@@ -103,7 +103,7 @@ public class Main
 		
 		FeatureInjector.addFeaturesToBiomes();
 		
-		DeferredWorkQueue.runLater(PCEntities::registerEntityWorldSpawns);
+		DeferredWorkQueue.runLater(PCEntities::registerEntityPlacementLogics);
 	}
 	
 	//Setup Client

@@ -1,9 +1,10 @@
 package andrews.pandoras_creatures.entities;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Set;
 
 import javax.annotation.Nullable;
+
+import com.google.common.collect.ImmutableSet;
 
 import andrews.pandoras_creatures.entities.bases.AnimatedMonsterEntity;
 import andrews.pandoras_creatures.entities.goals.acidic_archvine.TargetUnderneathGoal;
@@ -43,7 +44,7 @@ public class AcidicArchvineEntity extends AnimatedMonsterEntity
 	private static final DataParameter<Integer> TARGET_ENTITY = EntityDataManager.createKey(AcidicArchvineEntity.class, DataSerializers.VARINT);
 	private LivingEntity targetedEntity;
 	private int attackState;
-	private ArrayList<RegistryKey<Biome>> netherBiomes = new ArrayList<RegistryKey<Biome>>(Arrays.asList(Biomes.NETHER_WASTES, Biomes.SOUL_SAND_VALLEY, Biomes.WARPED_FOREST, Biomes.BASALT_DELTAS));
+	private static final Set<RegistryKey<Biome>> NETHER_BIOMES = ImmutableSet.of(Biomes.NETHER_WASTES, Biomes.SOUL_SAND_VALLEY, Biomes.WARPED_FOREST, Biomes.BASALT_DELTAS);
 	
     public AcidicArchvineEntity(EntityType<? extends AcidicArchvineEntity> type, World worldIn)
     {
@@ -187,7 +188,7 @@ public class AcidicArchvineEntity extends AnimatedMonsterEntity
     
     private int getTypeForBiome(IServerWorld world)
     {
-		if(PCBiomeUtils.isBiomeEqualTo(this.netherBiomes, world, this.getPosition()))
+		if(PCBiomeUtils.isBiomeEqualTo(NETHER_BIOMES, world, this.getPosition()))
 		{
 			return 2;
 		}

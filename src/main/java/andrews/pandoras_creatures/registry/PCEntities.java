@@ -22,13 +22,16 @@ import andrews.pandoras_creatures.entities.render.EndTrollBulletWitherRenderer;
 import andrews.pandoras_creatures.entities.render.EndTrollRenderer;
 import andrews.pandoras_creatures.entities.render.HellhoundRenderer;
 import andrews.pandoras_creatures.entities.render.SeahorseRenderer;
+import andrews.pandoras_creatures.registry.util.SpawnConditions;
 import andrews.pandoras_creatures.util.Reference;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.RegistryObject;
@@ -51,36 +54,20 @@ public class PCEntities
 	public static final RegistryObject<EntityType<EndTrollBulletPoisonEntity>> END_TROLL_BULLET_POISON = ENTITY_TYPES.register("end_troll_bullet_poison", () -> createEntity(EndTrollBulletPoisonEntity::new, EndTrollBulletPoisonEntity::new, EntityClassification.MISC, "end_troll_bullet_poison", 0.3125F, 0.3125F));
 	public static final RegistryObject<EntityType<EndTrollBulletWitherEntity>> END_TROLL_BULLET_WITHER = ENTITY_TYPES.register("end_troll_bullet_wither", () -> createEntity(EndTrollBulletWitherEntity::new, EndTrollBulletWitherEntity::new, EntityClassification.MISC, "end_troll_bullet_wither", 0.3125F, 0.3125F));
 	public static final RegistryObject<EntityType<EndTrollBulletDamageEntity>> END_TROLL_BULLET_DAMAGE = ENTITY_TYPES.register("end_troll_bullet_damage", () -> createEntity(EndTrollBulletDamageEntity::new, EndTrollBulletDamageEntity::new, EntityClassification.MISC, "end_troll_bullet_damage", 0.3125F, 0.3125F));
-	
-	//=========================================================================================================================================================================================================================================
-	//=========================================================================================================================================================================================================================================
-	
+
 	/**
      * Registers World Spawning for entities
      */
-    public static void registerEntityWorldSpawns()
+    public static void registerEntityPlacementLogics()
     {
-//        registerCustomSpawnEntry(ARACHNON.get(), getArachnonBiomes, 20, 1, 1, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnConditions::noDayLightMobCondition);
-//        registerCustomSpawnEntry(HELLHOUND.get(), getHellhoundBiomes, 30, 3, 6, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnConditions::netherCondition);
-//        registerCustomSpawnEntry(CRAB.get(), getCrabBiomes, 500, 2, 5, EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnConditions::amphibianstMobCondition);
-//        registerAdvancedCustomSpawnEntry(SEAHORSE.get(), getSeahorseBiomes, EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnConditions::waterCondition);
-//        registerAdvancedCustomSpawnEntry(ACIDIC_ARCHVINE.get(), getAcidicArchvineBiomes, EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnConditions::acidicArchvineCondition);
-//        registerCustomSpawnEntry(BUFFLON.get(), getBufflonBiomes, 3, 1, 1, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnConditions::bufflonCondition); TODO replace spawn system
+    	EntitySpawnPlacementRegistry.register(ARACHNON.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnConditions::noDayLightMobCondition);
+    	EntitySpawnPlacementRegistry.register(HELLHOUND.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnConditions::netherCondition);
+    	EntitySpawnPlacementRegistry.register(CRAB.get(), EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnConditions::amphibianstMobCondition);
+    	EntitySpawnPlacementRegistry.register(SEAHORSE.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnConditions::waterCondition);
+    	EntitySpawnPlacementRegistry.register(ACIDIC_ARCHVINE.get(), EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnConditions::acidicArchvineCondition);
+    	EntitySpawnPlacementRegistry.register(BUFFLON.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnConditions::bufflonCondition);
     }
-    
-    /*
-     * Biome Lists for Entities
-     */
-//    public static final List<Biome> getArachnonBiomes = Lists.newArrayList(Biomes.PLAINS, Biomes.MOUNTAINS, Biomes.GRAVELLY_MOUNTAINS);
-//    public static final List<Biome> getHellhoundBiomes = Lists.newArrayList(Biomes.NETHER_WASTES, Biomes.SOUL_SAND_VALLEY);
-//    public static final List<Biome> getCrabBiomes = Lists.newArrayList(Biomes.BEACH, Biomes.WARM_OCEAN);
-//    public static final List<Biome> getSeahorseBiomes = Lists.newArrayList(Biomes.WARM_OCEAN, Biomes.DEEP_WARM_OCEAN, Biomes.OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.DEEP_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN);
-//    public static final List<Biome> getAcidicArchvineBiomes = Lists.newArrayList(Biomes.NETHER_WASTES, Biomes.CRIMSON_FOREST, Biomes.JUNGLE, Biomes.JUNGLE_EDGE, Biomes.JUNGLE_HILLS, Biomes.MODIFIED_JUNGLE, Biomes.MODIFIED_JUNGLE_EDGE);
-//    public static final List<Biome> getBufflonBiomes = Lists.newArrayList(Biomes.SNOWY_TUNDRA, Biomes.FROZEN_RIVER, Biomes.SNOWY_MOUNTAINS); TODO replace spawn system
-	
-    //=========================================================================================================================================================================================================================================
-    //=========================================================================================================================================================================================================================================
-  	
+
 	/**
 	 * Registers Model Rendering for entities
 	 */
@@ -98,10 +85,7 @@ public class PCEntities
 		RenderingRegistry.registerEntityRenderingHandler(END_TROLL_BULLET_WITHER.get(), EndTrollBulletWitherRenderer::new);
 		RenderingRegistry.registerEntityRenderingHandler(END_TROLL_BULLET_DAMAGE.get(), EndTrollBulletDamageRenderer::new);
     }
-    
-    //=========================================================================================================================================================================================================================================
-    //=========================================================================================================================================================================================================================================
-    
+
     //LivingEntity Creation Method
   	private static <T extends LivingEntity> EntityType<T> createLivingEntity(EntityType.IFactory<T> factory, EntityClassification entityClassification, String name, float width, float height)
   	{
@@ -145,27 +129,4 @@ public class PCEntities
   		);
   		return entity;
   	}
-  	
-  	//=========================================================================================================================================================================================================================================
-  	//=========================================================================================================================================================================================================================================
-      
-  	//TODO replace spawn system
-//    @SuppressWarnings("unchecked")
-//	private static <T extends MobEntity> void registerCustomSpawnEntry(EntityType<T> entity, List<Biome> biomes, int frequency, int minAmount, int maxAmount, EntitySpawnPlacementRegistry.PlacementType placementType, Heightmap.Type heightMapType, @SuppressWarnings("rawtypes") EntitySpawnPlacementRegistry.IPlacementPredicate canSpawnHere)
-//    {
-//        registerBiomeSpawnEntry(entity, frequency, minAmount, maxAmount, biomes);
-//        EntitySpawnPlacementRegistry.register(entity, placementType, heightMapType, canSpawnHere);
-//    }
-//    
-//    @SuppressWarnings("unchecked")
-//	private static <T extends MobEntity> void registerAdvancedCustomSpawnEntry(EntityType<T> entity, List<Biome> biomes, EntitySpawnPlacementRegistry.PlacementType placementType, Heightmap.Type heightMapType, @SuppressWarnings("rawtypes") EntitySpawnPlacementRegistry.IPlacementPredicate canSpawnHere)
-//    {
-//        AdvancedSpawnRegistry.registerAdvancedBiomeSpawnEntry(entity, biomes);
-//        EntitySpawnPlacementRegistry.register(entity, placementType, heightMapType, canSpawnHere);
-//    }
-//    
-//    private static void registerBiomeSpawnEntry(EntityType<?> entity, int frequency, int minAmount, int maxAmount, List<Biome> biomes)
-//    {
-//        biomes.stream().filter(Objects::nonNull).forEach(biome -> biome.getSpawns(entity.getClassification()).add(new Biome.SpawnListEntry(entity, frequency, minAmount, maxAmount)));
-//    }
 }
