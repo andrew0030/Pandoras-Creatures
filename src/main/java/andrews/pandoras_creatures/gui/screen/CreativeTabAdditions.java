@@ -1,9 +1,5 @@
 package andrews.pandoras_creatures.gui.screen;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import andrews.pandoras_creatures.Main;
 import andrews.pandoras_creatures.config.Config;
 import andrews.pandoras_creatures.gui.buttons.creative_tab.GuiButtonCurseForge;
 import andrews.pandoras_creatures.gui.buttons.creative_tab.GuiButtonDiscord;
@@ -11,44 +7,40 @@ import andrews.pandoras_creatures.gui.buttons.creative_tab.GuiButtonPatreon;
 import andrews.pandoras_creatures.gui.buttons.creative_tab.GuiButtonTwitch;
 import andrews.pandoras_creatures.gui.buttons.creative_tab.GuiButtonYouTube;
 import andrews.pandoras_creatures.util.Reference;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.CreativeScreen;
-import net.minecraft.client.gui.widget.button.Button;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.GuiScreenEvent;
+import net.minecraftforge.client.event.GuiScreenEvent.InitGuiEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = Reference.MODID, value = Dist.CLIENT)
 public class CreativeTabAdditions
-{
-	private static final Minecraft mc = Minecraft.getInstance();
-	private static GuiButtonDiscord discordButton;
-	private static GuiButtonCurseForge curseForgeButton;
-	private static GuiButtonYouTube youtubeButton;
-	private static GuiButtonTwitch twitchButton;
-	private static GuiButtonPatreon patreonButton;
-	private static List<Button> buttons = new ArrayList<Button>();
-	
+{	
 	@SubscribeEvent
-	public static void onRenderCreativeTab(GuiScreenEvent.DrawScreenEvent.Post event)
+	public static void onRenderCreativeTab(InitGuiEvent event)
 	{	
-		if(mc.currentScreen != null && mc.currentScreen instanceof CreativeScreen)
+		if(event.getGui() instanceof CreativeScreen)
 		{
-			CreativeScreen creativeTab = (CreativeScreen) mc.currentScreen;
+			CreativeScreen creativeTab = (CreativeScreen) event.getGui();
+			int screenWidth = creativeTab.width;
+			int screenHeight = creativeTab.height;
 			
-			if(creativeTab.getSelectedTabIndex() == Main.PANDORAS_CREATURES_GROUP.getIndex())
-			{
-				int screenWidth = mc.currentScreen.width;
-				int screenHeight = mc.currentScreen.height;
-				
-				showAllButtons();
-				createAndStoreAllButtons(creativeTab, screenWidth, screenHeight);
-			}
-			else
-			{
-				hideAllButtons();
-			}
+			int discordOffsetX = Config.CLIENT.buttonDiscordOffsetX.get();
+			int discordOffsetY = Config.CLIENT.buttonDiscordOffsetY.get();
+			int curseForgeOffsetX = Config.CLIENT.buttonCurseForgeOffsetX.get();
+			int curseForgeOffsetY = Config.CLIENT.buttonCurseForgeOffsetY.get();
+			int youTubeOffsetX = Config.CLIENT.buttonYouTubeOffsetX.get();
+			int youTubeOffsetY = Config.CLIENT.buttonYouTubeOffsetY.get();
+			int twitchOffsetX = Config.CLIENT.buttonTwitchOffsetX.get();
+			int twitchOffsetY = Config.CLIENT.buttonTwitchOffsetY.get();
+			int patreonOffsetX = Config.CLIENT.buttonPatreonOffsetX.get();
+			int patreonOffsetY = Config.CLIENT.buttonPatreonOffsetY.get();
+			
+			event.addWidget(new GuiButtonDiscord(creativeTab, calculateOffsetX(screenWidth, -121 + discordOffsetX), calculateOffsetY(screenHeight, -52 + discordOffsetY)));
+			event.addWidget(new GuiButtonCurseForge(creativeTab, calculateOffsetX(screenWidth, -121 + curseForgeOffsetX), calculateOffsetY(screenHeight, -29 + curseForgeOffsetY)));
+			event.addWidget(new GuiButtonYouTube(creativeTab, calculateOffsetX(screenWidth, -121 + youTubeOffsetX), calculateOffsetY(screenHeight, -6 + youTubeOffsetY)));
+			event.addWidget(new GuiButtonTwitch(creativeTab, calculateOffsetX(screenWidth, -121 + twitchOffsetX), calculateOffsetY(screenHeight, 17 + twitchOffsetY)));
+			event.addWidget(new GuiButtonPatreon(creativeTab, calculateOffsetX(screenWidth, -121 + patreonOffsetX), calculateOffsetY(screenHeight, 40 + patreonOffsetY)));
 		}
 	}
 	
@@ -82,128 +74,5 @@ public class CreativeTabAdditions
 		}
 		screenHeight = screenHeight / 2;
 		return screenHeight += offset;
-	}
-	
-	/**
-	 * Used to show all buttons
-	 */
-	private static void showAllButtons()
-	{
-		for(Button button : buttons)
-		{
-			if(button != null && button.visible == false)
-			{
-				setButtonAlphaToStart(button);
-				button.visible = true;
-			}
-		}
-	}
-	
-	/**
-	 * Used to hide all buttons
-	 */
-	private static void hideAllButtons()
-	{
-		for(Button button : buttons)
-		{
-			if(button != null && button.visible == true)
-			{
-				button.visible = false;
-			}
-		}
-	}
-	
-	/**
-	 * This stores the buttons when called and ensures they don't get stored again if already stored
-	 * @param creativeTab - The CreativeScreen
-	 * @param screenWidth - The screen width
-	 * @param screenHeight - The screen height
-	 */
-	private static void createAndStoreAllButtons(CreativeScreen creativeTab, int screenWidth, int screenHeight)
-	{
-		//Discord Button
-		if(!creativeTab.buttons.contains(GuiButtonDiscord.getButton()))
-		{
-			int configOffsetX = Config.CLIENT.buttonDiscordOffsetX.get();
-			int configOffsetY = Config.CLIENT.buttonDiscordOffsetY.get();
-			addButtonToCreativeTab(creativeTab, new GuiButtonDiscord(calculateOffsetX(screenWidth, -121 + configOffsetX), calculateOffsetY(screenHeight, -52 + configOffsetY)));
-			discordButton = GuiButtonDiscord.getButton();
-			buttons.add(discordButton);
-		}
-		//CurseForge Button
-		if(!creativeTab.buttons.contains(GuiButtonCurseForge.getButton()))
-		{
-			int configOffsetX = Config.CLIENT.buttonCurseForgeOffsetX.get();
-			int configOffsetY = Config.CLIENT.buttonCurseForgeOffsetY.get();
-			addButtonToCreativeTab(creativeTab, new GuiButtonCurseForge(calculateOffsetX(screenWidth, -121 + configOffsetX), calculateOffsetY(screenHeight, -29 + configOffsetY)));
-			curseForgeButton = GuiButtonCurseForge.getButton();
-			buttons.add(curseForgeButton);
-		}
-		//YouTube Button
-		if(!creativeTab.buttons.contains(GuiButtonYouTube.getButton()))
-		{
-			int configOffsetX = Config.CLIENT.buttonYouTubeOffsetX.get();
-			int configOffsetY = Config.CLIENT.buttonYouTubeOffsetY.get();
-			addButtonToCreativeTab(creativeTab, new GuiButtonYouTube(calculateOffsetX(screenWidth, -121 + configOffsetX), calculateOffsetY(screenHeight, -6 + configOffsetY)));
-			youtubeButton = GuiButtonYouTube.getButton();
-			buttons.add(youtubeButton);
-		}
-		//Twitch Button
-		if(!creativeTab.buttons.contains(GuiButtonTwitch.getButton()))
-		{
-			int configOffsetX = Config.CLIENT.buttonTwitchOffsetX.get();
-			int configOffsetY = Config.CLIENT.buttonTwitchOffsetY.get();
-			addButtonToCreativeTab(creativeTab, new GuiButtonTwitch(calculateOffsetX(screenWidth, -121 + configOffsetX), calculateOffsetY(screenHeight, 17 + configOffsetY)));
-			twitchButton = GuiButtonTwitch.getButton();
-			buttons.add(twitchButton);
-		}
-		//Patreon Button
-		if(!creativeTab.buttons.contains(GuiButtonPatreon.getButton()))
-		{
-			int configOffsetX = Config.CLIENT.buttonPatreonOffsetX.get();
-			int configOffsetY = Config.CLIENT.buttonPatreonOffsetY.get();
-			addButtonToCreativeTab(creativeTab, new GuiButtonPatreon(calculateOffsetX(screenWidth, -121 + configOffsetX), calculateOffsetY(screenHeight, 40 + configOffsetY)));
-			patreonButton = GuiButtonPatreon.getButton();
-			buttons.add(patreonButton);
-		}
-	}
-	
-	private static void addButtonToCreativeTab(CreativeScreen creativeScreen, Button button)
-	{
-		creativeScreen.buttons.add(button);
-		creativeScreen.children.add(button);
-	}
-	
-	/**
-	 * This sets the button alpha back to its start value
-	 * @param button - The button that should be modified
-	 */
-	private static void setButtonAlphaToStart(Button button)
-	{
-		//Discord Button
-		if(button instanceof GuiButtonDiscord)
-		{
-			((GuiButtonDiscord) button).setButtonAlphaToStart();
-		}
-		//CurseForge Button
-		if(button instanceof GuiButtonCurseForge)
-		{
-			((GuiButtonCurseForge) button).setButtonAlphaToStart();
-		}
-		//YouTube Button
-		if(button instanceof GuiButtonYouTube)
-		{
-			((GuiButtonYouTube) button).setButtonAlphaToStart();
-		}
-		//Twitch Button
-		if(button instanceof GuiButtonTwitch)
-		{
-			((GuiButtonTwitch) button).setButtonAlphaToStart();
-		}
-		//Patreon Button
-		if(button instanceof GuiButtonPatreon)
-		{
-			((GuiButtonPatreon) button).setButtonAlphaToStart();
-		}
 	}
 }

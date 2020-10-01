@@ -18,116 +18,28 @@ import net.minecraft.world.gen.feature.template.TemplateManager;
 
 public class EndPrisonStructure extends Structure<NoFeatureConfig>
 {	
-	private static final int RARITY = 32; //TODO figure out a good value
-	
 	public EndPrisonStructure(Codec<NoFeatureConfig> codec)
 	{
 		super(codec);
 	}
-
+	
 	@Override
 	public String getStructureName()
 	{
 		return Reference.MODID + ":end_prison";
 	}
 	
-	/**
-	 * @return - The structure size
-	 */
-	private int getSize()
-	{
-		return 8;
-	}
-	
-	@Override
+	@Override		//getDecorationStage
 	public Decoration func_236396_f_()
 	{
 		return GenerationStage.Decoration.SURFACE_STRUCTURES;
 	}
-	
-	/**
-	 * @return - The seed modifier
-	 */
-	protected int getSeedModifier()
-	{
-        return 0;
-    }
-	
-	/**
-	 * @return - The separation modifier
-	 */
-	protected int getSeparationModifier()
-	{
-        return 5;
-    }
 	
 	@Override
 	public IStartFactory<NoFeatureConfig> getStartFactory()
 	{
 		return Start::new;
 	}
-	
-//	@Override
-//    protected boolean func_230365_b_()//TODO figure out what this is
-//	{
-//        return false;
-//    }
-	
-//	@Nullable
-//    @Override
-//    public BlockPos func_236388_a_(IWorldReader world, StructureManager manager, BlockPos pos, int radius, boolean skipExistingChunks, long seed, StructureSeparationSettings separationSettings)
-//	{
-//        return super.func_236388_a_(world, manager, pos, radius, skipExistingChunks, seed, new StructureSeparationSettings(RARITY, getSeparationModifier(), getSeedModifier()));//TODO replace first int (rarity)
-//    }
-
-	/**
-	 * This method is something like:
-	 * canBeGenerated
-	 */
-//    @Override
-//    protected boolean func_230363_a_(ChunkGenerator generator, BiomeProvider provider, long seed, SharedSeedRandom rand, int x, int z, Biome biome, ChunkPos chunkPos, NoFeatureConfig config)
-//    {
-//        return isSurfaceFlat(generator, x, z);
-//    }
-//
-//    protected boolean isSurfaceFlat(@Nonnull ChunkGenerator generator, int chunkX, int chunkZ)
-//    {
-//        // Size of the area to check.
-//        int offset = getSize() * 16;
-//
-//        int xStart = (chunkX << 4);
-//        int zStart = (chunkZ << 4);
-//
-//        int i1 = generator.getNoiseHeightMinusOne(xStart, zStart, Heightmap.Type.WORLD_SURFACE_WG);
-//        int j1 = generator.getNoiseHeightMinusOne(xStart, zStart + offset, Heightmap.Type.WORLD_SURFACE_WG);
-//        int k1 = generator.getNoiseHeightMinusOne(xStart + offset, zStart, Heightmap.Type.WORLD_SURFACE_WG);
-//        int l1 = generator.getNoiseHeightMinusOne(xStart + offset, zStart + offset, Heightmap.Type.WORLD_SURFACE_WG);
-//        int minHeight = Math.min(Math.min(i1, j1), Math.min(k1, l1));
-//        int maxHeight = Math.max(Math.max(i1, j1), Math.max(k1, l1));
-//        return Math.abs(maxHeight - minHeight) <= 20;
-//    }
-
-    /**
-     * This method is something like:
-     * getChunkPosForStructure
-     */
-//    @Override
-//    public ChunkPos func_236392_a_(StructureSeparationSettings separationSettings, long seed, SharedSeedRandom rand, int x, int z)
-//    {
-//        int spacing = RARITY;
-//        int gridX = ((x / spacing) * spacing);
-//        int gridZ = ((z / spacing) * spacing);
-//
-//        int offset = getSeparationModifier() + 1;
-//        rand.setLargeFeatureSeedWithSalt(seed, gridX, gridZ, this.getSeedModifier());
-//        int offsetX = rand.nextInt(offset);
-//        int offsetZ = rand.nextInt(offset);
-//
-//        int gridOffsetX = gridX + offsetX;
-//        int gridOffsetZ = gridZ + offsetZ;
-//
-//        return new ChunkPos(gridOffsetX, gridOffsetZ);
-//    }
 
     public static class Start extends StructureStart<NoFeatureConfig>
     {
@@ -145,8 +57,8 @@ public class EndPrisonStructure extends Structure<NoFeatureConfig>
         {
             int x = chunkX * 16;
             int z = chunkZ * 16;
-            BlockPos blockpos = new BlockPos(x, 120, z); //TODO figure out why this is 90??
-            Rotation rotation = Rotation.values()[this.rand.nextInt(Rotation.values().length)];
+            BlockPos blockpos = new BlockPos(x, 120, z);
+            Rotation rotation = Rotation.randomRotation(this.rand);
             /*
              * this.components is an Array that stores all the pieces of a Structure, I used it in the old version, by passing it
              * here all the Pieces will be added to that Array.

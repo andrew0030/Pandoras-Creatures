@@ -5,10 +5,12 @@ import java.util.Arrays;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
+import andrews.pandoras_creatures.Main;
 import andrews.pandoras_creatures.config.Config;
 import andrews.pandoras_creatures.util.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.screen.inventory.CreativeScreen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
@@ -22,28 +24,26 @@ import net.minecraftforge.fml.client.gui.GuiUtils;
 public class GuiButtonTwitch extends Button
 {		
 	private static final ResourceLocation texture = new ResourceLocation(Reference.MODID + ":textures/gui/buttons/creative_tab.png");
-	private static GuiButtonTwitch twitchButton;
+	private TranslationTextComponent buttonText = new TranslationTextComponent("gui.button.pandoras_creatures.twitch");
+	private FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
+	private CreativeScreen creativeTab;
 	private static int buttonWidth = 22;
 	private static int buttonHeight = 22;
 	private float buttonAlpha;
 	private int u = 0;
 	private int v = 66;
 	
-	private FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
-	private TranslationTextComponent buttonText = new TranslationTextComponent("gui.button.pandoras_creatures.twitch");
-	
-	public GuiButtonTwitch(int xPos, int yPos) 
+	public GuiButtonTwitch(CreativeScreen creativeTab, int xPos, int yPos) 
 	{
 		super(xPos, yPos, buttonWidth, buttonHeight, new StringTextComponent(""), (button) -> { handleButtonPress(); });
-		twitchButton = this;
-		setButtonAlphaToStart();
+		this.creativeTab = creativeTab;
 	}
 	
 	@SuppressWarnings("deprecation")
 	@Override
 	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partial)
 	{
-		if(visible && Config.CLIENT.shouldButtonsInCreativeTabBeEnabled.get() == true && Minecraft.getInstance().player.getActivePotionEffects().isEmpty())
+		if(this.creativeTab.getSelectedTabIndex() == Main.PANDORAS_CREATURES_GROUP.getIndex() && Config.CLIENT.shouldButtonsInCreativeTabBeEnabled.get() == true && Minecraft.getInstance().player.getActivePotionEffects().isEmpty())
 		{
 			this.active = true;
 			calculateButtonAlpha();
@@ -77,13 +77,9 @@ public class GuiButtonTwitch extends Button
 		}
 		else
 		{
+			setButtonAlphaToStart();
 			this.active = false;
 		}
-	}
-	
-	public static GuiButtonTwitch getButton()
-	{
-		return twitchButton;
 	}
 	
 	//Calculates the Alpha for the Button

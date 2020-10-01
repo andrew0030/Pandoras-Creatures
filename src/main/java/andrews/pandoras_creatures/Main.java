@@ -2,6 +2,7 @@ package andrews.pandoras_creatures;
 
 import andrews.pandoras_creatures.config.Config;
 import andrews.pandoras_creatures.config.ConfigHelper;
+import andrews.pandoras_creatures.config.PCConfig;
 import andrews.pandoras_creatures.item_groups.PCItemGroup;
 import andrews.pandoras_creatures.network.PCNetwork;
 import andrews.pandoras_creatures.objects.items.PCSpawnEggItem;
@@ -12,10 +13,10 @@ import andrews.pandoras_creatures.registry.PCEntities;
 import andrews.pandoras_creatures.registry.PCItems;
 import andrews.pandoras_creatures.registry.PCRenderLayers;
 import andrews.pandoras_creatures.registry.PCSounds;
+import andrews.pandoras_creatures.registry.PCStructures;
 import andrews.pandoras_creatures.registry.PCTileEntities;
 import andrews.pandoras_creatures.registry.util.PCDispenserBehaviors;
 import andrews.pandoras_creatures.registry.util.PCEntityAttributes;
-import andrews.pandoras_creatures.util.FeatureInjector;
 import andrews.pandoras_creatures.util.Reference;
 import andrews.pandoras_creatures.util.RehostedJarHandler;
 import net.minecraft.item.Item;
@@ -59,8 +60,8 @@ public class Main
 		PCEntities.ENTITY_TYPES.register(modEventBus);
 //		PCFeatures.FEATURES.register(modEventBus); // TODO replace with the new method from the new Registry Class for structures
 //		PCStructurePieces.init();// TODO replace with the new method from the new Registry Class for structures
-//		PCStructures.STRUCTURE_FEATURES.register(modEventBus);
-//		PCStructures.registerPieces();
+		PCStructures.STRUCTURE_FEATURES.register(modEventBus);
+		PCStructures.registerPieces();
 		PCCrafting.RECIPES.register(modEventBus);
 		
 		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {modEventBus.addListener(EventPriority.LOWEST, this::registerItemColors);});
@@ -73,11 +74,11 @@ public class Main
 			final ModConfig config = event.getConfig();
 			if(config.getSpec() == Config.CLIENTSPEC)
 			{
-				ConfigHelper.updateClientConfig(config);
+				PCConfig.ValuesHolder.updateClientValuesFromConfig(config);
 			}
 			if(config.getSpec() == Config.COMMONSPEC)
 			{
-				ConfigHelper.updateCommonConfig(config);
+				PCConfig.ValuesHolder.updateCommonValuesFromConfig(config);
 			}
 		});
 		
@@ -89,19 +90,19 @@ public class Main
 	//Setup Common
 	@SubscribeEvent
 	public static void setupCommon(final FMLCommonSetupEvent event)
-	{
+	{	
 		DeferredWorkQueue.runLater(() ->
 		{
 			PCEntityAttributes.putAttributes();
 		});
+		
+		PCStructures.registerStructureFeaturesAndSeparation();
 		
 		PCDispenserBehaviors.registerAll();
 		PCNetwork.setupMessages();
 		
 		ModFile file = ModList.get().getModFileById(Reference.MODID).getFile();
 		new RehostedJarHandler(file, "pandoras_creatures-" + Reference.VERSION + ".jar");
-		
-		FeatureInjector.addFeaturesToBiomes();
 		
 		DeferredWorkQueue.runLater(PCEntities::registerEntityPlacementLogics);
 	}

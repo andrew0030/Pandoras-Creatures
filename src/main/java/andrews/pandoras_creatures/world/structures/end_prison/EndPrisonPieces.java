@@ -36,17 +36,23 @@ import net.minecraft.world.gen.feature.template.TemplateManager;
 public class EndPrisonPieces
 {
 	private static final ResourceLocation LOCATION_MAIN = new ResourceLocation(Reference.MODID, "end_prison/end_prison_main");
-//    private static final ResourceLocation LOCATION_BACK = new ResourceLocation(Reference.MODID, "end_prison/end_prison_back");
-//    private static final ResourceLocation LOCATION_FRONT = new ResourceLocation(Reference.MODID, "end_prison/end_prison_front");
-//    private static final ResourceLocation LOCATION_LEFT = new ResourceLocation(Reference.MODID, "end_prison/end_prison_left");
-//    private static final ResourceLocation LOCATION_RIGHT = new ResourceLocation(Reference.MODID, "end_prison/end_prison_right");
-//    private static final ResourceLocation LOCATION_SHIP = new ResourceLocation("end_city/ship");
+    private static final ResourceLocation LOCATION_BACK = new ResourceLocation(Reference.MODID, "end_prison/end_prison_back");
+    private static final ResourceLocation LOCATION_FRONT = new ResourceLocation(Reference.MODID, "end_prison/end_prison_front");
+    private static final ResourceLocation LOCATION_LEFT = new ResourceLocation(Reference.MODID, "end_prison/end_prison_left");
+    private static final ResourceLocation LOCATION_RIGHT = new ResourceLocation(Reference.MODID, "end_prison/end_prison_right");
+    private static final ResourceLocation LOCATION_SHIP = new ResourceLocation("end_city/ship");
 
-	public static void addPieces(TemplateManager templateManager, BlockPos position, Rotation rotation, List<StructurePiece> pieces, Random randomg)
+	public static void addPieces(TemplateManager templateManager, BlockPos position, Rotation rotation, List<StructurePiece> pieces, Random random)
 	{
 		pieces.add(new EndPrisonPieces.Piece(templateManager, position, rotation, EndPrisonPiece.MAIN));
-//		pieces.add(new EndPrisonPieces.Piece(templateManager, LOCATION_BACK, absolutePos, rotation));
-//		pieces.add(new EndPrisonPieces.Piece(templateManager, LOCATION_FRONT, absolutePos, rotation));
+		pieces.add(new EndPrisonPieces.Piece(templateManager, getFrontBlockPos(position.getX(), position.getZ(), rotation), rotation, EndPrisonPiece.FRONT));
+		pieces.add(new EndPrisonPieces.Piece(templateManager, getBackBlockPos(position.getX(), position.getZ(), rotation), rotation, EndPrisonPiece.BACK));
+		pieces.add(new EndPrisonPieces.Piece(templateManager, getRightBlockPos(position.getX(), position.getZ(), rotation), rotation, EndPrisonPiece.RIGHT));
+		pieces.add(new EndPrisonPieces.Piece(templateManager, getLeftBlockPos(position.getX(), position.getZ(), rotation), rotation, EndPrisonPiece.LEFT));
+		if(random.nextInt(3) == 0)
+		{
+			pieces.add(new EndPrisonPieces.Piece(templateManager, getShipBlockPos(position.getX(), position.getZ(), rotation), getShipRotation(rotation), EndPrisonPiece.SHIP));
+		}
 	}
 
 	public static class Piece extends TemplateStructurePiece
@@ -64,22 +70,21 @@ public class EndPrisonPieces
             default:
 			case MAIN:
 				this.structurePart = LOCATION_MAIN;
-//				break;
-//			case BACK:
-//				this.structurePart = LOCATION_BACK;
-//				break;
-//			case FRONT:
-//				this.structurePart = LOCATION_FRONT;
-//				break;
-//			case LEFT:
-//				this.structurePart = LOCATION_LEFT;
-//				break;
-//			case RIGHT:
-//				this.structurePart = LOCATION_RIGHT;
-//				break;
-//			case SHIP:
-//				this.structurePart = LOCATION_SHIP;
-//				break;
+				break;
+			case BACK:
+				this.structurePart = LOCATION_BACK;
+				break;
+			case FRONT:
+				this.structurePart = LOCATION_FRONT;
+				break;
+			case LEFT:
+				this.structurePart = LOCATION_LEFT;
+				break;
+			case RIGHT:
+				this.structurePart = LOCATION_RIGHT;
+				break;
+			case SHIP:
+				this.structurePart = LOCATION_SHIP;
 			}
             this.loadTemplate(templateManager);
         }
@@ -156,8 +161,122 @@ public class EndPrisonPieces
 		public boolean func_230383_a_(ISeedReader seedReader, StructureManager structureManager, ChunkGenerator chunkGenerator, Random randomIn, MutableBoundingBox mutableBoundingBoxIn, ChunkPos chunkPosIn, BlockPos blockPosIn)
 		{
 			this.templatePosition = new BlockPos(this.templatePosition.getX(), 120, this.templatePosition.getZ());
-			
 			return super.func_230383_a_(seedReader, structureManager, chunkGenerator, randomIn, mutableBoundingBoxIn, chunkPosIn, blockPosIn);
+		}
+	}
+	
+	/**
+	 * Used to get the correct position for the front piece of the End Prison.
+	 */
+	private static BlockPos getFrontBlockPos(int x, int z, Rotation rot)
+	{
+		switch(rot)
+		{
+		default:
+		case NONE:
+			return new BlockPos(x, 120, z + 31);
+		case CLOCKWISE_90:
+			return new BlockPos(x - 31, 120, z);
+		case COUNTERCLOCKWISE_90:
+			return new BlockPos(x + 31, 120, z);
+		case CLOCKWISE_180:
+			return new BlockPos(x, 120, z - 31);
+		}
+	}
+	
+	/**
+	 * Used to get the correct position for the back piece of the End Prison.
+	 */
+	private static BlockPos getBackBlockPos(int x, int z, Rotation rot)
+	{
+		switch(rot)
+		{
+		default:
+		case NONE:
+			return new BlockPos(x, 120, z - 3);
+		case CLOCKWISE_90:
+			return new BlockPos(x + 3, 120, z);
+		case COUNTERCLOCKWISE_90:
+			return new BlockPos(x - 3, 120, z);
+		case CLOCKWISE_180:
+			return new BlockPos(x, 120, z + 3);
+		}
+	}
+	
+	/**
+	 * Used to get the correct position for the right piece of the End Prison.
+	 */
+	private static BlockPos getRightBlockPos(int x, int z, Rotation rot)
+	{
+		switch(rot)
+		{
+		default:
+		case NONE:
+			return new BlockPos(x + 31, 120, z);
+		case CLOCKWISE_90:
+			return new BlockPos(x, 120, z + 31);
+		case COUNTERCLOCKWISE_90:
+			return new BlockPos(x, 120, z - 31);
+		case CLOCKWISE_180:
+			return new BlockPos(x - 31, 120, z);
+		}
+	}
+	
+	/**
+	 * Used to get the correct position for the left piece of the End Prison.
+	 */
+	private static BlockPos getLeftBlockPos(int x, int z, Rotation rot)
+	{
+		switch(rot)
+		{
+		default:
+		case NONE:
+			return new BlockPos(x - 3, 120, z);
+		case CLOCKWISE_90:
+			return new BlockPos(x, 120, z - 3);
+		case COUNTERCLOCKWISE_90:
+			return new BlockPos(x, 120, z + 3);
+		case CLOCKWISE_180:
+			return new BlockPos(x + 3, 120, z);
+		}
+	}
+	
+	/**
+	 * Used to get the correct position for the ship piece of the End Prison.
+	 */
+	private static BlockPos getShipBlockPos(int x, int z, Rotation rot)
+	{
+		switch(rot)
+		{
+		default:
+		case NONE:
+			return new BlockPos(x + 1, 120, z + 57);
+		case CLOCKWISE_90:
+			return new BlockPos(x - 45, 120, z + 29);
+		case COUNTERCLOCKWISE_90:
+			return new BlockPos(x + 45, 120, z - 29);
+		case CLOCKWISE_180:
+			return new BlockPos(x - 1, 120, z - 57);
+		}
+	}
+	
+	/**
+	 * Used to adjust the rotation of the ship.
+	 * @param rot - The Rotation of the End Prison
+	 */
+	private static Rotation getShipRotation(Rotation rot)
+	{
+		switch(rot)
+		{
+		default:
+		case NONE:
+			return Rotation.COUNTERCLOCKWISE_90;
+		case CLOCKWISE_90:
+			return Rotation.CLOCKWISE_180;
+		case COUNTERCLOCKWISE_90:
+			return Rotation.NONE;
+		case CLOCKWISE_180:
+			return Rotation.CLOCKWISE_90;
 		}
 	}
 	
