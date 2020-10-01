@@ -24,8 +24,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -38,33 +36,32 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.moddiscovery.ModFile;
 
 @Mod(value = Reference.MODID)
-@SuppressWarnings("deprecation")
 public class Main
 {
 	public static Main instance;
 	public static final ItemGroup PANDORAS_CREATURES_GROUP = new PCItemGroup();
 
+	@SuppressWarnings("deprecation")
 	public Main()
 	{
 		instance = this;
-		
 		final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 		
 		PCItems.ITEMS.register(modEventBus);
 		PCBlocks.BLOCKS.register(modEventBus);
 		PCSounds.SOUNDS.register(modEventBus);
-		PCTileEntities.TILE_ENTITY_TYPES.register(modEventBus); //TODO redo the registrations
+		PCTileEntities.TILE_ENTITY_TYPES.register(modEventBus);
 		PCContainers.CONTAINERS.register(modEventBus);
 		PCEntities.ENTITY_TYPES.register(modEventBus);
 		PCStructures.STRUCTURE_FEATURES.register(modEventBus);
-		PCStructures.registerPieces();
 		PCCrafting.RECIPES.register(modEventBus);
 		
-		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {modEventBus.addListener(EventPriority.LOWEST, this::registerItemColors);});
-		
-		FMLJavaModLoadingContext.get().getModEventBus().register(Main.class);
-		
-		//Configs
+		DistExecutor.runWhenOn(Dist.CLIENT, () -> () ->
+		{
+			modEventBus.addListener(EventPriority.LOWEST, this::registerItemColors);
+			modEventBus.addListener(EventPriority.LOWEST, this::setupClient);
+		});
+		modEventBus.addListener(EventPriority.LOWEST, this::setupCommon);
 		modEventBus.addListener((ModConfig.ModConfigEvent event) ->
 		{
 			final ModConfig config = event.getConfig();
@@ -77,52 +74,41 @@ public class Main
 				PCConfig.ValuesHolder.updateCommonValuesFromConfig(config);
 			}
 		});
-		
 		ModLoadingContext modLoadingContext = ModLoadingContext.get();
 		modLoadingContext.registerConfig(ModConfig.Type.CLIENT, PCConfig.CLIENTSPEC);
 		modLoadingContext.registerConfig(ModConfig.Type.COMMON, PCConfig.COMMONSPEC);
 	}
 	
-	//Setup Common
-	@SubscribeEvent
-	public static void setupCommon(final FMLCommonSetupEvent event)
+	void setupCommon(final FMLCommonSetupEvent event)
 	{	
-		DeferredWorkQueue.runLater(() ->
+		event.enqueueWork(() -> 
 		{
+			PCDispenserBehaviors.registerAll();
 			PCEntityAttributes.putAttributes();
+			PCStructures.registerPieces();
+			PCStructures.registerStructureFeaturesAndSeparation();
+			PCEntities.registerEntityPlacementLogics();
 		});
-		
-		PCStructures.registerStructureFeaturesAndSeparation();
-		
-		PCDispenserBehaviors.registerAll();
+		//Thread Safe Stuff
 		PCNetwork.setupMessages();
-		
 		ModFile file = ModList.get().getModFileById(Reference.MODID).getFile();
 		new RehostedJarHandler(file, "pandoras_creatures-" + Reference.VERSION + ".jar");
-		
-		DeferredWorkQueue.runLater(PCEntities::registerEntityPlacementLogics);
 	}
 	
-	//Setup Client
-	@SubscribeEvent
-	public static void setupClient(final FMLClientSetupEvent event)
+	@OnlyIn(Dist.CLIENT)
+	void setupClient(final FMLClientSetupEvent event)
 	{
-		DeferredWorkQueue.runLater(() ->
+		event.enqueueWork(() -> 
 		{
+			PCRenderLayers.setBlockRenderLayers();
 			PCItems.setupItemProperties();
+			PCContainers.screenSetup();
+			PCTileEntities.registerTileRenders();
 		});
-		
-		//Block Render Layers
-		PCRenderLayers.setBlockRenderLayers();
-		//Tile Entities
-		PCTileEntities.registerTileRenders();
-		//Entities
+		//Thread Safe Stuff
 		PCEntities.registerEntityRenders();
-		//ContainerScreens
-		PCContainers.screenSetup();
 	}
 	
-	//Item Colors
 	@OnlyIn(Dist.CLIENT)
 	public void registerItemColors(ColorHandlerEvent.Item event)
 	{
