@@ -1,5 +1,6 @@
 package andrews.pandoras_creatures.registry.util;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import andrews.pandoras_creatures.registry.PCBlocks;
@@ -49,14 +50,14 @@ public class PCBiomeAdditions
 	@SubscribeEvent
     public static void addDimensionalSpacing(final WorldEvent.Load event)
 	{
-        if(event.getWorld() instanceof ServerWorld)
-        {
+		if(event.getWorld() instanceof ServerWorld)
+		{
             ServerWorld serverWorld = (ServerWorld)event.getWorld();
-            Map<Structure<?>, StructureSeparationSettings> tempMap = serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_();
+            Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
             tempMap.put(PCStructures.END_PRISON.get(), DimensionStructuresSettings.field_236191_b_.get(PCStructures.END_PRISON.get()));
             serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap;
         }
-   }
+	}
 	
 	/**
 	 * This method adds all the Entities to the Biomes
@@ -81,7 +82,7 @@ public class PCBiomeAdditions
 		if(doesNameMatchBiomes(event.getName(), Biomes.BEACH, Biomes.WARM_OCEAN))
 		{	
 			MobSpawnInfoBuilder spawnSettings = event.getSpawns();
-			spawnSettings.withSpawner(EntityClassification.AMBIENT, new MobSpawnInfo.Spawners(PCEntities.CRAB.get(), 500, 2, 5));//TODO make sure 500 isnt overkill
+			spawnSettings.withSpawner(EntityClassification.AMBIENT, new MobSpawnInfo.Spawners(PCEntities.CRAB.get(), 400, 2, 5));
 		}
 		
 		//Seahorse
@@ -105,7 +106,7 @@ public class PCBiomeAdditions
 		if(doesNameMatchBiome(event.getName(), Biomes.CRIMSON_FOREST))
 		{	
 			MobSpawnInfoBuilder spawnSettings = event.getSpawns();
-			spawnSettings.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(PCEntities.ACIDIC_ARCHVINE.get(), 15, 1, 1));
+			spawnSettings.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(PCEntities.ACIDIC_ARCHVINE.get(), 10, 1, 1));
 		}
 		if(doesNameMatchBiomes(event.getName(), Biomes.JUNGLE, Biomes.JUNGLE_EDGE, Biomes.JUNGLE_HILLS, Biomes.MODIFIED_JUNGLE, Biomes.MODIFIED_JUNGLE_EDGE))
 		{

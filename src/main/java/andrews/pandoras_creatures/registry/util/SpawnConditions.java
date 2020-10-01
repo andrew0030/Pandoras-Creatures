@@ -1,21 +1,28 @@
 package andrews.pandoras_creatures.registry.util;
 
 import java.util.Random;
+import java.util.Set;
+
+import com.google.common.collect.ImmutableSet;
 
 import andrews.pandoras_creatures.config.PCConfig;
+import andrews.pandoras_creatures.util.biome_utils.PCBiomeUtils;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.IServerWorld;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biomes;
 
 public class SpawnConditions
 {
-	//TODO find a replacement for the system bellow
-//	private static Biome[] acidicArchvineBiomesOverworld = {Biomes.JUNGLE, Biomes.JUNGLE_EDGE, Biomes.JUNGLE_HILLS, Biomes.MODIFIED_JUNGLE, Biomes.MODIFIED_JUNGLE_EDGE};
-//	private static Biome[] acidicArchvineBiomesNether = {Biomes.NETHER_WASTES, Biomes.CRIMSON_FOREST};
+	private static final Set<RegistryKey<Biome>> ACIDIC_ARCHVINE_OVERWORLD = ImmutableSet.of(Biomes.JUNGLE, Biomes.JUNGLE_EDGE, Biomes.JUNGLE_HILLS, Biomes.MODIFIED_JUNGLE, Biomes.MODIFIED_JUNGLE_EDGE);
+	private static final Set<RegistryKey<Biome>> ACIDIC_ARCHVINE_NETHER = ImmutableSet.of(Biomes.NETHER_WASTES, Biomes.CRIMSON_FOREST);
 	
 	public static boolean noDayLightMobCondition(EntityType<? extends MobEntity> entityType, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random)
     {
@@ -46,9 +53,30 @@ public class SpawnConditions
 		{
 			return false;
 		}
-		if(world.getBlockState(pos).getBlock() != Blocks.WATER && world.getBlockState(pos).getBlock() != Blocks.AIR)
+		if(!world.isRemote())
 		{
-			return false;
+			if(PCBiomeUtils.isBiomeEqualTo(Biomes.BEACH, (IServerWorld) world, pos))
+			{
+				if(pos.getY() > 70)
+				{
+					return false;
+				}
+				if(pos.getY() < 56)
+				{
+					return false;
+				}
+			}
+			if(PCBiomeUtils.isBiomeEqualTo(Biomes.WARM_OCEAN, (IServerWorld) world, pos))
+			{
+				if(pos.getY() > 60)
+				{
+					return false;
+				}
+				if(pos.getY() < 30)
+				{
+					return false;
+				}
+			}
 		}
 		return world.getBlockState(pos.down()).getBlock().equals(Blocks.SAND);
     }
@@ -91,14 +119,23 @@ public class SpawnConditions
 		{
 			return false;
 		}
-//    	if(Arrays.asList(acidicArchvineBiomesOverworld).contains(world.getBiome(pos)) && pos.getY() < 62) TODO find a replacement for this
-//    	{
-//    		return false;
-//    	}
-//    	if(Arrays.asList(acidicArchvineBiomesNether).contains(world.getBiome(pos)) && pos.getY() < 40)
-//    	{
-//    		return false;
-//    	}
+    	if(!world.isRemote())
+    	{
+    		if(PCBiomeUtils.isBiomeEqualTo(ACIDIC_ARCHVINE_OVERWORLD, (IServerWorld) world, pos))
+    		{
+    			if(pos.getY() < 62)
+    			{
+    				return false;
+    			}
+    		}
+    		if(PCBiomeUtils.isBiomeEqualTo(ACIDIC_ARCHVINE_NETHER, (IServerWorld) world, pos))
+    		{
+    			if(pos.getY() < 40)
+    			{
+    				return false;
+    			}
+    		}
+    	}
     	if(!world.getBlockState(pos).getBlock().equals(Blocks.AIR))
     	{
     		return false;
