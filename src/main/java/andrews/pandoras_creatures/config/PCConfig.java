@@ -24,7 +24,6 @@ public class PCConfig
 			
 				arachnonSpawning = builder
 					.comment("Toggle Arachnon Spawning")
-					.translation(makeTranslation("arachnon_spawning_test"))
 					.define("arachnonSpawning", true);
 				hellhoundSpawning = builder
 					.comment("Toggle Hellhound Spawning")
@@ -83,11 +82,19 @@ public class PCConfig
 				
 			builder.pop();
 			
-			builder.push("creativeTabOptions");
+			builder.push("creativeTabButtonsGeneral");
 			
 				shouldButtonsInCreativeTabBeEnabled = builder
 					.comment("Choose if the buttons that get rendered in the Pandoras Creatures Creative Tab should be disabled or enabled.")
 					.define("shouldButtonsInCreativeTabBeEnabled", true);
+				buttonFadeInTime = builder
+					.comment("The amount of seconds it takes for the buttons to fully appear. Set it to 0 in order to disable the fading")
+					.defineInRange("buttonFadeInTime", 1, 0, 5);
+				
+			builder.pop();
+				
+			builder.push("creativeTabButtonsOffset");
+				
 				buttonDiscordOffsetX = builder
 					.comment("Offset the Discord Button on the X axis")
 					.define("buttonDiscordOffsetX", 0);
@@ -118,23 +125,23 @@ public class PCConfig
 				buttonPatreonOffsetY = builder
 					.comment("Offset the Patreon Button on the Y axis")
 					.define("buttonPatreonOffsetY", 0);
-				buttonFadeInTime = builder
-					.comment("The amount of seconds it takes for the buttons to fully appear. Set it to 0 in order to disable the fading")
-					.defineInRange("buttonFadeInTime", 1, 0, 5);
 				
 			builder.pop();
 		}
 	}
 	
+//	Currently not supported by Forge.
+//	I will add support for the ConfigGui once its added.
+	
 	/**
 	 * Helper method to create paths for the lang files
 	 */
-	private static String makeTranslation(String name)
-	{
-		return "config.pandoras_creatures." + name;
-	}
+//	private static String makeTranslation(String name)
+//	{
+//		return "config.pandoras_creatures." + name;
+//	}
 	
-	public static final ForgeConfigSpec COMMON_SPEC;
+	public static final ForgeConfigSpec COMMONSPEC;
 	public static final Common COMMON;
 	public static final ForgeConfigSpec CLIENTSPEC;
 	public static final Client CLIENT;
@@ -142,7 +149,7 @@ public class PCConfig
 	static
 	{
 		final Pair<Common, ForgeConfigSpec> specPairCommon = new ForgeConfigSpec.Builder().configure(Common::new);
-		COMMON_SPEC = specPairCommon.getRight();
+		COMMONSPEC = specPairCommon.getRight();
 		COMMON = specPairCommon.getLeft();
 		
 		final Pair<Client, ForgeConfigSpec> specPairClient = new ForgeConfigSpec.Builder().configure(Client::new);
@@ -217,5 +224,18 @@ public class PCConfig
 		//Client
 		public static boolean shouldShowUpdateMessage() { return shouldShowUpdateMessage; }
 		public static boolean shouldShowUpdateCheckFailedMessage() { return shouldShowUpdateCheckFailedMessage; }
+		public static boolean shouldShowInvalidJarMessage() { return shouldShowInvalidJarMessage; }
+		public static boolean shouldButtonsInCreativeTabBeEnabled() { return shouldButtonsInCreativeTabBeEnabled; }
+		public static Integer getButtonDiscordOffsetX() { return buttonDiscordOffsetX; }
+		public static Integer getButtonDiscordOffsetY() { return buttonDiscordOffsetY; }
+		public static Integer getButtonCurseForgeOffsetX() { return buttonCurseForgeOffsetX; }
+		public static Integer getButtonCurseForgeOffsetY() { return buttonCurseForgeOffsetY; }
+		public static Integer getButtonYouTubeOffsetX() { return buttonYouTubeOffsetX; }
+		public static Integer getButtonYouTubeOffsetY() { return buttonYouTubeOffsetY; }
+		public static Integer getButtonTwitchOffsetX() { return buttonTwitchOffsetX; }
+		public static Integer getButtonTwitchOffsetY() { return buttonTwitchOffsetY; }
+		public static Integer getButtonPatreonOffsetX() { return buttonPatreonOffsetX; }
+		public static Integer getButtonPatreonOffsetY() { return buttonPatreonOffsetY; }
+		public static Integer getButtonFadeInTime() { return buttonFadeInTime; }
 	}
 }

@@ -1,64 +1,65 @@
-// Notes for translators, please read before starting.
-//
-// If you read this thank you for considering localising Pandoras Creatures.
-// Before you start consider messaging me (mod author) or one of my Discord moderators,
-// so you can get the Translator Role and have acces to the newest lang file.
-// This lang file will often have localisations for the next version of the mod,
-// that contains content that has not been released yet.
-//
-// When the localisation file is done send it to me, preferably in the discord channel made
-// for it, or by sending me a direct message.
-//
-// If you want a name other then your Discord name to be inside the credits, let me know.
-//
-// 					  <#########> Localising Tools <#########>
-//
-// By putting \n in the text the mod will split the text at that position, when spliting text
-// keep in mind that you have to add a color code again, if you used one in the line before
-// (see color codes bellow), as its a new line and the color will reset itself to default.
-//
-// The following color codes can be added to the start of text to color it:
-//
-// #c0 Black
-// #c1 Dark Blue
-// #c2 Dark Green
-// #c3 Dark Aqua
-// #c4 Dark Red
-// #c5 Dark Purple
-// #c6 Gold
-// #c7 Gray
-// #c8 Dark Gray
-// #c9 Blue
-// #ca Green
-// #cb Aqua
-// #cc Red
-// #cd Light Purple
-// #ce Yellow
-// #cf White
-//
-// The following color codes can be added to the start of text to apply some effects:
-//
-// #cl Bold
-// #cm Strikethrough
-// #cn Underline
-// #co Italic
-// #cr Reset the default color
-//
-// Feel free to add or remove new lines, in order to make the text look good in the language youre working on.
-// You should use a text editor that has JSON formating in order to avoid invalid files.
-// The text %s will be replace with text. Example: "Author: %s" could become "Author: andrew0030".  
-// The text %d will be replace with a number. Example: "Radius: %d*%d*%d" could become "Radius: 3*3*3"
-//
-// IMPORTANT: The [Localising Tools] will only work on the Item Tooltips Category, as the ingame chat splits
-// lines on its own when needed, and the colors are not ment to be changed!
-//
-// That's all have "fun" translating!
-
 {
-//	 Item Groups
+"_comment": [
+	"Notes for translators, please read before starting.",
+
+	"If you read this thank you for considering localising Pandoras Creatures.",
+	"Before you start consider messaging me (mod author) or one of my Discord moderators,",
+	"so you can get the Translator Role and have acces to the newest lang file.",
+	"This lang file will often have localisations for the next version of the mod,",
+	"that contains content that has not been released yet.",
+	
+	"When the localisation file is done send it to me, preferably in the discord channel made",
+	"for it, or by sending me a direct message.",
+	
+	"If you want a name other then your Discord name to be inside the credits, let me know.",
+	
+						  "<#########> Localising Tools <#########>",
+	
+	"By putting \n in the text the mod will split the text at that position, when spliting text",
+	"keep in mind that you have to add a color code again, if you used one in the line before",
+	"(see color codes bellow), as its a new line and the color will reset itself to default.",
+	
+	"The following color codes can be added to the start of text to color it:",
+	
+	" #c0 Black",
+	" #c1 Dark Blue",
+	" #c2 Dark Green",
+	" #c3 Dark Aqua",
+	" #c4 Dark Red",
+	" #c5 Dark Purple",
+	" #c6 Gold",
+	" #c7 Gray",
+	" #c8 Dark Gray",
+	" #c9 Blue",
+	" #ca Green",
+	" #cb Aqua",
+	" #cc Red",
+	" #cd Light Purple",
+	" #ce Yellow",
+	" #cf White",
+	
+	"The following color codes can be added to the start of text to apply some effects:",
+	
+	" #cl Bold",
+	" #cm Strikethrough",
+	" #cn Underline",
+	" #co Italic",
+	" #cr Reset the default color",
+	
+	"Feel free to add or remove new lines, in order to make the text look good in the language youre working on.",
+	"You should use a text editor that has JSON formating in order to avoid invalid files.",
+	"The text %s will be replace with text. Example: \"Author: %s\" could become \"Author: andrew0030\".",
+	"The text %d will be replace with a number. Example: \"Radius: %d*%d*%d\" could become \"Radius: 3*3*3\"",
+	
+	"IMPORTANT: The [Localising Tools] will only work on the Item Tooltips Category, as the ingame chat splits",
+	"lines on its own when needed, and the colors are not ment to be changed!",
+	
+	"That's all have \"fun\" translating!"],
+		
+"_comment1": "Item Groups",
 	"itemGroup.pandoras_creatures": "Pandoras Creatures",
 
-//	 Spawn Eggs
+"_comment2": "Spawn Eggs",
 	"item.pandoras_creatures.arachnon_spawn_egg": "Arachnon Spawn Egg",
 	"item.pandoras_creatures.hellhound_spawn_egg": "Hellhound Spawn Egg",
 	"item.pandoras_creatures.crab_spawn_egg": "Crab Spawn Egg",
@@ -67,15 +68,15 @@
 	"item.pandoras_creatures.bufflon_spawn_egg": "Bufflon Spawn Egg",
 	"item.pandoras_creatures.end_troll_spawn_egg": "End Troll Spawn Egg",
 	
-//	 Item Tooltips, [Localising Tools] can be used here.
+"_comment3": "Item Tooltips, [Localising Tools] can be used here",
 	"item.pandoras_creatures.acidic_archvine_spawn_egg.tooltip": "#c7Needs to be placed under\n#c7Jungle Leaves or Netherrack",
 	"item.pandoras_creatures.arachnon_hammer.tooltip": "#c7This tool will break\n#c7blocks in a 3x3 radius",
 	"item.pandoras_creatures.plant_hat.tooltip": "#c7Wearing this hat makes you\n#c7invisible to Acidic Archvines",
 	
-//	 Block Tooltips, [Localising Tools] can be used here.
+"_comment4": "Block Tooltips, [Localising Tools] can be used here",
 	"block.pandoras_creatures.end_troll_box.tooltip": "and %d more...",
 	
-//	 Items
+"_comment5": "Items",
 	"item.pandoras_creatures.arachnon_hammer": "Arachnon Hammer",
 	"item.pandoras_creatures.crab_meat": "Crab Meat",
 	"item.pandoras_creatures.crab_meat_cooked": "Cooked Crab Meat",
@@ -95,7 +96,7 @@
 	"item.pandoras_creatures.plant_hat": "Plant Hat",
 	"item.pandoras_creatures.end_troll_skin": "End Troll Skin",
 	
-//	 Blocks
+"_comment6": "Blocks",
 	"block.pandoras_creatures.arachnon_crystal": "Arachnon Crystal",
 	"block.pandoras_creatures.horsetail": "Horsetail",
 	"block.pandoras_creatures.dhania": "Dhania",
@@ -118,7 +119,7 @@
 	"block.pandoras_creatures.red_end_troll_box": "Red End Troll Box",
 	"block.pandoras_creatures.black_end_troll_box": "Black End Troll Box",
 	
-//	 Entities
+"_comment7": "Entities",
 	"entity.pandoras_creatures.arachnon": "Arachnon",
 	"entity.pandoras_creatures.hellhound": "Hellhound",
 	"entity.pandoras_creatures.crab": "Crab",
@@ -130,10 +131,10 @@
 	"entity.pandoras_creatures.end_troll_bullet_wither": "Wither End Troll Bullet",
 	"entity.pandoras_creatures.end_troll_bullet_damage": "Damage End Troll Bullet",
 	
-//	 Containers
+"_comment8": "Containers",
 	 "container.pandoras_creatures.end_troll_box": "End Troll Box",
 	
-//	 Button Tool Tips
+"_comment9": "Button Tool Tips",
 	"gui.button.pandoras_creatures.discord": "Discord",
 	"gui.button.pandoras_creatures.curseforge": "CurseForge",
 	"gui.button.pandoras_creatures.youtube": "YouTube",
@@ -145,7 +146,7 @@
 	"gui.button.pandoras_creatures.bufflon.combat": "Combat Mode",
 	"gui.button.pandoras_creatures.bufflon.peaceful": "Peaceful Mode",
 	
-//	 Chat Messages
+"_comment10": "Chat Messages",
 	"chat.pandoras_creatures.invalidJarDownload": "[here]",
 	"chat.pandoras_creatures.invalidJarDownloadTooltip": "Click to open the download page.",
 	"chat.pandoras_creatures.invalidJarStopModReposts": "[here]",
@@ -156,18 +157,18 @@
 	"chat.pandoras_creatures.newVersion": "There is a new version of Pandoras Creatures available. Please click %s to open the official download page.",
 	"chat.pandoras_creatures.failedCheck": "Pandoras Creatures was not able to check for new versions.",
 	
-//	 Crab Types
+"_comment11": "Crab Types",
 	"chat.pandoras_creatures.crabBucketTooltip.sea": "Sea Crab",
 	"chat.pandoras_creatures.crabBucketTooltip.tropical": "Tropical Crab",
 	
-//	Seahorse Sizes
+"_comment12": "Seahorse Sizes",
 	"chat.pandoras_creatures.seahorseBucketTooltip.verySmall": "Size: Very Small",
 	"chat.pandoras_creatures.seahorseBucketTooltip.small": "Size: Small",
 	"chat.pandoras_creatures.seahorseBucketTooltip.normal": "Size: Normal",
 	"chat.pandoras_creatures.seahorseBucketTooltip.big": "Size: Big",
 	"chat.pandoras_creatures.seahorseBucketTooltip.veryBig": "Size: Very Big",
 	
-// 	Seahorse Types
+"_comment13": "Seahorse Types",
 	"chat.pandoras_creatures.seahorseBucketTooltip.orange": "Orange Seahorse",
 	"chat.pandoras_creatures.seahorseBucketTooltip.green": "Green Seahorse",	
 	"chat.pandoras_creatures.seahorseBucketTooltip.red": "Red Seahorse",

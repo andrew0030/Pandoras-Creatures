@@ -1,7 +1,5 @@
 package andrews.pandoras_creatures;
 
-import andrews.pandoras_creatures.config.Config;
-import andrews.pandoras_creatures.config.ConfigHelper;
 import andrews.pandoras_creatures.config.PCConfig;
 import andrews.pandoras_creatures.item_groups.PCItemGroup;
 import andrews.pandoras_creatures.network.PCNetwork;
@@ -55,11 +53,9 @@ public class Main
 		PCItems.ITEMS.register(modEventBus);
 		PCBlocks.BLOCKS.register(modEventBus);
 		PCSounds.SOUNDS.register(modEventBus);
-		PCTileEntities.TILE_ENTITY_TYPES.register(modEventBus);
+		PCTileEntities.TILE_ENTITY_TYPES.register(modEventBus); //TODO redo the registrations
 		PCContainers.CONTAINERS.register(modEventBus);
 		PCEntities.ENTITY_TYPES.register(modEventBus);
-//		PCFeatures.FEATURES.register(modEventBus); // TODO replace with the new method from the new Registry Class for structures
-//		PCStructurePieces.init();// TODO replace with the new method from the new Registry Class for structures
 		PCStructures.STRUCTURE_FEATURES.register(modEventBus);
 		PCStructures.registerPieces();
 		PCCrafting.RECIPES.register(modEventBus);
@@ -72,19 +68,19 @@ public class Main
 		modEventBus.addListener((ModConfig.ModConfigEvent event) ->
 		{
 			final ModConfig config = event.getConfig();
-			if(config.getSpec() == Config.CLIENTSPEC)
+			if(config.getSpec() == PCConfig.CLIENTSPEC)
 			{
 				PCConfig.ValuesHolder.updateClientValuesFromConfig(config);
 			}
-			if(config.getSpec() == Config.COMMONSPEC)
+			if(config.getSpec() == PCConfig.COMMONSPEC)
 			{
 				PCConfig.ValuesHolder.updateCommonValuesFromConfig(config);
 			}
 		});
 		
 		ModLoadingContext modLoadingContext = ModLoadingContext.get();
-		modLoadingContext.registerConfig(ModConfig.Type.CLIENT, Config.CLIENTSPEC);
-		modLoadingContext.registerConfig(ModConfig.Type.COMMON, Config.COMMONSPEC);
+		modLoadingContext.registerConfig(ModConfig.Type.CLIENT, PCConfig.CLIENTSPEC);
+		modLoadingContext.registerConfig(ModConfig.Type.COMMON, PCConfig.COMMONSPEC);
 	}
 	
 	//Setup Common

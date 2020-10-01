@@ -1,6 +1,6 @@
 package andrews.pandoras_creatures.gui.screen;
 
-import andrews.pandoras_creatures.config.Config;
+import andrews.pandoras_creatures.config.PCConfig;
 import andrews.pandoras_creatures.gui.buttons.creative_tab.GuiButtonCurseForge;
 import andrews.pandoras_creatures.gui.buttons.creative_tab.GuiButtonDiscord;
 import andrews.pandoras_creatures.gui.buttons.creative_tab.GuiButtonPatreon;
@@ -25,16 +25,16 @@ public class CreativeTabAdditions
 			int screenWidth = creativeTab.width;
 			int screenHeight = creativeTab.height;
 			
-			int discordOffsetX = Config.CLIENT.buttonDiscordOffsetX.get();
-			int discordOffsetY = Config.CLIENT.buttonDiscordOffsetY.get();
-			int curseForgeOffsetX = Config.CLIENT.buttonCurseForgeOffsetX.get();
-			int curseForgeOffsetY = Config.CLIENT.buttonCurseForgeOffsetY.get();
-			int youTubeOffsetX = Config.CLIENT.buttonYouTubeOffsetX.get();
-			int youTubeOffsetY = Config.CLIENT.buttonYouTubeOffsetY.get();
-			int twitchOffsetX = Config.CLIENT.buttonTwitchOffsetX.get();
-			int twitchOffsetY = Config.CLIENT.buttonTwitchOffsetY.get();
-			int patreonOffsetX = Config.CLIENT.buttonPatreonOffsetX.get();
-			int patreonOffsetY = Config.CLIENT.buttonPatreonOffsetY.get();
+			int discordOffsetX = PCConfig.ValuesHolder.getButtonDiscordOffsetX();
+			int discordOffsetY = PCConfig.ValuesHolder.getButtonDiscordOffsetY();
+			int curseForgeOffsetX = PCConfig.ValuesHolder.getButtonCurseForgeOffsetX();
+			int curseForgeOffsetY = PCConfig.ValuesHolder.getButtonCurseForgeOffsetY();
+			int youTubeOffsetX = PCConfig.ValuesHolder.getButtonYouTubeOffsetX();
+			int youTubeOffsetY = PCConfig.ValuesHolder.getButtonYouTubeOffsetY();
+			int twitchOffsetX = PCConfig.ValuesHolder.getButtonTwitchOffsetX();
+			int twitchOffsetY = PCConfig.ValuesHolder.getButtonTwitchOffsetY();
+			int patreonOffsetX = PCConfig.ValuesHolder.getButtonPatreonOffsetX();
+			int patreonOffsetY = PCConfig.ValuesHolder.getButtonPatreonOffsetY();
 			
 			event.addWidget(new GuiButtonDiscord(creativeTab, calculateOffsetX(screenWidth, -121 + discordOffsetX), calculateOffsetY(screenHeight, -52 + discordOffsetY)));
 			event.addWidget(new GuiButtonCurseForge(creativeTab, calculateOffsetX(screenWidth, -121 + curseForgeOffsetX), calculateOffsetY(screenHeight, -29 + curseForgeOffsetY)));
