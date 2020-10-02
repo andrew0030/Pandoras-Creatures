@@ -1,0 +1,14 @@
+{
+  "name": "pandoras_creatures:end_prison_chorus_plant",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "feature": "minecraft:chorus_plant",
+        "projection": "rigid",
+        "element_type": "minecraft:feature_pool_element"
+      }
+    }
+  ]
+}

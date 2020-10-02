@@ -149,7 +149,7 @@ public class PCBiomeAdditions
 		}
 		
 		//End Prison
-		if(doesNameMatchBiomes(event.getName(), Biomes.SMALL_END_ISLANDS, Biomes.END_BARRENS, Biomes.END_MIDLANDS, Biomes.END_HIGHLANDS))
+		if(doesNameMatchBiomes(event.getName(), Biomes.END_MIDLANDS, Biomes.END_HIGHLANDS, Biomes.END_BARRENS, Biomes.SMALL_END_ISLANDS))
 		{
 			BiomeGenerationSettingsBuilder genSettings = event.getGeneration();
 			genSettings.withStructure(PCStructures.END_PRISON_FEATURE);

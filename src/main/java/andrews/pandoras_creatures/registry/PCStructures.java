@@ -6,12 +6,9 @@ import com.google.common.collect.ImmutableMap;
 
 import andrews.pandoras_creatures.util.Reference;
 import andrews.pandoras_creatures.world.structures.end_prison.EndPrisonStructure;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
-import net.minecraft.world.gen.feature.structure.IStructurePieceType;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;
@@ -34,7 +31,7 @@ public class PCStructures
     {
     	//End Prison
     	END_PRISON_FEATURE = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, Reference.MODID + ":end_prison", END_PRISON.get().func_236391_a_(NoFeatureConfig.field_236559_b_));
-    	DimensionStructuresSettings.field_236191_b_ = ImmutableMap.<Structure<?>, StructureSeparationSettings>builder().putAll(DimensionStructuresSettings.field_236191_b_).put(END_PRISON.get(), new StructureSeparationSettings(32, 26, 93650246)).build();
+    	DimensionStructuresSettings.field_236191_b_ = ImmutableMap.<Structure<?>, StructureSeparationSettings>builder().putAll(DimensionStructuresSettings.field_236191_b_).put(END_PRISON.get(), new StructureSeparationSettings(32, 20, 43650246)).build();
     }
 
     /**
@@ -44,15 +41,5 @@ public class PCStructures
     {   
     	Structure.field_236365_a_.put(Reference.MODID + ":" + name, structure.get());
         return STRUCTURE_FEATURES.register(name, structure);
-    }
-
-    /**
-     * Method to register a StructurePiece
-     * @param key - The name of the StructurePiece
-     * @param type - The StructurePieceType of the StructurePiece
-     */
-    private static void registerPiece(String key, IStructurePieceType type)
-    {
-        Registry.register(Registry.STRUCTURE_PIECE, new ResourceLocation(Reference.MODID, key), type);
     }
 }
