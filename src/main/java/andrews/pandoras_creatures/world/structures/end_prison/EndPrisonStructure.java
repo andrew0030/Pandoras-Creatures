@@ -3,17 +3,19 @@ package andrews.pandoras_creatures.world.structures.end_prison;
 import com.mojang.serialization.Codec;
 
 import andrews.pandoras_creatures.util.Reference;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.util.registry.DynamicRegistries;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.GenerationStage.Decoration;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
-import net.minecraft.world.gen.feature.structure.Structure;
-import net.minecraft.world.gen.feature.structure.StructureStart;
+import net.minecraft.world.gen.feature.jigsaw.JigsawManager;
+import net.minecraft.world.gen.feature.structure.*;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 
 public class EndPrisonStructure extends Structure<NoFeatureConfig>
@@ -41,7 +43,7 @@ public class EndPrisonStructure extends Structure<NoFeatureConfig>
 		return Start::new;
 	}
 
-    public static class Start extends StructureStart<NoFeatureConfig>
+    public static class Start extends MarginedStructureStart<NoFeatureConfig>
     {
     	public Start(Structure<NoFeatureConfig> structure, int x, int z, MutableBoundingBox boundingBox, int refCount, long seed)
     	{
@@ -55,16 +57,24 @@ public class EndPrisonStructure extends Structure<NoFeatureConfig>
         @Override
         public void func_230364_a_(DynamicRegistries dynamicRegistries, ChunkGenerator generator, TemplateManager templateManager, int chunkX, int chunkZ, Biome biomeIn, NoFeatureConfig config)
         {
-            int x = chunkX * 16;
-            int z = chunkZ * 16;
-            BlockPos blockpos = new BlockPos(x, 120, z);
-            Rotation rotation = Rotation.randomRotation(this.rand);
-            /*
-             * this.components is an Array that stores all the pieces of a Structure, I used it in the old version, by passing it
-             * here all the Pieces will be added to that Array.
-             */
-            EndPrisonPieces.addPieces(templateManager, blockpos, rotation, this.components, this.rand);
-            this.recalculateStructureSize();
+            BlockPos blockpos = new BlockPos(chunkX * 16, 120, chunkZ * 16);
+
+            //jigsaw time!
+			JigsawManager.func_242837_a(
+					dynamicRegistries,
+					new VillageConfig(() -> dynamicRegistries.getRegistry(Registry.JIGSAW_POOL_KEY)
+							.getOrDefault(new ResourceLocation(Reference.MODID,"end_prison")), // template pool to start at
+							3), // maximum number of pieces outward from center piece the jigsaw can generate.
+					AbstractVillagePiece::new,
+					generator,
+					templateManager,
+					blockpos,
+					this.components,
+					this.rand,
+					true, // allow if jigsaw pieces can be partially intersecting instead of only allowing being fully enclosed or not intersecting at all.
+					false); // place structure at terrain height
+
+			this.recalculateStructureSize();
         }
     }
 }

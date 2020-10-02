@@ -5,7 +5,6 @@ import java.util.function.Supplier;
 import com.google.common.collect.ImmutableMap;
 
 import andrews.pandoras_creatures.util.Reference;
-import andrews.pandoras_creatures.world.structures.end_prison.EndPrisonPieces;
 import andrews.pandoras_creatures.world.structures.end_prison.EndPrisonStructure;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
@@ -27,8 +26,7 @@ public class PCStructures
 	//End Prison
     public static final RegistryObject<Structure<NoFeatureConfig>> END_PRISON = registerStructure("end_prison", () -> (new EndPrisonStructure(NoFeatureConfig.field_236558_a_)));
     public static StructureFeature<NoFeatureConfig, ? extends Structure<NoFeatureConfig>> END_PRISON_FEATURE;
-    public static final IStructurePieceType END_PRISON_PIECE = EndPrisonPieces.Piece::new;
-    
+
     /**
      * Registers the StructureFeatures and the StructureSeparationSettings
      */
@@ -38,15 +36,7 @@ public class PCStructures
     	END_PRISON_FEATURE = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, Reference.MODID + ":end_prison", END_PRISON.get().func_236391_a_(NoFeatureConfig.field_236559_b_));
     	DimensionStructuresSettings.field_236191_b_ = ImmutableMap.<Structure<?>, StructureSeparationSettings>builder().putAll(DimensionStructuresSettings.field_236191_b_).put(END_PRISON.get(), new StructureSeparationSettings(32, 26, 93650246)).build();
     }
-    
-    /**
-     * Registers all StructurePieces
-     */
-    public static void registerPieces()
-    {
-        registerPiece("end_prison_piece", END_PRISON_PIECE);
-    }
-    
+
     /**
      * Structure Feature registration
      */
