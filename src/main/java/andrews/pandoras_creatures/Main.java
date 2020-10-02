@@ -85,7 +85,6 @@ public class Main
 		{
 			PCDispenserBehaviors.registerAll();
 			PCEntityAttributes.putAttributes();
-			PCStructures.registerPieces();
 			PCStructures.registerStructureFeaturesAndSeparation();
 			PCEntities.registerEntityPlacementLogics();
 		});
