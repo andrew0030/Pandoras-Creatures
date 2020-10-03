@@ -7,6 +7,7 @@ import com.google.common.collect.ImmutableMap;
 import andrews.pandoras_creatures.util.Reference;
 import andrews.pandoras_creatures.world.structures.end_prison.EndPrisonStructure;
 import net.minecraft.util.registry.WorldGenRegistries;
+import net.minecraft.world.gen.FlatGenerationSettings;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 import net.minecraft.world.gen.feature.structure.Structure;
@@ -32,6 +33,7 @@ public class PCStructures
     	//End Prison
     	END_PRISON_FEATURE = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, Reference.MODID + ":end_prison", END_PRISON.get().func_236391_a_(NoFeatureConfig.field_236559_b_));
     	DimensionStructuresSettings.field_236191_b_ = ImmutableMap.<Structure<?>, StructureSeparationSettings>builder().putAll(DimensionStructuresSettings.field_236191_b_).put(END_PRISON.get(), new StructureSeparationSettings(32, 20, 43650246)).build();
+        FlatGenerationSettings.STRUCTURES.put(END_PRISON.get(), END_PRISON_FEATURE);
     }
 
     /**
