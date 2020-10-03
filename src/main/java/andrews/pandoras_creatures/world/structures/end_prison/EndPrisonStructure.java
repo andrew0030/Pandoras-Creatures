@@ -8,10 +8,8 @@ import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MutableBoundingBox;
-import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.util.registry.DynamicRegistries;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.ISeedReader;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.gen.ChunkGenerator;
@@ -19,12 +17,12 @@ import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.GenerationStage.Decoration;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.jigsaw.JigsawManager;
-import net.minecraft.world.gen.feature.structure.*;
+import net.minecraft.world.gen.feature.structure.AbstractVillagePiece;
+import net.minecraft.world.gen.feature.structure.MarginedStructureStart;
+import net.minecraft.world.gen.feature.structure.Structure;
+import net.minecraft.world.gen.feature.structure.VillageConfig;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;
-
-import java.util.Iterator;
-import java.util.Random;
 
 public class EndPrisonStructure extends Structure<NoFeatureConfig>
 {	
@@ -64,11 +62,15 @@ public class EndPrisonStructure extends Structure<NoFeatureConfig>
 	private boolean isEndCityWithin(ChunkGenerator generator, long seed, SharedSeedRandom random, int x, int z, int radius)
 	{
 		StructureSeparationSettings structureseparationsettings = generator.func_235957_b_().func_236197_a_(Structure.field_236379_o_);
-		if (structureseparationsettings != null) {
-			for (int surroundingX = x - radius; surroundingX <= x + radius; ++surroundingX) {
-				for (int surroundingZ = z - radius; surroundingZ <= z + radius; ++surroundingZ) {
+		if(structureseparationsettings != null)
+		{
+			for(int surroundingX = x - radius; surroundingX <= x + radius; ++surroundingX)
+			{
+				for(int surroundingZ = z - radius; surroundingZ <= z + radius; ++surroundingZ)
+				{
 					ChunkPos chunkpos = Structure.field_236379_o_.func_236392_a_(structureseparationsettings, seed, random, surroundingX, surroundingZ);
-					if (surroundingX == chunkpos.x && surroundingZ == chunkpos.z) {
+					if(surroundingX == chunkpos.x && surroundingZ == chunkpos.z)
+					{
 						return true;
 					}
 				}
@@ -97,8 +99,8 @@ public class EndPrisonStructure extends Structure<NoFeatureConfig>
 			JigsawManager.func_242837_a(
 				dynamicRegistries,
 				new VillageConfig(() -> dynamicRegistries.getRegistry(Registry.JIGSAW_POOL_KEY)// VillageConfig is actually JigsawConfig
-					.getOrDefault(new ResourceLocation(Reference.MODID,"end_prison")), // template pool to start at
-					3), // maximum number of pieces outward from center piece the jigsaw can generate.
+				.getOrDefault(new ResourceLocation(Reference.MODID,"end_prison")), // template pool to start at
+				3), // maximum number of pieces outward from center piece the jigsaw can generate.
 				AbstractVillagePiece::new,
 				generator,
 				templateManager,
@@ -107,6 +109,8 @@ public class EndPrisonStructure extends Structure<NoFeatureConfig>
 				this.rand,
 				true, // allow if jigsaw pieces can be partially intersecting instead of only allowing being fully enclosed or not intersecting at all.
 				false); // place structure at terrain height
+			
+			EndPrisonPieces.addPieces(templateManager, blockpos, this.components.get(0).getRotation(), this.components, this.rand);
 
 			this.recalculateStructureSize();
         }
