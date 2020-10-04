@@ -36,6 +36,7 @@ public class PCStructures
     public static void registerStructureFeaturesAndSeparation()
     {
     	//End Prison
+    	Structure.field_236365_a_.put(Reference.MODID + ":end_prison", END_PRISON.get());
     	END_PRISON_FEATURE = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, Reference.MODID + ":end_prison", END_PRISON.get().func_236391_a_(NoFeatureConfig.field_236559_b_));
     	DimensionStructuresSettings.field_236191_b_ = ImmutableMap.<Structure<?>, StructureSeparationSettings>builder().putAll(DimensionStructuresSettings.field_236191_b_).put(END_PRISON.get(), new StructureSeparationSettings(32, 26, 43650246)).build();
         FlatGenerationSettings.STRUCTURES.put(END_PRISON.get(), END_PRISON_FEATURE);
@@ -47,7 +48,6 @@ public class PCStructures
      */
     private static <T extends Structure<?>> RegistryObject<T> registerStructure(String name, Supplier<T> structure)
     {   
-    	Structure.field_236365_a_.put(Reference.MODID + ":" + name, structure.get());
         return STRUCTURE_FEATURES.register(name, structure);
     }
 }
