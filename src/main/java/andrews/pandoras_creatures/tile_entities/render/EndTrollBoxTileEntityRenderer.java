@@ -7,7 +7,7 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 
-import andrews.pandoras_creatures.objects.blocks.BlockEndTrollBox;
+import andrews.pandoras_creatures.objects.blocks.EndTrollBoxBlock;
 import andrews.pandoras_creatures.tile_entities.EndTrollBoxTileEntity;
 import andrews.pandoras_creatures.tile_entities.model.EndTrollBoxModel;
 import andrews.pandoras_creatures.util.Reference;
@@ -48,9 +48,9 @@ public class EndTrollBoxTileEntityRenderer extends TileEntityRenderer<EndTrollBo
 		if(tileEntityIn.hasWorld())
 		{
 			BlockState blockstate = tileEntityIn.getWorld().getBlockState(tileEntityIn.getPos());
-			if(blockstate.getBlock() instanceof BlockEndTrollBox)
+			if(blockstate.getBlock() instanceof EndTrollBoxBlock)
 			{
-				direction = blockstate.get(BlockEndTrollBox.FACING);
+				direction = blockstate.get(EndTrollBoxBlock.FACING);
 			}
 		}
 

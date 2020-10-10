@@ -1,6 +1,6 @@
 package andrews.pandoras_creatures.registry.util;
 
-import andrews.pandoras_creatures.objects.blocks.BlockEndTrollBox;
+import andrews.pandoras_creatures.objects.blocks.EndTrollBoxBlock;
 import andrews.pandoras_creatures.objects.items.PCSpawnEggItem;
 import andrews.pandoras_creatures.registry.PCBlocks;
 import andrews.pandoras_creatures.registry.PCItems;
@@ -33,23 +33,23 @@ public class PCDispenserBehaviors
 
 	public static void registerAll()
 	{
-		DispenserBlock.registerDispenseBehavior(PCBlocks.END_TROLL_BOX.get().asItem(), new BlockEndTrollBox.EndTrollBoxDispenseBehavior());
-		DispenserBlock.registerDispenseBehavior(PCBlocks.WHITE_END_TROLL_BOX.get().asItem(), new BlockEndTrollBox.EndTrollBoxDispenseBehavior());
-		DispenserBlock.registerDispenseBehavior(PCBlocks.ORANGE_END_TROLL_BOX.get().asItem(), new BlockEndTrollBox.EndTrollBoxDispenseBehavior());
-		DispenserBlock.registerDispenseBehavior(PCBlocks.MAGENTA_END_TROLL_BOX.get().asItem(), new BlockEndTrollBox.EndTrollBoxDispenseBehavior());
-		DispenserBlock.registerDispenseBehavior(PCBlocks.LIGHT_BLUE_END_TROLL_BOX.get().asItem(), new BlockEndTrollBox.EndTrollBoxDispenseBehavior());
-		DispenserBlock.registerDispenseBehavior(PCBlocks.YELLOW_END_TROLL_BOX.get().asItem(), new BlockEndTrollBox.EndTrollBoxDispenseBehavior());
-		DispenserBlock.registerDispenseBehavior(PCBlocks.LIME_END_TROLL_BOX.get().asItem(), new BlockEndTrollBox.EndTrollBoxDispenseBehavior());
-		DispenserBlock.registerDispenseBehavior(PCBlocks.PINK_END_TROLL_BOX.get().asItem(), new BlockEndTrollBox.EndTrollBoxDispenseBehavior());
-		DispenserBlock.registerDispenseBehavior(PCBlocks.GRAY_END_TROLL_BOX.get().asItem(), new BlockEndTrollBox.EndTrollBoxDispenseBehavior());
-		DispenserBlock.registerDispenseBehavior(PCBlocks.LIGHT_GRAY_END_TROLL_BOX.get().asItem(), new BlockEndTrollBox.EndTrollBoxDispenseBehavior());
-		DispenserBlock.registerDispenseBehavior(PCBlocks.CYAN_END_TROLL_BOX.get().asItem(), new BlockEndTrollBox.EndTrollBoxDispenseBehavior());
-		DispenserBlock.registerDispenseBehavior(PCBlocks.PURPLE_END_TROLL_BOX.get().asItem(), new BlockEndTrollBox.EndTrollBoxDispenseBehavior());
-		DispenserBlock.registerDispenseBehavior(PCBlocks.BLUE_END_TROLL_BOX.get().asItem(), new BlockEndTrollBox.EndTrollBoxDispenseBehavior());
-		DispenserBlock.registerDispenseBehavior(PCBlocks.BROWN_END_TROLL_BOX.get().asItem(), new BlockEndTrollBox.EndTrollBoxDispenseBehavior());
-		DispenserBlock.registerDispenseBehavior(PCBlocks.GREEN_END_TROLL_BOX.get().asItem(), new BlockEndTrollBox.EndTrollBoxDispenseBehavior());
-		DispenserBlock.registerDispenseBehavior(PCBlocks.RED_END_TROLL_BOX.get().asItem(), new BlockEndTrollBox.EndTrollBoxDispenseBehavior());
-		DispenserBlock.registerDispenseBehavior(PCBlocks.BLACK_END_TROLL_BOX.get().asItem(), new BlockEndTrollBox.EndTrollBoxDispenseBehavior());
+		DispenserBlock.registerDispenseBehavior(PCBlocks.END_TROLL_BOX.get().asItem(), new EndTrollBoxBlock.EndTrollBoxDispenseBehavior());
+		DispenserBlock.registerDispenseBehavior(PCBlocks.WHITE_END_TROLL_BOX.get().asItem(), new EndTrollBoxBlock.EndTrollBoxDispenseBehavior());
+		DispenserBlock.registerDispenseBehavior(PCBlocks.ORANGE_END_TROLL_BOX.get().asItem(), new EndTrollBoxBlock.EndTrollBoxDispenseBehavior());
+		DispenserBlock.registerDispenseBehavior(PCBlocks.MAGENTA_END_TROLL_BOX.get().asItem(), new EndTrollBoxBlock.EndTrollBoxDispenseBehavior());
+		DispenserBlock.registerDispenseBehavior(PCBlocks.LIGHT_BLUE_END_TROLL_BOX.get().asItem(), new EndTrollBoxBlock.EndTrollBoxDispenseBehavior());
+		DispenserBlock.registerDispenseBehavior(PCBlocks.YELLOW_END_TROLL_BOX.get().asItem(), new EndTrollBoxBlock.EndTrollBoxDispenseBehavior());
+		DispenserBlock.registerDispenseBehavior(PCBlocks.LIME_END_TROLL_BOX.get().asItem(), new EndTrollBoxBlock.EndTrollBoxDispenseBehavior());
+		DispenserBlock.registerDispenseBehavior(PCBlocks.PINK_END_TROLL_BOX.get().asItem(), new EndTrollBoxBlock.EndTrollBoxDispenseBehavior());
+		DispenserBlock.registerDispenseBehavior(PCBlocks.GRAY_END_TROLL_BOX.get().asItem(), new EndTrollBoxBlock.EndTrollBoxDispenseBehavior());
+		DispenserBlock.registerDispenseBehavior(PCBlocks.LIGHT_GRAY_END_TROLL_BOX.get().asItem(), new EndTrollBoxBlock.EndTrollBoxDispenseBehavior());
+		DispenserBlock.registerDispenseBehavior(PCBlocks.CYAN_END_TROLL_BOX.get().asItem(), new EndTrollBoxBlock.EndTrollBoxDispenseBehavior());
+		DispenserBlock.registerDispenseBehavior(PCBlocks.PURPLE_END_TROLL_BOX.get().asItem(), new EndTrollBoxBlock.EndTrollBoxDispenseBehavior());
+		DispenserBlock.registerDispenseBehavior(PCBlocks.BLUE_END_TROLL_BOX.get().asItem(), new EndTrollBoxBlock.EndTrollBoxDispenseBehavior());
+		DispenserBlock.registerDispenseBehavior(PCBlocks.BROWN_END_TROLL_BOX.get().asItem(), new EndTrollBoxBlock.EndTrollBoxDispenseBehavior());
+		DispenserBlock.registerDispenseBehavior(PCBlocks.GREEN_END_TROLL_BOX.get().asItem(), new EndTrollBoxBlock.EndTrollBoxDispenseBehavior());
+		DispenserBlock.registerDispenseBehavior(PCBlocks.RED_END_TROLL_BOX.get().asItem(), new EndTrollBoxBlock.EndTrollBoxDispenseBehavior());
+		DispenserBlock.registerDispenseBehavior(PCBlocks.BLACK_END_TROLL_BOX.get().asItem(), new EndTrollBoxBlock.EndTrollBoxDispenseBehavior());
 		
 		for(RegistryObject<Item> items : PCItems.SPAWN_EGGS)
 		{

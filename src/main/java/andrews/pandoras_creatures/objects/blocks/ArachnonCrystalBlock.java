@@ -20,7 +20,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 
-public class BlockArachnonCrystal extends HorizontalFaceBlock implements IWaterLoggable
+public class ArachnonCrystalBlock extends HorizontalFaceBlock implements IWaterLoggable
 {	
 	protected static final VoxelShape CRYSTAL_NORTH_AABB = Block.makeCuboidShape(4.0D, 4.0D, 7.0D, 12.0D, 12.0D, 16.0D);
 	protected static final VoxelShape CRYSTAL_SOUTH_AABB = Block.makeCuboidShape(4.0D, 4.0D, 0.0D, 12.0D, 12.0D, 9.0D);
@@ -33,7 +33,7 @@ public class BlockArachnonCrystal extends HorizontalFaceBlock implements IWaterL
 	
 	protected static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	
-	public BlockArachnonCrystal()
+	public ArachnonCrystalBlock()
 	{
 		super(getProperties());
 		this.setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, false).with(HORIZONTAL_FACING, Direction.NORTH).with(FACE, AttachFace.WALL));

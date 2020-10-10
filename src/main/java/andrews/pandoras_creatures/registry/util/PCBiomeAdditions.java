@@ -1,8 +1,5 @@
 package andrews.pandoras_creatures.registry.util;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import andrews.pandoras_creatures.registry.PCBlocks;
 import andrews.pandoras_creatures.registry.PCEntities;
 import andrews.pandoras_creatures.registry.PCStructures;
@@ -13,15 +10,14 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.biome.MobSpawnInfo;
+import net.minecraft.world.gen.FlatChunkGenerator;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.blockplacer.SimpleBlockPlacer;
 import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.feature.BlockClusterFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.Features;
-import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
-import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
@@ -53,9 +49,13 @@ public class PCBiomeAdditions
 		if(event.getWorld() instanceof ServerWorld)
 		{
             ServerWorld serverWorld = (ServerWorld)event.getWorld();
-            Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
-            tempMap.put(PCStructures.END_PRISON.get(), DimensionStructuresSettings.field_236191_b_.get(PCStructures.END_PRISON.get()));
-            serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap;
+            //Makes sure there aren't any StructureSeparationSettings being saved on SuperFlatWorlds
+            if(serverWorld.getChunkProvider().getChunkGenerator() instanceof FlatChunkGenerator)
+            {
+				return;
+			}
+            
+            serverWorld.getChunkProvider().getChunkGenerator().func_235957_b_().field_236193_d_.put(PCStructures.END_PRISON.get(), DimensionStructuresSettings.field_236191_b_.get(PCStructures.END_PRISON.get()));
         }
 	}
 	
@@ -64,60 +64,53 @@ public class PCBiomeAdditions
 	 */
 	private static void addEntitiesToBiomes(BiomeLoadingEvent event)
 	{
+		MobSpawnInfoBuilder spawnSettings = event.getSpawns();
+		
 		//Arachnom
 		if(doesNameMatchBiomes(event.getName(), Biomes.PLAINS, Biomes.MOUNTAINS, Biomes.GRAVELLY_MOUNTAINS))
 		{	
-			MobSpawnInfoBuilder spawnSettings = event.getSpawns();
 			spawnSettings.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(PCEntities.ARACHNON.get(), 20, 1, 1));
 		}
 		
 		//Hellhound
 		if(doesNameMatchBiomes(event.getName(), Biomes.NETHER_WASTES, Biomes.SOUL_SAND_VALLEY))
 		{	
-			MobSpawnInfoBuilder spawnSettings = event.getSpawns();
 			spawnSettings.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(PCEntities.HELLHOUND.get(), 30, 3, 6));
 		}
 		
 		//Crab
 		if(doesNameMatchBiomes(event.getName(), Biomes.BEACH, Biomes.WARM_OCEAN))
 		{	
-			MobSpawnInfoBuilder spawnSettings = event.getSpawns();
 			spawnSettings.withSpawner(EntityClassification.AMBIENT, new MobSpawnInfo.Spawners(PCEntities.CRAB.get(), 400, 2, 5));
 		}
 		
 		//Seahorse
 		if(doesNameMatchBiomes(event.getName(), Biomes.WARM_OCEAN, Biomes.DEEP_WARM_OCEAN))
 		{	
-			MobSpawnInfoBuilder spawnSettings = event.getSpawns();
 			spawnSettings.withSpawner(EntityClassification.AMBIENT, new MobSpawnInfo.Spawners(PCEntities.SEAHORSE.get(), 25, 3, 6));
 		}
 		if(doesNameMatchBiomes(event.getName(), Biomes.OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.DEEP_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN))
 		{	
-			MobSpawnInfoBuilder spawnSettings = event.getSpawns();
 			spawnSettings.withSpawner(EntityClassification.AMBIENT, new MobSpawnInfo.Spawners(PCEntities.SEAHORSE.get(), 10, 2, 3));
 		}
 		
 		//Acidic Archvine
 		if(doesNameMatchBiome(event.getName(), Biomes.NETHER_WASTES))
 		{	
-			MobSpawnInfoBuilder spawnSettings = event.getSpawns();
 			spawnSettings.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(PCEntities.ACIDIC_ARCHVINE.get(), 30, 1, 1));
 		}
 		if(doesNameMatchBiome(event.getName(), Biomes.CRIMSON_FOREST))
 		{	
-			MobSpawnInfoBuilder spawnSettings = event.getSpawns();
 			spawnSettings.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(PCEntities.ACIDIC_ARCHVINE.get(), 10, 1, 1));
 		}
 		if(doesNameMatchBiomes(event.getName(), Biomes.JUNGLE, Biomes.JUNGLE_EDGE, Biomes.JUNGLE_HILLS, Biomes.MODIFIED_JUNGLE, Biomes.MODIFIED_JUNGLE_EDGE))
 		{
-			MobSpawnInfoBuilder spawnSettings = event.getSpawns();
 			spawnSettings.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(PCEntities.ACIDIC_ARCHVINE.get(), 110, 1, 1));
 		}
 		
 		//Bufflon
 		if(doesNameMatchBiomes(event.getName(), Biomes.SNOWY_TUNDRA, Biomes.FROZEN_RIVER, Biomes.SNOWY_MOUNTAINS))
 		{
-			MobSpawnInfoBuilder spawnSettings = event.getSpawns();
 			spawnSettings.withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(PCEntities.BUFFLON.get(), 3, 1, 1));
 		}
 	}
@@ -127,31 +120,29 @@ public class PCBiomeAdditions
 	 */
 	private static void addFeaturesToBiomes(BiomeLoadingEvent event)
 	{
+		BiomeGenerationSettingsBuilder genSettings = event.getGeneration();
+		
 		//Horsetail
 		if(doesNameMatchBiomes(event.getName(), Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS))
 		{
-			BiomeGenerationSettingsBuilder genSettings = event.getGeneration();
 			genSettings.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Feature.FLOWER.withConfiguration(HORSETAIL_CONFIG.get()).withPlacement(Features.Placements.VEGETATION_PLACEMENT).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(3));//func_242731_b = spreadBase
 		}
 		
 		//Dhania
 		if(doesNameMatchBiome(event.getName(), Biomes.SWAMP))
 		{
-			BiomeGenerationSettingsBuilder genSettings = event.getGeneration();
 			genSettings.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Feature.FLOWER.withConfiguration(DHANIA_CONFIG.get()).withPlacement(Features.Placements.VEGETATION_PLACEMENT).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(3));
 		}
 		
 		//Hill Bloom
 		if(doesNameMatchBiome(event.getName(), Biomes.MOUNTAINS))
 		{
-			BiomeGenerationSettingsBuilder genSettings = event.getGeneration();
 			genSettings.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Feature.FLOWER.withConfiguration(HILL_BLOOM_CONFIG.get()).withPlacement(Features.Placements.VEGETATION_PLACEMENT).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(3));
 		}
 		
 		//End Prison
 		if(doesNameMatchBiomes(event.getName(), Biomes.END_MIDLANDS, Biomes.END_HIGHLANDS, Biomes.END_BARRENS, Biomes.SMALL_END_ISLANDS))
 		{
-			BiomeGenerationSettingsBuilder genSettings = event.getGeneration();
 			genSettings.withStructure(PCStructures.END_PRISON_FEATURE);
 		}
 	}

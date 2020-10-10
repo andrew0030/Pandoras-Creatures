@@ -1,4 +1,4 @@
-package andrews.pandoras_creatures.objects.items;
+package andrews.pandoras_creatures.objects.items.pandoric_shard;
 
 import java.util.List;
 
@@ -70,6 +70,7 @@ public class ItemPandoricShard extends Item
 		nbt.putInt("CreationCharge", 0);
 		stack.getOrCreateTag().put("PandoricShardValues", nbt);
 	}
+
 	
 	
 	

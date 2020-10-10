@@ -1,6 +1,6 @@
 package andrews.pandoras_creatures.events;
 
-import andrews.pandoras_creatures.objects.blocks.BlockEndTrollBox;
+import andrews.pandoras_creatures.objects.blocks.EndTrollBoxBlock;
 import andrews.pandoras_creatures.registry.PCBlocks;
 import andrews.pandoras_creatures.util.Reference;
 import net.minecraft.block.Block;
@@ -29,7 +29,7 @@ public class BlockInteractionHandler
 			if(i > 0 && heldItemStack.getItem() instanceof BlockItem)
 			{
 				Block block = ((BlockItem)heldItemStack.getItem()).getBlock();
-				if(block instanceof BlockEndTrollBox && !world.isRemote())
+				if(block instanceof EndTrollBoxBlock && !world.isRemote())
 				{
 					event.setCanceled(true);
 					ItemStack itemstack = new ItemStack(PCBlocks.END_TROLL_BOX.get(), 1);

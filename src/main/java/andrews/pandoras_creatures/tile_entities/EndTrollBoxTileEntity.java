@@ -5,7 +5,7 @@ import java.util.stream.IntStream;
 import javax.annotation.Nullable;
 
 import andrews.pandoras_creatures.container.EndTrollBoxContainer;
-import andrews.pandoras_creatures.objects.blocks.BlockEndTrollBox;
+import andrews.pandoras_creatures.objects.blocks.EndTrollBoxBlock;
 import andrews.pandoras_creatures.registry.PCTileEntities;
 import andrews.pandoras_creatures.util.Reference;
 import net.minecraft.block.Block;
@@ -262,7 +262,7 @@ public class EndTrollBoxTileEntity extends LockableLootTileEntity implements ISi
 		{
 			return false;
 		}
-		else if(Block.getBlockFromItem(itemStackIn.getItem()) instanceof BlockEndTrollBox)
+		else if(Block.getBlockFromItem(itemStackIn.getItem()) instanceof EndTrollBoxBlock)
 		{
 			return false;
 		}
@@ -291,7 +291,7 @@ public class EndTrollBoxTileEntity extends LockableLootTileEntity implements ISi
 	{
 		if(this.needsColorFromWorld)
 		{
-			this.color = BlockEndTrollBox.getColorFromBlock(this.getBlockState().getBlock());
+			this.color = EndTrollBoxBlock.getColorFromBlock(this.getBlockState().getBlock());
 			this.needsColorFromWorld = false;
 		}
 

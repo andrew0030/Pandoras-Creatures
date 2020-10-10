@@ -4,7 +4,7 @@ import javax.annotation.Nullable;
 
 import com.google.gson.JsonObject;
 
-import andrews.pandoras_creatures.objects.blocks.BlockEndTrollBox;
+import andrews.pandoras_creatures.objects.blocks.EndTrollBoxBlock;
 import andrews.pandoras_creatures.registry.PCCrafting;
 import andrews.pandoras_creatures.registry.PCTags;
 import net.minecraft.block.Block;
@@ -52,7 +52,7 @@ public class EndTrollBoxRecipe extends ShapedRecipe
 					DyeColor color = shulkerBoxBlock.getColor();
 					if(color != null) // Checks if the item is a colored shulker (has a color)
 					{
-						final ItemStack coloredEndTrollBox = new ItemStack(Item.BLOCK_TO_ITEM.get(BlockEndTrollBox.getBlockByColor(color)));
+						final ItemStack coloredEndTrollBox = new ItemStack(Item.BLOCK_TO_ITEM.get(EndTrollBoxBlock.getBlockByColor(color)));
 						
 						if(slotStack.hasTag())
 						{

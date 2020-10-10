@@ -66,7 +66,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.util.Constants.NBT;
 
-public class BlockEndTrollBox extends ShulkerBoxBlock implements IWaterLoggable
+public class EndTrollBoxBlock extends ShulkerBoxBlock implements IWaterLoggable
 {
 	protected static final VoxelShape FLOOR_AABB = Block.makeCuboidShape(1.0D, 0.0D, 1.0D, 15.0D, 14.0D, 15.0D);
 	protected static final VoxelShape CEILING_AABB = Block.makeCuboidShape(1.0D, 2.0D, 1.0D, 15.0D, 16.0D, 15.0D);
@@ -81,7 +81,7 @@ public class BlockEndTrollBox extends ShulkerBoxBlock implements IWaterLoggable
 	@Nullable
 	private final DyeColor color;
 
-	public BlockEndTrollBox(@Nullable DyeColor color)
+	public EndTrollBoxBlock(@Nullable DyeColor color)
 	{
 		super(null, getProperties());
 		this.color = color;
@@ -370,9 +370,9 @@ public class BlockEndTrollBox extends ShulkerBoxBlock implements IWaterLoggable
 	@OnlyIn(Dist.CLIENT)
 	public static DyeColor getColorFromBlock(Block block)
 	{
-		if(block instanceof BlockEndTrollBox)
+		if(block instanceof EndTrollBoxBlock)
 		{
-			return ((BlockEndTrollBox) block).getColor();
+			return ((EndTrollBoxBlock) block).getColor();
 		}
 		return null;
 	}
@@ -449,7 +449,7 @@ public class BlockEndTrollBox extends ShulkerBoxBlock implements IWaterLoggable
 	}
 
 	/**
-	 * @return - The color of this {@link BlockEndTrollBox}
+	 * @return - The color of this {@link EndTrollBoxBlock}
 	 */
 	@Nullable
 	public DyeColor getColor()

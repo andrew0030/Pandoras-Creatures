@@ -16,7 +16,7 @@
 "_comment3": "Item Tooltips, [Localising Tools] can be used here",
 	"item.pandoras_creatures.acidic_archvine_spawn_egg.tooltip": "#c7Debet poni sub,\n#c7Truncatis Folia, aut Netherrack",
 	"item.pandoras_creatures.arachnon_hammer.tooltip": "#c7Hoc instrumentum conteram\n#c7cuneos in tribus et per tres area",
-	"item.pandoras_creatures.plant_hat.tooltip": "#c7Gerens hoc hat facit\n#c7 invisibilis Acidius Archvini",
+	"item.pandoras_creatures.plant_hat.tooltip": "#c7Gerens hoc hat facit\n#c7invisibilis Acidius Archvini",
 	
 "_comment4": "Block Tooltips, [Localising Tools] can be used here",
 	"block.pandoras_creatures.end_troll_box.tooltip": "et %d plus...",

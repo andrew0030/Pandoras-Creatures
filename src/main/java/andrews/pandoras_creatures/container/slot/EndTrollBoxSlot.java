@@ -1,6 +1,6 @@
 package andrews.pandoras_creatures.container.slot;
 
-import andrews.pandoras_creatures.objects.blocks.BlockEndTrollBox;
+import andrews.pandoras_creatures.objects.blocks.EndTrollBoxBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.inventory.IInventory;
@@ -21,7 +21,7 @@ public class EndTrollBoxSlot extends Slot
 		{
 			return false;
 		}
-		else if(Block.getBlockFromItem(stack.getItem()) instanceof BlockEndTrollBox)
+		else if(Block.getBlockFromItem(stack.getItem()) instanceof EndTrollBoxBlock)
 		{
 			return false;
 		}

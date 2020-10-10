@@ -29,9 +29,8 @@ public class PCItems
 {
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Reference.MODID);
 	public static final List<RegistryObject<Item>> SPAWN_EGGS = Lists.newArrayList();
-	/*
-	 * Items
-	 */
+	
+	//Items
 	public static final RegistryObject<Item> ARACHNON_HAMMER			= RegistryUtils.createItem("arachnon_hammer", () -> new ItemArachnonHammer());
 	public static final RegistryObject<Item> CRAB_MEAT					= RegistryUtils.createItem("crab_meat", () -> new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.CRAB_MEAT(false))));
 	public static final RegistryObject<Item> CRAB_MEAT_COOKED			= RegistryUtils.createItem("crab_meat_cooked", () -> new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP).food(PCFoods.CRAB_MEAT(true))));
@@ -51,9 +50,7 @@ public class PCItems
 	public static final RegistryObject<Item> PLANT_HAT                	= RegistryUtils.createItem("plant_hat", () -> new ItemPlantHat(PCArmorMaterials.PLANT_HAT, EquipmentSlotType.HEAD));
 	public static final RegistryObject<Item> END_TROLL_SKIN             = RegistryUtils.createItem("end_troll_skin", () -> new Item(new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP)));
 	
-	/*
-	 * Spawn Eggs
-	 */
+	//Spawn Eggs
 	public static final RegistryObject<Item> ARACHNON_SPAWN_EGG			= RegistryUtils.createSpawnEggItem("arachnon", () -> PCEntities.ARACHNON.get(), 5394534, 12257023);
 	public static final RegistryObject<Item> HELLHOUND_SPAWN_EGG		= RegistryUtils.createSpawnEggItem("hellhound", () -> PCEntities.HELLHOUND.get(), 0xf5f3f0, 0xfc750d);
 	public static final RegistryObject<Item> CRAB_SPAWN_EGG				= RegistryUtils.createSpawnEggItem("crab", () -> PCEntities.CRAB.get(), 0xf79811, 0xffde3b);
@@ -61,8 +58,6 @@ public class PCItems
 	public static final RegistryObject<Item> ACIDIC_ARCHVINE_SPAWN_EGG	= RegistryUtils.createSpawnEggWithToolTipItem("acidic_archvine", () -> PCEntities.ACIDIC_ARCHVINE.get(), 0x14661f, 0x7b34ad, "item.pandoras_creatures.acidic_archvine_spawn_egg.tooltip");
 	public static final RegistryObject<Item> BUFFLON_SPAWN_EGG			= RegistryUtils.createSpawnEggItem("bufflon", () -> PCEntities.BUFFLON.get(), 0x4f3914, 0x1a1d29);
 	public static final RegistryObject<Item> END_TROLL_SPAWN_EGG		= RegistryUtils.createSpawnEggItem("end_troll", () -> PCEntities.END_TROLL.get(), 0x2a234d, 0x4db4bf);
-	
-//	public static final RegistryObject<Item> PANDORIC_SHARD             = RegistryUtils.createItem("pandoric_shard", () -> new ItemPandoricShard());
 	
 	@OnlyIn(Dist.CLIENT)
 	public static void setupItemProperties()

@@ -4,7 +4,7 @@ import javax.annotation.Nullable;
 
 import com.google.gson.JsonObject;
 
-import andrews.pandoras_creatures.objects.blocks.BlockEndTrollBox;
+import andrews.pandoras_creatures.objects.blocks.EndTrollBoxBlock;
 import andrews.pandoras_creatures.registry.PCCrafting;
 import andrews.pandoras_creatures.registry.PCTags;
 import net.minecraft.inventory.CraftingInventory;
@@ -70,7 +70,7 @@ public class EndTrollBoxColoringRecipe extends ShapelessRecipe
 					}
 					endTrollBoxPresent = true;
 					
-					final ItemStack coloredEndTrollBox = new ItemStack(Item.BLOCK_TO_ITEM.get(BlockEndTrollBox.getBlockByColor(colorItem)));
+					final ItemStack coloredEndTrollBox = new ItemStack(Item.BLOCK_TO_ITEM.get(EndTrollBoxBlock.getBlockByColor(colorItem)));
 					
 					if(slotStack.hasTag())
 					{

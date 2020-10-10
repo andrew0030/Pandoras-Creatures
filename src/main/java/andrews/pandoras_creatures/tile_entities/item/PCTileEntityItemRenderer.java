@@ -4,6 +4,9 @@ import java.util.function.Supplier;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 
+import andrews.pandoras_creatures.registry.PCBlocks;
+import andrews.pandoras_creatures.tile_entities.PandoricShardTileEntity;
+import andrews.pandoras_creatures.tile_entities.render.PandoricShardTileEntityRenderer;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
@@ -26,6 +29,16 @@ public class PCTileEntityItemRenderer<T extends TileEntity> extends ItemStackTil
 	@Override
 	public void func_239207_a_(ItemStack itemStack, TransformType type, MatrixStack matrixStack, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay)
 	{
-		TileEntityRendererDispatcher.instance.renderItem(this.te.get(), matrixStack, buffer, combinedLight, combinedOverlay);
+		if(itemStack.getItem() == PCBlocks.PANDORIC_SHARD.get().asItem())
+		{
+			if(this.te.get() instanceof PandoricShardTileEntity)
+			{
+				PandoricShardTileEntityRenderer.renderPandoricShard((PandoricShardTileEntity) this.te.get(), matrixStack, buffer, combinedLight, combinedOverlay, true);
+			}
+		}
+		else
+		{
+			TileEntityRendererDispatcher.instance.renderItem(this.te.get(), matrixStack, buffer, combinedLight, combinedOverlay);
+		}
 	}
 }
