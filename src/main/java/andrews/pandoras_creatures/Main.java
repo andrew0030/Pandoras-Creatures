@@ -8,6 +8,7 @@ import andrews.pandoras_creatures.registry.PCBlocks;
 import andrews.pandoras_creatures.registry.PCContainers;
 import andrews.pandoras_creatures.registry.PCCrafting;
 import andrews.pandoras_creatures.registry.PCEntities;
+import andrews.pandoras_creatures.registry.PCFeatures;
 import andrews.pandoras_creatures.registry.PCItems;
 import andrews.pandoras_creatures.registry.PCRenderLayers;
 import andrews.pandoras_creatures.registry.PCSounds;
@@ -53,6 +54,7 @@ public class Main
 		PCTileEntities.TILE_ENTITY_TYPES.register(modEventBus);
 		PCContainers.CONTAINERS.register(modEventBus);
 		PCEntities.ENTITY_TYPES.register(modEventBus);
+		PCFeatures.FEATURES.register(modEventBus);
 		PCStructures.STRUCTURE_FEATURES.register(modEventBus);
 		PCCrafting.RECIPES.register(modEventBus);
 		
@@ -85,6 +87,7 @@ public class Main
 		{
 			PCDispenserBehaviors.registerAll();
 			PCEntityAttributes.putAttributes();
+			PCFeatures.registerConfiguredFeatures();
 			PCStructures.registerStructureFeaturesAndSeparation();
 			PCEntities.registerEntityPlacementLogics();
 		});

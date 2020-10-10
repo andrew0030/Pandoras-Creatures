@@ -1,7 +1,7 @@
 package andrews.pandoras_creatures.registry.util;
 
-import andrews.pandoras_creatures.registry.PCBlocks;
 import andrews.pandoras_creatures.registry.PCEntities;
+import andrews.pandoras_creatures.registry.PCFeatures;
 import andrews.pandoras_creatures.registry.PCStructures;
 import andrews.pandoras_creatures.util.Reference;
 import net.minecraft.entity.EntityClassification;
@@ -12,14 +12,8 @@ import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.FlatChunkGenerator;
 import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.blockplacer.SimpleBlockPlacer;
-import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
-import net.minecraft.world.gen.feature.BlockClusterFeatureConfig;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.Features;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.common.world.MobSpawnInfoBuilder;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
@@ -31,11 +25,7 @@ import net.minecraftforge.fml.common.Mod;
 @SuppressWarnings("unchecked")
 @Mod.EventBusSubscriber(modid = Reference.MODID)
 public class PCBiomeAdditions
-{
-	private static final Lazy<BlockClusterFeatureConfig> HORSETAIL_CONFIG = Lazy.of(() -> (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(PCBlocks.HORSETAIL.get().getDefaultState()), SimpleBlockPlacer.PLACER)).tries(64).build());
-	private static final Lazy<BlockClusterFeatureConfig> DHANIA_CONFIG = Lazy.of(() -> (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(PCBlocks.DHANIA.get().getDefaultState()), SimpleBlockPlacer.PLACER)).tries(64).build());
-	private static final Lazy<BlockClusterFeatureConfig> HILL_BLOOM_CONFIG = Lazy.of(() -> (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(PCBlocks.HILL_BLOOM.get().getDefaultState()), SimpleBlockPlacer.PLACER)).tries(64).build());
-	
+{	
 	@SubscribeEvent(priority = EventPriority.HIGH)
 	public static void spawnEntities(BiomeLoadingEvent event)
 	{
@@ -125,19 +115,19 @@ public class PCBiomeAdditions
 		//Horsetail
 		if(doesNameMatchBiomes(event.getName(), Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS))
 		{
-			genSettings.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Feature.FLOWER.withConfiguration(HORSETAIL_CONFIG.get()).withPlacement(Features.Placements.VEGETATION_PLACEMENT).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(3));//func_242731_b = spreadBase
+			genSettings.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, PCFeatures.HORSE_TAIL_CONFIGURED);
 		}
 		
 		//Dhania
 		if(doesNameMatchBiome(event.getName(), Biomes.SWAMP))
 		{
-			genSettings.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Feature.FLOWER.withConfiguration(DHANIA_CONFIG.get()).withPlacement(Features.Placements.VEGETATION_PLACEMENT).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(3));
+			genSettings.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, PCFeatures.DHANIA_CONFIGURED);
 		}
 		
 		//Hill Bloom
 		if(doesNameMatchBiome(event.getName(), Biomes.MOUNTAINS))
 		{
-			genSettings.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Feature.FLOWER.withConfiguration(HILL_BLOOM_CONFIG.get()).withPlacement(Features.Placements.VEGETATION_PLACEMENT).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(3));
+			genSettings.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, PCFeatures.HILL_BLOOM_CONFIGURED);
 		}
 		
 		//End Prison
