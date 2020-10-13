@@ -1,5 +1,8 @@
 package andrews.pandoras_creatures.registry.util;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import andrews.pandoras_creatures.registry.PCEntities;
 import andrews.pandoras_creatures.registry.PCFeatures;
 import andrews.pandoras_creatures.registry.PCStructures;
@@ -12,7 +15,9 @@ import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.FlatChunkGenerator;
 import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
+import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.common.world.MobSpawnInfoBuilder;
@@ -45,7 +50,9 @@ public class PCBiomeAdditions
 				return;
 			}
             
-            serverWorld.getChunkProvider().getChunkGenerator().func_235957_b_().field_236193_d_.put(PCStructures.END_PRISON.get(), DimensionStructuresSettings.field_236191_b_.get(PCStructures.END_PRISON.get()));
+            Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
+            tempMap.put(PCStructures.END_PRISON.get(), DimensionStructuresSettings.field_236191_b_.get(PCStructures.END_PRISON.get()));
+            serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap;
         }
 	}
 	

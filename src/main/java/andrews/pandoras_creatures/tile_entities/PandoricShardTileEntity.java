@@ -3,12 +3,17 @@ package andrews.pandoras_creatures.tile_entities;
 import java.util.Random;
 
 import andrews.pandoras_creatures.registry.PCTileEntities;
+import net.minecraft.block.BlockState;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.TileEntity;
 
 public class PandoricShardTileEntity extends TileEntity
 {
 	Random rand = new Random();
 	private int animationDelay;
+	public int shardVariant;
 	
 	public PandoricShardTileEntity()
 	{
@@ -22,5 +27,84 @@ public class PandoricShardTileEntity extends TileEntity
 	public int getAnimationDelay()
 	{
 		return this.animationDelay;
+	}
+	
+	@Override
+	public SUpdateTileEntityPacket getUpdatePacket()
+	{
+		CompoundNBT compound = new CompoundNBT();
+		this.saveToNBT(compound);
+		return new SUpdateTileEntityPacket(this.getPos(), -1, compound);
+	}
+	
+	@Override
+	public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt)
+	{
+		CompoundNBT compound = pkt.getNbtCompound();
+	    this.loadFromNBT(compound);
+	}
+	
+	@Override
+	public CompoundNBT write(CompoundNBT compound)
+	{
+		super.write(compound);
+		return this.saveToNBT(compound);
+	}
+	
+	@Override
+	public void read(BlockState state, CompoundNBT compound)
+	{
+		super.read(state, compound);
+		this.loadFromNBT(compound);
+	}
+	
+	/**
+	 * Used to load data from the NBT
+	 */
+	private CompoundNBT saveToNBT(CompoundNBT compound)
+	{
+		CompoundNBT shardNBT = new CompoundNBT();
+		shardNBT.putInt("ShardVariant", this.getShardVariant());
+//		nbt.putInt("MaxChaosCharge", 0);
+//		nbt.putInt("ChaosCharge", 0);
+//		nbt.putInt("MaxCreationCharge", 0);
+//		nbt.putInt("CreationCharge", 0);
+		compound.put("PandoricShardValues", shardNBT);
+		return compound;
+	}
+	
+	/**
+	 * Used to load data from the NBT
+	 */
+	private void loadFromNBT(CompoundNBT compound)
+	{
+		CompoundNBT shardNBT = compound.getCompound("PandoricShardValues");
+		shardVariant = shardNBT.getInt("ShardVariant");
+	}
+	
+	public int getShardVariant()
+    {
+    	if(shardVariant == 0)
+    	{
+    		Random rand = new Random();
+    		//The check bellow makes sure a variant is only set server side, this way the first ticks during rendering (until synchronized)
+    		//the client variant will be 0 meaning it wont render anything. This is used to prevent visual glitches.
+    		if(!this.world.isRemote)
+    		{
+    			this.setShardVariant(rand.nextInt(2) + 1);
+    			System.out.println(shardVariant);//TODO
+    		}
+    		return shardVariant;
+    	}
+    	else
+    	{
+    		return shardVariant;
+    	}
+	}
+	
+	public void setShardVariant(int variant)
+	{
+		shardVariant = variant;
+		markDirty();
 	}
 }

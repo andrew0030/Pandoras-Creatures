@@ -133,12 +133,27 @@ public class PandoricShardBlock extends Block  implements IWaterLoggable
 			face = blockstate.get(PandoricShardBlock.FACE);
 		}
 		
-		Vector3d smokeParticlePos = new Vector3d(0.1D, 0.2D, 0.9D);
-		smokeParticlePos = determineParticlePosition(smokeParticlePos, face, direction);
-
-		worldIn.addParticle(ParticleTypes.SMOKE, pos.getX() + smokeParticlePos.getX(), pos.getY() + smokeParticlePos.getY(), pos.getZ() + smokeParticlePos.getZ(), 0.0D, 0.0D, 0.0D);
+		if(worldIn.getTileEntity(pos) != null && worldIn.getTileEntity(pos) instanceof PandoricShardTileEntity)
+		{
+			switch(((PandoricShardTileEntity) worldIn.getTileEntity(pos)).getShardVariant())
+			{
+			default:
+			case 1:
+				Vector3d smokeParticlePos = new Vector3d(0.15D, 0.2D, 0.9D);
+				smokeParticlePos = determineParticlePosition(smokeParticlePos, face, direction);
+				worldIn.addParticle(ParticleTypes.SMOKE, pos.getX() + smokeParticlePos.getX(), pos.getY() + smokeParticlePos.getY(), pos.getZ() + smokeParticlePos.getZ(), 0.0D, 0.0D, 0.0D);
+				break;
+			case 2:
+				Vector3d smokeParticlePos1 = new Vector3d(0.85D, 0.2D, 0.85D);
+				smokeParticlePos1 = determineParticlePosition(smokeParticlePos1, face, direction);
+				worldIn.addParticle(ParticleTypes.SMOKE, pos.getX() + smokeParticlePos1.getX(), pos.getY() + smokeParticlePos1.getY(), pos.getZ() + smokeParticlePos1.getZ(), 0.0D, 0.0D, 0.0D);
+			}
+		}
 	}
 	
+	/**
+	 * Helper method to determine the particle position on a block that is rotate able
+	 */
 	private Vector3d determineParticlePosition(Vector3d particlePos, AttachFace face, Direction direction)
 	{
 		double newX = particlePos.getX();
@@ -181,11 +196,13 @@ public class PandoricShardBlock extends Block  implements IWaterLoggable
 				break;
 			case WEST:
 				newY = 1D - particlePos.getY();
-				newX = 1D - particlePos.getX();
-				newZ = 1D - particlePos.getZ();
+				newX = particlePos.getZ();
+				newZ = particlePos.getX();
 				break;
 			case EAST:
 				newY = 1D - particlePos.getY();
+				newX = 1D - particlePos.getZ();
+				newZ = 1D - particlePos.getX();
 			}
 			break;
 		case WALL:
@@ -193,19 +210,24 @@ public class PandoricShardBlock extends Block  implements IWaterLoggable
 			{
 			default:
 			case NORTH:
-				newY = particlePos.getX();
+				newY = 1D - particlePos.getZ();
 				newX = 1D - particlePos.getX();
+				newZ = 1D - particlePos.getY();
 				break;
 			case SOUTH:
-				newY = particlePos.getX();
-				newZ = 1D - particlePos.getZ();
+				newY = 1D - particlePos.getZ();
+				newX = particlePos.getX();
+				newZ = particlePos.getY();
 				break;
 			case WEST:
-				newY = particlePos.getX();
-				newZ = 1D - particlePos.getZ();
-				newX = 1D - particlePos.getX();
+				newY = 1D - particlePos.getZ();
+				newZ = particlePos.getX();
+				newX = 1D - particlePos.getY();
 				break;
 			case EAST:
+				newY = 1D - particlePos.getZ();
+				newZ = 1D - particlePos.getX();
+				newX = particlePos.getY();
 			}
 		}
 		return new Vector3d(newX, newY, newZ);
