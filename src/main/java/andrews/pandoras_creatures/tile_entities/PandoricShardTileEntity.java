@@ -7,7 +7,9 @@ import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.Constants.BlockFlags;
 
 public class PandoricShardTileEntity extends TileEntity
 {
@@ -29,6 +31,7 @@ public class PandoricShardTileEntity extends TileEntity
 		return this.animationDelay;
 	}
 	
+	//Used to synchronize the TileEntity with the client onBlockUpdate
 	@Override
 	public SUpdateTileEntityPacket getUpdatePacket()
 	{
@@ -37,11 +40,26 @@ public class PandoricShardTileEntity extends TileEntity
 		return new SUpdateTileEntityPacket(this.getPos(), -1, compound);
 	}
 	
+	//Used to synchronize the TileEntity with the client onBlockUpdate
 	@Override
 	public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt)
 	{
 		CompoundNBT compound = pkt.getNbtCompound();
 	    this.loadFromNBT(compound);
+	}
+	
+	//Used to synchronize the TileEntity with the client when the chunk it is in is loaded
+	@Override
+	public CompoundNBT getUpdateTag()
+	{
+		return this.write(new CompoundNBT());
+	}
+	
+	//Used to synchronize the TileEntity with the client when the chunk it is in is loaded
+	@Override
+	public void handleUpdateTag(BlockState state, CompoundNBT compound)
+	{
+		this.read(state, compound);
 	}
 	
 	@Override
