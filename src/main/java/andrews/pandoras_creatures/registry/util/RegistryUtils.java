@@ -5,7 +5,7 @@ import java.util.function.Supplier;
 
 import javax.annotation.Nullable;
 
-import andrews.pandoras_creatures.Main;
+import andrews.pandoras_creatures.PandorasCreatures;
 import andrews.pandoras_creatures.objects.items.PCSpawnEggItem;
 import andrews.pandoras_creatures.objects.items.PCSpawnEggWithTooltipItem;
 import andrews.pandoras_creatures.registry.PCBlocks;
@@ -34,7 +34,7 @@ public class RegistryUtils
 	 */
 	public static RegistryObject<Item> createSpawnEggItem(String entityName, Supplier<EntityType<?>> supplier, int primaryColor, int secondaryColor)
 	{
-		RegistryObject<Item> spawnEgg = PCItems.ITEMS.register(entityName + "_spawn_egg", () -> new PCSpawnEggItem(supplier, primaryColor, secondaryColor, new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP)));
+		RegistryObject<Item> spawnEgg = PCItems.ITEMS.register(entityName + "_spawn_egg", () -> new PCSpawnEggItem(supplier, primaryColor, secondaryColor, new Item.Properties().group(PandorasCreatures.PANDORAS_CREATURES_GROUP)));
 		PCItems.SPAWN_EGGS.add(spawnEgg);
 		return spawnEgg;
 	}
@@ -44,7 +44,7 @@ public class RegistryUtils
 	 */
 	public static RegistryObject<Item> createSpawnEggWithToolTipItem(String entityName, Supplier<EntityType<?>> supplier, int primaryColor, int secondaryColor, String langPath)
 	{
-		RegistryObject<Item> spawnEgg = PCItems.ITEMS.register(entityName + "_spawn_egg", () -> new PCSpawnEggWithTooltipItem(supplier, primaryColor, secondaryColor, langPath, new Item.Properties().group(Main.PANDORAS_CREATURES_GROUP)));
+		RegistryObject<Item> spawnEgg = PCItems.ITEMS.register(entityName + "_spawn_egg", () -> new PCSpawnEggWithTooltipItem(supplier, primaryColor, secondaryColor, langPath, new Item.Properties().group(PandorasCreatures.PANDORAS_CREATURES_GROUP)));
 		PCItems.SPAWN_EGGS.add(spawnEgg);
 		return spawnEgg;
 	}

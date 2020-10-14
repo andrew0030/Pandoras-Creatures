@@ -5,7 +5,7 @@ import java.util.Arrays;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
-import andrews.pandoras_creatures.Main;
+import andrews.pandoras_creatures.PandorasCreatures;
 import andrews.pandoras_creatures.config.PCConfig;
 import andrews.pandoras_creatures.util.Reference;
 import net.minecraft.client.Minecraft;
@@ -43,7 +43,7 @@ public class GuiButtonTwitch extends Button
 	@Override
 	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partial)
 	{
-		if(this.creativeTab.getSelectedTabIndex() == Main.PANDORAS_CREATURES_GROUP.getIndex() && PCConfig.ValuesHolder.shouldButtonsInCreativeTabBeEnabled() == true && Minecraft.getInstance().player.getActivePotionEffects().isEmpty())
+		if(this.creativeTab.getSelectedTabIndex() == PandorasCreatures.PANDORAS_CREATURES_GROUP.getIndex() && PCConfig.ValuesHolder.shouldButtonsInCreativeTabBeEnabled() == true && Minecraft.getInstance().player.getActivePotionEffects().isEmpty())
 		{
 			this.active = true;
 			calculateButtonAlpha();

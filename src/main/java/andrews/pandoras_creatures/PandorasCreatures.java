@@ -37,13 +37,13 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.moddiscovery.ModFile;
 
 @Mod(value = Reference.MODID)
-public class Main
+public class PandorasCreatures
 {
-	public static Main instance;
+	public static PandorasCreatures instance;
 	public static final ItemGroup PANDORAS_CREATURES_GROUP = new PCItemGroup();
 
 	@SuppressWarnings("deprecation")
-	public Main()
+	public PandorasCreatures()
 	{
 		instance = this;
 		final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();

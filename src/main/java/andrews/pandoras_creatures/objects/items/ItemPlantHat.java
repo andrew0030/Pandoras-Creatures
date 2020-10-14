@@ -2,7 +2,7 @@ package andrews.pandoras_creatures.objects.items;
 
 import java.util.List;
 
-import andrews.pandoras_creatures.Main;
+import andrews.pandoras_creatures.PandorasCreatures;
 import andrews.pandoras_creatures.objects.armors.PlantHatModel;
 import andrews.pandoras_creatures.util.Reference;
 import andrews.pandoras_creatures.util.TranslationHelper;
@@ -30,7 +30,7 @@ public class ItemPlantHat extends ArmorItem
 	private static Properties getProperties()
 	{
 		Properties properties = new Properties();
-		properties.group(Main.PANDORAS_CREATURES_GROUP);
+		properties.group(PandorasCreatures.PANDORAS_CREATURES_GROUP);
 		properties.maxStackSize(1);
 		
 		return properties;
