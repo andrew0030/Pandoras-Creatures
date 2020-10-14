@@ -54,6 +54,7 @@ public class Main
 		PCTileEntities.TILE_ENTITY_TYPES.register(modEventBus);
 		PCContainers.CONTAINERS.register(modEventBus);
 		PCEntities.ENTITY_TYPES.register(modEventBus);
+//		PCParticles.PARTICLES.register(modEventBus); Will be used in the future
 		PCFeatures.FEATURES.register(modEventBus);
 		PCStructures.STRUCTURE_FEATURES.register(modEventBus);
 		PCCrafting.RECIPES.register(modEventBus);
@@ -106,6 +107,7 @@ public class Main
 			PCItems.setupItemProperties();
 			PCContainers.screenSetup();
 			PCTileEntities.registerTileRenders();
+//			PCParticles.registerParticleFactories(); Will be used in the future
 		});
 		//Thread Safe Stuff
 		PCEntities.registerEntityRenders();

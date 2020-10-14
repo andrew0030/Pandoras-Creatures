@@ -177,9 +177,12 @@ public class HellhoundEntity extends AnimatedMonsterEntity
         		if(this.getHellhoundType() == 2)
         		{
         			particleY += 0.2D;
+        			this.world.addParticle(ParticleTypes.SOUL_FIRE_FLAME, this.getPosX(), particleY, this.getPosZ(), (rand.nextDouble() - 0.5D) / 10, (rand.nextDouble() - 0.5D) / 10, (rand.nextDouble() - 0.5D) / 10);
         		}
-        		
-        		this.world.addParticle(ParticleTypes.FLAME, this.getPosX(), particleY, this.getPosZ(), (rand.nextDouble() - 0.5D) / 10, (rand.nextDouble() - 0.5D) / 10, (rand.nextDouble() - 0.5D) / 10);
+        		else
+        		{
+        			this.world.addParticle(ParticleTypes.FLAME, this.getPosX(), particleY, this.getPosZ(), (rand.nextDouble() - 0.5D) / 10, (rand.nextDouble() - 0.5D) / 10, (rand.nextDouble() - 0.5D) / 10);
+        		}
         		this.world.addParticle(ParticleTypes.SMOKE, this.getPosX(), particleY, this.getPosZ(), (rand.nextDouble() - 0.5D) / 10, (rand.nextDouble() - 0.5D) / 10, (rand.nextDouble() - 0.5D) / 10);
         	}
         }
