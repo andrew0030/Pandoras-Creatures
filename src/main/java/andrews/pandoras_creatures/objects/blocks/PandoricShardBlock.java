@@ -23,6 +23,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
@@ -52,6 +53,7 @@ public class PandoricShardBlock extends Block  implements IWaterLoggable
 		properties.hardnessAndResistance(2.0F);
 		properties.harvestTool(ToolType.PICKAXE);
 		properties.setLightLevel(value -> 5);
+		properties.notSolid();
 		
 		return properties;
 	}
@@ -59,7 +61,7 @@ public class PandoricShardBlock extends Block  implements IWaterLoggable
 	@Override
 	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context)
 	{
-		return Block.makeCuboidShape(1.0D, 0.0D, 1.0D, 15.0D, 16.0D, 15.0D);
+		return VoxelShapes.fullCube();
 	}
 	
 	@Override
@@ -152,6 +154,11 @@ public class PandoricShardBlock extends Block  implements IWaterLoggable
 				Vector3d smokeParticlePos2 = new Vector3d(0.0D, 0.2D, 0.85D);
 				smokeParticlePos2 = determineParticlePosition(smokeParticlePos2, face, direction);
 				worldIn.addParticle(ParticleTypes.SMOKE, pos.getX() + smokeParticlePos2.getX(), pos.getY() + smokeParticlePos2.getY(), pos.getZ() + smokeParticlePos2.getZ(), 0.0D, 0.0D, 0.0D);
+				break;
+			case 4:
+				Vector3d smokeParticlePos3 = new Vector3d(0.0D, 0.2D, 0.45D);
+				smokeParticlePos3 = determineParticlePosition(smokeParticlePos3, face, direction);
+				worldIn.addParticle(ParticleTypes.SMOKE, pos.getX() + smokeParticlePos3.getX(), pos.getY() + smokeParticlePos3.getY(), pos.getZ() + smokeParticlePos3.getZ(), 0.0D, 0.0D, 0.0D);
 			}
 		}
 	}

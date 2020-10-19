@@ -10,7 +10,9 @@ import andrews.pandoras_creatures.tile_entities.PandoricShardTileEntity;
 import andrews.pandoras_creatures.tile_entities.model.pandoric_shard.CoreModel;
 import andrews.pandoras_creatures.tile_entities.model.pandoric_shard.PandoricShardSmallBase2Model;
 import andrews.pandoras_creatures.tile_entities.model.pandoric_shard.PandoricShardSmallBase3Model;
+import andrews.pandoras_creatures.tile_entities.model.pandoric_shard.PandoricShardSmallBase4Model;
 import andrews.pandoras_creatures.tile_entities.model.pandoric_shard.PandoricShardSmallBaseModel;
+import andrews.pandoras_creatures.tile_entities.model.pandoric_shard.PumpModel;
 import andrews.pandoras_creatures.tile_entities.model.pandoric_shard.gears.BigGearModel;
 import andrews.pandoras_creatures.tile_entities.model.pandoric_shard.gears.BigThinGearModel;
 import andrews.pandoras_creatures.tile_entities.model.pandoric_shard.gears.MediumGearModel;
@@ -38,17 +40,21 @@ public class PandoricShardTileEntityRenderer  extends TileEntityRenderer<Pandori
 	public static final ResourceLocation BIG_GEAR_TEXTURE = new ResourceLocation(Reference.MODID, "textures/tile/pandoric_shard/big_gear.png");
 	public static final ResourceLocation BIG_THIN_GEAR_TEXTURE = new ResourceLocation(Reference.MODID, "textures/tile/pandoric_shard/big_thin_gear.png");
 	public static final ResourceLocation CORE_TEXTURE = new ResourceLocation(Reference.MODID, "textures/tile/pandoric_shard/pandoric_shard_core.png");
+	public static final ResourceLocation PUMP_TEXTURE = new ResourceLocation(Reference.MODID, "textures/tile/pandoric_shard/pandoric_shard_pump.png");
 	public static final ResourceLocation BASE_TEXTURE = new ResourceLocation(Reference.MODID, "textures/tile/pandoric_shard/pandoric_shard_small_base.png");
 	public static final ResourceLocation BASE_TEXTURE2 = new ResourceLocation(Reference.MODID, "textures/tile/pandoric_shard/pandoric_shard_small_base2.png");
 	public static final ResourceLocation BASE_TEXTURE3 = new ResourceLocation(Reference.MODID, "textures/tile/pandoric_shard/pandoric_shard_small_base3.png");//TODO rename this shit
+	public static final ResourceLocation BASE_TEXTURE4 = new ResourceLocation(Reference.MODID, "textures/tile/pandoric_shard/pandoric_shard_small_base4.png");
 	private static PandoricShardSmallBaseModel pandoricShardBaseModelSmall;
 	private static PandoricShardSmallBase2Model pandoricShardBaseModel2Small;
 	private static PandoricShardSmallBase3Model pandoricShardBaseModel3Small;
+	private static PandoricShardSmallBase4Model pandoricShardBaseModel4Small;
 	private static SmallGearModel smallGearModel;
 	private static MediumGearModel mediumGearModel;
 	private static BigGearModel bigGearModel;
 	private static BigThinGearModel bigThinGearModel;
 	private static CoreModel coreModel;
+	private static PumpModel pumpModel;
 
 	public PandoricShardTileEntityRenderer(TileEntityRendererDispatcher rendererDispatcherIn)
 	{
@@ -56,11 +62,13 @@ public class PandoricShardTileEntityRenderer  extends TileEntityRenderer<Pandori
 		pandoricShardBaseModelSmall = new PandoricShardSmallBaseModel();
 		pandoricShardBaseModel2Small = new PandoricShardSmallBase2Model();
 		pandoricShardBaseModel3Small = new PandoricShardSmallBase3Model();
+		pandoricShardBaseModel4Small = new PandoricShardSmallBase4Model();
 		smallGearModel = new SmallGearModel();
 		mediumGearModel = new MediumGearModel();
 		bigGearModel = new BigGearModel();
 		bigThinGearModel = new BigThinGearModel();
 		coreModel = new CoreModel();
+		pumpModel = new PumpModel();
 	}
 	
 	@Override
@@ -73,6 +81,7 @@ public class PandoricShardTileEntityRenderer  extends TileEntityRenderer<Pandori
 	{
 		double pixelSize = 0.0625D;
 		float animationProgress = getAnimationProgress(tileEntityIn, isRenderedInGUI);
+		float coreScaleValue = (float) (Math.cos(animationProgress * 0.3F) * 0.1F + 1.1F);
 		Direction direction = Direction.NORTH;
 		AttachFace face = AttachFace.FLOOR;
 		if(tileEntityIn.hasWorld())
@@ -195,8 +204,7 @@ public class PandoricShardTileEntityRenderer  extends TileEntityRenderer<Pandori
 			
 			matrixStackIn.push();
 			matrixStackIn.translate(0.0D, (pixelSize * 14.5D) + Math.cos(animationProgress * 0.1D) * 0.05D, 0.0D);
-			float coreScaleValue1 = (float) (Math.cos(animationProgress * 0.3F) * 0.1F + 1.1F);
-			matrixStackIn.scale(coreScaleValue1, coreScaleValue1, coreScaleValue1);
+			matrixStackIn.scale(coreScaleValue, coreScaleValue, coreScaleValue);
 			matrixStackIn.rotate(Vector3f.ZN.rotationDegrees((float) (animationProgress * (Math.PI / 2))));
 			matrixStackIn.rotate(Vector3f.XN.rotationDegrees((float) (animationProgress * (Math.PI / 2))));
 			matrixStackIn.rotate(Vector3f.YN.rotationDegrees((float) (animationProgress * (Math.PI / 2))));
@@ -211,7 +219,6 @@ public class PandoricShardTileEntityRenderer  extends TileEntityRenderer<Pandori
 			
 			matrixStackIn.push();
 			matrixStackIn.translate((pixelSize * 3.5D), (pixelSize * 19.5D), (pixelSize * -1.0D) + Math.cos(animationProgress * 0.1D) * 0.05D);
-			float coreScaleValue = (float) (Math.cos(animationProgress * 0.3F) * 0.1F + 1.1F);
 			matrixStackIn.scale(coreScaleValue, coreScaleValue, coreScaleValue);
 			matrixStackIn.rotate(Vector3f.ZN.rotationDegrees((float) (animationProgress * (Math.PI / 2))));
 			matrixStackIn.rotate(Vector3f.XN.rotationDegrees((float) (animationProgress * (Math.PI / 2))));
@@ -253,8 +260,7 @@ public class PandoricShardTileEntityRenderer  extends TileEntityRenderer<Pandori
 			
 			matrixStackIn.push();
 			matrixStackIn.translate((pixelSize * -3.5D), (pixelSize * 15.5D) + Math.cos(animationProgress * 0.1D) * 0.05D, (pixelSize * 3.5D));
-			float coreScaleValue3 = (float) (Math.cos(animationProgress * 0.3F) * 0.1F + 1.1F);
-			matrixStackIn.scale(coreScaleValue3, coreScaleValue3, coreScaleValue3);
+			matrixStackIn.scale(coreScaleValue, coreScaleValue, coreScaleValue);
 			matrixStackIn.rotate(Vector3f.ZN.rotationDegrees((float) (animationProgress * (Math.PI / 2))));
 			matrixStackIn.rotate(Vector3f.XN.rotationDegrees((float) (animationProgress * (Math.PI / 2))));
 			matrixStackIn.rotate(Vector3f.YN.rotationDegrees((float) (animationProgress * (Math.PI / 2))));
@@ -286,6 +292,51 @@ public class PandoricShardTileEntityRenderer  extends TileEntityRenderer<Pandori
 			matrixStackIn.rotate(Vector3f.XN.rotationDegrees(90F));
 			matrixStackIn.rotate(Vector3f.ZN.rotationDegrees((float) (animationProgress * (Math.PI * 6))));
 			renderSmallGear(matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn);
+			matrixStackIn.pop();
+			break;
+		case 4:
+			matrixStackIn.push();
+			pandoricShardBaseModel4Small.decoration.rotateAngleZ = (float) (Math.cos(animationProgress * 0.1D) * 0.1F + Math.toRadians(-25));
+			pandoricShardBaseModel4Small.decoration_1.rotateAngleZ = (float) (Math.cos(animationProgress * 0.1D) * -0.1F + Math.toRadians(25));
+			pandoricShardBaseModel4Small.decoration_2.rotateAngleX = (float) (Math.cos(animationProgress * 0.1D) * -0.1F + Math.toRadians(25));
+			pandoricShardBaseModel4Small.decoration_3.rotateAngleX = (float) (Math.cos(animationProgress * 0.1D) * 0.1F + Math.toRadians(-25));
+			IVertexBuilder builderBase3 = bufferIn.getBuffer(RenderType.getEntityCutoutNoCull(BASE_TEXTURE4));
+			pandoricShardBaseModel4Small.base.render(matrixStackIn, builderBase3, combinedLightIn, combinedOverlayIn);
+			matrixStackIn.pop();
+			
+			matrixStackIn.push();
+			matrixStackIn.translate(pixelSize * -4.0D, pixelSize * 23.0D, pixelSize * -4.0D);
+			renderPump(matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn, animationProgress);
+			matrixStackIn.pop();
+			
+			matrixStackIn.push();
+			matrixStackIn.translate(pixelSize * 3.5D, pixelSize * 22.0D, pixelSize * -2.0D);
+			matrixStackIn.scale(0.9F, 1.0F, 0.9F);
+			matrixStackIn.rotate(Vector3f.XN.rotationDegrees(90F));
+			matrixStackIn.rotate(Vector3f.ZN.rotationDegrees((float) (-animationProgress * (Math.PI))));
+			renderBigGear(matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn);
+			matrixStackIn.pop();
+			
+			matrixStackIn.push();
+			matrixStackIn.translate(pixelSize * -3.5D, pixelSize * 18D, pixelSize * 4.5D);
+			matrixStackIn.rotate(Vector3f.ZN.rotationDegrees((float) (-animationProgress * (Math.PI * 2))));
+			renderMediumGear(matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn);
+			matrixStackIn.pop();
+			
+			matrixStackIn.push();
+			matrixStackIn.translate(pixelSize * 0.0D, pixelSize * 22.5D, pixelSize * 6.0D);
+			matrixStackIn.rotate(Vector3f.XN.rotationDegrees(90F));
+			matrixStackIn.rotate(Vector3f.ZN.rotationDegrees((float) (animationProgress * (Math.PI * 6))));
+			renderSmallGear(matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn);
+			matrixStackIn.pop();
+			
+			matrixStackIn.push();
+			matrixStackIn.translate((pixelSize * 3.5D), (pixelSize * 14.5D) + Math.cos(animationProgress * 0.1D) * 0.05D, (pixelSize * 1.5D));
+			matrixStackIn.scale(coreScaleValue, coreScaleValue, coreScaleValue);
+			matrixStackIn.rotate(Vector3f.ZN.rotationDegrees((float) (animationProgress * (Math.PI / 2))));
+			matrixStackIn.rotate(Vector3f.XN.rotationDegrees((float) (animationProgress * (Math.PI / 2))));
+			matrixStackIn.rotate(Vector3f.YN.rotationDegrees((float) (animationProgress * (Math.PI / 2))));
+			renderCore(matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn);
 			matrixStackIn.pop();
 		}
 		
@@ -354,5 +405,20 @@ public class PandoricShardTileEntityRenderer  extends TileEntityRenderer<Pandori
 	{
 		IVertexBuilder builderCore = VertexBuilderUtils.newDelegate(bufferIn.getBuffer(RenderType.getEntityGlint()), bufferIn.getBuffer(PCRenderTypes.getEmissiveEntity(CORE_TEXTURE)));
 		coreModel.base.render(matrixStackIn, builderCore, combinedLightIn, OverlayTexture.NO_OVERLAY);
+	}
+	
+	/**
+	 * Renders a Pump
+	 */
+	private static void renderPump(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn, float animationProgress)
+	{
+		IVertexBuilder builderPump = bufferIn.getBuffer(RenderType.getEntityCutoutNoCull(PUMP_TEXTURE));
+		pumpModel.base.render(matrixStackIn, builderPump, combinedLightIn, OverlayTexture.NO_OVERLAY);
+		matrixStackIn.push();
+		matrixStackIn.translate(0, Math.abs(Math.sin(animationProgress / 10F) / 20F), 0);
+		matrixStackIn.scale(1.0F, (float) Math.abs(Math.sin(animationProgress / 10F)) + 0.24F, 1.0F);
+		pumpModel.center.render(matrixStackIn, builderPump, combinedLightIn, OverlayTexture.NO_OVERLAY);
+		matrixStackIn.pop();
+		pumpModel.top.render(matrixStackIn, builderPump, combinedLightIn, OverlayTexture.NO_OVERLAY);
 	}
 }

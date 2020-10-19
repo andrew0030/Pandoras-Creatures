@@ -107,7 +107,7 @@ public class PandoricShardTileEntity extends TileEntity
     		//the client variant will be 0 meaning it wont render anything. This is used to prevent visual glitches.
     		if(!this.world.isRemote)
     		{
-    			this.setShardVariant(rand.nextInt(3) + 1);
+    			this.setShardVariant(rand.nextInt(4) + 1);
     			System.out.println(shardVariant);//TODO
     		}
     		return shardVariant;
