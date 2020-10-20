@@ -1,7 +1,7 @@
 package andrews.pandoras_creatures.events;
 
 
-import andrews.pandoras_creatures.config.PCConfig;
+import andrews.pandoras_creatures.config.PCConfigs;
 import andrews.pandoras_creatures.util.Reference;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.TextFormatting;
@@ -47,13 +47,13 @@ public class EventHandler
         switch(VersionChecker.getResult(ModList.get().getModFileById(Reference.MODID).getMods().get(0)).status)
 		{
 		case OUTDATED: //Found new Version
-			if(PCConfig.ValuesHolder.shouldShowUpdateMessage())
+			if(PCConfigs.PCClientConfig.shouldShowUpdateMessage.get())
 			{
 				outdatedMessage(player);
 			}
 			break;
 		case FAILED: //Not able to check for new Version
-			if(PCConfig.ValuesHolder.shouldShowUpdateCheckFailedMessage())
+			if(PCConfigs.PCClientConfig.shouldShowUpdateCheckFailedMessage.get())
 			{
 				failedMessage(player);
 			}

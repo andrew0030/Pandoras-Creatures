@@ -4,7 +4,7 @@ import java.nio.charset.CharsetEncoder;
 
 import com.google.common.base.Charsets;
 
-import andrews.pandoras_creatures.config.PCConfig;
+import andrews.pandoras_creatures.config.PCConfigs;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -73,7 +73,7 @@ public final class RehostedJarHandler
         {
             return;
         }
-        if(!PCConfig.ValuesHolder.shouldShowInvalidJarMessage())
+        if(!PCConfigs.PCClientConfig.shouldShowInvalidJarMessage.get())
         {
         	return;
         }

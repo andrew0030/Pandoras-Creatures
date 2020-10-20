@@ -6,7 +6,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import andrews.pandoras_creatures.PandorasCreatures;
-import andrews.pandoras_creatures.config.PCConfig;
+import andrews.pandoras_creatures.config.PCConfigs;
 import andrews.pandoras_creatures.util.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -44,7 +44,7 @@ public class GuiButtonPatreon extends Button
 	@Override
 	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partial)
 	{
-		if(this.creativeTab.getSelectedTabIndex() == PandorasCreatures.PANDORAS_CREATURES_GROUP.getIndex() && PCConfig.ValuesHolder.shouldButtonsInCreativeTabBeEnabled() == true && Minecraft.getInstance().player.getActivePotionEffects().isEmpty())
+		if(this.creativeTab.getSelectedTabIndex() == PandorasCreatures.PANDORAS_CREATURES_GROUP.getIndex() && PCConfigs.PCClientConfig.shouldButtonsInCreativeTabBeEnabled.get() == true && Minecraft.getInstance().player.getActivePotionEffects().isEmpty())
 		{
 			this.active = true;
 			calculateButtonAlpha();
@@ -86,7 +86,7 @@ public class GuiButtonPatreon extends Button
 	//Calculates the Alpha for the Button
 	private void calculateButtonAlpha()
 	{
-		int fadeTime = PCConfig.ValuesHolder.getButtonFadeInTime();
+		int fadeTime = PCConfigs.PCClientConfig.buttonFadeInTime.get();
 		if(fadeTime != 0)
 		{
 			if(this.buttonAlpha < 100)

@@ -1,6 +1,6 @@
 package andrews.pandoras_creatures;
 
-import andrews.pandoras_creatures.config.PCConfig;
+import andrews.pandoras_creatures.config.PCConfigs;
 import andrews.pandoras_creatures.item_groups.PCItemGroup;
 import andrews.pandoras_creatures.network.PCNetwork;
 import andrews.pandoras_creatures.objects.items.PCSpawnEggItem;
@@ -27,10 +27,8 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -65,21 +63,8 @@ public class PandorasCreatures
 			modEventBus.addListener(EventPriority.LOWEST, this::setupClient);
 		});
 		modEventBus.addListener(EventPriority.LOWEST, this::setupCommon);
-		modEventBus.addListener((ModConfig.ModConfigEvent event) ->
-		{
-			final ModConfig config = event.getConfig();
-			if(config.getSpec() == PCConfig.CLIENTSPEC)
-			{
-				PCConfig.ValuesHolder.updateClientValuesFromConfig(config);
-			}
-			if(config.getSpec() == PCConfig.COMMONSPEC)
-			{
-				PCConfig.ValuesHolder.updateCommonValuesFromConfig(config);
-			}
-		});
-		ModLoadingContext modLoadingContext = ModLoadingContext.get();
-		modLoadingContext.registerConfig(ModConfig.Type.CLIENT, PCConfig.CLIENTSPEC);
-		modLoadingContext.registerConfig(ModConfig.Type.COMMON, PCConfig.COMMONSPEC);
+		
+		PCConfigs.registerConfigs();
 	}
 	
 	void setupCommon(final FMLCommonSetupEvent event)
