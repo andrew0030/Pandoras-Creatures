@@ -50,7 +50,7 @@ public final class RehostedJarHandler
             return;
         }
         
-        if(jarFile.getFileName().equals(originalName))
+        if(jarFile.getFileName().replaceAll("\\(\\d+\\)", "").replaceAll(" ", "").equals(originalName))
         {
             //Names match.
             validJar = true;
