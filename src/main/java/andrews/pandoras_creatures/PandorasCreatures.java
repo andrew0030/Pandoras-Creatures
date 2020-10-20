@@ -95,7 +95,7 @@ public class PandorasCreatures
 		//Thread Safe Stuff
 		PCNetwork.setupMessages();
 		ModFile file = ModList.get().getModFileById(Reference.MODID).getFile();
-		new RehostedJarHandler(file, "pandoras_creatures-" + Reference.VERSION + ".jar");
+		new RehostedJarHandler(file, "pandoras_creatures-" + Reference.VERSION);
 	}
 	
 	@OnlyIn(Dist.CLIENT)

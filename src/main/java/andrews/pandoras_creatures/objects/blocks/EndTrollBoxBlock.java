@@ -340,6 +340,20 @@ public class EndTrollBoxBlock extends ShulkerBoxBlock implements IWaterLoggable
 	}
 	
 	@Override
+	public ItemStack getItem(IBlockReader worldIn, BlockPos pos, BlockState state)
+	{
+		ItemStack itemstack = new ItemStack(this);
+		EndTrollBoxTileEntity endTrollBoxtileentity = (EndTrollBoxTileEntity)worldIn.getTileEntity(pos);
+		CompoundNBT compoundnbt = endTrollBoxtileentity.saveToNbt(new CompoundNBT());
+		if(!compoundnbt.isEmpty())
+		{
+			itemstack.setTagInfo("BlockEntityTag", compoundnbt);
+		}
+
+		return itemstack;
+	}
+	
+	@Override
 	public ItemStack getPickBlock(BlockState state, RayTraceResult target, IBlockReader world, BlockPos pos, PlayerEntity player)
 	{
 		ItemStack itemstack = new ItemStack(this.getBlock().asItem());
