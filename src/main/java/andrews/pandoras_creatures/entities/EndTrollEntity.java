@@ -35,6 +35,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
@@ -357,10 +358,11 @@ public class EndTrollEntity extends AnimatedCreatureEntity
 	                for (int z = MathHelper.floor(aabb.minZ); z < MathHelper.floor(aabb.maxZ); ++z)
 	                {
 	                	Block block = world.getBlockState(new BlockPos(x, y, z)).getBlock();
+	                	TileEntity tileEntity = world.getTileEntity(new BlockPos(x, y, z));
 	                	
 	                    if(block != Blocks.AIR && !BlockTags.WITHER_IMMUNE.contains(block))
 	                    {
-	                    	if(rand.nextInt(4) + 1 == 4)
+	                    	if(tileEntity == null && rand.nextInt(4) + 1 == 4)
 	                    	{
 	                    		FallingBlockEntity fallingBlockEntity = new FallingBlockEntity(world, x + 0.5D, y + 0.5D, z + 0.5D, block.getDefaultState());
 		                    	fallingBlockEntity.setMotion(fallingBlockEntity.getMotion().add(this.getPositionVec().subtract(fallingBlockEntity.getPositionVec()).mul((-1.2D + rand.nextDouble()) / 3, (-1.1D + rand.nextDouble()) / 3, (-1.2D + rand.nextDouble()) / 3)));
@@ -368,7 +370,7 @@ public class EndTrollEntity extends AnimatedCreatureEntity
 	                    	}
 	                    	else
 	                    	{
-	                    		world.destroyBlock(new BlockPos(x, y, z), rand.nextInt(3) + 1 == 3);
+	                    		world.destroyBlock(new BlockPos(x, y, z), shouldDropItem(tileEntity));
 	                    	}
 	                    }
 	                }
@@ -376,6 +378,15 @@ public class EndTrollEntity extends AnimatedCreatureEntity
 	        }
 		}
     }
+	
+	private boolean shouldDropItem(TileEntity tileEntity)
+	{
+		if(tileEntity == null)
+		{
+			return rand.nextInt(3) + 1 == 3;
+		}
+		return true;
+	}
 	
 	/**
 	 * Used by the EndTroll to throw back Entities when he screams
