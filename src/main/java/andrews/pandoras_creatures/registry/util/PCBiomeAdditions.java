@@ -1,15 +1,20 @@
 package andrews.pandoras_creatures.registry.util;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import andrews.pandoras_creatures.config.PCConfigs;
 import andrews.pandoras_creatures.registry.PCEntities;
 import andrews.pandoras_creatures.registry.PCFeatures;
 import andrews.pandoras_creatures.registry.PCStructures;
 import andrews.pandoras_creatures.util.Reference;
 import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntityType;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.biome.MobSpawnInfo;
@@ -61,54 +66,58 @@ public class PCBiomeAdditions
 	 */
 	private static void addEntitiesToBiomes(BiomeLoadingEvent event)
 	{
-		MobSpawnInfoBuilder spawnSettings = event.getSpawns();
-		
-		//Arachnom
-		if(doesNameMatchBiomes(event.getName(), Biomes.PLAINS, Biomes.MOUNTAINS, Biomes.GRAVELLY_MOUNTAINS))
-		{	
-			spawnSettings.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(PCEntities.ARACHNON.get(), 20, 1, 1));
-		}
-		
-		//Hellhound
-		if(doesNameMatchBiomes(event.getName(), Biomes.NETHER_WASTES, Biomes.SOUL_SAND_VALLEY))
-		{	
-			spawnSettings.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(PCEntities.HELLHOUND.get(), 30, 3, 6));
-		}
-		
-		//Crab
-		if(doesNameMatchBiomes(event.getName(), Biomes.BEACH, Biomes.WARM_OCEAN))
-		{	
-			spawnSettings.withSpawner(EntityClassification.AMBIENT, new MobSpawnInfo.Spawners(PCEntities.CRAB.get(), 400, 2, 5));
-		}
-		
-		//Seahorse
-		if(doesNameMatchBiomes(event.getName(), Biomes.WARM_OCEAN, Biomes.DEEP_WARM_OCEAN))
-		{	
-			spawnSettings.withSpawner(EntityClassification.AMBIENT, new MobSpawnInfo.Spawners(PCEntities.SEAHORSE.get(), 25, 3, 6));
-		}
-		if(doesNameMatchBiomes(event.getName(), Biomes.OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.DEEP_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN))
-		{	
-			spawnSettings.withSpawner(EntityClassification.AMBIENT, new MobSpawnInfo.Spawners(PCEntities.SEAHORSE.get(), 10, 2, 3));
-		}
-		
-		//Acidic Archvine
-		if(doesNameMatchBiome(event.getName(), Biomes.NETHER_WASTES))
-		{	
-			spawnSettings.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(PCEntities.ACIDIC_ARCHVINE.get(), 30, 1, 1));
-		}
-		if(doesNameMatchBiome(event.getName(), Biomes.CRIMSON_FOREST))
-		{	
-			spawnSettings.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(PCEntities.ACIDIC_ARCHVINE.get(), 10, 1, 1));
-		}
-		if(doesNameMatchBiomes(event.getName(), Biomes.JUNGLE, Biomes.JUNGLE_EDGE, Biomes.JUNGLE_HILLS, Biomes.MODIFIED_JUNGLE, Biomes.MODIFIED_JUNGLE_EDGE))
+		addEntitySpawnsToBiomes(event, PCEntities.ARACHNON.get(), EntityClassification.MONSTER, PCConfigs.PCEntitySpawningConfig.arachnonSpawnBiomes.get());
+	}
+	
+	private static void addEntitySpawnsToBiomes(BiomeLoadingEvent event, EntityType<?> entity, EntityClassification entityClassification, String entitySpawnBiomes)
+	{
+		//Gets all the biomes from the Config and separates them
+		List<String> foundBiomes = Arrays.asList(entitySpawnBiomes.replaceAll(" ", "").split(","));
+		//We go through all found Biomes and split up the information
+		for(int i = 0; i < foundBiomes.size(); i++)
 		{
-			spawnSettings.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(PCEntities.ACIDIC_ARCHVINE.get(), 110, 1, 1));
-		}
-		
-		//Bufflon
-		if(doesNameMatchBiomes(event.getName(), Biomes.SNOWY_TUNDRA, Biomes.FROZEN_RIVER, Biomes.SNOWY_MOUNTAINS))
-		{
-			spawnSettings.withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(PCEntities.BUFFLON.get(), 3, 1, 1));
+			List<String> entityBiomeSpawnValues = Arrays.asList(foundBiomes.get(i).replaceAll(" ", "").split("/"));
+			if(entityBiomeSpawnValues.get(0).equals(event.getName().toString()))
+			{
+				Integer weight = null;
+				Integer minSpawns = null;
+				Integer maxSpawns = null;
+				
+				try
+				{
+					if(entityBiomeSpawnValues.get(1) != null && entityBiomeSpawnValues.get(2) != null && entityBiomeSpawnValues.get(3) != null)
+					{
+						try
+						{
+							weight = Integer.parseInt(entityBiomeSpawnValues.get(1));
+							minSpawns = Integer.parseInt(entityBiomeSpawnValues.get(2));
+							maxSpawns = Integer.parseInt(entityBiomeSpawnValues.get(3));
+						}
+						catch(NumberFormatException e)
+						{
+							System.out.println();
+							System.out.println("Pandoras Creatures has detected a problem in the entity-spawning config");
+							System.out.println("The Entity with the problem is: " + entity.getName().getString());
+							System.out.println("One of the 3 Values for Biome: " + entityBiomeSpawnValues.get(0) + " was invalid");
+							System.out.println(e.toString());
+						}
+					}
+				}
+				catch(IndexOutOfBoundsException e)
+				{
+					System.out.println();
+					System.out.println("Pandoras Creatures has detected a problem in the entity-spawning config");
+					System.out.println("The Entity with the problem is: " + entity.getName().getString());
+					System.out.println("One (or more), of the 3 Values for Biome: " + entityBiomeSpawnValues.get(0) + " was not found");
+				}
+				
+				//We make sure all needed values have been found
+				if(weight != null && minSpawns != null && maxSpawns != null)
+				{
+					event.getSpawns().withSpawner(entityClassification, new MobSpawnInfo.Spawners(entity, MathHelper.clamp(weight, 1, 1000), MathHelper.clamp(minSpawns, 1, 100), MathHelper.clamp(maxSpawns, 1, 100)));
+					System.out.println("Added " + entity.getName().getString() + " to: " + entityBiomeSpawnValues.get(0) + " weight: " + weight + " min: " + minSpawns + " max: " + maxSpawns);//TODO remove
+				}
+			}
 		}
 	}
 	
