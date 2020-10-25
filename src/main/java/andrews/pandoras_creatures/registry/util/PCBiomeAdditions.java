@@ -5,9 +5,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
-import javax.print.attribute.SetOfIntegerSyntax;
 
 import andrews.pandoras_creatures.config.PCConfigs;
 import andrews.pandoras_creatures.registry.PCEntities;
@@ -31,7 +28,6 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
-import net.minecraftforge.common.world.MobSpawnInfoBuilder;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -127,7 +123,8 @@ public class PCBiomeAdditions
 				if(weight != null && minSpawns != null && maxSpawns != null)
 				{
 					event.getSpawns().withSpawner(entityClassification, new MobSpawnInfo.Spawners(entity, MathHelper.clamp(weight, 1, 1000), MathHelper.clamp(minSpawns, 1, 100), MathHelper.clamp(maxSpawns, 1, 100)));
-					System.out.println("Added " + entity.getName().getString() + " to: " + entityBiomeSpawnValues.get(0) + " weight: " + weight + " min: " + minSpawns + " max: " + maxSpawns);//TODO remove
+					if(PCConfigs.PCEntitySpawningConfig.isDebugModeEnabled.get())
+						System.out.println("Added " + entity.getName().getString() + " to: " + entityBiomeSpawnValues.get(0) + " weight: " + weight + " min: " + minSpawns + " max: " + maxSpawns);
 				}
 			}
 		}
@@ -153,7 +150,8 @@ public class PCBiomeAdditions
 						if(!biomesNames.contains(biome.getLocation().toString()))
 						{
 							event.getSpawns().withSpawner(entityClassification, new MobSpawnInfo.Spawners(entity, entitySpawnWeight, entityMinSpawns, entityMaxSpawns));
-							System.out.println("Added " + entity.getName().getString() + " to: " + biome.getLocation().toString() + " weight: " + entitySpawnWeight + " min: " + entityMinSpawns + " max: " + entityMaxSpawns);//TODO remove
+							if(PCConfigs.PCEntitySpawningConfig.isDebugModeEnabled.get())
+								System.out.println("Added " + entity.getName().getString() + " to: " + biome.getLocation().toString() + " weight: " + entitySpawnWeight + " min: " + entityMinSpawns + " max: " + entityMaxSpawns);
 						}
 					}
 				}
