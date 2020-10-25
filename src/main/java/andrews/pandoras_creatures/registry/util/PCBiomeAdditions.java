@@ -1,9 +1,13 @@
 package andrews.pandoras_creatures.registry.util;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import javax.print.attribute.SetOfIntegerSyntax;
 
 import andrews.pandoras_creatures.config.PCConfigs;
 import andrews.pandoras_creatures.registry.PCEntities;
@@ -24,6 +28,8 @@ import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.common.world.MobSpawnInfoBuilder;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
@@ -66,11 +72,17 @@ public class PCBiomeAdditions
 	 */
 	private static void addEntitiesToBiomes(BiomeLoadingEvent event)
 	{
-		addEntitySpawnsToBiomes(event, PCEntities.ARACHNON.get(), EntityClassification.MONSTER, PCConfigs.PCEntitySpawningConfig.arachnonSpawnBiomes.get());
+		String arachnonSpawnBiomes = PCConfigs.PCEntitySpawningConfig.arachnonSpawnBiomes.get();
+		String arachnonSpawnTags = PCConfigs.PCEntitySpawningConfig.arachnonDictionaryTags.get();
+		String arachnonDictionaryBiomeBlacklist = PCConfigs.PCEntitySpawningConfig.arachnonDictionaryBiomeBlacklist.get();
+		int arachnonWeight = PCConfigs.PCEntitySpawningConfig.arachnonDictionaryWeight.get();
+		int arachnonMinSpawns = PCConfigs.PCEntitySpawningConfig.arachnonDictionaryMinSpawns.get();
+		int arachnonMaxSpawns = PCConfigs.PCEntitySpawningConfig.arachnonDictionaryMaxSpawns.get();
+		addEntitySpawnsToBiomes(event, PCEntities.ARACHNON.get(), EntityClassification.MONSTER, arachnonSpawnBiomes, arachnonSpawnTags, arachnonDictionaryBiomeBlacklist, arachnonWeight, arachnonMinSpawns, arachnonMaxSpawns);
 	}
 	
-	private static void addEntitySpawnsToBiomes(BiomeLoadingEvent event, EntityType<?> entity, EntityClassification entityClassification, String entitySpawnBiomes)
-	{
+	private static void addEntitySpawnsToBiomes(BiomeLoadingEvent event, EntityType<?> entity, EntityClassification entityClassification, String entitySpawnBiomes, String entitySpawnTags, String entityDictionaryBiomeBlacklist, int entitySpawnWeight, int entityMinSpawns, int entityMaxSpawns)
+	{	
 		//Gets all the biomes from the Config and separates them
 		List<String> foundBiomes = Arrays.asList(entitySpawnBiomes.replaceAll(" ", "").split(","));
 		//We go through all found Biomes and split up the information
@@ -116,6 +128,34 @@ public class PCBiomeAdditions
 				{
 					event.getSpawns().withSpawner(entityClassification, new MobSpawnInfo.Spawners(entity, MathHelper.clamp(weight, 1, 1000), MathHelper.clamp(minSpawns, 1, 100), MathHelper.clamp(maxSpawns, 1, 100)));
 					System.out.println("Added " + entity.getName().getString() + " to: " + entityBiomeSpawnValues.get(0) + " weight: " + weight + " min: " + minSpawns + " max: " + maxSpawns);//TODO remove
+				}
+			}
+		}
+		
+		List<String> foundTags = Arrays.asList(entitySpawnTags.replaceAll(" ", "").toUpperCase().split(","));
+		for(int i = 0; i < foundTags.size(); i++)
+		{
+			for(RegistryKey<Biome> biome : BiomeDictionary.getBiomes(Type.getType(foundTags.get(i))))
+			{
+				if(biome.getLocation().toString().equals(event.getName().toString()))
+				{
+					List<String> blackListedBiomes = Arrays.asList(entityDictionaryBiomeBlacklist.replaceAll(" ", "").split(","));
+					if(!blackListedBiomes.contains(biome.getLocation().toString()))
+					{
+						List<String> biomesNames = new ArrayList<String>();
+						
+						for(int j = 0; j < foundBiomes.size(); j++)
+						{
+							List<String> biomesInfo = Arrays.asList(foundBiomes.get(j).replaceAll(" ", "").split("/"));
+							biomesNames.add(biomesInfo.get(0));
+						}
+						
+						if(!biomesNames.contains(biome.getLocation().toString()))
+						{
+							event.getSpawns().withSpawner(entityClassification, new MobSpawnInfo.Spawners(entity, entitySpawnWeight, entityMinSpawns, entityMaxSpawns));
+							System.out.println("Added " + entity.getName().getString() + " to: " + biome.getLocation().toString() + " weight: " + entitySpawnWeight + " min: " + entityMinSpawns + " max: " + entityMaxSpawns);//TODO remove
+						}
+					}
 				}
 			}
 		}

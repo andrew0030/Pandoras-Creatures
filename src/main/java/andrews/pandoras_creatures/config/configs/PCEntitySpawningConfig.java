@@ -18,8 +18,11 @@ public class PCEntitySpawningConfig
 		public ConfigValueListener<Boolean> bufflonSpawning;
 		
 		public ConfigValueListener<String> arachnonSpawnBiomes;
-		public ConfigValueListener<String> arachnonSpawnBiomesDictionary;
-		public ConfigValueListener<String> arachnonSpawnBiomesBlacklist;
+		public ConfigValueListener<String> arachnonDictionaryBiomeBlacklist;
+		public ConfigValueListener<String> arachnonDictionaryTags;
+		public ConfigValueListener<Integer> arachnonDictionaryWeight;
+		public ConfigValueListener<Integer> arachnonDictionaryMinSpawns;
+		public ConfigValueListener<Integer> arachnonDictionaryMaxSpawns;
 
 		public PCEntitySpawningConfigValues(ForgeConfigSpec.Builder builder, ConfigHelper.Subscriber subscriber)
 		{
@@ -47,14 +50,21 @@ public class PCEntitySpawningConfig
 			builder.pop();
 			
 			builder.comment(" TODO Explain how to use")
-			.push("Advanced Entity Spawn Settings");
+			.push("Advanced");
 				builder.push("Arachnon");
 					arachnonSpawnBiomes = subscriber.subscribe(builder
 					.define("arachnonSpawnBiomes", "minecraft:plains/20/1/1,minecraft:mountains/20/1/1,minecraft:gravelly_mountains/20/1/1"));
-					arachnonSpawnBiomesDictionary = subscriber.subscribe(builder
-					.define("arachnonSpawnBiomesDictionary", ""));
-					arachnonSpawnBiomesBlacklist = subscriber.subscribe(builder
-					.define("arachnonSpawnBiomesBlacklist", ""));
+					arachnonDictionaryBiomeBlacklist = subscriber.subscribe(builder
+					.define("arachnonDictionaryBiomeBlacklist", ""));
+					builder.push("Dictionary");
+						arachnonDictionaryTags = subscriber.subscribe(builder
+						.define("arachnonDictionaryTags", "FOREST"));//TODO remove
+						arachnonDictionaryWeight = subscriber.subscribe(builder
+						.defineInRange("arachnonDictionaryWeight", 20, 1, 1000));
+						arachnonDictionaryMinSpawns = subscriber.subscribe(builder
+						.defineInRange("arachnonDictionaryMinSpawns", 1, 1, 100));
+						arachnonDictionaryMaxSpawns = subscriber.subscribe(builder
+						.defineInRange("arachnonDictionaryMaxSpawns", 1, 1, 100));
 				builder.pop();
 			builder.pop();
 		}
