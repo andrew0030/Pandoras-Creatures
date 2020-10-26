@@ -68,6 +68,7 @@ public class PCBiomeAdditions
 	 */
 	private static void addEntitiesToBiomes(BiomeLoadingEvent event)
 	{
+		//Arachnon
 		String arachnonSpawnBiomes = PCConfigs.PCEntitySpawningConfig.arachnonSpawnBiomes.get();
 		String arachnonSpawnTags = PCConfigs.PCEntitySpawningConfig.arachnonDictionaryTags.get();
 		String arachnonDictionaryBiomeBlacklist = PCConfigs.PCEntitySpawningConfig.arachnonDictionaryBiomeBlacklist.get();
@@ -75,6 +76,46 @@ public class PCBiomeAdditions
 		int arachnonMinSpawns = PCConfigs.PCEntitySpawningConfig.arachnonDictionaryMinSpawns.get();
 		int arachnonMaxSpawns = PCConfigs.PCEntitySpawningConfig.arachnonDictionaryMaxSpawns.get();
 		addEntitySpawnsToBiomes(event, PCEntities.ARACHNON.get(), EntityClassification.MONSTER, arachnonSpawnBiomes, arachnonSpawnTags, arachnonDictionaryBiomeBlacklist, arachnonWeight, arachnonMinSpawns, arachnonMaxSpawns);
+		//Hellhound
+		String hellhoundSpawnBiomes = PCConfigs.PCEntitySpawningConfig.hellhoundSpawnBiomes.get();
+		String hellhoundSpawnTags = PCConfigs.PCEntitySpawningConfig.hellhoundDictionaryTags.get();
+		String hellhoundDictionaryBiomeBlacklist = PCConfigs.PCEntitySpawningConfig.hellhoundDictionaryBiomeBlacklist.get();
+		int hellhoundWeight = PCConfigs.PCEntitySpawningConfig.hellhoundDictionaryWeight.get();
+		int hellhoundMinSpawns = PCConfigs.PCEntitySpawningConfig.hellhoundDictionaryMinSpawns.get();
+		int hellhoundMaxSpawns = PCConfigs.PCEntitySpawningConfig.hellhoundDictionaryMaxSpawns.get();
+		addEntitySpawnsToBiomes(event, PCEntities.HELLHOUND.get(), EntityClassification.MONSTER, hellhoundSpawnBiomes, hellhoundSpawnTags, hellhoundDictionaryBiomeBlacklist, hellhoundWeight, hellhoundMinSpawns, hellhoundMaxSpawns);
+		//Crab
+		String crabSpawnBiomes = PCConfigs.PCEntitySpawningConfig.crabSpawnBiomes.get();
+		String crabSpawnTags = PCConfigs.PCEntitySpawningConfig.crabDictionaryTags.get();
+		String crabDictionaryBiomeBlacklist = PCConfigs.PCEntitySpawningConfig.crabDictionaryBiomeBlacklist.get();
+		int crabWeight = PCConfigs.PCEntitySpawningConfig.crabDictionaryWeight.get();
+		int crabMinSpawns = PCConfigs.PCEntitySpawningConfig.crabDictionaryMinSpawns.get();
+		int crabMaxSpawns = PCConfigs.PCEntitySpawningConfig.crabDictionaryMaxSpawns.get();
+		addEntitySpawnsToBiomes(event, PCEntities.CRAB.get(), EntityClassification.AMBIENT, crabSpawnBiomes, crabSpawnTags, crabDictionaryBiomeBlacklist, crabWeight, crabMinSpawns, crabMaxSpawns);
+		//Seahorse
+		String seahorseSpawnBiomes = PCConfigs.PCEntitySpawningConfig.seahorseSpawnBiomes.get();
+		String seahorseSpawnTags = PCConfigs.PCEntitySpawningConfig.seahorseDictionaryTags.get();
+		String seahorseDictionaryBiomeBlacklist = PCConfigs.PCEntitySpawningConfig.seahorseDictionaryBiomeBlacklist.get();
+		int seahorseWeight = PCConfigs.PCEntitySpawningConfig.seahorseDictionaryWeight.get();
+		int seahorseMinSpawns = PCConfigs.PCEntitySpawningConfig.seahorseDictionaryMinSpawns.get();
+		int seahorseMaxSpawns = PCConfigs.PCEntitySpawningConfig.seahorseDictionaryMaxSpawns.get();
+		addEntitySpawnsToBiomes(event, PCEntities.SEAHORSE.get(), EntityClassification.AMBIENT, seahorseSpawnBiomes, seahorseSpawnTags, seahorseDictionaryBiomeBlacklist, seahorseWeight, seahorseMinSpawns, seahorseMaxSpawns);
+		//Acidic Archvine
+		String acidicArchvineSpawnBiomes = PCConfigs.PCEntitySpawningConfig.acidicArchvineSpawnBiomes.get();
+		String acidicArchvineSpawnTags = PCConfigs.PCEntitySpawningConfig.acidicArchvineDictionaryTags.get();
+		String acidicArchvineDictionaryBiomeBlacklist = PCConfigs.PCEntitySpawningConfig.acidicArchvineDictionaryBiomeBlacklist.get();
+		int acidicArchvineWeight = PCConfigs.PCEntitySpawningConfig.acidicArchvineDictionaryWeight.get();
+		int acidicArchvineMinSpawns = PCConfigs.PCEntitySpawningConfig.acidicArchvineDictionaryMinSpawns.get();
+		int acidicArchvineMaxSpawns = PCConfigs.PCEntitySpawningConfig.acidicArchvineDictionaryMaxSpawns.get();
+		addEntitySpawnsToBiomes(event, PCEntities.ACIDIC_ARCHVINE.get(), EntityClassification.MONSTER, acidicArchvineSpawnBiomes, acidicArchvineSpawnTags, acidicArchvineDictionaryBiomeBlacklist, acidicArchvineWeight, acidicArchvineMinSpawns, acidicArchvineMaxSpawns);
+		//Bufflon
+		String bufflonSpawnBiomes = PCConfigs.PCEntitySpawningConfig.bufflonSpawnBiomes.get();
+		String bufflonSpawnTags = PCConfigs.PCEntitySpawningConfig.bufflonDictionaryTags.get();
+		String bufflonDictionaryBiomeBlacklist = PCConfigs.PCEntitySpawningConfig.bufflonDictionaryBiomeBlacklist.get();
+		int bufflonWeight = PCConfigs.PCEntitySpawningConfig.bufflonDictionaryWeight.get();
+		int bufflonMinSpawns = PCConfigs.PCEntitySpawningConfig.bufflonDictionaryMinSpawns.get();
+		int bufflonMaxSpawns = PCConfigs.PCEntitySpawningConfig.bufflonDictionaryMaxSpawns.get();
+		addEntitySpawnsToBiomes(event, PCEntities.BUFFLON.get(), EntityClassification.CREATURE, bufflonSpawnBiomes, bufflonSpawnTags, bufflonDictionaryBiomeBlacklist, bufflonWeight, bufflonMinSpawns, bufflonMaxSpawns);	
 	}
 	
 	private static void addEntitySpawnsToBiomes(BiomeLoadingEvent event, EntityType<?> entity, EntityClassification entityClassification, String entitySpawnBiomes, String entitySpawnTags, String entityDictionaryBiomeBlacklist, int entitySpawnWeight, int entityMinSpawns, int entityMaxSpawns)

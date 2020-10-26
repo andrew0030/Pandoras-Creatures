@@ -6,7 +6,7 @@ license="MIT"
 
 [[mods]]
     modId="pandoras_creatures"
-	version="1.16.3-2.0.0"
+	version="1.16.3-2.0.1"
 	displayName="Pandoras Creatures"
 	updateJSONURL="https://raw.githubusercontent.com/andrew0030/Pandoras-Creatures/master/src/main/resources/assets/pandoras_creatures/update.json"
 	displayURL="https://www.curseforge.com/minecraft/mc-mods/pandoras-creatures"
@@ -19,7 +19,7 @@ Pandoras Creatures is a Mod that aims to make your game experience harder. If yo
 [[dependencies.pandoras_creatures]] #optional
     modId="forge"
     mandatory=true
-    versionRange="[34,)"
+    versionRange="[34.1.21,)"
     ordering="NONE"
     side="BOTH"
 

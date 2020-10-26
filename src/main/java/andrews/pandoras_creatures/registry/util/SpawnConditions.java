@@ -26,7 +26,7 @@ public class SpawnConditions
 	
 	public static boolean noDayLightMobCondition(EntityType<? extends MobEntity> entityType, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random)
     {
-		if(!PCConfigs.PCCommonConfig.arachnonSpawning.get())
+		if(!PCConfigs.PCEntitySpawningConfig.arachnonSpawning.get())
 		{
 			return false;
 		}
@@ -49,7 +49,7 @@ public class SpawnConditions
 	
 	public static boolean amphibianstMobCondition(EntityType<? extends MobEntity> entityType, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random)
     {
-		if(!PCConfigs.PCCommonConfig.crabSpawning.get())
+		if(!PCConfigs.PCEntitySpawningConfig.crabSpawning.get())
 		{
 			return false;
 		}
@@ -78,12 +78,12 @@ public class SpawnConditions
 				}
 			}
 		}
-		return world.getBlockState(pos.down()).getBlock().equals(Blocks.SAND);
+		return world.getBlockState(pos.down()).getBlock().equals(Blocks.SAND) || world.getBlockState(pos.down()).getBlock().equals(Blocks.GRASS);
     }
     
     public static boolean netherCondition(EntityType<? extends MobEntity> entityType, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random)
     {
-    	if(!PCConfigs.PCCommonConfig.hellhoundSpawning.get())
+    	if(!PCConfigs.PCEntitySpawningConfig.hellhoundSpawning.get())
 		{
 			return false;
 		}
@@ -99,7 +99,7 @@ public class SpawnConditions
     
     public static boolean waterCondition(EntityType<? extends MobEntity> entityType, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random)
     {
-    	if(!PCConfigs.PCCommonConfig.seahorseSpawning.get())
+    	if(!PCConfigs.PCEntitySpawningConfig.seahorseSpawning.get())
 		{
 			return false;
 		}
@@ -111,7 +111,7 @@ public class SpawnConditions
     
     public static boolean acidicArchvineCondition(EntityType<? extends MobEntity> entityType, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random)
     {	
-    	if(!PCConfigs.PCCommonConfig.acidicArchvineSpawning.get())
+    	if(!PCConfigs.PCEntitySpawningConfig.acidicArchvineSpawning.get())
 		{
 			return false;
 		}
@@ -166,7 +166,7 @@ public class SpawnConditions
     
     public static boolean bufflonCondition(EntityType<? extends MobEntity> entityType, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random)
     {
-    	if(!PCConfigs.PCCommonConfig.bufflonSpawning.get())
+    	if(!PCConfigs.PCEntitySpawningConfig.bufflonSpawning.get())
 		{
 			return false;
 		}

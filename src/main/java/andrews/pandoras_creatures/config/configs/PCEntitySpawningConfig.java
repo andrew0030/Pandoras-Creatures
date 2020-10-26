@@ -19,12 +19,48 @@ public class PCEntitySpawningConfig
 		public ConfigValueListener<Boolean> acidicArchvineSpawning;
 		public ConfigValueListener<Boolean> bufflonSpawning;
 		
+		//Arachnon
 		public ConfigValueListener<String> arachnonSpawnBiomes;
 		public ConfigValueListener<String> arachnonDictionaryBiomeBlacklist;
 		public ConfigValueListener<String> arachnonDictionaryTags;
 		public ConfigValueListener<Integer> arachnonDictionaryWeight;
 		public ConfigValueListener<Integer> arachnonDictionaryMinSpawns;
 		public ConfigValueListener<Integer> arachnonDictionaryMaxSpawns;
+		//Hellhound
+		public ConfigValueListener<String> hellhoundSpawnBiomes;
+		public ConfigValueListener<String> hellhoundDictionaryBiomeBlacklist;
+		public ConfigValueListener<String> hellhoundDictionaryTags;
+		public ConfigValueListener<Integer> hellhoundDictionaryWeight;
+		public ConfigValueListener<Integer> hellhoundDictionaryMinSpawns;
+		public ConfigValueListener<Integer> hellhoundDictionaryMaxSpawns;
+		//Crab
+		public ConfigValueListener<String> crabSpawnBiomes;
+		public ConfigValueListener<String> crabDictionaryBiomeBlacklist;
+		public ConfigValueListener<String> crabDictionaryTags;
+		public ConfigValueListener<Integer> crabDictionaryWeight;
+		public ConfigValueListener<Integer> crabDictionaryMinSpawns;
+		public ConfigValueListener<Integer> crabDictionaryMaxSpawns;
+		//Seahorse
+		public ConfigValueListener<String> seahorseSpawnBiomes;
+		public ConfigValueListener<String> seahorseDictionaryBiomeBlacklist;
+		public ConfigValueListener<String> seahorseDictionaryTags;
+		public ConfigValueListener<Integer> seahorseDictionaryWeight;
+		public ConfigValueListener<Integer> seahorseDictionaryMinSpawns;
+		public ConfigValueListener<Integer> seahorseDictionaryMaxSpawns;
+		//Acidic Archvine
+		public ConfigValueListener<String> acidicArchvineSpawnBiomes;
+		public ConfigValueListener<String> acidicArchvineDictionaryBiomeBlacklist;
+		public ConfigValueListener<String> acidicArchvineDictionaryTags;
+		public ConfigValueListener<Integer> acidicArchvineDictionaryWeight;
+		public ConfigValueListener<Integer> acidicArchvineDictionaryMinSpawns;
+		public ConfigValueListener<Integer> acidicArchvineDictionaryMaxSpawns;
+		//Bufflon
+		public ConfigValueListener<String> bufflonSpawnBiomes;
+		public ConfigValueListener<String> bufflonDictionaryBiomeBlacklist;
+		public ConfigValueListener<String> bufflonDictionaryTags;
+		public ConfigValueListener<Integer> bufflonDictionaryWeight;
+		public ConfigValueListener<Integer> bufflonDictionaryMinSpawns;
+		public ConfigValueListener<Integer> bufflonDictionaryMaxSpawns;
 
 		public PCEntitySpawningConfigValues(ForgeConfigSpec.Builder builder, ConfigHelper.Subscriber subscriber)
 		{
@@ -115,6 +151,87 @@ public class PCEntitySpawningConfig
 						.defineInRange("arachnonDictionaryMinSpawns", 1, 1, 100));
 						arachnonDictionaryMaxSpawns = subscriber.subscribe(builder
 						.defineInRange("arachnonDictionaryMaxSpawns", 1, 1, 100));
+					builder.pop();
+				builder.pop();
+				builder.push("Hellhound");
+					hellhoundSpawnBiomes = subscriber.subscribe(builder
+					.define("hellhoundSpawnBiomes", "minecraft:nether_wastes/30/3/6,minecraft:soul_sand_valley/30/3/6"));
+					hellhoundDictionaryBiomeBlacklist = subscriber.subscribe(builder
+					.define("hellhoundDictionaryBiomeBlacklist", ""));
+					hellhoundDictionaryTags = subscriber.subscribe(builder
+					.define("hellhoundDictionaryTags", ""));
+					builder.push("Dictionary");
+						hellhoundDictionaryWeight = subscriber.subscribe(builder
+						.defineInRange("hellhoundDictionaryWeight", 30, 1, 1000));
+						hellhoundDictionaryMinSpawns = subscriber.subscribe(builder
+						.defineInRange("hellhoundDictionaryMinSpawns", 3, 1, 100));
+						hellhoundDictionaryMaxSpawns = subscriber.subscribe(builder
+						.defineInRange("hellhoundDictionaryMaxSpawns", 6, 1, 100));
+					builder.pop();
+				builder.pop();
+				builder.push("Crab");
+					crabSpawnBiomes = subscriber.subscribe(builder
+					.define("crabSpawnBiomes", "minecraft:beach/400/2/5,minecraft:warm_ocean/400/2/5"));
+					crabDictionaryBiomeBlacklist = subscriber.subscribe(builder
+					.define("crabDictionaryBiomeBlacklist", ""));
+					crabDictionaryTags = subscriber.subscribe(builder
+					.define("crabDictionaryTags", ""));
+					builder.push("Dictionary");
+						crabDictionaryWeight = subscriber.subscribe(builder
+						.defineInRange("crabDictionaryWeight", 400, 1, 1000));
+						crabDictionaryMinSpawns = subscriber.subscribe(builder
+						.defineInRange("crabDictionaryMinSpawns", 2, 1, 100));
+						crabDictionaryMaxSpawns = subscriber.subscribe(builder
+						.defineInRange("crabDictionaryMaxSpawns", 5, 1, 100));
+					builder.pop();
+				builder.pop();
+				builder.push("Seahorse");
+					seahorseSpawnBiomes = subscriber.subscribe(builder
+					.define("seahorseSpawnBiomes", "minecraft:warm_ocean/25/3/6,minecraft:deep_warm_ocean/25/3/6,minecraft:ocean/10/2/3,minecraft:lukewarm_ocean/10/2/3,minecraft:deep_ocean/10/2/3,minecraft:deep_lukewarm_ocean/10/2/3"));
+					seahorseDictionaryBiomeBlacklist = subscriber.subscribe(builder
+					.define("seahorseDictionaryBiomeBlacklist", ""));
+					seahorseDictionaryTags = subscriber.subscribe(builder
+					.define("seahorseDictionaryTags", ""));
+					builder.push("Dictionary");
+						seahorseDictionaryWeight = subscriber.subscribe(builder
+						.defineInRange("seahorseDictionaryWeight", 10, 1, 1000));
+						seahorseDictionaryMinSpawns = subscriber.subscribe(builder
+						.defineInRange("seahorseDictionaryMinSpawns", 2, 1, 100));
+						seahorseDictionaryMaxSpawns = subscriber.subscribe(builder
+						.defineInRange("seahorseDictionaryMaxSpawns", 3, 1, 100));
+					builder.pop();
+				builder.pop();
+				builder.push("Acidic Archvine");
+					acidicArchvineSpawnBiomes = subscriber.subscribe(builder
+					.define("acidicArchvineSpawnBiomes", "minecraft:nether_wastes/30/1/1,minecraft:crimson_forest/10/1/1,minecraft:jungle/110/1/1,minecraft:jungle_edge/110/1/1,minecraft:jungle_hills/110/1/1,minecraft:modified_jungle/110/1/1,minecraft:modified_jungle_edge/110/1/1"));
+					acidicArchvineDictionaryBiomeBlacklist = subscriber.subscribe(builder
+					.define("acidicArchvineDictionaryBiomeBlacklist", ""));
+					acidicArchvineDictionaryTags = subscriber.subscribe(builder
+					.define("acidicArchvineDictionaryTags", ""));
+					builder.push("Dictionary");
+						acidicArchvineDictionaryWeight = subscriber.subscribe(builder
+						.defineInRange("acidicArchvineDictionaryWeight", 10, 1, 1000));
+						acidicArchvineDictionaryMinSpawns = subscriber.subscribe(builder
+						.defineInRange("acidicArchvineDictionaryMinSpawns", 1, 1, 100));
+						acidicArchvineDictionaryMaxSpawns = subscriber.subscribe(builder
+						.defineInRange("acidicArchvineDictionaryMaxSpawns", 1, 1, 100));
+					builder.pop();
+				builder.pop();
+				builder.push("Bufflon");
+					bufflonSpawnBiomes = subscriber.subscribe(builder
+					.define("bufflonSpawnBiomes", "minecraft:snowy_tundra/3/1/1,minecraft:frozen_river/3/1/1,minecraft:snowy_mountains/3/1/1"));
+					bufflonDictionaryBiomeBlacklist = subscriber.subscribe(builder
+					.define("bufflonDictionaryBiomeBlacklist", ""));
+					bufflonDictionaryTags = subscriber.subscribe(builder
+					.define("bufflonDictionaryTags", ""));
+					builder.push("Dictionary");
+						bufflonDictionaryWeight = subscriber.subscribe(builder
+						.defineInRange("bufflonDictionaryWeight", 3, 1, 1000));
+						bufflonDictionaryMinSpawns = subscriber.subscribe(builder
+						.defineInRange("bufflonDictionaryMinSpawns", 1, 1, 100));
+						bufflonDictionaryMaxSpawns = subscriber.subscribe(builder
+						.defineInRange("bufflonDictionaryMaxSpawns", 1, 1, 100));
+					builder.pop();
 				builder.pop();
 			builder.pop();
 		}

@@ -6,10 +6,8 @@ import andrews.pandoras_creatures.PandorasCreatures;
 import andrews.pandoras_creatures.objects.blocks.ArachnonCrystalBlock;
 import andrews.pandoras_creatures.objects.blocks.EndTrollBoxBlock;
 import andrews.pandoras_creatures.objects.blocks.PCBlockBush;
-import andrews.pandoras_creatures.objects.blocks.PandoricShardBlock;
 import andrews.pandoras_creatures.registry.util.RegistryUtils;
 import andrews.pandoras_creatures.tile_entities.EndTrollBoxTileEntity;
-import andrews.pandoras_creatures.tile_entities.PandoricShardTileEntity;
 import andrews.pandoras_creatures.tile_entities.item.PCTileEntityItemRenderer;
 import andrews.pandoras_creatures.util.Reference;
 import net.minecraft.block.Block;
@@ -51,7 +49,7 @@ public class PCBlocks
 	public static final RegistryObject<Block> BLACK_END_TROLL_BOX		= RegistryUtils.createBlockWithTESIR("black_end_troll_box", () -> new EndTrollBoxBlock(DyeColor.BLACK), false, true, () -> endTrollBoxISTER(DyeColor.BLACK), PandorasCreatures.PANDORAS_CREATURES_GROUP);
 	
 	//Pandoric Shard
-	public static final RegistryObject<Block> PANDORIC_SHARD			= RegistryUtils.createBlockWithTESIR("pandoric_shard", () -> new PandoricShardBlock(), false, true, () -> pandoricShardISTER(), PandorasCreatures.PANDORAS_CREATURES_GROUP);
+//	public static final RegistryObject<Block> PANDORIC_SHARD			= RegistryUtils.createBlockWithTESIR("pandoric_shard", () -> new PandoricShardBlock(), false, true, () -> pandoricShardISTER(), PandorasCreatures.PANDORAS_CREATURES_GROUP); TODO
 	
 	@OnlyIn(Dist.CLIENT)
 	private static Callable<ItemStackTileEntityRenderer> endTrollBoxISTER(DyeColor colorIn)
@@ -59,9 +57,9 @@ public class PCBlocks
 		return () -> new PCTileEntityItemRenderer<TileEntity>(() -> new EndTrollBoxTileEntity(colorIn));
 	}
 	
-	@OnlyIn(Dist.CLIENT)
-	private static Callable<ItemStackTileEntityRenderer> pandoricShardISTER()//TODO fix replace what ever
-	{
-		return () -> new PCTileEntityItemRenderer<TileEntity>(() -> new PandoricShardTileEntity());
-	}
+//	@OnlyIn(Dist.CLIENT) TODO
+//	private static Callable<ItemStackTileEntityRenderer> pandoricShardISTER()
+//	{
+//		return () -> new PCTileEntityItemRenderer<TileEntity>(() -> new PandoricShardTileEntity());
+//	}
 }
