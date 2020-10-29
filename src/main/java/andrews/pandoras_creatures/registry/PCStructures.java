@@ -36,8 +36,8 @@ public class PCStructures
     public static void registerStructureFeaturesAndSeparation()
     {
     	//End Prison
-    	Structure.field_236365_a_.put(Reference.MODID + ":end_prison", END_PRISON.get());
-    	END_PRISON_FEATURE = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, Reference.MODID + ":end_prison", END_PRISON.get().func_236391_a_(NoFeatureConfig.field_236559_b_));
+    	Structure.NAME_STRUCTURE_BIMAP.put(Reference.MODID + ":end_prison", END_PRISON.get());
+    	END_PRISON_FEATURE = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, Reference.MODID + ":end_prison", END_PRISON.get().withConfiguration(NoFeatureConfig.field_236559_b_));
     	DimensionStructuresSettings.field_236191_b_ = ImmutableMap.<Structure<?>, StructureSeparationSettings>builder().putAll(DimensionStructuresSettings.field_236191_b_).put(END_PRISON.get(), new StructureSeparationSettings(32, 26, 43650246)).build();
         FlatGenerationSettings.STRUCTURES.put(END_PRISON.get(), END_PRISON_FEATURE);
         Registry.register(Registry.STRUCTURE_PIECE, new ResourceLocation(Reference.MODID, "end_prison_piece"), END_PRISON_PIECE);

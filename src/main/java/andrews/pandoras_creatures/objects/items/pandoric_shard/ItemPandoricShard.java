@@ -14,7 +14,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 
-public class ItemPandoricShard extends Item
+public class ItemPandoricShard extends Item//TODO remove
 {	
 	public ItemPandoricShard()
 	{

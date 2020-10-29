@@ -19,7 +19,7 @@ archivesBaseName = 'pandoras_creatures'
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 minecraft {
-    mappings channel: 'snapshot', version: '20200916-1.16.2'
+    mappings channel: 'snapshot', version: '20201028-1.16.3'
     
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
@@ -68,7 +68,7 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.16.3-34.1.25'
+    minecraft 'net.minecraftforge:forge:1.16.3-34.1.35'
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..

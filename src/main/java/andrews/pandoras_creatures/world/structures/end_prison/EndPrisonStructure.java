@@ -37,8 +37,8 @@ public class EndPrisonStructure extends Structure<NoFeatureConfig>
 		return Reference.MODID + ":end_prison";
 	}
 	
-	@Override		//getDecorationStage
-	public Decoration func_236396_f_()
+	@Override
+	public Decoration getDecorationStage()
 	{
 		return GenerationStage.Decoration.SURFACE_STRUCTURES;
 	}
@@ -61,14 +61,14 @@ public class EndPrisonStructure extends Structure<NoFeatureConfig>
 	
 	private boolean isEndCityWithin(ChunkGenerator generator, long seed, SharedSeedRandom random, int x, int z, int radius)
 	{
-		StructureSeparationSettings structureseparationsettings = generator.func_235957_b_().func_236197_a_(Structure.field_236379_o_);
+		StructureSeparationSettings structureseparationsettings = generator.func_235957_b_().func_236197_a_(Structure.END_CITY);
 		if(structureseparationsettings != null)
 		{
 			for(int surroundingX = x - radius; surroundingX <= x + radius; ++surroundingX)
 			{
 				for(int surroundingZ = z - radius; surroundingZ <= z + radius; ++surroundingZ)
 				{
-					ChunkPos chunkpos = Structure.field_236379_o_.func_236392_a_(structureseparationsettings, seed, random, surroundingX, surroundingZ);
+					ChunkPos chunkpos = Structure.END_CITY.getChunkPosForStructure(structureseparationsettings, seed, random, surroundingX, surroundingZ);
 					if(surroundingX == chunkpos.x && surroundingZ == chunkpos.z)
 					{
 						return true;
