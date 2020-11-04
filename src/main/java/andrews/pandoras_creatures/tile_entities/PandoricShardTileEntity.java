@@ -13,6 +13,7 @@ public class PandoricShardTileEntity extends TileEntity
 {
 	Random rand = new Random();
 	private int animationDelay;
+	public int shardSize;
 	public int shardVariant;
 	
 	public PandoricShardTileEntity()
@@ -80,6 +81,7 @@ public class PandoricShardTileEntity extends TileEntity
 	private CompoundNBT saveToNBT(CompoundNBT compound)
 	{
 		CompoundNBT shardNBT = new CompoundNBT();
+		shardNBT.putInt("ShardSize", this.getShardSize());
 		shardNBT.putInt("ShardVariant", this.getShardVariant());
 //		nbt.putInt("MaxChaosCharge", 0);
 //		nbt.putInt("ChaosCharge", 0);
@@ -95,7 +97,34 @@ public class PandoricShardTileEntity extends TileEntity
 	private void loadFromNBT(CompoundNBT compound)
 	{
 		CompoundNBT shardNBT = compound.getCompound("PandoricShardValues");
+		shardSize = shardNBT.getInt("ShardSize");
 		shardVariant = shardNBT.getInt("ShardVariant");
+	}
+	
+	public int getShardSize()
+    {
+    	if(shardSize == 0)
+    	{
+    		Random rand = new Random();
+    		//The check bellow makes sure a variant is only set server side, this way the first ticks during rendering (until synchronized)
+    		//the client variant will be 0 meaning it wont render anything. This is used to prevent visual glitches.
+    		if(!this.world.isRemote)
+    		{
+    			this.setShardSize(rand.nextInt(2) + 1);
+    			System.out.println(shardSize);//TODO
+    		}
+    		return shardSize;
+    	}
+    	else
+    	{
+    		return shardSize;
+    	}
+	}
+	
+	public void setShardSize(int size)
+	{
+		shardSize = size;
+		markDirty();
 	}
 	
 	public int getShardVariant()
@@ -107,7 +136,7 @@ public class PandoricShardTileEntity extends TileEntity
     		//the client variant will be 0 meaning it wont render anything. This is used to prevent visual glitches.
     		if(!this.world.isRemote)
     		{
-    			this.setShardVariant(rand.nextInt(4) + 1);
+    			this.setShardVariant(rand.nextInt(3) + 1);//TODO
     			System.out.println(shardVariant);//TODO
     		}
     		return shardVariant;

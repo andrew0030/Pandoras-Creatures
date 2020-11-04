@@ -34,6 +34,7 @@ public class PCTileEntityItemRenderer<T extends TileEntity> extends ItemStackTil
 			if(this.te.get() instanceof PandoricShardTileEntity)
 			{
 				PandoricShardTileEntity shardTileEntity = (PandoricShardTileEntity) this.te.get();
+				shardTileEntity.setShardSize(1);
 				shardTileEntity.setShardVariant(1);
 				
 				PandoricShardTileEntityRenderer.renderPandoricShard(shardTileEntity, matrixStack, buffer, combinedLight, combinedOverlay, true);
