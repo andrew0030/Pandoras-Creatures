@@ -26,6 +26,6 @@ Pandoras Creatures is a Mod that aims to make your game experience harder. If yo
 [[dependencies.pandoras_creatures]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.3]"
+    versionRange="[1.16.3, 1.17.0)"
     ordering="NONE"
     side="BOTH"

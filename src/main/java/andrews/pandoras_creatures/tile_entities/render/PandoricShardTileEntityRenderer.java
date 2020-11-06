@@ -10,6 +10,7 @@ import andrews.pandoras_creatures.tile_entities.PandoricShardTileEntity;
 import andrews.pandoras_creatures.tile_entities.model.pandoric_shard.CoreModel;
 import andrews.pandoras_creatures.tile_entities.model.pandoric_shard.PandoricShardMediumBase2Model;
 import andrews.pandoras_creatures.tile_entities.model.pandoric_shard.PandoricShardMediumBase3Model;
+import andrews.pandoras_creatures.tile_entities.model.pandoric_shard.PandoricShardMediumBase4Model;
 import andrews.pandoras_creatures.tile_entities.model.pandoric_shard.PandoricShardMediumBaseModel;
 import andrews.pandoras_creatures.tile_entities.model.pandoric_shard.PandoricShardSmallBase2Model;
 import andrews.pandoras_creatures.tile_entities.model.pandoric_shard.PandoricShardSmallBase3Model;
@@ -51,6 +52,7 @@ public class PandoricShardTileEntityRenderer extends TileEntityRenderer<Pandoric
 	public static final ResourceLocation MEDIUM_BASE_TEXTURE = new ResourceLocation(Reference.MODID, "textures/tile/pandoric_shard/pandoric_shard_medium_base.png");
 	public static final ResourceLocation MEDIUM_BASE_TEXTURE2 = new ResourceLocation(Reference.MODID, "textures/tile/pandoric_shard/pandoric_shard_medium_base2.png");
 	public static final ResourceLocation MEDIUM_BASE_TEXTURE3 = new ResourceLocation(Reference.MODID, "textures/tile/pandoric_shard/pandoric_shard_medium_base3.png");
+	public static final ResourceLocation MEDIUM_BASE_TEXTURE4 = new ResourceLocation(Reference.MODID, "textures/tile/pandoric_shard/pandoric_shard_medium_base4.png");
 	private static PandoricShardSmallBaseModel pandoricShardBaseModelSmall;
 	private static PandoricShardSmallBase2Model pandoricShardBaseModel2Small;
 	private static PandoricShardSmallBase3Model pandoricShardBaseModel3Small;
@@ -58,6 +60,7 @@ public class PandoricShardTileEntityRenderer extends TileEntityRenderer<Pandoric
 	private static PandoricShardMediumBaseModel pandoricShardBaseModelMedium;
 	private static PandoricShardMediumBase2Model pandoricShardBaseModel2Medium;
 	private static PandoricShardMediumBase3Model pandoricShardBaseModel3Medium;
+	private static PandoricShardMediumBase4Model pandoricShardBaseModel4Medium;
 	private static SmallGearModel smallGearModel;
 	private static MediumGearModel mediumGearModel;
 	private static BigGearModel bigGearModel;
@@ -75,6 +78,7 @@ public class PandoricShardTileEntityRenderer extends TileEntityRenderer<Pandoric
 		pandoricShardBaseModelMedium = new PandoricShardMediumBaseModel();
 		pandoricShardBaseModel2Medium = new PandoricShardMediumBase2Model();
 		pandoricShardBaseModel3Medium = new PandoricShardMediumBase3Model();
+		pandoricShardBaseModel4Medium = new PandoricShardMediumBase4Model();
 		smallGearModel = new SmallGearModel();
 		mediumGearModel = new MediumGearModel();
 		bigGearModel = new BigGearModel();
@@ -497,6 +501,57 @@ public class PandoricShardTileEntityRenderer extends TileEntityRenderer<Pandoric
 				matrixStackIn.push();
 				matrixStackIn.translate(pixelSize * 0.5D, pixelSize * 19.1D, pixelSize * 5.5D);
 				matrixStackIn.rotate(Vector3f.ZN.rotationDegrees((float) (animationProgress * (Math.PI * 6))));
+				renderSmallGear(matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn);
+				matrixStackIn.pop();
+				break;
+			case 4:
+				matrixStackIn.push();
+				pandoricShardBaseModel4Medium.decoration.rotateAngleZ = (float) (Math.cos(animationProgress * 0.1D) * 0.1F + Math.toRadians(-25));
+				pandoricShardBaseModel4Medium.decoration_1.rotateAngleZ = (float) (Math.cos(animationProgress * 0.1D) * -0.1F + Math.toRadians(25));
+				pandoricShardBaseModel4Medium.decoration_2.rotateAngleX = (float) (Math.cos(animationProgress * 0.1D) * -0.1F + Math.toRadians(25));
+				pandoricShardBaseModel4Medium.decoration_3.rotateAngleX = (float) (Math.cos(animationProgress * 0.1D) * 0.1F + Math.toRadians(-25));
+				IVertexBuilder builderBase3 = bufferIn.getBuffer(RenderType.getEntityCutoutNoCull(MEDIUM_BASE_TEXTURE4));
+				pandoricShardBaseModel4Medium.base.render(matrixStackIn, builderBase3, combinedLightIn, combinedOverlayIn);
+				matrixStackIn.pop();
+				
+				matrixStackIn.push();
+				matrixStackIn.translate(pixelSize * -1.5D, (pixelSize * 14.5D) + Math.cos(animationProgress * 0.1D) * 0.05D, pixelSize * -3.5D);
+				matrixStackIn.scale(coreScaleValue, coreScaleValue, coreScaleValue);
+				matrixStackIn.rotate(Vector3f.ZN.rotationDegrees((float) (animationProgress * (Math.PI / 2))));
+				matrixStackIn.rotate(Vector3f.XN.rotationDegrees((float) (animationProgress * (Math.PI / 2))));
+				matrixStackIn.rotate(Vector3f.YN.rotationDegrees((float) (animationProgress * (Math.PI / 2))));
+				renderCore(matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn);
+				matrixStackIn.pop();
+				
+				matrixStackIn.push();
+				matrixStackIn.translate(pixelSize * 3.5D, pixelSize * 18.0D, pixelSize * 3.5D);
+				renderPump(matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn, animationProgress);
+				matrixStackIn.pop();
+				
+				matrixStackIn.push();
+				matrixStackIn.translate(pixelSize * -6.5D, pixelSize * 16.55D, pixelSize * 2.3D);
+				matrixStackIn.rotate(Vector3f.YN.rotationDegrees(90F));
+				matrixStackIn.rotate(Vector3f.ZN.rotationDegrees((float) (-animationProgress * (Math.PI))));
+				renderBigThinGear(matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn);
+				matrixStackIn.pop();
+				
+				matrixStackIn.push();
+				matrixStackIn.translate(pixelSize * -2.5D, pixelSize * 14.8D, pixelSize * 4.5D);
+				matrixStackIn.rotate(Vector3f.ZN.rotationDegrees((float) (animationProgress * (Math.PI * 2))));
+				renderMediumGear(matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn);
+				matrixStackIn.pop();
+				
+				matrixStackIn.push();
+				matrixStackIn.translate(pixelSize * 4.5D, pixelSize * 22.5D, pixelSize * -1.5D);
+				matrixStackIn.rotate(Vector3f.XP.rotationDegrees(90F));
+				matrixStackIn.rotate(Vector3f.ZN.rotationDegrees((float) (animationProgress * (Math.PI * 2))));
+				renderMediumGear(matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn);
+				matrixStackIn.pop();
+				
+				matrixStackIn.push();
+				matrixStackIn.translate(pixelSize * 4.5D, pixelSize * 21.5D, pixelSize * -4.0D);
+				matrixStackIn.rotate(Vector3f.XP.rotationDegrees(90F));
+				matrixStackIn.rotate(Vector3f.ZN.rotationDegrees((float) (-animationProgress * (Math.PI * 6))));
 				renderSmallGear(matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn);
 				matrixStackIn.pop();
 			}
