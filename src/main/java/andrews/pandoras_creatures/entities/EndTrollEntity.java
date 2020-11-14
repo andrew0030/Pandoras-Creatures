@@ -46,6 +46,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
+import net.minecraftforge.event.ForgeEventFactory;
 
 public class EndTrollEntity extends AnimatedCreatureEntity
 {	
@@ -201,7 +202,14 @@ public class EndTrollEntity extends AnimatedCreatureEntity
 		//Breaks Chorus Plants
 		if((this.ticksExisted % 10) == 0)
 		{
-			breakChorusBlocks(this.getBoundingBox().grow(2, 0, 2), this.getEntityWorld());
+			if(!this.world.isRemote)
+			{
+				if(ForgeEventFactory.getMobGriefingEvent(this.world, this))
+				{
+					System.out.println("Called");
+					breakChorusBlocks(this.getBoundingBox().grow(2, 0, 2), this.getEntityWorld());
+				}
+			}
 		}
 	}
 	
@@ -349,7 +357,7 @@ public class EndTrollEntity extends AnimatedCreatureEntity
 	 */
 	private void screamBlockBreaking(AxisAlignedBB aabb, World world)
     {
-		if(!this.getEntityWorld().isRemote)
+		if(!this.getEntityWorld().isRemote && ForgeEventFactory.getMobGriefingEvent(this.world, this))
 		{
 	        for(int x = MathHelper.floor(aabb.minX); x < MathHelper.floor(aabb.maxX); ++x)
 	        {
