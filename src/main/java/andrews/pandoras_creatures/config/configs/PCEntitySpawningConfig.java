@@ -175,7 +175,7 @@ public class PCEntitySpawningConfig
 					crabDictionaryBiomeBlacklist = subscriber.subscribe(builder
 					.define("crabDictionaryBiomeBlacklist", ""));
 					crabDictionaryTags = subscriber.subscribe(builder
-					.define("crabDictionaryTags", ""));
+					.define("crabDictionaryTags", "BEACH"));
 					builder.push("Dictionary");
 						crabDictionaryWeight = subscriber.subscribe(builder
 						.defineInRange("crabDictionaryWeight", 400, 1, 1000));
@@ -191,7 +191,7 @@ public class PCEntitySpawningConfig
 					seahorseDictionaryBiomeBlacklist = subscriber.subscribe(builder
 					.define("seahorseDictionaryBiomeBlacklist", ""));
 					seahorseDictionaryTags = subscriber.subscribe(builder
-					.define("seahorseDictionaryTags", ""));
+					.define("seahorseDictionaryTags", "OCEAN"));
 					builder.push("Dictionary");
 						seahorseDictionaryWeight = subscriber.subscribe(builder
 						.defineInRange("seahorseDictionaryWeight", 10, 1, 1000));
@@ -207,7 +207,7 @@ public class PCEntitySpawningConfig
 					acidicArchvineDictionaryBiomeBlacklist = subscriber.subscribe(builder
 					.define("acidicArchvineDictionaryBiomeBlacklist", ""));
 					acidicArchvineDictionaryTags = subscriber.subscribe(builder
-					.define("acidicArchvineDictionaryTags", ""));
+					.define("acidicArchvineDictionaryTags", "NETHER,JUNGLE"));
 					builder.push("Dictionary");
 						acidicArchvineDictionaryWeight = subscriber.subscribe(builder
 						.defineInRange("acidicArchvineDictionaryWeight", 10, 1, 1000));
@@ -223,7 +223,7 @@ public class PCEntitySpawningConfig
 					bufflonDictionaryBiomeBlacklist = subscriber.subscribe(builder
 					.define("bufflonDictionaryBiomeBlacklist", ""));
 					bufflonDictionaryTags = subscriber.subscribe(builder
-					.define("bufflonDictionaryTags", ""));
+					.define("bufflonDictionaryTags", "COLD,SNOWY"));
 					builder.push("Dictionary");
 						bufflonDictionaryWeight = subscriber.subscribe(builder
 						.defineInRange("bufflonDictionaryWeight", 3, 1, 1000));
