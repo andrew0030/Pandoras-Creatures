@@ -2,25 +2,25 @@ package andrews.pandoras_creatures.entities.bases;
 
 import andrews.pandoras_creatures.util.interfaces.IBucketableEntity;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.world.World;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.datasync.EntityDataSerializers;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 
 public abstract class BucketableMobEntity extends AnimatedWaterMobEntity implements IBucketableEntity
 {
-    private static final DataParameter<Boolean> FROM_BUCKET = EntityDataManager.createKey(BucketableMobEntity.class, DataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(BucketableMobEntity.class, EntityDataSerializers.BOOLEAN);
 
-    public BucketableMobEntity(EntityType<? extends BucketableMobEntity> type, World world)
+    public BucketableMobEntity(EntityType<? extends BucketableMobEntity> type, Level world)
     {
         super(type, world);
     }
@@ -28,10 +28,10 @@ public abstract class BucketableMobEntity extends AnimatedWaterMobEntity impleme
     /**
      * Registers the data of the DataManager
      */
-    protected void registerData()
+    protected void defineSynchedData()
     {
-        super.registerData();
-        this.dataManager.register(FROM_BUCKET, false);
+        super.defineSynchedData();
+        this.entityData.define(FROM_BUCKET, false);
     }
 
     /**
@@ -42,19 +42,19 @@ public abstract class BucketableMobEntity extends AnimatedWaterMobEntity impleme
     {
         if(this.hasCustomName())
         {
-            bucket.setDisplayName(this.getCustomName());
+            bucket.setHoverName(this.getCustomName());
         }
     }
 
-    public void writeAdditional(CompoundNBT compound)
+    public void addAdditionalSaveData(CompoundTag compound)
     {
-        super.writeAdditional(compound);
+        super.addAdditionalSaveData(compound);
         compound.putBoolean("FromBucket", this.isFromBucket());
     }
 
-    public void readAdditional(CompoundNBT compound)
+    public void readAdditionalSaveData(CompoundTag compound)
     {
-        super.readAdditional(compound);
+        super.readAdditionalSaveData(compound);
         this.setFromBucket(compound.getBoolean("FromBucket"));
     }
 
@@ -63,7 +63,7 @@ public abstract class BucketableMobEntity extends AnimatedWaterMobEntity impleme
      */
     public boolean isFromBucket()
     {
-        return this.dataManager.get(FROM_BUCKET);
+        return this.entityData.get(FROM_BUCKET);
     }
 
     /**
@@ -72,7 +72,7 @@ public abstract class BucketableMobEntity extends AnimatedWaterMobEntity impleme
      */
     public void setFromBucket(boolean value)
     {
-        this.dataManager.set(FROM_BUCKET, value);
+        this.entityData.set(FROM_BUCKET, value);
     }
 
     /**
@@ -81,34 +81,34 @@ public abstract class BucketableMobEntity extends AnimatedWaterMobEntity impleme
      * @param hand - The players hand that got used to interact
      */
     @Override
-    protected ActionResultType func_230254_b_(PlayerEntity player, Hand hand)
+    protected InteractionResult mobInteract(Player player, InteractionHand hand)
     {
-        ItemStack itemstack = player.getHeldItem(hand);
+        ItemStack itemstack = player.getItemInHand(hand);
         if(itemstack.getItem() == Items.WATER_BUCKET && this.isAlive())
         {
-            this.playSound(SoundEvents.ITEM_BUCKET_FILL_FISH, 1.0F, 1.0F);
+            this.playSound(SoundEvents.BUCKET_FILL_FISH, 1.0F, 1.0F);
             itemstack.shrink(1);
             ItemStack itemstack1 = this.getBucket();
             this.setBucketData(itemstack1);
-            if(!this.world.isRemote)
+            if(!this.level.isClientSide)
             {
-                CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayerEntity)player, itemstack1);
+                CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer)player, itemstack1);
             }
 
             if(itemstack.isEmpty())
             {
-                player.setHeldItem(hand, itemstack1);
+                player.setItemInHand(hand, itemstack1);
             }
-            else if(!player.inventory.addItemStackToInventory(itemstack1))
+            else if(!player.addItem(itemstack1))
             {
-                player.dropItem(itemstack1, false);
+                player.drop(itemstack1, false);
             }
             this.remove();
-            return ActionResultType.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
         else
         {
-            return super.func_230254_b_(player, hand);
+            return super.mobInteract(player, hand);
         }
     }
 
@@ -118,7 +118,7 @@ public abstract class BucketableMobEntity extends AnimatedWaterMobEntity impleme
      * @return - Returns if this entity can despawn
      */
     @Override
-    public boolean canDespawn(double distanceToClosestPlayer)
+    public boolean removeWhenFarAway(double distanceToClosestPlayer)
     {
         return !this.isFromBucket() && !this.hasCustomName();
     }
@@ -128,7 +128,7 @@ public abstract class BucketableMobEntity extends AnimatedWaterMobEntity impleme
      * @return - True if this entity is prevented from despawning
      */
     @Override
-    public boolean preventDespawn()
+    public boolean requiresCustomPersistence()
     {
     	return this.isFromBucket();
     } 
