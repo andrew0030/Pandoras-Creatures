@@ -1,32 +1,32 @@
 package andrews.pandoras_creatures.entities.bases;
 
-import javax.annotation.Nullable;
-
 import andrews.pandoras_creatures.util.animation.Animation;
 import andrews.pandoras_creatures.util.network.NetworkUtil;
-import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.item.ExperienceOrbEntity;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.GameRules;
-import net.minecraft.world.World;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.ForgeEventFactory;
+
+import javax.annotation.Nullable;
 
 /**
  * Copied Library Functions and Classes from Endergetic
  * see {@link <a href="https://www.curseforge.com/minecraft/mc-mods/endergetic"> Mod Page</a>}.
  * @author SmellyModder(Luke Tonon)
  */
-public abstract class AnimatedCreatureEntity extends CreatureEntity implements IAnimatedEntity
+public abstract class AnimatedCreatureEntity extends PathfinderMob implements IAnimatedEntity
 {
 	private Animation animation = BLANK_ANIMATION;
 	private int animationTick;
 	private int animationDeathTime;
 
-	public AnimatedCreatureEntity(EntityType<? extends CreatureEntity> type, World worldIn)
+	public AnimatedCreatureEntity(EntityType<? extends PathfinderMob> type, Level worldIn)
 	{
 		super(type, worldIn);
 	}
@@ -48,29 +48,29 @@ public abstract class AnimatedCreatureEntity extends CreatureEntity implements I
 	}
 	
 	@Override
-	protected void onDeathUpdate()
+	protected void tickDeath()
 	{
 		if(this.getDeathAnimation() != null)
     	{
-			if(!this.isAnimationPlaying(this.getDeathAnimation()) && !this.getEntityWorld().isRemote())
+			if(!this.isAnimationPlaying(this.getDeathAnimation()) && !this.getCommandSenderWorld().isClientSide())
 			{
 				NetworkUtil.setPlayingAnimationMessage(this, this.getDeathAnimation());
 			}
     	}
 		else
 		{
-			super.onDeathUpdate();
+			super.tickDeath();
 		}
 	}
 	
 	@Override
-	public boolean attackEntityFrom(DamageSource source, float amount)
+	public boolean hurt(DamageSource source, float amount)
 	{
 		if(!this.isWorldRemote() && this.getHurtAnimation() != null && this.isNoAnimationPlaying())
 		{
 			NetworkUtil.setPlayingAnimationMessage(this, this.getHurtAnimation());
 		}
-		return super.attackEntityFrom(source, amount);
+		return super.hurt(source, amount);
 	}
 	
 	/**
@@ -107,7 +107,7 @@ public abstract class AnimatedCreatureEntity extends CreatureEntity implements I
 	 */
 	public boolean isWorldRemote()
 	{
-		return this.getEntityWorld().isRemote;
+		return this.getCommandSenderWorld().isClientSide;
 	}
 	
 	/**
@@ -160,30 +160,30 @@ public abstract class AnimatedCreatureEntity extends CreatureEntity implements I
 		++this.animationDeathTime;
 		if(this.animationDeathTime == deathTime)
 		{
-			if(!this.world.isRemote && (this.isPlayer() || this.recentlyHit > 0 && this.canDropLoot() && this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT)))
+			if(!this.level.isClientSide && (this.isAlwaysExperienceDropper() || this.lastHurtByPlayerTime > 0 && this.shouldDropExperience() && this.level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)))
 			{
-				int i = this.getExperiencePoints(this.attackingPlayer);
+				int i = this.getExperienceReward(this.lastHurtByPlayer);
 
-				i = ForgeEventFactory.getExperienceDrop(this, this.attackingPlayer, i);
+				i = ForgeEventFactory.getExperienceDrop(this, this.lastHurtByPlayer, i);
 				while(i > 0)
 				{
-					int j = ExperienceOrbEntity.getXPSplit(i);
+					int j = ExperienceOrb.getExperienceValue(i);
 					i -= j;
-					this.world.addEntity(new ExperienceOrbEntity(this.world, this.getPosX(), this.getPosY(), this.getPosZ(), j));
+					this.level.addFreshEntity(new ExperienceOrb(this.level, this.getX(), this.getY(), this.getZ(), j));
 				}
 			}
 			
-			this.remove();
+			this.remove(RemovalReason.KILLED);
 
 			for(int k = 0; k < 20; ++k)
 			{
-				double d2 = this.rand.nextGaussian() * 0.02D;
-				double d0 = this.rand.nextGaussian() * 0.02D;
-				double d1 = this.rand.nextGaussian() * 0.02D;
-				this.world.addParticle(ParticleTypes.POOF,
-						this.getPosX() + (double) (this.rand.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(),
-						this.getPosY() + (double) (this.rand.nextFloat() * this.getHeight()), this.getPosZ()
-								  + (double) (this.rand.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(), d2, d0, d1);
+				double d2 = this.random.nextGaussian() * 0.02D;
+				double d0 = this.random.nextGaussian() * 0.02D;
+				double d1 = this.random.nextGaussian() * 0.02D;
+				this.level.addParticle(ParticleTypes.POOF,
+						this.getX() + (double) (this.random.nextFloat() * this.getBbWidth() * 2.0F) - (double) this.getBbWidth(),
+						this.getY() + (double) (this.random.nextFloat() * this.getBbHeight()), this.getZ()
+								  + (double) (this.random.nextFloat() * this.getBbWidth() * 2.0F) - (double) this.getBbWidth(), d2, d0, d1);
 			}
 		}
 	}
@@ -193,7 +193,7 @@ public abstract class AnimatedCreatureEntity extends CreatureEntity implements I
 	 */
 	public boolean isEntityMoving()
 	{
-		if(this.prevPosX != this.getPosX() || this.prevPosY != this.getPosY() || this.prevPosZ != this.getPosZ())
+		if(this.xo != this.getX() || this.yo != this.getY() || this.zo != this.getZ())
 		{
 			return true;
 		}
@@ -208,7 +208,7 @@ public abstract class AnimatedCreatureEntity extends CreatureEntity implements I
 	 */
 	public boolean isEntityMovingHorizontaly()
 	{
-		if(this.prevPosX != this.getPosX() || this.prevPosZ != this.getPosZ())
+		if(this.xo != this.getX() || this.zo != this.getZ())
 		{
 			return true;
 		}
@@ -225,9 +225,9 @@ public abstract class AnimatedCreatureEntity extends CreatureEntity implements I
 	 * @param pathZ - z location of the path
 	 * @return - A vector containing the mid-position of the entity's path end location and its current location
 	 */
-	public Vector3d getMoveControllerPathDistance(double pathX, double pathY, double pathZ)
+	public Vec3 getMoveControllerPathDistance(double pathX, double pathY, double pathZ)
 	{
-		return new Vector3d(pathX - this.getPosX(), pathY - this.getPosY(), pathY - this.getPosY());
+		return new Vec3(pathX - this.getX(), pathY - this.getY(), pathY - this.getY());
 	}
 	
 	/**
@@ -235,8 +235,8 @@ public abstract class AnimatedCreatureEntity extends CreatureEntity implements I
 	 * @param vec3d - The distance vector
 	 * @return - A vector that gets the target angle for a path's distance
 	 */
-	public float getTargetAngleForPathDistance(Vector3d vec3d)
+	public float getTargetAngleForPathDistance(Vec3 vec3d)
 	{
-		return (float) (MathHelper.atan2(vec3d.z, vec3d.x) * (double) (180F / (float) Math.PI)) - 90F;
+		return (float) (Mth.atan2(vec3d.z, vec3d.x) * (double) (180F / (float) Math.PI)) - 90F;
 	}
 }
