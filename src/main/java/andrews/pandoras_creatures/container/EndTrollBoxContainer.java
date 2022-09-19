@@ -2,35 +2,41 @@ package andrews.pandoras_creatures.container;
 
 import andrews.pandoras_creatures.container.slot.EndTrollBoxSlot;
 import andrews.pandoras_creatures.registry.PCContainers;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.entity.player.Player;
+import net.minecraft.entity.player.Inventory;
+import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 
-public class EndTrollBoxContainer extends Container
+public class EndTrollBoxContainer extends AbstractContainerMenu
 {
-	private final IInventory inventory;
+	private final Container inventory;
 
-	public EndTrollBoxContainer(final int windowId, final PlayerInventory playerInventory, PacketBuffer data)
+	public EndTrollBoxContainer(final int windowId, final Inventory playerInventory, FriendlyByteBuf data)
 	{
 		this(windowId, playerInventory);
 	}
 	
-	public EndTrollBoxContainer(int windowId, PlayerInventory playerInv)
+	public EndTrollBoxContainer(int windowId, Inventory playerInv)
 	{
 		this(windowId, playerInv, new Inventory(54));
 	}
 
-	public EndTrollBoxContainer(int windowId, PlayerInventory playerInv, IInventory inventory)
+	public EndTrollBoxContainer(int windowId, Inventory playerInv, Container inventory)
 	{
 		super(PCContainers.END_TROLL_BOX.get(), windowId);
-		assertInventorySize(inventory, 54);
+		checkContainerSize(inventory, 54);
 		this.inventory = inventory;
-		inventory.openInventory(playerInv.player);
+		inventory.startOpen(playerInv.player);
 
 		//End Troll Box Slots
 		for(int y = 0; y < 6; ++y)
@@ -56,39 +62,39 @@ public class EndTrollBoxContainer extends Container
 	}
 
 	@Override
-	public boolean canInteractWith(PlayerEntity playerIn)
+	public boolean stillValid(Player playerIn)
 	{
-		return this.inventory.isUsableByPlayer(playerIn);
+		return this.inventory.stillValid(playerIn);
 	}
 
 	@Override
-	public ItemStack transferStackInSlot(PlayerEntity playerIn, int index)
+	public ItemStack quickMoveStack(Player playerIn, int index)
 	{
 		ItemStack itemstack = ItemStack.EMPTY;
-		Slot slot = this.inventorySlots.get(index);
-		if(slot != null && slot.getHasStack())
+		Slot slot = this.slots.get(index);
+		if(slot != null && slot.hasItem())
 		{
-			ItemStack stackInSlot = slot.getStack();
+			ItemStack stackInSlot = slot.getItem();
 			itemstack = stackInSlot.copy();
-			if(index < this.inventory.getSizeInventory())
+			if(index < this.inventory.getContainerSize())
 			{
-				if(!this.mergeItemStack(stackInSlot, this.inventory.getSizeInventory(), this.inventorySlots.size(), true))
+				if(!this.moveItemStackTo(stackInSlot, this.inventory.getContainerSize(), this.slots.size(), true))
 				{
 					return ItemStack.EMPTY;
 				}
 			}
-			else if(!this.mergeItemStack(stackInSlot, 0, this.inventory.getSizeInventory(), false))
+			else if(!this.moveItemStackTo(stackInSlot, 0, this.inventory.getContainerSize(), false))
 			{
 				return ItemStack.EMPTY;
 			}
 
 			if(stackInSlot.isEmpty())
 			{
-				slot.putStack(ItemStack.EMPTY);
+				slot.set(ItemStack.EMPTY);
 			}
 			else
 			{
-				slot.onSlotChanged();
+				slot.setChanged();
 			}
 		}
 		
@@ -96,9 +102,9 @@ public class EndTrollBoxContainer extends Container
 	}
 	
 	@Override
-	public void onContainerClosed(PlayerEntity playerIn)
+	public void removed(Player playerIn)
 	{
-		super.onContainerClosed(playerIn);
-		this.inventory.closeInventory(playerIn);
+		super.removed(playerIn);
+		this.inventory.stopOpen(playerIn);
 	}
 }
