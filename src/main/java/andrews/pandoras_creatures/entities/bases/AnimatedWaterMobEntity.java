@@ -1,20 +1,20 @@
 package andrews.pandoras_creatures.entities.bases;
 
-import net.minecraft.entity.CreatureAttribute;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.pathfinding.PathNodeType;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.phys.shapes.Shapes;
 
 public abstract class AnimatedWaterMobEntity extends AnimatedCreatureEntity
 {
-	protected AnimatedWaterMobEntity(EntityType<? extends AnimatedWaterMobEntity> type, World world)
+	protected AnimatedWaterMobEntity(EntityType<? extends AnimatedWaterMobEntity> type, Level world)
 	{
 		super(type, world);
-		this.setPathPriority(PathNodeType.WATER, 0.0F);
+		this.getPathfindingMalus(BlockPathTypes.WATER);
 	}
 
 	@Override
@@ -24,22 +24,22 @@ public abstract class AnimatedWaterMobEntity extends AnimatedCreatureEntity
 	}
 
 	@Override
-	public CreatureAttribute getCreatureAttribute()
+	public MobType getMobType()
 	{
-		return CreatureAttribute.WATER;
+		return MobType.WATER;
 	}
 
 	@Override
-	public boolean isNotColliding(IWorldReader worldIn)
+	public boolean checkSpawnObstruction(LevelReader worldIn)
 	{
-		return worldIn.checkNoEntityCollision(this, VoxelShapes.create(this.getBoundingBox()));
+		return worldIn.isUnobstructed(this, Shapes.create(this.getBoundingBox()));
 	}
 
 	/**
 	 * Get number of ticks, at least during which the living entity will be silent.
 	 */
 	@Override
-	public int getTalkInterval()
+	public int getAmbientSoundInterval()
 	{
 		return 120;
 	}
@@ -48,25 +48,25 @@ public abstract class AnimatedWaterMobEntity extends AnimatedCreatureEntity
 	 * Get the experience points the entity currently has.
 	 */
 	@Override
-	protected int getExperiencePoints(PlayerEntity player)
+	protected int getExperienceReward(Player player)
 	{
-		return 1 + this.world.rand.nextInt(3);
+		return 1 + this.level.random.nextInt(3);
 	}
 
 	protected void updateAir(int air)
 	{
-		if(this.isAlive() && !this.isInWaterOrBubbleColumn())
+		if(this.isAlive() && !this.isInWaterOrBubble())
 		{
-			this.setAir(air - 1);
-			if(this.getAir() == -20)
+			this.setAirSupply(air - 1);
+			if(this.getAirSupply() == -20)
 			{
-				this.setAir(0);
-				this.attackEntityFrom(DamageSource.DROWN, 2.0F);
+				this.setAirSupply(0);
+				this.hurt(DamageSource.DROWN, 2.0F);
 			}
 		}
 		else
 		{
-			this.setAir(300);
+			this.setAirSupply(300);
 		}
 	}
 
@@ -76,19 +76,19 @@ public abstract class AnimatedWaterMobEntity extends AnimatedCreatureEntity
 	@Override
 	public void baseTick()
 	{
-		int i = this.getAir();
+		int i = this.getAirSupply();
 	    super.baseTick();
 	    this.updateAir(i);
 	}
 
 	@Override
-	public boolean isPushedByWater()
+	public boolean isPushedByFluid()
 	{
 		return false;
 	}
 
 	@Override
-	public boolean canBeLeashedTo(PlayerEntity player)
+	public boolean canBeLeashed(Player player)
 	{
 		return false;
 	}
