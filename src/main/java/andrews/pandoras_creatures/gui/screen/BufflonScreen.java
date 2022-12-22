@@ -114,7 +114,7 @@ public class BufflonScreen extends ContainerScreen<BufflonContainer>
 	        matrix4f.setIdentity();
 	        matrix4f.mul(Matrix4f.makeScale(1.0F, -1.0F, 1.0F));
 	        matrix4f.mul(Vector3f.XN.rotationDegrees(90.0F));
-	        RenderHelper.setupLevelDiffuseLighting(matrix4f);
+	        RenderHelper.setupGui3DDiffuseLighting();
 		    switch(attachmentToRender) {
 			case 1:
 				Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(new ItemStack(PCItems.BUFFLON_PLAYER_SEATS.get()), x + 51, y + 102);

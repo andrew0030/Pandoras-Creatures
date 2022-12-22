@@ -6,8 +6,10 @@ import com.mojang.blaze3d.vertex.VertexBuilderUtils;
 
 import andrews.pandoras_creatures.entities.render.util.PCRenderTypes;
 import andrews.pandoras_creatures.objects.blocks.PandoricShardBlock;
+import andrews.pandoras_creatures.registry.PCBlocks;
 import andrews.pandoras_creatures.tile_entities.PandoricShardTileEntity;
 import andrews.pandoras_creatures.tile_entities.model.pandoric_shard.CoreModel;
+import andrews.pandoras_creatures.tile_entities.model.pandoric_shard.PandoricShardLargeBaseModel;
 import andrews.pandoras_creatures.tile_entities.model.pandoric_shard.PandoricShardMediumBase2Model;
 import andrews.pandoras_creatures.tile_entities.model.pandoric_shard.PandoricShardMediumBase3Model;
 import andrews.pandoras_creatures.tile_entities.model.pandoric_shard.PandoricShardMediumBase4Model;
@@ -29,6 +31,8 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.state.properties.AttachFace;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
@@ -53,6 +57,7 @@ public class PandoricShardTileEntityRenderer extends TileEntityRenderer<Pandoric
 	public static final ResourceLocation MEDIUM_BASE_TEXTURE2 = new ResourceLocation(Reference.MODID, "textures/tile/pandoric_shard/pandoric_shard_medium_base2.png");
 	public static final ResourceLocation MEDIUM_BASE_TEXTURE3 = new ResourceLocation(Reference.MODID, "textures/tile/pandoric_shard/pandoric_shard_medium_base3.png");
 	public static final ResourceLocation MEDIUM_BASE_TEXTURE4 = new ResourceLocation(Reference.MODID, "textures/tile/pandoric_shard/pandoric_shard_medium_base4.png");
+	public static final ResourceLocation LARGE_BASE_TEXTURE = new ResourceLocation(Reference.MODID, "textures/tile/pandoric_shard/pandoric_shard_large_base.png");
 	private static PandoricShardSmallBaseModel pandoricShardBaseModelSmall;
 	private static PandoricShardSmallBase2Model pandoricShardBaseModel2Small;
 	private static PandoricShardSmallBase3Model pandoricShardBaseModel3Small;
@@ -61,6 +66,7 @@ public class PandoricShardTileEntityRenderer extends TileEntityRenderer<Pandoric
 	private static PandoricShardMediumBase2Model pandoricShardBaseModel2Medium;
 	private static PandoricShardMediumBase3Model pandoricShardBaseModel3Medium;
 	private static PandoricShardMediumBase4Model pandoricShardBaseModel4Medium;
+	private static PandoricShardLargeBaseModel pandoricShardBaseModelLarge;
 	private static SmallGearModel smallGearModel;
 	private static MediumGearModel mediumGearModel;
 	private static BigGearModel bigGearModel;
@@ -79,6 +85,7 @@ public class PandoricShardTileEntityRenderer extends TileEntityRenderer<Pandoric
 		pandoricShardBaseModel2Medium = new PandoricShardMediumBase2Model();
 		pandoricShardBaseModel3Medium = new PandoricShardMediumBase3Model();
 		pandoricShardBaseModel4Medium = new PandoricShardMediumBase4Model();
+		pandoricShardBaseModelLarge = new PandoricShardLargeBaseModel();
 		smallGearModel = new SmallGearModel();
 		mediumGearModel = new MediumGearModel();
 		bigGearModel = new BigGearModel();
@@ -554,6 +561,63 @@ public class PandoricShardTileEntityRenderer extends TileEntityRenderer<Pandoric
 				matrixStackIn.rotate(Vector3f.ZN.rotationDegrees((float) (-animationProgress * (Math.PI * 6))));
 				renderSmallGear(matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn);
 				matrixStackIn.pop();
+			}
+			break;
+		case 3:
+			switch(tileEntityIn.getShardVariant())
+			{
+			default:
+				break;
+			case 1:
+				matrixStackIn.push();
+				IVertexBuilder builderBase = bufferIn.getBuffer(RenderType.getEntityCutoutNoCull(LARGE_BASE_TEXTURE));
+				pandoricShardBaseModelLarge.base.render(matrixStackIn, builderBase, combinedLightIn, combinedOverlayIn);
+				matrixStackIn.pop();
+				
+				matrixStackIn.push();
+				matrixStackIn.translate(pixelSize * 2.5D, (pixelSize * 14.5D) + Math.cos(animationProgress * 0.1D) * 0.05D, pixelSize * 1.5D);
+				matrixStackIn.scale(coreScaleValue, coreScaleValue, coreScaleValue);
+				matrixStackIn.rotate(Vector3f.ZN.rotationDegrees((float) (animationProgress * (Math.PI / 2))));
+				matrixStackIn.rotate(Vector3f.XN.rotationDegrees((float) (animationProgress * (Math.PI / 2))));
+				matrixStackIn.rotate(Vector3f.YN.rotationDegrees((float) (animationProgress * (Math.PI / 2))));
+				renderCore(matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn);
+				matrixStackIn.pop();
+				
+				matrixStackIn.push();
+				matrixStackIn.translate(pixelSize * -6.0D, pixelSize * 15.0D, pixelSize * 2.3D);
+				matrixStackIn.rotate(Vector3f.YN.rotationDegrees(90F));
+				matrixStackIn.rotate(Vector3f.ZN.rotationDegrees((float) (-animationProgress * (Math.PI))));
+				renderBigThinGear(matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn);
+				matrixStackIn.pop();
+				
+				matrixStackIn.push();
+				matrixStackIn.translate(pixelSize * 2.0D, pixelSize * 22.0D, pixelSize * -3.0D);
+				matrixStackIn.rotate(Vector3f.XN.rotationDegrees(90F));
+				matrixStackIn.rotate(Vector3f.ZN.rotationDegrees((float) (-animationProgress * (Math.PI))));
+				renderBigGear(matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn);
+				matrixStackIn.pop();
+				
+				matrixStackIn.push();
+				matrixStackIn.translate(pixelSize * 5.0D, pixelSize * 20.55D, pixelSize * 3.55D);
+				matrixStackIn.rotate(Vector3f.XP.rotationDegrees(90F));
+				matrixStackIn.rotate(Vector3f.ZN.rotationDegrees((float) (-animationProgress * (Math.PI * 2))));
+				renderMediumGear(matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn);
+				matrixStackIn.pop();
+				
+				matrixStackIn.push();
+				matrixStackIn.translate(pixelSize * 3.0D, pixelSize * 15.0D, pixelSize * -5.45D);
+				matrixStackIn.rotate(Vector3f.ZN.rotationDegrees((float) (-animationProgress * (Math.PI * 2))));
+				renderMediumGear(matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn);
+				matrixStackIn.pop();
+				break;
+			case 2:
+				
+				break;
+			case 3:
+				
+				break;
+			case 4:
+				
 			}
 		}
 		

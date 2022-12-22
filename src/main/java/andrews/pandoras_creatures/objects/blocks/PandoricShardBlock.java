@@ -188,6 +188,24 @@ public class PandoricShardBlock extends Block  implements IWaterLoggable
 					Vector3d smokeParticlePos3 = new Vector3d(0.85D, 0.2D, -0.05D);
 					smokeParticlePos3 = determineParticlePosition(smokeParticlePos3, face, direction);
 					worldIn.addParticle(ParticleTypes.SMOKE, pos.getX() + smokeParticlePos3.getX(), pos.getY() + smokeParticlePos3.getY(), pos.getZ() + smokeParticlePos3.getZ(), 0.0D, 0.0D, 0.0D);
+				}
+				break;
+			case 3:
+				switch(((PandoricShardTileEntity) worldIn.getTileEntity(pos)).getShardVariant())
+				{
+				default:
+				case 1:
+					Vector3d smokeParticlePos = new Vector3d(0.15D, 0.2D, 1.0D);
+					smokeParticlePos = determineParticlePosition(smokeParticlePos, face, direction);
+					worldIn.addParticle(ParticleTypes.SMOKE, pos.getX() + smokeParticlePos.getX(), pos.getY() + smokeParticlePos.getY(), pos.getZ() + smokeParticlePos.getZ(), 0.0D, 0.0D, 0.0D);
+					break;
+				case 2:
+					
+					break;
+				case 3:
+					
+					break;
+				case 4:
 					
 				}
 			}
