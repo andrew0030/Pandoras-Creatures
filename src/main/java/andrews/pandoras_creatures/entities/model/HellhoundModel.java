@@ -7,6 +7,7 @@ package andrews.pandoras_creatures.entities.model;
 
 import andrews.pandoras_creatures.entities.Hellhound;
 import andrews.pandoras_creatures.util.Reference;
+import andrews.pandoras_creatures.util.animation.AdvancedMeshDefinition;
 import andrews.pandoras_creatures.util.animation.AdvancedPartDefinition;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -29,9 +30,11 @@ public class HellhoundModel<T extends Hellhound> extends EntityModel<T>
 
     public static LayerDefinition createBodyLayer()
     {
-        MeshDefinition meshdefinition = new MeshDefinition();
-        PartDefinition partdefinition = meshdefinition.getRoot();
-        AdvancedPartDefinition body = new AdvancedPartDefinition("body", partdefinition.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, 7.5F, 0.25F, -0.1745F, 0.0F, 0.0F)));
+        System.out.println("Calling HellhoundModel#createLayer()");
+
+        AdvancedMeshDefinition meshdefinition = new AdvancedMeshDefinition();
+        AdvancedPartDefinition partdefinition = meshdefinition.getAdvancedRoot();
+        AdvancedPartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, 7.5F, 0.25F, -0.1745F, 0.0F, 0.0F));
         AdvancedPartDefinition cube_r1 = body.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(0, 0).addBox(-1.0F, -6.4771F, -0.0228F, 2.0F, 7.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 8.0F, -5.0F, -1.4835F, 0.0F, 0.0F));
         AdvancedPartDefinition cube_r2 = body.addOrReplaceChild("cube_r2", CubeListBuilder.create().texOffs(45, 40).addBox(0.0F, -4.0F, 0.0F, 0.0F, 4.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -0.75F, 2.0F, -0.4363F, 0.0F, 0.0F));
         AdvancedPartDefinition cube_r3 = body.addOrReplaceChild("cube_r3", CubeListBuilder.create().texOffs(57, 39).addBox(-1.0F, -3.0F, 0.0F, 1.0F, 3.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.5F, -0.75F, -1.0F, -0.4363F, 0.0F, 0.0F));
@@ -73,11 +76,14 @@ public class HellhoundModel<T extends Hellhound> extends EntityModel<T>
         AdvancedPartDefinition rightfrontlegpaw = rightfrontlegmid.addOrReplaceChild("rightfrontlegpaw", CubeListBuilder.create().texOffs(22, 59).mirror().addBox(-1.4128F, -1.1761F, -1.9962F, 3.0F, 2.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(0.1F, 7.7F, 0.95F, 0.2618F, 0.0F, 0.0F));
 
 
-        System.out.println(rightfrontlegpaw.getName() + " has parent = " + rightfrontlegpaw.hasParent());
-        System.out.println(rightfrontlegmid.getName() + " has parent = " + rightfrontlegmid.hasParent());
-        System.out.println(rightfrontlegtop.getName() + " has parent = " + rightfrontlegtop.hasParent());
-        System.out.println(body.getName() + " has parent = " + body.hasParent());
+//        System.out.println(rightfrontlegpaw.getName() + " has parent = " + rightfrontlegpaw.hasParent());
+//        System.out.println(rightfrontlegmid.getName() + " has parent = " + rightfrontlegmid.hasParent());
+//        System.out.println(rightfrontlegtop.getName() + " has parent = " + rightfrontlegtop.hasParent());
+//        System.out.println(body.getName() + " has parent = " + body.hasParent());
 
+        meshdefinition.getRoot().children.clear();
+        meshdefinition.getRoot().children.putAll(partdefinition.children);
+        System.out.println("[ROOT] child count pre .create() is: " + meshdefinition.getRoot().children.size());
 
         return LayerDefinition.create(meshdefinition, 64, 64);
     }
