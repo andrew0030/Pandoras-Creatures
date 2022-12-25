@@ -1,6 +1,8 @@
 {
     "pack": {
-    	"description": "Pandoras Creatures Resources",
-        "pack_format": 5
+        "description": "Pandoras Creatures Resources",
+        "pack_format": 12,
+        "forge:resource_pack_format": 12,
+        "forge:data_pack_format": 10
     }
 }
