@@ -15,7 +15,9 @@ import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
-import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.resources.ResourceLocation;
 
 public class HellhoundModel<T extends Hellhound> extends EntityModel<T>
@@ -30,10 +32,8 @@ public class HellhoundModel<T extends Hellhound> extends EntityModel<T>
 
     public static LayerDefinition createBodyLayer()
     {
-        System.out.println("Calling HellhoundModel#createLayer()");
-
-        AdvancedMeshDefinition meshdefinition = new AdvancedMeshDefinition();
-        AdvancedPartDefinition partdefinition = meshdefinition.getAdvancedRoot();
+        AdvancedMeshDefinition meshDefinition = new AdvancedMeshDefinition();
+        AdvancedPartDefinition partdefinition = meshDefinition.getAdvancedRoot();
         AdvancedPartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, 7.5F, 0.25F, -0.1745F, 0.0F, 0.0F));
         AdvancedPartDefinition cube_r1 = body.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(0, 0).addBox(-1.0F, -6.4771F, -0.0228F, 2.0F, 7.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 8.0F, -5.0F, -1.4835F, 0.0F, 0.0F));
         AdvancedPartDefinition cube_r2 = body.addOrReplaceChild("cube_r2", CubeListBuilder.create().texOffs(45, 40).addBox(0.0F, -4.0F, 0.0F, 0.0F, 4.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -0.75F, 2.0F, -0.4363F, 0.0F, 0.0F));
@@ -75,17 +75,9 @@ public class HellhoundModel<T extends Hellhound> extends EntityModel<T>
         AdvancedPartDefinition rightfrontlegmid = rightfrontlegtop.addOrReplaceChild("rightfrontlegmid", CubeListBuilder.create().texOffs(13, 53).mirror().addBox(-0.9F, -1.0F, 0.0F, 2.0F, 9.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-0.0863F, 4.5059F, 1.1121F, 0.1745F, 0.0F, 0.0F));
         AdvancedPartDefinition rightfrontlegpaw = rightfrontlegmid.addOrReplaceChild("rightfrontlegpaw", CubeListBuilder.create().texOffs(22, 59).mirror().addBox(-1.4128F, -1.1761F, -1.9962F, 3.0F, 2.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(0.1F, 7.7F, 0.95F, 0.2618F, 0.0F, 0.0F));
 
+//        System.out.println(body.hasParent());
 
-//        System.out.println(rightfrontlegpaw.getName() + " has parent = " + rightfrontlegpaw.hasParent());
-//        System.out.println(rightfrontlegmid.getName() + " has parent = " + rightfrontlegmid.hasParent());
-//        System.out.println(rightfrontlegtop.getName() + " has parent = " + rightfrontlegtop.hasParent());
-//        System.out.println(body.getName() + " has parent = " + body.hasParent());
-
-        meshdefinition.getRoot().children.clear();
-        meshdefinition.getRoot().children.putAll(partdefinition.children);
-        System.out.println("[ROOT] child count pre .create() is: " + meshdefinition.getRoot().children.size());
-
-        return LayerDefinition.create(meshdefinition, 64, 64);
+        return LayerDefinition.create(meshDefinition.overwriteRootChildren(partdefinition), 64, 64);
     }
 
     @Override
