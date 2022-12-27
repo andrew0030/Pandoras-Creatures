@@ -2,6 +2,7 @@ package andrews.pandoras_creatures.entities;
 
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.level.Level;
 
@@ -15,7 +16,7 @@ public class Hellhound extends Wolf
     @Override
     protected void registerGoals()
     {
-//        this.goalSelector.addGoal(1, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(1, new RandomLookAroundGoal(this));
     }
 
     @Override

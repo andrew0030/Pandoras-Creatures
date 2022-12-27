@@ -79,7 +79,10 @@ public class HellhoundModel<T extends Hellhound> extends EntityModel<T>
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch)
     {
-
+        this.body.xRot = ageInTicks / 10F;
+//        this.body.yRot = ageInTicks / 10F;
+//        this.body.zRot = ageInTicks / 10F;
+        this.neck.visible = false;
     }
 
     @Override

@@ -10,6 +10,8 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.phys.Vec3;
+import org.joml.Vector3f;
 
 public class HellhoundRenderer<E extends Hellhound> extends MobRenderer<E, HellhoundModel<E>>
 {
@@ -40,9 +42,16 @@ public class HellhoundRenderer<E extends Hellhound> extends MobRenderer<E, Hellh
 //        drawCross()...
 //        renderText(Component.literal("head"), xPos, yPos, zPos, 0.3F, poseStack, buffer, packedLight);
 
-        PCRenderUtil.renderCross(buffer, poseStack, 0, 255, 0, 0.0F, 1.0F, 0.0F, 0.2F);
-        PCRenderUtil.renderQuad(buffer, poseStack, 255, 0, 0, 0.0F, 1.0F, 0.0F, 0.04F);
-        PCRenderUtil.renderText(Component.literal("body"), 0.0F, 1.05F, 0.0F, 0.3F, poseStack, buffer, packedLight);
+//        Vector3f bodyPos = this.getModel().body.getModelSPace(entity, entity.yBodyRot);
+        Vector3f neckPos = this.getModel().neck.getModelSPace(entity, entity.yBodyRot);
+
+//        PCRenderUtil.renderCross(buffer, poseStack, 0, 255, 0, bodyPos.x, bodyPos.y, bodyPos.z, 0.2F);
+//        PCRenderUtil.renderQuad(buffer, poseStack, 255, 0, 0, bodyPos.x, bodyPos.y, bodyPos.z, 0.04F);
+//        PCRenderUtil.renderText(Component.literal("body"), bodyPos.x, (bodyPos.y + 0.05F), bodyPos.z, 0.3F, poseStack, buffer, packedLight);
+
+        PCRenderUtil.renderCross(buffer, poseStack, 0, 255, 0, neckPos.x, neckPos.y, neckPos.z, 0.2F);
+        PCRenderUtil.renderQuad(buffer, poseStack, 255, 0, 0, neckPos.x, neckPos.y, neckPos.z, 0.04F);
+        PCRenderUtil.renderText(Component.literal("neck"), neckPos.x, (neckPos.y + 0.05F), neckPos.z, 0.3F, poseStack, buffer, packedLight);
     }
 
     @Override
