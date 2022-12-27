@@ -29,14 +29,34 @@ public class HellhoundRenderer<E extends Hellhound> extends MobRenderer<E, Hellh
 
         // Rendering lines as a test
         VertexConsumer builder = buffer.getBuffer(PCRenderTypes.skeletonDebugLines());
-        drawLine(builder, poseStack, 255, 0, 0, 0F, 0F, 0F, 0F, 0.5F, 0F);
-        drawLine(builder, poseStack, 0, 255, 0, 0F, 0.5F, 0F, 0F, 1.0F, 0.5F);
-        drawLine(builder, poseStack, 0, 0, 255, 0F, 1.0F, 0.5F, 0F, 1.0F, 1.0F);
+//        drawLine(builder, poseStack, 255, 0, 0, 0F, 0F, 0F, 0F, 0.5F, 0F);
+//        drawLine(builder, poseStack, 0, 255, 0, 0F, 0.5F, 0F, 0F, 1.0F, 0.5F);
+//        drawLine(builder, poseStack, 0, 0, 255, 0F, 1.0F, 0.5F, 0F, 1.0F, 1.0F);
+//
+//        renderText(Component.literal("start"), 0.0F, 0.0F, 0.0F, 0.3F, poseStack, buffer, packedLight);
+//        renderText(Component.literal("segment_1"), 0.0F, 0.5F, 0.0F, 0.3F, poseStack, buffer, packedLight);
+//        renderText(Component.literal("segment_2"), 0.0F, 1.0F, 0.5F, 0.3F, poseStack, buffer, packedLight);
+//        renderText(Component.literal("end"), 0.0F, 1.0F, 1.0F, 0.3F, poseStack, buffer, packedLight);
 
-        renderText(Component.literal("start"), 0.0F, 0.0F, 0.0F, 0.3F, poseStack, buffer, packedLight);
-        renderText(Component.literal("segment_1"), 0.0F, 0.5F, 0.0F, 0.3F, poseStack, buffer, packedLight);
-        renderText(Component.literal("segment_2"), 0.0F, 1.0F, 0.5F, 0.3F, poseStack, buffer, packedLight);
-        renderText(Component.literal("end"), 0.0F, 1.0F, 1.0F, 0.3F, poseStack, buffer, packedLight);
+
+
+
+//        float headX = (1/16F) * this.getModel().body.getChild("neck").getChild("head").x;
+//        float headY = (1/16F) * this.getModel().body.getChild("neck").getChild("head").y;
+//        float headZ = (1/16F) * this.getModel().body.getChild("neck").getChild("head").z;
+//
+//        float neckX = (1/16F) * this.getModel().body.getChild("neck").x;
+//        float neckY = (1/16F) * this.getModel().body.getChild("neck").y;
+//        float neckZ = (1/16F) * this.getModel().body.getChild("neck").z;
+//
+//        float xPos = (1/16F) * this.getModel().body.x - neckX - headX;
+//        float yPos = (1/16F) * (24.0F - this.getModel().body.y) - neckY - headY;
+//        float zPos = (1/16F) * (-this.getModel().body.z) - neckZ - headZ;
+//
+//        drawLine(builder, poseStack, 0, 255, 0, xPos-0.1F, yPos,      zPos,      xPos+0.1F, yPos,        zPos);
+//        drawLine(builder, poseStack, 0, 255, 0, xPos,      yPos,      zPos-0.1F, xPos,      yPos,        zPos+0.1F);
+//        drawLine(builder, poseStack, 0, 255, 0, xPos,      yPos-0.1F, zPos,      xPos,      yPos + 0.1F, zPos);
+//        renderText(Component.literal("head"), xPos, yPos, zPos, 0.3F, poseStack, buffer, packedLight);
     }
 
     private void drawLine(VertexConsumer builder, PoseStack poseStack, int red, int green, int blue, float startX, float startY, float startZ, float endX, float endY, float endZ)

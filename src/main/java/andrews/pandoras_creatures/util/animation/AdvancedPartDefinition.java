@@ -2,6 +2,8 @@ package andrews.pandoras_creatures.util.animation;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeDefinition;
@@ -9,12 +11,15 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class AdvancedPartDefinition extends PartDefinition
 {
     private final AdvancedPartDefinition parent;
+    private AdvancedModelPart bakedParent;
     private final String name;
 
     private AdvancedPartDefinition(List<CubeDefinition> cubes, PartPose partPose, AdvancedPartDefinition parent, String name)
@@ -43,36 +48,21 @@ public class AdvancedPartDefinition extends PartDefinition
         return newPart;
     }
 
-//    @Override
-//    public AdvancedModelPart bake(int texWidth, int texHeight)
-//    {
-//        System.out.println("Calling Advanced Baking for: " + this.name);
-//
-//        // Creates an Immutable List of all the Cubes
-//        List<ModelPart.Cube> list = new ArrayList<>();
-//        for(CubeDefinition cube : this.cubes)
-//            list.add(cube.bake(texWidth, texHeight));
-//        List<ModelPart.Cube> lockedList = ImmutableList.copyOf(list);
-//        // Gets all the Model Definitions of children and stores them after baking them
-//        Map<String, ModelPart> postBakeMap = Maps.newHashMap();
-//        for(String key : this.children.keySet())
-//        {
-//            //TODO figure out if this nukes everything
-//            if(this.children.get(key) instanceof AdvancedPartDefinition advancedPartDefinition)
-//            {
-//                postBakeMap.put(key, advancedPartDefinition.bake(texWidth, texHeight));
-//            }
-//            else
-//            {
-//                System.out.println("OMG TACTICAL NUKE BOOOOM");
-//            }
-//        }
-//
-//        AdvancedModelPart modelpart = new AdvancedModelPart(lockedList, postBakeMap);
-//        modelpart.setInitialPose(this.partPose);
-//        modelpart.loadPose(this.partPose);
-//        return modelpart;
-//    }
+    @Override
+    public AdvancedModelPart bake(int texWidth, int texHeight)
+    {
+        // Takes all the cubeDefinition's, bakes them and stores them in an ImmutableList as Cube's
+        List<ModelPart.Cube> list = this.cubes.stream().map((cubeDefinition) -> cubeDefinition.bake(texWidth, texHeight)).collect(ImmutableList.toImmutableList());
+        // A more readable approach of baking the values in children. TODO if this causes issues use the old method
+        Map<String, ModelPart> map = Maps.newHashMap();
+        for(String key : this.children.keySet())
+            map.put(key, this.children.get(key).bake(texWidth, texHeight));
+
+        AdvancedModelPart modelPart = new AdvancedModelPart(list, map, this.name);
+        modelPart.setInitialPose(this.partPose);
+        modelPart.loadPose(this.partPose);
+        return modelPart;
+    }
 
     /**
      * @return Whether this Advanced Part Definition has a parent

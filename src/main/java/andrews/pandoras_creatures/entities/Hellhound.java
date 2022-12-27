@@ -15,7 +15,7 @@ public class Hellhound extends Wolf
     @Override
     protected void registerGoals()
     {
-
+//        this.goalSelector.addGoal(1, new RandomLookAroundGoal(this));
     }
 
     @Override

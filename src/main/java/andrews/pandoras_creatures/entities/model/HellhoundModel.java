@@ -75,8 +75,6 @@ public class HellhoundModel<T extends Hellhound> extends EntityModel<T>
         AdvancedPartDefinition rightfrontlegmid = rightfrontlegtop.addOrReplaceChild("rightfrontlegmid", CubeListBuilder.create().texOffs(13, 53).mirror().addBox(-0.9F, -1.0F, 0.0F, 2.0F, 9.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-0.0863F, 4.5059F, 1.1121F, 0.1745F, 0.0F, 0.0F));
         AdvancedPartDefinition rightfrontlegpaw = rightfrontlegmid.addOrReplaceChild("rightfrontlegpaw", CubeListBuilder.create().texOffs(22, 59).mirror().addBox(-1.4128F, -1.1761F, -1.9962F, 3.0F, 2.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(0.1F, 7.7F, 0.95F, 0.2618F, 0.0F, 0.0F));
 
-//        System.out.println(body.hasParent());
-
         return LayerDefinition.create(meshDefinition.overwriteRootChildren(partdefinition), 64, 64);
     }
 
@@ -84,6 +82,7 @@ public class HellhoundModel<T extends Hellhound> extends EntityModel<T>
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch)
     {
 //        this.body.getChild("neck").getChild("head").getChild("jaw").xRot = (float) Math.toRadians(90F);
+//        this.body.y = (float)Math.toRadians(Math.cos(ageInTicks * 0.2F) * 1000);
     }
 
     @Override
