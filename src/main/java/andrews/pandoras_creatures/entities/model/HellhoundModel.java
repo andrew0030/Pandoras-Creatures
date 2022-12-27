@@ -1,13 +1,9 @@
 package andrews.pandoras_creatures.entities.model;
 
-// Made with Blockbench 4.4.3
-// Exported for Minecraft version 1.17 - 1.18 with Mojang mappings
-// Paste this class into your mod and generate all required imports
-
-
 import andrews.pandoras_creatures.entities.Hellhound;
 import andrews.pandoras_creatures.util.Reference;
 import andrews.pandoras_creatures.util.animation.AdvancedMeshDefinition;
+import andrews.pandoras_creatures.util.animation.AdvancedModelPart;
 import andrews.pandoras_creatures.util.animation.AdvancedPartDefinition;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -23,17 +19,20 @@ import net.minecraft.resources.ResourceLocation;
 public class HellhoundModel<T extends Hellhound> extends EntityModel<T>
 {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(new ResourceLocation(Reference.MODID, "hellhound"), "main");
-    public final ModelPart body;
+    public final AdvancedModelPart body;
+    public final AdvancedModelPart neck;
 
     public HellhoundModel(ModelPart root)
     {
-        this.body = root.getChild("body");
+        // This should always be an AdvancedModelPart, if it isn't there are bigger issues than this cast!
+        this.body = (AdvancedModelPart) root.getChild("body");
+        this.neck = body.getChild("neck");
     }
 
     public static LayerDefinition createBodyLayer()
     {
-        AdvancedMeshDefinition meshDefinition = new AdvancedMeshDefinition();
-        AdvancedPartDefinition partdefinition = meshDefinition.getAdvancedRoot();
+        AdvancedMeshDefinition meshdefinition = new AdvancedMeshDefinition();
+        AdvancedPartDefinition partdefinition = meshdefinition.getAdvancedRoot();
         AdvancedPartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, 7.5F, 0.25F, -0.1745F, 0.0F, 0.0F));
         AdvancedPartDefinition cube_r1 = body.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(0, 0).addBox(-1.0F, -6.4771F, -0.0228F, 2.0F, 7.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 8.0F, -5.0F, -1.4835F, 0.0F, 0.0F));
         AdvancedPartDefinition cube_r2 = body.addOrReplaceChild("cube_r2", CubeListBuilder.create().texOffs(45, 40).addBox(0.0F, -4.0F, 0.0F, 0.0F, 4.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -0.75F, 2.0F, -0.4363F, 0.0F, 0.0F));
@@ -46,8 +45,7 @@ public class HellhoundModel<T extends Hellhound> extends EntityModel<T>
         AdvancedPartDefinition heart = body.addOrReplaceChild("heart", CubeListBuilder.create().texOffs(21, 43).addBox(-1.0F, -1.0F, 0.0F, 4.0F, 3.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(-1.0F, 4.0F, -4.0F));
         AdvancedPartDefinition neck = body.addOrReplaceChild("neck", CubeListBuilder.create().texOffs(1, 8).addBox(-1.0F, -1.0F, -4.0F, 2.0F, 2.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.75F, -7.0F, 0.3491F, 0.0F, 0.0F));
         AdvancedPartDefinition cube_r7 = neck.addOrReplaceChild("cube_r7", CubeListBuilder.create().texOffs(8, 2).addBox(0.0F, -5.0F, 1.0F, 1.0F, 4.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-0.5F, 0.0F, -4.5F, -0.5236F, 0.0F, 0.0F));
-        AdvancedPartDefinition head = neck.addOrReplaceChild("head", CubeListBuilder.create()
-                .texOffs(0, 24).addBox(-2.5F, -2.6F, -5.35F, 5.0F, 4.0F, 4.0F, new CubeDeformation(0.0F))
+        AdvancedPartDefinition head = neck.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 24).addBox(-2.5F, -2.6F, -5.35F, 5.0F, 4.0F, 4.0F, new CubeDeformation(0.0F))
                 .texOffs(19, 24).addBox(-1.5F, -2.5F, -5.25F, 3.0F, 4.0F, 4.0F, new CubeDeformation(0.001F))
                 .texOffs(2, 44).addBox(-2.5F, -2.6F, -1.35F, 5.0F, 4.0F, 2.0F, new CubeDeformation(0.0F))
                 .texOffs(16, 36).addBox(-2.0F, -1.5F, -5.0F, 4.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.25F, -3.75F));
@@ -75,14 +73,13 @@ public class HellhoundModel<T extends Hellhound> extends EntityModel<T>
         AdvancedPartDefinition rightfrontlegmid = rightfrontlegtop.addOrReplaceChild("rightfrontlegmid", CubeListBuilder.create().texOffs(13, 53).mirror().addBox(-0.9F, -1.0F, 0.0F, 2.0F, 9.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-0.0863F, 4.5059F, 1.1121F, 0.1745F, 0.0F, 0.0F));
         AdvancedPartDefinition rightfrontlegpaw = rightfrontlegmid.addOrReplaceChild("rightfrontlegpaw", CubeListBuilder.create().texOffs(22, 59).mirror().addBox(-1.4128F, -1.1761F, -1.9962F, 3.0F, 2.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(0.1F, 7.7F, 0.95F, 0.2618F, 0.0F, 0.0F));
 
-        return LayerDefinition.create(meshDefinition.overwriteRootChildren(partdefinition), 64, 64);
+        return LayerDefinition.create(meshdefinition.overwriteRootChildren(partdefinition), 64, 64);
     }
 
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch)
     {
-//        this.body.getChild("neck").getChild("head").getChild("jaw").xRot = (float) Math.toRadians(90F);
-//        this.body.y = (float)Math.toRadians(Math.cos(ageInTicks * 0.2F) * 1000);
+
     }
 
     @Override

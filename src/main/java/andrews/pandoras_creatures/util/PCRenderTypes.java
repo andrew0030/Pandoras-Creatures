@@ -18,7 +18,15 @@ public class PCRenderTypes extends RenderType
                 .setCullState(NO_CULL) // No Cull so we see it from everywhere
                 .setDepthTestState(NO_DEPTH_TEST) // We render over everything
                 .createCompositeState(false);
-
         return RenderType.create(Reference.MODID+":skeleton_debug_lines", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.DEBUG_LINES, TRANSIENT_BUFFER_SIZE, false, false, state);
+    };
+
+    public static RenderType skeletonDebugQuad()
+    {
+        RenderType.CompositeState state = RenderType.CompositeState.builder()
+                .setShaderState(POSITION_COLOR_SHADER) // The used Shader
+                .setDepthTestState(NO_DEPTH_TEST) // We render over everything
+                .createCompositeState(false);
+        return RenderType.create(Reference.MODID+":skeleton_debug_quad", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.QUADS, TRANSIENT_BUFFER_SIZE, false, false, state);
     };
 }
