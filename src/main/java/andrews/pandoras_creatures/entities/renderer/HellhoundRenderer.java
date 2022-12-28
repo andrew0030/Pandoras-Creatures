@@ -2,15 +2,15 @@ package andrews.pandoras_creatures.entities.renderer;
 
 import andrews.pandoras_creatures.entities.Hellhound;
 import andrews.pandoras_creatures.entities.model.HellhoundModel;
+import andrews.pandoras_creatures.entities.renderer.layers.HellhoundGlowLayer;
 import andrews.pandoras_creatures.util.PCRenderUtil;
 import andrews.pandoras_creatures.util.Reference;
+import andrews.pandoras_creatures.util.animation.AdvancedModelPart;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3f;
 
 public class HellhoundRenderer<E extends Hellhound> extends MobRenderer<E, HellhoundModel<E>>
@@ -20,6 +20,7 @@ public class HellhoundRenderer<E extends Hellhound> extends MobRenderer<E, Hellh
     public HellhoundRenderer(EntityRendererProvider.Context context)
     {
         super(context, new HellhoundModel<>(context.bakeLayer(HellhoundModel.LAYER)), 0.5F);//TODO shadow radius
+        this.addLayer(new HellhoundGlowLayer<>(this));
     }
 
     @Override
@@ -27,31 +28,25 @@ public class HellhoundRenderer<E extends Hellhound> extends MobRenderer<E, Hellh
     {
         super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
 
-//        float headX = (1/16F) * this.getModel().body.getChild("neck").getChild("head").x;
-//        float headY = (1/16F) * this.getModel().body.getChild("neck").getChild("head").y;
-//        float headZ = (1/16F) * this.getModel().body.getChild("neck").getChild("head").z;
-//
-//        float neckX = (1/16F) * this.getModel().body.getChild("neck").x;
-//        float neckY = (1/16F) * this.getModel().body.getChild("neck").y;
-//        float neckZ = (1/16F) * this.getModel().body.getChild("neck").z;
-//
-//        float xPos = (1/16F) * this.getModel().body.x - neckX - headX;
-//        float yPos = (1/16F) * (24.0F - this.getModel().body.y) - neckY - headY;
-//        float zPos = (1/16F) * (-this.getModel().body.z) - neckZ - headZ;
-//
-//        drawCross()...
-//        renderText(Component.literal("head"), xPos, yPos, zPos, 0.3F, poseStack, buffer, packedLight);
+        AdvancedModelPart bodyPart = this.getModel().body;
+        Vector3f bodyPartPos = bodyPart.getModelSpace(entity);
+        PCRenderUtil.renderCross(entity, buffer, poseStack, bodyPartPos.x, bodyPartPos.y, bodyPartPos.z, bodyPart.xRot, bodyPart.yRot, bodyPart.zRot, 0.4F);
+        AdvancedModelPart neckPart = this.getModel().neck;
+        Vector3f neckPartPos = neckPart.getModelSpace(entity);
+        Vector3f neckRotation = neckPart.getTotalRotation();
+        PCRenderUtil.renderCross(entity, buffer, poseStack, neckPartPos.x, neckPartPos.y, neckPartPos.z, neckRotation.x, neckRotation.y, neckRotation.z, 0.4F);
 
-//        Vector3f bodyPos = this.getModel().body.getModelSPace(entity, entity.yBodyRot);
-        Vector3f neckPos = this.getModel().neck.getModelSPace(entity, entity.yBodyRot);
-
-//        PCRenderUtil.renderCross(buffer, poseStack, 0, 255, 0, bodyPos.x, bodyPos.y, bodyPos.z, 0.2F);
-//        PCRenderUtil.renderQuad(buffer, poseStack, 255, 0, 0, bodyPos.x, bodyPos.y, bodyPos.z, 0.04F);
-//        PCRenderUtil.renderText(Component.literal("body"), bodyPos.x, (bodyPos.y + 0.05F), bodyPos.z, 0.3F, poseStack, buffer, packedLight);
-
-        PCRenderUtil.renderCross(buffer, poseStack, 0, 255, 0, neckPos.x, neckPos.y, neckPos.z, 0.2F);
-        PCRenderUtil.renderQuad(buffer, poseStack, 255, 0, 0, neckPos.x, neckPos.y, neckPos.z, 0.04F);
-        PCRenderUtil.renderText(Component.literal("neck"), neckPos.x, (neckPos.y + 0.05F), neckPos.z, 0.3F, poseStack, buffer, packedLight);
+//        boolean showNames = false;
+//        AdvancedModelPart part = this.getModel().leftfrontlegtop.getChild("leftfrontlegmid").getChild("leftfrontlegpaw");
+//        PCRenderUtil.renderChainFromModelPart(entity, buffer, poseStack, part, packedLight, showNames);
+//        part = this.getModel().body.getChild("rightfrontlegtop").getChild("rightfrontlegmid").getChild("rightfrontlegpaw");
+//        PCRenderUtil.renderChainFromModelPart(entity, buffer, poseStack, part, packedLight, showNames);
+//        part = this.getModel().body.getChild("rightbacklegtop").getChild("rightbacklegmid").getChild("rightbacklegpaw");
+//        PCRenderUtil.renderChainFromModelPart(entity, buffer, poseStack, part, packedLight, showNames);
+//        part = this.getModel().body.getChild("leftbacklegtop").getChild("leftbacklegmid").getChild("leftbacklegpaw");
+//        PCRenderUtil.renderChainFromModelPart(entity, buffer, poseStack, part, packedLight, showNames);
+//        part = this.getModel().head;
+//        PCRenderUtil.renderChainFromModelPart(entity, buffer, poseStack, part, packedLight, showNames);
     }
 
     @Override

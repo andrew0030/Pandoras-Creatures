@@ -15,18 +15,23 @@ import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 
 public class HellhoundModel<T extends Hellhound> extends EntityModel<T>
 {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(new ResourceLocation(Reference.MODID, "hellhound"), "main");
     public final AdvancedModelPart body;
     public final AdvancedModelPart neck;
+    public final AdvancedModelPart head;
+    public final AdvancedModelPart leftfrontlegtop;
 
     public HellhoundModel(ModelPart root)
     {
         // This should always be an AdvancedModelPart, if it isn't there are bigger issues than this cast!
         this.body = (AdvancedModelPart) root.getChild("body");
         this.neck = body.getChild("neck");
+        this.head = neck.getChild("head");
+        this.leftfrontlegtop = body.getChild("leftfrontlegtop");
     }
 
     public static LayerDefinition createBodyLayer()
@@ -79,10 +84,9 @@ public class HellhoundModel<T extends Hellhound> extends EntityModel<T>
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch)
     {
-        this.body.xRot = ageInTicks / 10F;
-//        this.body.yRot = ageInTicks / 10F;
-//        this.body.zRot = ageInTicks / 10F;
-        this.neck.visible = false;
+        this.body.xRot = (float) Math.toRadians(Mth.cos(ageInTicks / 20) * -50F);
+        this.body.yRot = (float) Math.toRadians(Mth.cos(ageInTicks / 20) * 50F);
+        this.body.zRot = (float) Math.toRadians(Mth.cos(ageInTicks / 20) * -50F);
     }
 
     @Override

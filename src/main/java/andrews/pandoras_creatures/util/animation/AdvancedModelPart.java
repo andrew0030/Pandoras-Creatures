@@ -8,6 +8,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import org.joml.Matrix4f;
+import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
@@ -17,6 +18,7 @@ import java.util.NoSuchElementException;
 
 public class AdvancedModelPart extends ModelPart
 {
+    private final float MC_SCALE = 1.0F / 16.0F;
     private final String name;
     private AdvancedModelPart parent;
 
@@ -45,25 +47,51 @@ public class AdvancedModelPart extends ModelPart
         throw new NoSuchElementException("Can't find part " + pName);
     }
 
-    public Vector3f getModelSPace(Entity entity, float entityYaw)
+    public Vector3f getTotalRotation()
     {
-        float scale = 1.0F / 16.0F;
+        Vector3f vec = new Vector3f();
+        addRotations(vec, this);
+        return vec;
+    }
+
+    private void addRotations(Vector3f rotation, AdvancedModelPart part)
+    {
+        if(part.hasParent())
+            addRotations(rotation, part.getParent());
+        rotation.add(part.xRot, part.yRot, part.zRot);
+    }
+
+    public Vector3f getModelSpace(Entity entity)
+    {
         PoseStack poseStack = new PoseStack();
-
-
         poseStack.mulPose(Axis.YN.rotationDegrees(Mth.lerp(Minecraft.getInstance().getPartialTick(), ((LivingEntity) entity).yBodyRotO, ((LivingEntity) entity).yBodyRot)));
-        poseStack.translate(0, scale * 24, 0);
+        poseStack.translate(0, MC_SCALE * 24, 0);
         poseStack.scale(1, -1, -1);
-        poseStack.translate(scale * this.getParent().x, scale * this.getParent().y, scale * this.getParent().z);
-        poseStack.mulPose(Axis.XP.rotation(this.getParent().xRot));
 
-        poseStack.translate(scale * this.x, scale * this.y, scale * this.z);
+        getTransformForPart(poseStack, this);
 
         Matrix4f matrix4f = poseStack.last().pose();
         Vector4f vec = new Vector4f(0, 0, 0, 1);
         vec.mul(matrix4f);
 
         return new Vector3f(vec.x(), vec.y(), vec.z());
+    }
+
+    private void getTransformForPart(PoseStack poseStack, AdvancedModelPart advancedModelPart)
+    {
+        // Check for parent and if not null we call the same method on the parent
+        // this will essentially keep happening until we get to the last parent (root)
+        // and once we are there it will apply the transformations going down the line.
+        if(advancedModelPart.hasParent())
+            getTransformForPart(poseStack, advancedModelPart.getParent());
+        // Position
+        poseStack.translate(MC_SCALE * advancedModelPart.x, MC_SCALE * advancedModelPart.y, MC_SCALE * advancedModelPart.z);
+        // Rotation
+        if (advancedModelPart.xRot != 0.0F || advancedModelPart.yRot != 0.0F || advancedModelPart.zRot != 0.0F)
+            poseStack.mulPose((new Quaternionf()).rotationZYX(advancedModelPart.zRot, advancedModelPart.yRot, advancedModelPart.xRot));
+        // Scale
+        if (advancedModelPart.xScale != 1.0F || advancedModelPart.yScale != 1.0F || advancedModelPart.zScale != 1.0F)
+            poseStack.scale(advancedModelPart.xScale, advancedModelPart.yScale, advancedModelPart.zScale);
     }
 
     public String getName()
