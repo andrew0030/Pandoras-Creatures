@@ -1,5 +1,6 @@
-package andrews.pandoras_creatures.animation;
+package andrews.pandoras_creatures.animation.system.wrap;
 
+import andrews.pandoras_creatures.animation.system.wrap.AdvancedHierarchicalModel;
 import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.Keyframe;
@@ -12,6 +13,8 @@ import java.util.Map;
 
 public class AdvancedKeyframeAnimations extends KeyframeAnimations
 {
+    //TODO maybe get rid of all of this?
+
     public static void animate(AdvancedHierarchicalModel<?> model, AnimationDefinition definition, long accumulatedTime, float scale, Vector3f animationVecCache)
     {
         // The elapsed time since the Animation started playing

@@ -5,6 +5,7 @@ import andrews.pandoras_creatures.util.Reference;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -19,4 +20,9 @@ public class PCEntities
 //    {
 //        SpawnPlacements.register(DRAGONFLY.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Dragonfly::checkDragonflySpawnRules);
 //    }
+
+    public static void registerEntityAttributes(EntityAttributeCreationEvent event)
+    {
+        event.put(HELLHOUND.get(), Hellhound.createAttributes().build());//TODO replace this
+    }
 }

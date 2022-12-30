@@ -1,4 +1,4 @@
-package andrews.pandoras_creatures.animation.definitions;
+package andrews.pandoras_creatures.entities.animations;
 
 import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;
@@ -36,7 +36,7 @@ public class HellhoundAnimation
     public static final AnimationDefinition ANGEL_KEYFRAME = AnimationDefinition.Builder.withLength(0.75f)//.looping()
             .addAnimation("leftfrontlegtop",
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
-                            new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, -60f),
+                            new Keyframe(0f, KeyframeAnimations.degreeVec(45f, 0f, -60f),
                                     AnimationChannel.Interpolations.LINEAR),
 //                            new Keyframe(0.25f, KeyframeAnimations.degreeVec(47.5f, 0f, -60f),
 //                                    AnimationChannel.Interpolations.LINEAR),
@@ -48,7 +48,7 @@ public class HellhoundAnimation
 //                                    AnimationChannel.Interpolations.LINEAR)))
             .addAnimation("rightfrontlegtop",
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
-                            new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 60f),
+                            new Keyframe(0f, KeyframeAnimations.degreeVec(45f, 0f, 60f),
                                     AnimationChannel.Interpolations.LINEAR),
 //                            new Keyframe(0.25f, KeyframeAnimations.degreeVec(47.5f, 0f, 60f),
 //                                    AnimationChannel.Interpolations.LINEAR),

@@ -1,4 +1,4 @@
-package andrews.pandoras_creatures.util.animation;
+package andrews.pandoras_creatures.animation.model;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;

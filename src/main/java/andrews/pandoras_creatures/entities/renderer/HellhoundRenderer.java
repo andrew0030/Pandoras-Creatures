@@ -5,13 +5,12 @@ import andrews.pandoras_creatures.entities.model.HellhoundModel;
 import andrews.pandoras_creatures.entities.renderer.layers.HellhoundGlowLayer;
 import andrews.pandoras_creatures.util.PCRenderUtil;
 import andrews.pandoras_creatures.util.Reference;
-import andrews.pandoras_creatures.util.animation.AdvancedModelPart;
+import andrews.pandoras_creatures.animation.model.AdvancedModelPart;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
-import org.joml.Vector3f;
 
 public class HellhoundRenderer<E extends Hellhound> extends MobRenderer<E, HellhoundModel<E>>
 {

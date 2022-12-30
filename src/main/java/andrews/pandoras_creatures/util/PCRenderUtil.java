@@ -1,6 +1,6 @@
 package andrews.pandoras_creatures.util;
 
-import andrews.pandoras_creatures.util.animation.AdvancedModelPart;
+import andrews.pandoras_creatures.animation.model.AdvancedModelPart;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;

@@ -1,4 +1,4 @@
-package andrews.pandoras_creatures.util.animation;
+package andrews.pandoras_creatures.animation.model;
 
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 

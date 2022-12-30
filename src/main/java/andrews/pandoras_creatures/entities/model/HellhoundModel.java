@@ -1,12 +1,12 @@
 package andrews.pandoras_creatures.entities.model;
 
-import andrews.pandoras_creatures.animation.AdvancedHierarchicalModel;
-import andrews.pandoras_creatures.animation.definitions.HellhoundAnimation;
+import andrews.pandoras_creatures.animation.system.wrap.AdvancedHierarchicalModel;
+import andrews.pandoras_creatures.entities.animations.HellhoundAnimation;
 import andrews.pandoras_creatures.entities.Hellhound;
 import andrews.pandoras_creatures.util.Reference;
-import andrews.pandoras_creatures.util.animation.AdvancedMeshDefinition;
-import andrews.pandoras_creatures.util.animation.AdvancedModelPart;
-import andrews.pandoras_creatures.util.animation.AdvancedPartDefinition;
+import andrews.pandoras_creatures.animation.model.AdvancedMeshDefinition;
+import andrews.pandoras_creatures.animation.model.AdvancedModelPart;
+import andrews.pandoras_creatures.animation.model.AdvancedPartDefinition;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -83,8 +83,8 @@ public class HellhoundModel<T extends Hellhound> extends AdvancedHierarchicalMod
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch)
     {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.animate(entity.walkKeyFrameState, HellhoundAnimation.WALK_KEYFRAME, ageInTicks);
-        this.animate(entity.angleKeyFrameState, HellhoundAnimation.ANGEL_KEYFRAME, ageInTicks);
+        this.animate(entity.walkKeyFrameState, entity.walkKeyFrameState.getAnimation(), ageInTicks);
+        this.animate(entity.angleKeyFrameState, entity.angleKeyFrameState.getAnimation(), ageInTicks);
     }
 
     @Override

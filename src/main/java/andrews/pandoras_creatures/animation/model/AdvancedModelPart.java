@@ -1,4 +1,4 @@
-package andrews.pandoras_creatures.util.animation;
+package andrews.pandoras_creatures.animation.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
