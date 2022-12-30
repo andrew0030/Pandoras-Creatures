@@ -13,7 +13,7 @@ public class PCEntities
 {
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, Reference.MODID);
 
-    public static final RegistryObject<EntityType<Hellhound>> HELLHOUND     = ENTITIES.register("hellhound", () -> EntityType.Builder.of(Hellhound::new, MobCategory.CREATURE).sized(0.5F, 0.25F).clientTrackingRange(10).build(new ResourceLocation(Reference.MODID, "hellhound").toString()));
+    public static final RegistryObject<EntityType<Hellhound>> HELLHOUND     = ENTITIES.register("hellhound", () -> EntityType.Builder.of(Hellhound::new, MobCategory.CREATURE).sized(0.8F, 1.25F).clientTrackingRange(10).build(new ResourceLocation(Reference.MODID, "hellhound").toString()));
 
 //    public static void registerSpawnPlacements() TODO add spawning
 //    {

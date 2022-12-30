@@ -28,25 +28,25 @@ public class HellhoundRenderer<E extends Hellhound> extends MobRenderer<E, Hellh
     {
         super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
 
-        AdvancedModelPart bodyPart = this.getModel().body;
-        Vector3f bodyPartPos = bodyPart.getModelSpace(entity);
-        PCRenderUtil.renderCross(entity, buffer, poseStack, bodyPartPos.x, bodyPartPos.y, bodyPartPos.z, bodyPart.xRot, bodyPart.yRot, bodyPart.zRot, 0.4F);
-        AdvancedModelPart neckPart = this.getModel().neck;
-        Vector3f neckPartPos = neckPart.getModelSpace(entity);
-        Vector3f neckRotation = neckPart.getTotalRotation();
-        PCRenderUtil.renderCross(entity, buffer, poseStack, neckPartPos.x, neckPartPos.y, neckPartPos.z, neckRotation.x, neckRotation.y, neckRotation.z, 0.4F);
+//        AdvancedModelPart bodyPart = this.getModel().body;
+//        Vector3f bodyPartPos = bodyPart.getModelSpace(entity);
+//        PCRenderUtil.renderCross(entity, buffer, poseStack, bodyPartPos.x, bodyPartPos.y, bodyPartPos.z, bodyPart.xRot, bodyPart.yRot, bodyPart.zRot, 0.4F);
+//        AdvancedModelPart neckPart = this.getModel().neck;
+//        Vector3f neckPartPos = neckPart.getModelSpace(entity);
+//        Vector3f neckRotation = neckPart.getTotalRotation();
+//        PCRenderUtil.renderCross(entity, buffer, poseStack, neckPartPos.x, neckPartPos.y, neckPartPos.z, neckRotation.x, neckRotation.y, neckRotation.z, 0.4F);
 
-//        boolean showNames = false;
-//        AdvancedModelPart part = this.getModel().leftfrontlegtop.getChild("leftfrontlegmid").getChild("leftfrontlegpaw");
-//        PCRenderUtil.renderChainFromModelPart(entity, buffer, poseStack, part, packedLight, showNames);
-//        part = this.getModel().body.getChild("rightfrontlegtop").getChild("rightfrontlegmid").getChild("rightfrontlegpaw");
-//        PCRenderUtil.renderChainFromModelPart(entity, buffer, poseStack, part, packedLight, showNames);
-//        part = this.getModel().body.getChild("rightbacklegtop").getChild("rightbacklegmid").getChild("rightbacklegpaw");
-//        PCRenderUtil.renderChainFromModelPart(entity, buffer, poseStack, part, packedLight, showNames);
-//        part = this.getModel().body.getChild("leftbacklegtop").getChild("leftbacklegmid").getChild("leftbacklegpaw");
-//        PCRenderUtil.renderChainFromModelPart(entity, buffer, poseStack, part, packedLight, showNames);
-//        part = this.getModel().head;
-//        PCRenderUtil.renderChainFromModelPart(entity, buffer, poseStack, part, packedLight, showNames);
+        boolean showNames = false;
+        AdvancedModelPart part = this.getModel().leftfrontlegtop.getChild("leftfrontlegmid").getChild("leftfrontlegpaw");
+        PCRenderUtil.renderChainFromModelPart(entity, buffer, poseStack, part, packedLight, showNames);
+        part = this.getModel().body.getChild("rightfrontlegtop").getChild("rightfrontlegmid").getChild("rightfrontlegpaw");
+        PCRenderUtil.renderChainFromModelPart(entity, buffer, poseStack, part, packedLight, showNames);
+        part = this.getModel().body.getChild("rightbacklegtop").getChild("rightbacklegmid").getChild("rightbacklegpaw");
+        PCRenderUtil.renderChainFromModelPart(entity, buffer, poseStack, part, packedLight, showNames);
+        part = this.getModel().body.getChild("leftbacklegtop").getChild("leftbacklegmid").getChild("leftbacklegpaw");
+        PCRenderUtil.renderChainFromModelPart(entity, buffer, poseStack, part, packedLight, showNames);
+        part = this.getModel().head;
+        PCRenderUtil.renderChainFromModelPart(entity, buffer, poseStack, part, packedLight, showNames);
     }
 
     @Override

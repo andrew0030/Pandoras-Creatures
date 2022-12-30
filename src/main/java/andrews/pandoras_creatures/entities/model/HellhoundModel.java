@@ -1,13 +1,12 @@
 package andrews.pandoras_creatures.entities.model;
 
+import andrews.pandoras_creatures.animation.AdvancedHierarchicalModel;
+import andrews.pandoras_creatures.animation.definitions.HellhoundAnimation;
 import andrews.pandoras_creatures.entities.Hellhound;
 import andrews.pandoras_creatures.util.Reference;
 import andrews.pandoras_creatures.util.animation.AdvancedMeshDefinition;
 import andrews.pandoras_creatures.util.animation.AdvancedModelPart;
 import andrews.pandoras_creatures.util.animation.AdvancedPartDefinition;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -15,9 +14,8 @@ import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
 
-public class HellhoundModel<T extends Hellhound> extends EntityModel<T>
+public class HellhoundModel<T extends Hellhound> extends AdvancedHierarchicalModel<T>
 {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(new ResourceLocation(Reference.MODID, "hellhound"), "main");
     public final AdvancedModelPart body;
@@ -84,14 +82,14 @@ public class HellhoundModel<T extends Hellhound> extends EntityModel<T>
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch)
     {
-        this.body.xRot = (float) Math.toRadians(Mth.cos(ageInTicks / 20) * -50F);
-        this.body.yRot = (float) Math.toRadians(Mth.cos(ageInTicks / 20) * 50F);
-        this.body.zRot = (float) Math.toRadians(Mth.cos(ageInTicks / 20) * -50F);
+        this.root().getAllParts().forEach(ModelPart::resetPose);
+        this.animate(entity.walkKeyFrameState, HellhoundAnimation.WALK_KEYFRAME, ageInTicks);
+        this.animate(entity.angleKeyFrameState, HellhoundAnimation.ANGEL_KEYFRAME, ageInTicks);
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha)
+    public ModelPart root()
     {
-        body.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+        return this.body;
     }
 }
