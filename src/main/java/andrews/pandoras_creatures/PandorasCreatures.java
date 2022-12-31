@@ -1,5 +1,7 @@
 package andrews.pandoras_creatures;
 
+import andrews.pandoras_creatures.registry.PCBlockEntities;
+import andrews.pandoras_creatures.registry.PCBlocks;
 import andrews.pandoras_creatures.registry.PCEntities;
 import andrews.pandoras_creatures.registry.PCItems;
 import andrews.pandoras_creatures.util.Reference;
@@ -20,6 +22,8 @@ public class PandorasCreatures
         modEventBus.addListener(PCEntities::registerEntityAttributes);
 
         PCItems.ITEMS.register(modEventBus);
+        PCBlocks.BLOCKS.register(modEventBus);
+        PCBlockEntities.BLOCK_ENTITY_TYPES.register(modEventBus);
         PCEntities.ENTITIES.register(modEventBus);
 
         // Client Setup

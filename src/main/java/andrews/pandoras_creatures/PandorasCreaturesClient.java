@@ -1,7 +1,9 @@
 package andrews.pandoras_creatures;
 
+import andrews.pandoras_creatures.block_entities.model.TestAnimationModel;
 import andrews.pandoras_creatures.entities.model.HellhoundModel;
 import andrews.pandoras_creatures.entities.renderer.HellhoundRenderer;
+import andrews.pandoras_creatures.registry.PCBlockEntities;
 import andrews.pandoras_creatures.registry.PCEntities;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -22,7 +24,7 @@ public class PandorasCreaturesClient
     public static void setup(FMLClientSetupEvent event)
     {
         event.enqueueWork(() -> {
-
+            PCBlockEntities.registerBlockEntityRenderers();
         });
     }
 
@@ -30,7 +32,7 @@ public class PandorasCreaturesClient
     public static void registerEntityModels(EntityRenderersEvent.RegisterLayerDefinitions event)
     {
         event.registerLayerDefinition(HellhoundModel.LAYER, HellhoundModel::createBodyLayer);
-    }
+        event.registerLayerDefinition(TestAnimationModel.LAYER, TestAnimationModel::createBodyLayer);}
 
     // Registers the EntityRenderers
     private static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event)

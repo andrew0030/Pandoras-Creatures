@@ -64,7 +64,8 @@ public class AdvancedModelPart extends ModelPart
     public Vector3f getModelSpace(Entity entity)
     {
         PoseStack poseStack = new PoseStack();
-        poseStack.mulPose(Axis.YN.rotationDegrees(Mth.lerp(Minecraft.getInstance().getPartialTick(), ((LivingEntity) entity).yBodyRotO, ((LivingEntity) entity).yBodyRot)));
+        if(entity != null)
+            poseStack.mulPose(Axis.YN.rotationDegrees(Mth.lerp(Minecraft.getInstance().getPartialTick(), ((LivingEntity) entity).yBodyRotO, ((LivingEntity) entity).yBodyRot)));
         poseStack.translate(0, MC_SCALE * 24, 0);
         poseStack.scale(1, -1, -1);
 
