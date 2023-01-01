@@ -1,7 +1,7 @@
 package andrews.pandoras_creatures.animation.system.wrap;
 
-import andrews.pandoras_creatures.animation.system.wrap.AdvancedHierarchicalModel;
-import andrews.pandoras_creatures.block_entities.model.TestAnimationModel;
+import andrews.pandoras_creatures.animation.model.AnimatedBlockEntityModel;
+import andrews.pandoras_creatures.animation.model.AnimatedEntityModel;
 import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.Keyframe;
@@ -16,7 +16,7 @@ public class AdvancedKeyframeAnimations extends KeyframeAnimations
 {
     //TODO maybe get rid of all of this?
 
-    public static void animate(AdvancedHierarchicalModel<?> model, AnimationDefinition definition, long accumulatedTime, float scale, Vector3f animationVecCache)
+    public static void animate(AnimatedEntityModel<?> model, AnimationDefinition definition, long accumulatedTime, float scale, Vector3f animationVecCache)
     {
         // The elapsed time since the Animation started playing
         float elapsedSeconds = KeyframeAnimations.getElapsedSeconds(definition, accumulatedTime);
@@ -53,7 +53,7 @@ public class AdvancedKeyframeAnimations extends KeyframeAnimations
         }
     }
 
-    public static void animate(TestAnimationModel model, AnimationDefinition definition, long accumulatedTime, float scale, Vector3f animationVecCache)
+    public static void animate(AnimatedBlockEntityModel model, AnimationDefinition definition, long accumulatedTime, float scale, Vector3f animationVecCache)
     {
         // The elapsed time since the Animation started playing
         float elapsedSeconds = KeyframeAnimations.getElapsedSeconds(definition, accumulatedTime);

@@ -1,7 +1,6 @@
 package andrews.pandoras_creatures.entities.model;
 
-import andrews.pandoras_creatures.animation.system.wrap.AdvancedHierarchicalModel;
-import andrews.pandoras_creatures.entities.animations.HellhoundAnimation;
+import andrews.pandoras_creatures.animation.model.AnimatedEntityModel;
 import andrews.pandoras_creatures.entities.Hellhound;
 import andrews.pandoras_creatures.util.Reference;
 import andrews.pandoras_creatures.animation.model.AdvancedMeshDefinition;
@@ -15,7 +14,7 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.resources.ResourceLocation;
 
-public class HellhoundModel<T extends Hellhound> extends AdvancedHierarchicalModel<T>
+public class HellhoundModel<T extends Hellhound> extends AnimatedEntityModel<T>
 {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(new ResourceLocation(Reference.MODID, "hellhound"), "main");
     public final AdvancedModelPart body;

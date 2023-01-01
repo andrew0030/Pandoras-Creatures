@@ -1,5 +1,7 @@
 package andrews.pandoras_creatures.block_entities.render;
 
+import andrews.pandoras_creatures.animation.model.AnimatedBlockEntityModel;
+import andrews.pandoras_creatures.animation.system.base.AnimatedBlockEntity;
 import andrews.pandoras_creatures.block_entities.TestAnimationBlockEntity;
 import andrews.pandoras_creatures.block_entities.model.TestAnimationModel;
 import andrews.pandoras_creatures.util.PCRenderUtil;
@@ -25,7 +27,7 @@ public class TestAnimationBlockEntityRenderer implements BlockEntityRenderer<Tes
     @Override
     public void render(TestAnimationBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay)
     {
-        model.setupAnim(blockEntity, partialTick);
+        model.updateAnimations(blockEntity, partialTick);
 //        PCRenderUtil.renderLine(bufferSource, poseStack, 0, 255, 200, 0.5F, 1.0F, 0.5F, 0.5F, 2.0F, 0.5F);
 
         poseStack.pushPose();

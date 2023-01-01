@@ -1,4 +1,4 @@
-package andrews.pandoras_creatures.block_entities.model;
+package andrews.pandoras_creatures.block_entities.animations;
 
 import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;

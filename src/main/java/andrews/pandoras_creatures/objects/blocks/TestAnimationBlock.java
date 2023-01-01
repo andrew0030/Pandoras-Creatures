@@ -1,5 +1,6 @@
 package andrews.pandoras_creatures.objects.blocks;
 
+import andrews.pandoras_creatures.animation.system.base.AnimatedBlockEntity;
 import andrews.pandoras_creatures.block_entities.TestAnimationBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -62,6 +63,6 @@ public class TestAnimationBlock extends BaseEntityBlock
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType)
     {
-        return (level1, pos, state1, blockEntity) -> TestAnimationBlockEntity.tick(level1, pos, state1, (TestAnimationBlockEntity) blockEntity);
+        return (level1, pos, state1, blockEntity) -> TestAnimationBlockEntity.tick(level1, pos, state1, (AnimatedBlockEntity) blockEntity);
     }
 }

@@ -3,13 +3,12 @@ package andrews.pandoras_creatures.block_entities.model;
 import andrews.pandoras_creatures.animation.model.AdvancedMeshDefinition;
 import andrews.pandoras_creatures.animation.model.AdvancedModelPart;
 import andrews.pandoras_creatures.animation.model.AdvancedPartDefinition;
-import andrews.pandoras_creatures.animation.system.wrap.AdvancedKeyframeAnimations;
+import andrews.pandoras_creatures.animation.model.AnimatedBlockEntityModel;
+import andrews.pandoras_creatures.animation.system.base.AnimatedBlockEntity;
 import andrews.pandoras_creatures.block_entities.TestAnimationBlockEntity;
 import andrews.pandoras_creatures.util.Reference;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.animation.AnimationDefinition;
-import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -18,15 +17,9 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.AnimationState;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import org.joml.Vector3f;
 
-import java.util.Optional;
-
-public class TestAnimationModel extends Model
+public class TestAnimationModel extends AnimatedBlockEntityModel
 {
-    public static final Vector3f ANIMATION_VECTOR_CACHE = new Vector3f();
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(new ResourceLocation(Reference.MODID, "test_animation"), "main");
     public final AdvancedModelPart base;
     public final AdvancedModelPart top;
@@ -52,37 +45,26 @@ public class TestAnimationModel extends Model
         return LayerDefinition.create(meshdefinition.overwriteRootChildren(partdefinition), 64, 64);
     }
 
-    public void setupAnim(TestAnimationBlockEntity blockEntity, float partialTick)
+    @Override
+    public void updateAnimations(AnimatedBlockEntity blockEntity, float partialTick)
     {
-        this.base.getAllParts().forEach(ModelPart::resetPose);
-        this.animate(blockEntity.testAnimationState, blockEntity.testAnimationState.getAnimation(), blockEntity.getTicksExisted() + partialTick);
-        this.animate(blockEntity.testAnimationState, blockEntity.testAnimationState.getAnimation(), blockEntity.getTicksExisted() + partialTick);
-    }
-
-    protected void animate(AnimationState state, AnimationDefinition definition, float ageInTicks)
-    {
-        this.animate(state, definition, ageInTicks, 1.0F);
-    }
-
-    protected void animate(AnimationState state, AnimationDefinition definition, float ageInTicks, float speed)
-    {
-        // Not sure why vanilla has a call to this above the if check, as this method also checks for
-        // AnimationState#isStarted, but we need it because we run logic that happens before the super call,
-        // and that needs to be updated at all times.
-        state.updateTime(ageInTicks, speed);
-        if(state.isStarted())
+        if(blockEntity instanceof TestAnimationBlockEntity animated)
         {
-            AdvancedKeyframeAnimations.animate(this, definition, state.getAccumulatedTime(), 1.0F, ANIMATION_VECTOR_CACHE);
+            this.base.getAllParts().forEach(ModelPart::resetPose);
+            this.animate(animated.testAnimationState, animated.testAnimationState.getAnimation(), animated.getTicksExisted() + partialTick);
+            this.animate(animated.testAnimationState, animated.testAnimationState.getAnimation(), animated.getTicksExisted() + partialTick);
         }
-    }
-
-    public Optional<ModelPart> getAnyDescendantWithName(String p_233394_) {
-        return p_233394_.equals("root") ? Optional.of(this.base) : this.base.getAllParts().filter((p_233400_) -> p_233400_.hasChild(p_233394_)).findFirst().map((p_233397_) -> p_233397_.getChild(p_233394_));
     }
 
     @Override
     public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha)
     {
         base.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+    }
+
+    @Override
+    public ModelPart root()
+    {
+        return this.base;
     }
 }

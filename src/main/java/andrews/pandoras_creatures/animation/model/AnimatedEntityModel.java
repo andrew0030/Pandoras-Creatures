@@ -1,5 +1,6 @@
-package andrews.pandoras_creatures.animation.system.wrap;
+package andrews.pandoras_creatures.animation.model;
 
+import andrews.pandoras_creatures.animation.system.wrap.AdvancedKeyframeAnimations;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.renderer.RenderType;
@@ -9,14 +10,14 @@ import net.minecraft.world.entity.Entity;
 
 import java.util.function.Function;
 
-public abstract class AdvancedHierarchicalModel<E extends Entity> extends HierarchicalModel<E>
+public abstract class AnimatedEntityModel<E extends Entity> extends HierarchicalModel<E>
 {
-    public AdvancedHierarchicalModel()
+    public AnimatedEntityModel()
     {
         this(RenderType::entityCutoutNoCull);
     }
 
-    public AdvancedHierarchicalModel(Function<ResourceLocation, RenderType> renderType)
+    public AnimatedEntityModel(Function<ResourceLocation, RenderType> renderType)
     {
         super(renderType);
     }
