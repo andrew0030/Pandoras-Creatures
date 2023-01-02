@@ -59,5 +59,4 @@ public class HellhoundAnimation
 //                            new Keyframe(1f, KeyframeAnimations.degreeVec(0f, 0f, 60f),
 //                                    AnimationChannel.Interpolations.LINEAR)))
                     )).build();
-
 }

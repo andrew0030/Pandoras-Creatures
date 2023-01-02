@@ -6,6 +6,7 @@ import andrews.pandoras_creatures.animation.model.AdvancedPartDefinition;
 import andrews.pandoras_creatures.animation.model.AnimatedBlockEntityModel;
 import andrews.pandoras_creatures.animation.system.base.AnimatedBlockEntity;
 import andrews.pandoras_creatures.block_entities.TestAnimationBlockEntity;
+import andrews.pandoras_creatures.block_entities.animations.TestAnimationAnimations;
 import andrews.pandoras_creatures.util.Reference;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -51,8 +52,7 @@ public class TestAnimationModel extends AnimatedBlockEntityModel
         if(blockEntity instanceof TestAnimationBlockEntity animated)
         {
             this.base.getAllParts().forEach(ModelPart::resetPose);
-            this.animate(animated.testAnimationState, animated.testAnimationState.getAnimation(), animated.getTicksExisted() + partialTick);
-            this.animate(animated.testAnimationState, animated.testAnimationState.getAnimation(), animated.getTicksExisted() + partialTick);
+            this.animate(animated.testAnimationState, TestAnimationAnimations.MY_ANIMATION, animated.getTicksExisted() + partialTick, 1.0F);
         }
     }
 

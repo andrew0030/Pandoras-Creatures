@@ -1,6 +1,7 @@
 package andrews.pandoras_creatures.animation.model;
 
 import andrews.pandoras_creatures.animation.system.base.AnimatedBlockEntity;
+import andrews.pandoras_creatures.animation.system.custom.Animation;
 import andrews.pandoras_creatures.animation.system.wrap.AdvancedKeyframeAnimations;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.model.Model;
@@ -36,6 +37,19 @@ public abstract class AnimatedBlockEntityModel extends Model
         if(state.isStarted())
         {
             AdvancedKeyframeAnimations.animate(this, definition, state.getAccumulatedTime(), 1.0F, ANIMATION_VECTOR_CACHE);
+        }
+    }
+
+    // TODO remove this
+    protected void animate(AnimationState state, Animation animation, float ageInTicks, float speed)
+    {
+        // Not sure why vanilla has a call to this above the if check, as this method also checks for
+        // AnimationState#isStarted, but we need it because we run logic that happens before the super call,
+        // and that needs to be updated at all times.
+        state.updateTime(ageInTicks, speed);
+        if(state.isStarted())
+        {
+            AdvancedKeyframeAnimations.animate(this, animation, state.getAccumulatedTime(), 1.0F, ANIMATION_VECTOR_CACHE);
         }
     }
 
