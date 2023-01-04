@@ -3,6 +3,7 @@ package andrews.pandoras_creatures.animation.system.custom.types;
 import andrews.pandoras_creatures.animation.system.custom.AdvancedKeyframe;
 import andrews.pandoras_creatures.animation.system.custom.types.builder.EasingBuilder;
 import andrews.pandoras_creatures.animation.system.custom.types.builder.EasingType;
+import net.minecraft.client.Minecraft;
 import net.minecraft.util.Mth;
 import org.joml.Vector3f;
 
@@ -39,11 +40,7 @@ public class EasingTypes
             case EASE_IN_SINE -> {
                 Vector3f current = keyframes[currentKeyframeIdx].target();
                 Vector3f next = keyframes[nextKeyframeIdx].target();
-                animationVecCache.set(
-                        Math.fma(next.x() - current.x, easeInSine(keyframeDelta), current.x),
-                        Math.fma(next.y() - current.y, easeInSine(keyframeDelta), current.y),
-                        Math.fma(next.z() - current.z, easeInSine(keyframeDelta), current.z)
-                );
+                current.lerp(next, easeInSine(keyframeDelta), animationVecCache).mul(scale);
             }
         }
     }

@@ -13,8 +13,8 @@ import net.minecraft.world.level.Level;
 
 public class Hellhound extends Wolf
 {
-    public final AdvancedAnimationState walkKeyFrameState = new AdvancedAnimationState(HellhoundAnimation.WALK_KEYFRAME);
-    public final AdvancedAnimationState angleKeyFrameState = new AdvancedAnimationState(HellhoundAnimation.ANGEL_KEYFRAME);
+    public final AdvancedAnimationState walkKeyFrameState = new AdvancedAnimationState(HellhoundAnimation.WALK_KEYFRAME, null, 0);//TODO replace null
+    public final AdvancedAnimationState angleKeyFrameState = new AdvancedAnimationState(HellhoundAnimation.ANGEL_KEYFRAME, null, 0);
 
     public Hellhound(EntityType<? extends Wolf> entityType, Level level)
     {

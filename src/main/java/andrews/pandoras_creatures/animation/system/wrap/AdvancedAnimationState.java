@@ -1,18 +1,27 @@
 package andrews.pandoras_creatures.animation.system.wrap;
 
+import andrews.pandoras_creatures.block_entities.animations.TestAnimationAnimations;
+import com.google.common.collect.Maps;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.KeyframeAnimations;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.AnimationState;
+import org.joml.Vector3f;
+
+import java.util.Map;
 
 public class AdvancedAnimationState extends AnimationState
 {
     private final AnimationDefinition animation;
     private float tickDelay = 0;
+    public Map<String, Vector3f> rotationCache;
+    public int cachedKeyframeIdx;
 
-    public AdvancedAnimationState(AnimationDefinition animation)
+    public AdvancedAnimationState(AnimationDefinition animation, Map<String, Vector3f> rotationCache, int cachedKeyframeIdx)
     {
         this.animation = animation;
+        this.rotationCache = rotationCache;
+        this.cachedKeyframeIdx = cachedKeyframeIdx;
     }
 
     @Override
@@ -30,6 +39,14 @@ public class AdvancedAnimationState extends AnimationState
             }
         }
         super.updateTime(ageInTicks, speed);
+    }
+
+    @Override
+    public void stop()
+    {
+        super.stop();
+        this.cachedKeyframeIdx = 0;
+        this.rotationCache.clear();//TODO add position and scale
     }
 
     /**

@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class TestAnimationBlockEntity extends AnimatedBlockEntity
 {
-    public final AdvancedAnimationState testAnimationState = new AdvancedAnimationState(TestAnimationAnimations.TEST_ANIMATION);
+    public final AdvancedAnimationState testAnimationState = new AdvancedAnimationState(TestAnimationAnimations.TEST_ANIMATION, this.rotationCache, this.cachedKeyframeIdx);
 
     public TestAnimationBlockEntity(BlockPos pos, BlockState state)
     {

@@ -1,5 +1,6 @@
 package andrews.pandoras_creatures.animation.system.wrap;
 
+import andrews.pandoras_creatures.animation.model.AdvancedModelPart;
 import andrews.pandoras_creatures.animation.model.AnimatedBlockEntityModel;
 import andrews.pandoras_creatures.animation.model.AnimatedEntityModel;
 import andrews.pandoras_creatures.animation.system.custom.AdvancedKeyframe;
@@ -9,11 +10,15 @@ import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.Keyframe;
 import net.minecraft.client.animation.KeyframeAnimations;
+import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.AnimationState;
 import org.joml.Vector3f;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.IntPredicate;
 
 public class AdvancedKeyframeAnimations extends KeyframeAnimations
@@ -94,44 +99,50 @@ public class AdvancedKeyframeAnimations extends KeyframeAnimations
         }
     }
 
-    public static void animate(AnimatedBlockEntityModel model, Animation animation, long accumulatedTime, float scale, Vector3f animationVecCache)
+    public static void animate(AnimatedBlockEntityModel model, Animation animation, AdvancedAnimationState state, float scale, Vector3f animationVecCache)
     {
-        // The elapsed time since the Animation started playing
-        float elapsedSeconds = getElapsedSeconds(animation, accumulatedTime);
-        // A Map of all the body parts and Lists containing their AnimationChanel's
+        float elapsedSeconds = getElapsedSeconds(animation, state.getAccumulatedTime());
+
         for(Map.Entry<String, List<KeyframeGroup>> map : animation.getKeyframeGroups().entrySet())
         {
-            // A List of the present AnimationChannel's (POSITION-ROTATION-SCALE) of the current body part
             List<KeyframeGroup> keyframeGroupList = map.getValue();
-            // We check the model for a matching ModelPart, and if it
-            // exists we continue, and run the code bellow
-            model.getAnyDescendantWithName(map.getKey()).ifPresent((modelPart) -> {
-                // We go through all the present AnimationChannel's (POSITION-ROTATION-SCALE)
-                for(KeyframeGroup keyframeGroup : keyframeGroupList)
+            Optional<ModelPart> modelPartOptional = model.getAnyDescendantWithName(map.getKey());
+            if(modelPartOptional.isPresent())
+            {
+                ModelPart modelPart = modelPartOptional.get();
+
+                for(KeyframeGroup keyframeGroup : keyframeGroupList)//POS/ROT/SCALE
                 {
-                    // An Array of all the Keyframes in the current AnimationChannel
                     AdvancedKeyframe[] keyframes = keyframeGroup.getKeyframes();
-                    // The current and next Keyframe index
 
+                    //TODO the fucking array above doesnt update properly, that or there are big issues somehwere else... Idk I need to fix this #Pain #SaveMe
+                    if(keyframes[state.cachedKeyframeIdx].timestamp() < elapsedSeconds)
+                    {
+                        state.cachedKeyframeIdx++;
+                    }
+                    else if (state.getAccumulatedTime() / 1000.0F > animation.getLengthInSeconds())
+                    {
+                        state.accumulatedTime -= animation.getLengthInSeconds() * 1000.0F;
+//                        state.lastTime += animation.getLengthInSeconds() * 1000.0F;
+                        state.cachedKeyframeIdx = 0;
+                    }
 
-                    int hackySearch = Mth.binarySearch(0, keyframes.length, index -> elapsedSeconds <= keyframes[index].timestamp()) - 1;
+                    int currentKeyframeIdx = Math.max(0, Mth.binarySearch(0, keyframes.length, index -> elapsedSeconds <= keyframes[index].timestamp()));
+                    currentKeyframeIdx = state.cachedKeyframeIdx;
+                    int lastKeyframeIdx = Math.max(0, currentKeyframeIdx - 1);
 
-
-                    int currentKeyframeIdx = Math.max(0, hackySearch);
-                    int nextKeyframeIdx = Math.min(keyframes.length - 1, currentKeyframeIdx + 1);
-                    // The current and next Keyframe
                     AdvancedKeyframe currentKeyframe = keyframes[currentKeyframeIdx];
-                    AdvancedKeyframe nextKeyframe = keyframes[nextKeyframeIdx];
+                    AdvancedKeyframe lastKeyframe = keyframes[lastKeyframeIdx];
 
-                    float elapsedDelta = elapsedSeconds - currentKeyframe.timestamp();
-                    float keyframeDelta = Mth.clamp(elapsedDelta / (nextKeyframe.timestamp() - currentKeyframe.timestamp()), 0.0F, 1.0F);
+                    float elapsedDelta = elapsedSeconds - lastKeyframe.timestamp();
+                    float keyframeDelta = Mth.clamp(elapsedDelta / (currentKeyframe.timestamp() - keyframes[lastKeyframeIdx].timestamp()), 0.0F, 1.0F);
 
                     // Stores lerped values in cache
-                    nextKeyframe.getEasingType().storeEasedValues(animationVecCache, keyframeDelta, keyframes, currentKeyframeIdx, nextKeyframeIdx, scale);
+                    currentKeyframe.getEasingType().storeEasedValues(animationVecCache, keyframeDelta, keyframes, lastKeyframeIdx, currentKeyframeIdx, scale);
                     // Applies the cache values to the model part
                     keyframeGroup.getTransformType().applyValues(modelPart, animationVecCache);
                 }
-            });
+            }
         }
     }
 
