@@ -107,38 +107,41 @@ public class AdvancedKeyframeAnimations extends KeyframeAnimations
         {
             List<KeyframeGroup> keyframeGroupList = map.getValue();
             Optional<ModelPart> modelPartOptional = model.getAnyDescendantWithName(map.getKey());
-            if(modelPartOptional.isPresent())
-            {
-                ModelPart modelPart = modelPartOptional.get();
 
+            if(modelPartOptional.isPresent() && modelPartOptional.get() instanceof AdvancedModelPart modelPart)
+            {
                 for(KeyframeGroup keyframeGroup : keyframeGroupList)//POS/ROT/SCALE
                 {
                     AdvancedKeyframe[] keyframes = keyframeGroup.getKeyframes();
 
-                    //TODO the fucking array above doesnt update properly, that or there are big issues somehwere else... Idk I need to fix this #Pain #SaveMe
-                    if(keyframes[state.cachedKeyframeIdx].timestamp() < elapsedSeconds)
-                    {
-                        state.cachedKeyframeIdx++;
-                    }
-                    else if (state.getAccumulatedTime() / 1000.0F > animation.getLengthInSeconds())
-                    {
-                        state.accumulatedTime -= animation.getLengthInSeconds() * 1000.0F;
-//                        state.lastTime += animation.getLengthInSeconds() * 1000.0F;
-                        state.cachedKeyframeIdx = 0;
-                    }
-
                     int currentKeyframeIdx = Math.max(0, Mth.binarySearch(0, keyframes.length, index -> elapsedSeconds <= keyframes[index].timestamp()));
-                    currentKeyframeIdx = state.cachedKeyframeIdx;
                     int lastKeyframeIdx = Math.max(0, currentKeyframeIdx - 1);
 
+                    if(state.cachedLastPart == null)
+                        state.cachedLastPart = "null";
+                    if(!state.cachedLastPart.equals(modelPart.getName()))
+                    {
+                        state.cachedLastPart = modelPart.getName();
+
+                        if(state.cachedKeyframeIdx != currentKeyframeIdx)
+                        {
+                            state.rotationCache.put(modelPart.getName(), keyframes[state.cachedKeyframeIdx].target());
+                            state.cachedKeyframeIdx = currentKeyframeIdx;
+                        }
+                    }
+
+//                    System.out.println("Index is: " + state.cachedKeyframeIdx);
+//                    System.out.println(state.rotationCache.entrySet());
+
                     AdvancedKeyframe currentKeyframe = keyframes[currentKeyframeIdx];
+                    //TODO remove lastKeyframe once the other stuff is working
                     AdvancedKeyframe lastKeyframe = keyframes[lastKeyframeIdx];
 
                     float elapsedDelta = elapsedSeconds - lastKeyframe.timestamp();
                     float keyframeDelta = Mth.clamp(elapsedDelta / (currentKeyframe.timestamp() - keyframes[lastKeyframeIdx].timestamp()), 0.0F, 1.0F);
 
                     // Stores lerped values in cache
-                    currentKeyframe.getEasingType().storeEasedValues(animationVecCache, keyframeDelta, keyframes, lastKeyframeIdx, currentKeyframeIdx, scale);
+                    currentKeyframe.getEasingType().storeEasedValues(animationVecCache, keyframeDelta, keyframes, state.rotationCache.get(modelPart.getName()), state.cachedKeyframeIdx, scale);
                     // Applies the cache values to the model part
                     keyframeGroup.getTransformType().applyValues(modelPart, animationVecCache);
                 }

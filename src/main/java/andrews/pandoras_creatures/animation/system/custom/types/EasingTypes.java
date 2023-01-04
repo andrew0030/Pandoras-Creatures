@@ -19,28 +19,29 @@ public class EasingTypes
     // Optional values modified by the EasingBuilder if needed
     private final int steps;
 
-    public void storeEasedValues(Vector3f animationVecCache, float keyframeDelta, AdvancedKeyframe[] keyframes, int currentKeyframeIdx, int nextKeyframeIdx, float scale)
+    public void storeEasedValues(Vector3f animationVecCache, float keyframeDelta, AdvancedKeyframe[] keyframes, Vector3f last, int currentKeyframeIdx, float scale)
     {
         switch (easingType)
         {
             case LINEAR -> {
+//                Vector3f last = keyframes[last].target();
                 Vector3f current = keyframes[currentKeyframeIdx].target();
-                Vector3f next = keyframes[nextKeyframeIdx].target();
-                current.lerp(next, keyframeDelta, animationVecCache).mul(scale);
+                if(last!=null)
+                last.lerp(current, keyframeDelta, animationVecCache).mul(scale);
             }
             case CATMULLROM -> {
-                Vector3f old = keyframes[Math.max(0, currentKeyframeIdx - 1)].target();
-                Vector3f current = keyframes[currentKeyframeIdx].target();
-                Vector3f next = keyframes[nextKeyframeIdx].target();
-                Vector3f future = keyframes[Math.min(keyframes.length - 1, nextKeyframeIdx + 1)].target();
-                animationVecCache.set(Mth.catmullrom(keyframeDelta, old.x(), current.x(), next.x(), future.x()) * scale,
-                        Mth.catmullrom(keyframeDelta, old.y(), current.y(), next.y(), future.y()) * scale,
-                        Mth.catmullrom(keyframeDelta, old.z(), current.z(), next.z(), future.z()) * scale);
+//                Vector3f old = keyframes[Math.max(0, currentKeyframeIdx - 1)].target();
+//                Vector3f current = keyframes[currentKeyframeIdx].target();
+//                Vector3f next = keyframes[nextKeyframeIdx].target();
+//                Vector3f future = keyframes[Math.min(keyframes.length - 1, nextKeyframeIdx + 1)].target();
+//                animationVecCache.set(Mth.catmullrom(keyframeDelta, old.x(), current.x(), next.x(), future.x()) * scale,
+//                        Mth.catmullrom(keyframeDelta, old.y(), current.y(), next.y(), future.y()) * scale,
+//                        Mth.catmullrom(keyframeDelta, old.z(), current.z(), next.z(), future.z()) * scale);
             }
             case EASE_IN_SINE -> {
-                Vector3f current = keyframes[currentKeyframeIdx].target();
-                Vector3f next = keyframes[nextKeyframeIdx].target();
-                current.lerp(next, easeInSine(keyframeDelta), animationVecCache).mul(scale);
+//                Vector3f current = keyframes[currentKeyframeIdx].target();
+//                Vector3f next = keyframes[nextKeyframeIdx].target();
+//                current.lerp(next, easeInSine(keyframeDelta), animationVecCache).mul(scale);
             }
         }
     }

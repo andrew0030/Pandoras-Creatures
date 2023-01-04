@@ -1,7 +1,5 @@
 package andrews.pandoras_creatures.animation.system.wrap;
 
-import andrews.pandoras_creatures.block_entities.animations.TestAnimationAnimations;
-import com.google.common.collect.Maps;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.KeyframeAnimations;
 import net.minecraft.util.Mth;
@@ -16,12 +14,14 @@ public class AdvancedAnimationState extends AnimationState
     private float tickDelay = 0;
     public Map<String, Vector3f> rotationCache;
     public int cachedKeyframeIdx;
+    public String cachedLastPart;
 
-    public AdvancedAnimationState(AnimationDefinition animation, Map<String, Vector3f> rotationCache, int cachedKeyframeIdx)
+    public AdvancedAnimationState(AnimationDefinition animation, Map<String, Vector3f> rotationCache, int cachedKeyframeIdx, String cachedLastPart)
     {
         this.animation = animation;
         this.rotationCache = rotationCache;
         this.cachedKeyframeIdx = cachedKeyframeIdx;
+        this.cachedLastPart = cachedLastPart;
     }
 
     @Override

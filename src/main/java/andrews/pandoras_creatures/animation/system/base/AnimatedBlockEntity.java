@@ -12,6 +12,7 @@ import java.util.Map;
 public class AnimatedBlockEntity extends BlockEntity
 {
     public Map<String, Vector3f> rotationCache = Maps.newHashMap();
+    public String cachedLastPart;
     public int cachedKeyframeIdx;
     private int ticksExisted;
 
