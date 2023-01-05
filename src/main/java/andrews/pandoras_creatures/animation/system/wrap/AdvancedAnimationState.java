@@ -13,10 +13,10 @@ public class AdvancedAnimationState extends AnimationState
     private final AnimationDefinition animation;
     private float tickDelay = 0;
     public Map<String, Vector3f> rotationCache;
-    public int cachedKeyframeIdx;
+    public Map<String, Integer> cachedKeyframeIdx;
     public String cachedLastPart;
 
-    public AdvancedAnimationState(AnimationDefinition animation, Map<String, Vector3f> rotationCache, int cachedKeyframeIdx, String cachedLastPart)
+    public AdvancedAnimationState(AnimationDefinition animation, Map<String, Vector3f> rotationCache, Map<String, Integer> cachedKeyframeIdx, String cachedLastPart)
     {
         this.animation = animation;
         this.rotationCache = rotationCache;
@@ -45,7 +45,7 @@ public class AdvancedAnimationState extends AnimationState
     public void stop()
     {
         super.stop();
-        this.cachedKeyframeIdx = 0;
+        this.cachedKeyframeIdx.clear();
         this.rotationCache.clear();//TODO add position and scale
     }
 

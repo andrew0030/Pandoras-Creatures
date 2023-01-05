@@ -13,7 +13,7 @@ public class AnimatedBlockEntity extends BlockEntity
 {
     public Map<String, Vector3f> rotationCache = Maps.newHashMap();
     public String cachedLastPart;
-    public int cachedKeyframeIdx;
+    public Map<String, Integer> cachedKeyframeIdx = Maps.newHashMap();
     private int ticksExisted;
 
     public AnimatedBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState)

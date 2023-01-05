@@ -38,16 +38,16 @@ public class TestAnimationBlockEntityRenderer implements BlockEntityRenderer<Tes
         model.renderToBuffer(poseStack, vertexconsumer, packedLight, packedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
         poseStack.popPose();
 
-        PCRenderUtil.renderLine(bufferSource, poseStack, 255, 20, 20, 0, 1 ,0, 1, 1, 0);
-        PCRenderUtil.renderLine(bufferSource, poseStack, 255, 20, 20, 0, 1 ,0, 0, 1, 1);
-        PCRenderUtil.renderLine(bufferSource, poseStack, 255, 20, 20, 1, 1 ,1, 1, 1, 0);
-        PCRenderUtil.renderLine(bufferSource, poseStack, 255, 20, 20, 1, 1 ,1, 0, 1, 1);
-        PCRenderUtil.renderLine(bufferSource, poseStack, 255, 20, 20, 0, 1 ,0, 1, 1, 1);
-        PCRenderUtil.renderLine(bufferSource, poseStack, 255, 20, 20, 0, 1 ,1 , 1, 1, 0);
+//        PCRenderUtil.renderLine(bufferSource, poseStack, 255, 20, 20, 0, 1 ,0, 1, 1, 0);
+//        PCRenderUtil.renderLine(bufferSource, poseStack, 255, 20, 20, 0, 1 ,0, 0, 1, 1);
+//        PCRenderUtil.renderLine(bufferSource, poseStack, 255, 20, 20, 1, 1 ,1, 1, 1, 0);
+//        PCRenderUtil.renderLine(bufferSource, poseStack, 255, 20, 20, 1, 1 ,1, 0, 1, 1);
+//        PCRenderUtil.renderLine(bufferSource, poseStack, 255, 20, 20, 0, 1 ,0, 1, 1, 1);
+//        PCRenderUtil.renderLine(bufferSource, poseStack, 255, 20, 20, 0, 1 ,1 , 1, 1, 0);
 
-        poseStack.pushPose();
-        poseStack.translate(0.5D, 1.0D, 0.5D);
-        PCRenderUtil.renderChainFromModelPart(null, bufferSource, poseStack, this.model.top.getChild("cube_r1"), packedLight, false);
-        poseStack.popPose();
+//        poseStack.pushPose();
+//        poseStack.translate(0.5D, 1.0D, 0.5D);
+//        PCRenderUtil.renderChainFromModelPart(null, bufferSource, poseStack, this.model.top.getChild("cube_r1"), packedLight, false);
+//        poseStack.popPose();
     }
 }

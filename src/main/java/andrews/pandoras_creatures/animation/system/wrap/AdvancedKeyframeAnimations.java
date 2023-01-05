@@ -101,48 +101,49 @@ public class AdvancedKeyframeAnimations extends KeyframeAnimations
 
     public static void animate(AnimatedBlockEntityModel model, Animation animation, AdvancedAnimationState state, float scale, Vector3f animationVecCache)
     {
-        float elapsedSeconds = getElapsedSeconds(animation, state.getAccumulatedTime());
+        float elapsedSeconds = getElapsedSeconds(animation, state.accumulatedTime);
 
+        // We need to keep track of the size of the map, so we can perform logic on its last iteration
+        int entries = animation.getKeyframeGroups().entrySet().size();
         for(Map.Entry<String, List<KeyframeGroup>> map : animation.getKeyframeGroups().entrySet())
         {
+            entries--; // We reduce entries by 1 for every loop iteration
             List<KeyframeGroup> keyframeGroupList = map.getValue();
             Optional<ModelPart> modelPartOptional = model.getAnyDescendantWithName(map.getKey());
-
             if(modelPartOptional.isPresent() && modelPartOptional.get() instanceof AdvancedModelPart modelPart)
             {
-                for(KeyframeGroup keyframeGroup : keyframeGroupList)//POS/ROT/SCALE
+                for(KeyframeGroup keyframeGroup : keyframeGroupList)
                 {
                     AdvancedKeyframe[] keyframes = keyframeGroup.getKeyframes();
 
-                    int currentKeyframeIdx = Math.max(0, Mth.binarySearch(0, keyframes.length, index -> elapsedSeconds <= keyframes[index].timestamp()));
-                    int lastKeyframeIdx = Math.max(0, currentKeyframeIdx - 1);
+                    if(!state.cachedKeyframeIdx.containsKey(modelPart.getName()))
+                        state.cachedKeyframeIdx.put(modelPart.getName(), 0);
 
-                    if(state.cachedLastPart == null)
-                        state.cachedLastPart = "null";
-                    if(!state.cachedLastPart.equals(modelPart.getName()))
+                    if(state.getAccumulatedTime() / 1000.0F > animation.getLengthInSeconds())
                     {
-                        state.cachedLastPart = modelPart.getName();
+                        state.cachedKeyframeIdx.put(modelPart.getName(), 0);
+                        if(entries <= 0)
+                            state.accumulatedTime -= animation.getLengthInSeconds() * 1000.0F;
+                    }
+                    // The code above sets the Idx to 0 on loop
 
-                        if(state.cachedKeyframeIdx != currentKeyframeIdx)
-                        {
-                            state.rotationCache.put(modelPart.getName(), keyframes[state.cachedKeyframeIdx].target());
-                            state.cachedKeyframeIdx = currentKeyframeIdx;
-                        }
+
+                    // Code bellow turns the Idx back into 1 if needed, run logic that requires 0 above
+                    if(keyframes[state.cachedKeyframeIdx.get(modelPart.getName())].timestamp() < elapsedSeconds)
+                    {
+                        state.cachedKeyframeIdx.put(modelPart.getName(), state.cachedKeyframeIdx.get(modelPart.getName()) + 1);
                     }
 
-//                    System.out.println("Index is: " + state.cachedKeyframeIdx);
-//                    System.out.println(state.rotationCache.entrySet());
+                    int currentKeyframeIdx = state.cachedKeyframeIdx.get(modelPart.getName());
+                    int lastKeyframeIdx = Math.max(0, currentKeyframeIdx - 1);
 
                     AdvancedKeyframe currentKeyframe = keyframes[currentKeyframeIdx];
-                    //TODO remove lastKeyframe once the other stuff is working
                     AdvancedKeyframe lastKeyframe = keyframes[lastKeyframeIdx];
 
                     float elapsedDelta = elapsedSeconds - lastKeyframe.timestamp();
-                    float keyframeDelta = Mth.clamp(elapsedDelta / (currentKeyframe.timestamp() - keyframes[lastKeyframeIdx].timestamp()), 0.0F, 1.0F);
+                    float keyframeDelta = Mth.clamp(elapsedDelta / (currentKeyframe.timestamp() - lastKeyframe.timestamp()), 0.0F, 1.0F);
 
-                    // Stores lerped values in cache
-                    currentKeyframe.getEasingType().storeEasedValues(animationVecCache, keyframeDelta, keyframes, state.rotationCache.get(modelPart.getName()), state.cachedKeyframeIdx, scale);
-                    // Applies the cache values to the model part
+                    currentKeyframe.getEasingType().storeEasedValues(animationVecCache, keyframeDelta, keyframes, lastKeyframeIdx, currentKeyframeIdx, scale);
                     keyframeGroup.getTransformType().applyValues(modelPart, animationVecCache);
                 }
             }
