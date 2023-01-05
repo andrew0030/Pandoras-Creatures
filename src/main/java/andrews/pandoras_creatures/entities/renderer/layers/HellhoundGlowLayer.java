@@ -2,6 +2,7 @@ package andrews.pandoras_creatures.entities.renderer.layers;
 
 import andrews.pandoras_creatures.entities.Hellhound;
 import andrews.pandoras_creatures.entities.model.HellhoundModel;
+import andrews.pandoras_creatures.util.PCRenderTypes;
 import andrews.pandoras_creatures.util.Reference;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -14,7 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class HellhoundGlowLayer<T extends Hellhound> extends RenderLayer<T, HellhoundModel<T>>
 {
-    private static final RenderType TEXTURE = RenderType.eyes(new ResourceLocation(Reference.MODID, "textures/entity/hellhound_e.png"));
+    private static final RenderType TEXTURE = PCRenderTypes.eyesNoCull(new ResourceLocation(Reference.MODID, "textures/entity/hellhound_e.png"));
 
     public HellhoundGlowLayer(RenderLayerParent<T, HellhoundModel<T>> layerParent)
     {

@@ -124,6 +124,7 @@ public class AdvancedKeyframeAnimations extends KeyframeAnimations
                     }
                     // The code above sets the Idx to 0 on loop
 
+                    //TODO figure out how to use partial ticks and where or what ever
 
                     // Code bellow turns the Idx back into 1 if needed, run logic that requires 0 above
                     if(keyframes[state.cachedKeyframeIdx.get(modelPart.getName())].timestamp() < elapsedSeconds)
