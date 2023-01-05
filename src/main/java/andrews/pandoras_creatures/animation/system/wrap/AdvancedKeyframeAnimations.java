@@ -12,14 +12,11 @@ import net.minecraft.client.animation.Keyframe;
 import net.minecraft.client.animation.KeyframeAnimations;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.AnimationState;
 import org.joml.Vector3f;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.IntPredicate;
 
 public class AdvancedKeyframeAnimations extends KeyframeAnimations
 {
@@ -119,7 +116,7 @@ public class AdvancedKeyframeAnimations extends KeyframeAnimations
                     if(!state.cachedKeyframeIdx.containsKey(modelPart.getName()))
                         state.cachedKeyframeIdx.put(modelPart.getName(), 0);
 
-                    if(state.getAccumulatedTime() / 1000.0F > animation.getLengthInSeconds())
+                    if(state.getAccumulatedTime() / 1000.0F > animation.getLengthInSeconds() && animation.isLooping())
                     {
                         state.cachedKeyframeIdx.put(modelPart.getName(), 0);
                         if(entries <= 0)
@@ -131,7 +128,7 @@ public class AdvancedKeyframeAnimations extends KeyframeAnimations
                     // Code bellow turns the Idx back into 1 if needed, run logic that requires 0 above
                     if(keyframes[state.cachedKeyframeIdx.get(modelPart.getName())].timestamp() < elapsedSeconds)
                     {
-                        state.cachedKeyframeIdx.put(modelPart.getName(), state.cachedKeyframeIdx.get(modelPart.getName()) + 1);
+                        state.cachedKeyframeIdx.put(modelPart.getName(), Math.min(keyframes.length - 1, state.cachedKeyframeIdx.get(modelPart.getName()) + 1));
                     }
 
                     int currentKeyframeIdx = state.cachedKeyframeIdx.get(modelPart.getName());
