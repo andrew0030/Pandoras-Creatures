@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
@@ -38,11 +39,27 @@ public class TestAnimationBlock extends BaseEntityBlock
     {
         if(level.getBlockEntity(pos) instanceof TestAnimationBlockEntity blockEntity)
         {
-            if(blockEntity.testAnimationState.isStarted())
+            if(player.getItemInHand(hand).is(Items.STICK))
             {
-                blockEntity.testAnimationState.stop();
-            } else {
-                blockEntity.testAnimationState.startIfStopped(blockEntity.getTicksExisted());
+                if (blockEntity.testAnimationState.isStarted())
+                {
+                    blockEntity.testAnimationState.stop();
+                }
+                else
+                {
+                    blockEntity.testAnimationState.start(blockEntity.getTicksExisted());
+                }
+            }
+            else if(player.getItemInHand(hand).is(Items.BLAZE_ROD))
+            {
+                if (blockEntity.altAnimationState.isStarted())
+                {
+                    blockEntity.altAnimationState.stop();
+                }
+                else
+                {
+                    blockEntity.altAnimationState.start(blockEntity.getTicksExisted());
+                }
             }
         }
         return InteractionResult.SUCCESS;

@@ -1,22 +1,25 @@
 package andrews.pandoras_creatures.animation.system.wrap;
 
+import andrews.pandoras_creatures.animation.system.custom.Animation;
+import andrews.pandoras_creatures.animation.system.custom.KeyframeGroup;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.KeyframeAnimations;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.AnimationState;
 import org.joml.Vector3f;
 
+import java.util.List;
 import java.util.Map;
 
 public class AdvancedAnimationState extends AnimationState
 {
-    private final AnimationDefinition animation;
+    private final Animation animation;
     private float tickDelay = 0;
     public Map<String, Vector3f> rotationCache;
-    public Map<String, Integer> cachedKeyframeIdx;
+    public Map<KeyframeGroup, Integer> cachedKeyframeIdx;
     public String cachedLastPart;
 
-    public AdvancedAnimationState(AnimationDefinition animation, Map<String, Vector3f> rotationCache, Map<String, Integer> cachedKeyframeIdx, String cachedLastPart)
+    public AdvancedAnimationState(Animation animation, Map<String, Vector3f> rotationCache, Map<KeyframeGroup, Integer> cachedKeyframeIdx, String cachedLastPart)
     {
         this.animation = animation;
         this.rotationCache = rotationCache;
@@ -61,7 +64,7 @@ public class AdvancedAnimationState extends AnimationState
     /**
      * @return The AnimationDefinition connected to this AnimationState
      */
-    public AnimationDefinition getAnimation()
+    public Animation getAnimation()
     {
         return this.animation;
     }
@@ -69,11 +72,11 @@ public class AdvancedAnimationState extends AnimationState
     /**
      * @return Whether this animation has been running longer than its duration. Returns false if the animation is looping or hasn't started
      */
-    public boolean isFinished()
+    public boolean isFinished()//TODO fix this
     {
-        if(!this.isStarted() || this.animation.looping())
+//        if(!this.isStarted() || this.animation.isLooping())
             return false;
-        float deltaTime = this.animation.lengthInSeconds() - KeyframeAnimations.getElapsedSeconds(this.animation, this.getAccumulatedTime());
-        return deltaTime <= 0.0F;
+//        float deltaTime = this.animation.getLengthInSeconds() - KeyframeAnimations.getElapsedSeconds(this.animation, this.getAccumulatedTime());
+//        return deltaTime <= 0.0F;
     }
 }

@@ -82,8 +82,8 @@ public class HellhoundModel<T extends Hellhound> extends AnimatedEntityModel<T>
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch)
     {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.animate(entity.walkKeyFrameState, entity.walkKeyFrameState.getAnimation(), ageInTicks);
-        this.animate(entity.angleKeyFrameState, entity.angleKeyFrameState.getAnimation(), ageInTicks);
+//        this.animate(entity.walkKeyFrameState, entity.walkKeyFrameState.getAnimation(), ageInTicks);
+//        this.animate(entity.angleKeyFrameState, entity.angleKeyFrameState.getAnimation(), ageInTicks);
     }
 
     @Override

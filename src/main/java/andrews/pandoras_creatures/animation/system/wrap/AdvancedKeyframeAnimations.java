@@ -6,6 +6,7 @@ import andrews.pandoras_creatures.animation.model.AnimatedEntityModel;
 import andrews.pandoras_creatures.animation.system.custom.AdvancedKeyframe;
 import andrews.pandoras_creatures.animation.system.custom.Animation;
 import andrews.pandoras_creatures.animation.system.custom.KeyframeGroup;
+import andrews.pandoras_creatures.animation.system.custom.types.TransformTypes;
 import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.Keyframe;
@@ -113,12 +114,12 @@ public class AdvancedKeyframeAnimations extends KeyframeAnimations
                 {
                     AdvancedKeyframe[] keyframes = keyframeGroup.getKeyframes();
 
-                    if(!state.cachedKeyframeIdx.containsKey(modelPart.getName()))
-                        state.cachedKeyframeIdx.put(modelPart.getName(), 0);
+                    if(!state.cachedKeyframeIdx.containsKey(keyframeGroup))
+                        state.cachedKeyframeIdx.put(keyframeGroup, 0);
 
                     if(state.getAccumulatedTime() >= animation.getLengthInSeconds() * 1000.0F && animation.isLooping())
                     {
-                        state.cachedKeyframeIdx.put(modelPart.getName(), 0);
+                        state.cachedKeyframeIdx.put(keyframeGroup, 0);
                         if(entries <= 0)
                             state.accumulatedTime -= animation.getLengthInSeconds() * 1000.0F;
                     }
@@ -127,12 +128,12 @@ public class AdvancedKeyframeAnimations extends KeyframeAnimations
 
 
                     // Code bellow turns the Idx back into 1 if needed, run logic that requires 0 above
-                    if(keyframes[state.cachedKeyframeIdx.get(modelPart.getName())].timestamp() <= elapsedSeconds)
+                    if(keyframes[state.cachedKeyframeIdx.get(keyframeGroup)].timestamp() <= elapsedSeconds)
                     {
-                        state.cachedKeyframeIdx.put(modelPart.getName(), Math.min(keyframes.length - 1, state.cachedKeyframeIdx.get(modelPart.getName()) + 1));
+                        state.cachedKeyframeIdx.put(keyframeGroup, Math.min(keyframes.length - 1, state.cachedKeyframeIdx.get(keyframeGroup) + 1));
                     }
 
-                    int currentKeyframeIdx = state.cachedKeyframeIdx.get(modelPart.getName());
+                    int currentKeyframeIdx = state.cachedKeyframeIdx.get(keyframeGroup);
                     int lastKeyframeIdx = Math.max(0, currentKeyframeIdx - 1);
 
                     AdvancedKeyframe currentKeyframe = keyframes[currentKeyframeIdx];

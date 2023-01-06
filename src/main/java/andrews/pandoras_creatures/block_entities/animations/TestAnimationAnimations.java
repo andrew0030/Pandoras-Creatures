@@ -38,6 +38,23 @@ public class TestAnimationAnimations
                             new Keyframe(2f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.CATMULLROM))).build();
 
+//    public static final Animation MY_ANIMATION = Animation.Builder.withLength(3f).looping()
+//            .addAnimation("arm_bottom", new KeyframeGroup(TransformTypes.ROTATION,
+//                    new AdvancedKeyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f), EasingTypes.LINEAR),
+//                    new AdvancedKeyframe(1f, KeyframeAnimations.degreeVec(-30f, 0f, 0f), EasingTypes.LINEAR),
+//                    new AdvancedKeyframe(2f, KeyframeAnimations.degreeVec(30f, 0f, 0f), EasingTypes.LINEAR),
+//                    new AdvancedKeyframe(3f, KeyframeAnimations.degreeVec(0f, 0f, 0f), EasingTypes.LINEAR)))
+//            .addAnimation("arm_top", new KeyframeGroup(TransformTypes.ROTATION,
+//                    new AdvancedKeyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f), EasingTypes.LINEAR),
+//                    new AdvancedKeyframe(1f, KeyframeAnimations.degreeVec(60f, 0f, 0f), EasingTypes.LINEAR),
+//                    new AdvancedKeyframe(2f, KeyframeAnimations.degreeVec(-60f, 0f, 0f), EasingTypes.LINEAR),
+//                    new AdvancedKeyframe(3f, KeyframeAnimations.degreeVec(0f, 0f, 0f), EasingTypes.LINEAR)))
+//            .addAnimation("top", new KeyframeGroup(TransformTypes.ROTATION,
+//                    new AdvancedKeyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f), EasingTypes.LINEAR),
+//                    new AdvancedKeyframe(1f, KeyframeAnimations.degreeVec(0f, -80f, 0f), EasingTypes.LINEAR),
+//                    new AdvancedKeyframe(2.5f, KeyframeAnimations.degreeVec(0f, 80f, 0f), EasingTypes.LINEAR),
+//                    new AdvancedKeyframe(3f, KeyframeAnimations.degreeVec(0f, 0f, 0f), EasingTypes.LINEAR))).build();
+
     public static final Animation MY_ANIMATION = Animation.Builder.withLength(3f).looping()
             .addAnimation("arm_bottom", new KeyframeGroup(TransformTypes.ROTATION,
                     new AdvancedKeyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f), EasingTypes.LINEAR),
@@ -54,4 +71,23 @@ public class TestAnimationAnimations
                     new AdvancedKeyframe(1f, KeyframeAnimations.degreeVec(0f, -80f, 0f), EasingTypes.LINEAR),
                     new AdvancedKeyframe(2.5f, KeyframeAnimations.degreeVec(0f, 80f, 0f), EasingTypes.LINEAR),
                     new AdvancedKeyframe(3f, KeyframeAnimations.degreeVec(0f, 0f, 0f), EasingTypes.LINEAR))).build();
+
+    public static final Animation MY_ALT_ANIMATION = Animation.Builder.withLength(3f).looping()
+            .addAnimation("arm_bottom", new KeyframeGroup(TransformTypes.ROTATION,
+                    new AdvancedKeyframe(0f, KeyframeAnimations.degreeVec(0f, 00f, 0f), EasingTypes.LINEAR),
+                    new AdvancedKeyframe(2f, KeyframeAnimations.degreeVec(0f, 90f, 0f), EasingTypes.LINEAR),
+                    new AdvancedKeyframe(2.5f, KeyframeAnimations.degreeVec(0f, 45f, 0f), EasingTypes.LINEAR),
+                    new AdvancedKeyframe(3f, KeyframeAnimations.degreeVec(0f, 0f, 0f), EasingTypes.LINEAR)))
+            .addAnimation("arm_top", new KeyframeGroup(TransformTypes.ROTATION,
+                    new AdvancedKeyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f), EasingTypes.LINEAR),
+                    new AdvancedKeyframe(1f, KeyframeAnimations.degreeVec(0f, 20f, 0f), EasingTypes.LINEAR),
+                    new AdvancedKeyframe(2f, KeyframeAnimations.degreeVec(0f, -30f, 0f), EasingTypes.LINEAR),
+                    new AdvancedKeyframe(3f, KeyframeAnimations.degreeVec(0f, 0f, 0f), EasingTypes.LINEAR)))
+            .addAnimation("top", new KeyframeGroup(TransformTypes.ROTATION,
+                    new AdvancedKeyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f), EasingTypes.LINEAR),
+                    new AdvancedKeyframe(1f, KeyframeAnimations.degreeVec(0f, -50f, 0f), EasingTypes.LINEAR),
+                    new AdvancedKeyframe(2.5f, KeyframeAnimations.degreeVec(0f, 30f, 0f), EasingTypes.LINEAR),
+                    new AdvancedKeyframe(3f, KeyframeAnimations.degreeVec(0f, 0f, 0f), EasingTypes.LINEAR))).build();
+
+
 }
