@@ -116,7 +116,7 @@ public class AdvancedKeyframeAnimations extends KeyframeAnimations
                     if(!state.cachedKeyframeIdx.containsKey(modelPart.getName()))
                         state.cachedKeyframeIdx.put(modelPart.getName(), 0);
 
-                    if(state.getAccumulatedTime() / 1000.0F > animation.getLengthInSeconds() && animation.isLooping())
+                    if(state.getAccumulatedTime() >= animation.getLengthInSeconds() * 1000.0F && animation.isLooping())
                     {
                         state.cachedKeyframeIdx.put(modelPart.getName(), 0);
                         if(entries <= 0)
@@ -124,10 +124,10 @@ public class AdvancedKeyframeAnimations extends KeyframeAnimations
                     }
                     // The code above sets the Idx to 0 on loop
 
-                    //TODO figure out how to use partial ticks and where or what ever
+
 
                     // Code bellow turns the Idx back into 1 if needed, run logic that requires 0 above
-                    if(keyframes[state.cachedKeyframeIdx.get(modelPart.getName())].timestamp() < elapsedSeconds)
+                    if(keyframes[state.cachedKeyframeIdx.get(modelPart.getName())].timestamp() <= elapsedSeconds)
                     {
                         state.cachedKeyframeIdx.put(modelPart.getName(), Math.min(keyframes.length - 1, state.cachedKeyframeIdx.get(modelPart.getName()) + 1));
                     }

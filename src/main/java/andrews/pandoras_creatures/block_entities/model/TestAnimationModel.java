@@ -52,7 +52,7 @@ public class TestAnimationModel extends AnimatedBlockEntityModel
         if(blockEntity instanceof TestAnimationBlockEntity animated)
         {
             this.base.getAllParts().forEach(ModelPart::resetPose);
-            this.animate(animated.testAnimationState, TestAnimationAnimations.MY_ANIMATION, animated.getTicksExisted(), 1.0F);
+            this.animate(animated.testAnimationState, TestAnimationAnimations.MY_ANIMATION, animated.getTicksExisted() + partialTick, 1.0F);
         }
     }
 
