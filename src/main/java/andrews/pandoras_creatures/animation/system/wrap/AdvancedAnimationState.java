@@ -2,29 +2,23 @@ package andrews.pandoras_creatures.animation.system.wrap;
 
 import andrews.pandoras_creatures.animation.system.custom.Animation;
 import andrews.pandoras_creatures.animation.system.custom.KeyframeGroup;
-import net.minecraft.client.animation.AnimationDefinition;
-import net.minecraft.client.animation.KeyframeAnimations;
+import com.google.common.collect.Maps;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.AnimationState;
 import org.joml.Vector3f;
 
-import java.util.List;
 import java.util.Map;
 
 public class AdvancedAnimationState extends AnimationState
 {
+    public Map<KeyframeGroup, Integer> cachedIndex = Maps.newHashMap();
+    public Map<KeyframeGroup, Vector3f> cachedLastVec = Maps.newHashMap();
     private final Animation animation;
     private float tickDelay = 0;
-    public Map<String, Vector3f> rotationCache;
-    public Map<KeyframeGroup, Integer> cachedKeyframeIdx;
-    public String cachedLastPart;
 
-    public AdvancedAnimationState(Animation animation, Map<String, Vector3f> rotationCache, Map<KeyframeGroup, Integer> cachedKeyframeIdx, String cachedLastPart)
+    public AdvancedAnimationState(Animation animation)
     {
         this.animation = animation;
-        this.rotationCache = rotationCache;
-        this.cachedKeyframeIdx = cachedKeyframeIdx;
-        this.cachedLastPart = cachedLastPart;
     }
 
     @Override
@@ -48,8 +42,9 @@ public class AdvancedAnimationState extends AnimationState
     public void stop()
     {
         super.stop();
-        this.cachedKeyframeIdx.clear();
-        this.rotationCache.clear();//TODO add position and scale
+        // When we stop an Animation we need to clear the caches
+        this.cachedIndex.clear();
+        this.cachedLastVec.clear();
     }
 
     /**

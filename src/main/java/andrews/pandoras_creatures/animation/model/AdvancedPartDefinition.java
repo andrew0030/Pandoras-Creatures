@@ -41,7 +41,7 @@ public class AdvancedPartDefinition extends PartDefinition
     {
         // Takes all the cubeDefinition's, bakes them and stores them in an ImmutableList as Cube's
         List<ModelPart.Cube> list = this.cubes.stream().map((cubeDefinition) -> cubeDefinition.bake(texWidth, texHeight)).collect(ImmutableList.toImmutableList());
-        // A more readable approach of baking the values in children. TODO if this causes issues use the old method
+        // A more readable approach of baking the values in children.
         Map<String, ModelPart> map = Maps.newHashMap();
         for(String key : this.children.keySet())
             map.put(key, this.children.get(key).bake(texWidth, texHeight));

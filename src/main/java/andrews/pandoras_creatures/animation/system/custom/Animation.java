@@ -19,15 +19,18 @@ public class Animation
         this.keyframeGroups = keyframeGroups;
     }
 
-    public float getLengthInSeconds() {
+    public float getLengthInSeconds()
+    {
         return this.lengthInSeconds;
     }
 
-    public boolean isLooping() {
+    public boolean isLooping()
+    {
         return this.looping;
     }
 
-    public Map<String, List<KeyframeGroup>> getKeyframeGroups() {
+    public Map<String, List<KeyframeGroup>> getKeyframeGroups()
+    {
         return this.keyframeGroups;
     }
 

@@ -1,6 +1,5 @@
 package andrews.pandoras_creatures.animation.model;
 
-import andrews.pandoras_creatures.animation.system.wrap.AdvancedKeyframeAnimations;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.renderer.RenderType;
@@ -37,8 +36,7 @@ public abstract class AnimatedEntityModel<E extends Entity> extends Hierarchical
         state.updateTime(ageInTicks, speed);
         if(state.isStarted())
         {
-            //TODO maybe use this place to do interpolating by switching to a different animate method?
-            AdvancedKeyframeAnimations.animate(this, definition, state.getAccumulatedTime(), 1.0F, ANIMATION_VECTOR_CACHE);
+//            AnimationHandler.animate(this, definition, state.getAccumulatedTime(), 1.0F, ANIMATION_VECTOR_CACHE);//TODO replace this
         }
     }
 }

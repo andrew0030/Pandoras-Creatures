@@ -88,6 +88,4 @@ public class TestAnimationAnimations
                     new AdvancedKeyframe(1f, KeyframeAnimations.degreeVec(0f, -50f, 0f), EasingTypes.LINEAR),
                     new AdvancedKeyframe(2.5f, KeyframeAnimations.degreeVec(0f, 30f, 0f), EasingTypes.LINEAR),
                     new AdvancedKeyframe(3f, KeyframeAnimations.degreeVec(0f, 0f, 0f), EasingTypes.LINEAR))).build();
-
-
 }

@@ -3,11 +3,8 @@ package andrews.pandoras_creatures.animation.system.custom.types;
 import andrews.pandoras_creatures.animation.system.custom.AdvancedKeyframe;
 import andrews.pandoras_creatures.animation.system.custom.types.builder.EasingBuilder;
 import andrews.pandoras_creatures.animation.system.custom.types.builder.EasingType;
-import net.minecraft.client.Minecraft;
 import net.minecraft.util.Mth;
 import org.joml.Vector3f;
-
-import java.util.Optional;
 
 public class EasingTypes
 {
@@ -19,32 +16,27 @@ public class EasingTypes
     // Optional values modified by the EasingBuilder if needed
     private final int steps;
 
-    public void storeEasedValues(Vector3f animationVecCache, float keyframeDelta, AdvancedKeyframe[] keyframes, int currentKeyframeIdx, int nextKeyframeIdx, float scale)
+    public void storeEasedValues(Vector3f animationVecCache, float keyframeDelta, AdvancedKeyframe[] keyframes, Vector3f cachedLastVec, int currentKeyframeIdx, float scale)
     {
         switch (easingType)
         {
             case LINEAR -> {
                 Vector3f current = keyframes[currentKeyframeIdx].target();
-                Vector3f next = keyframes[nextKeyframeIdx].target();
-                current.lerp(next, keyframeDelta, animationVecCache).mul(scale);
+                cachedLastVec.lerp(current, keyframeDelta, animationVecCache).mul(scale);
             }
             case CATMULLROM -> {
-                Vector3f old = keyframes[Math.max(0, currentKeyframeIdx - 1)].target();
+                Vector3f old = keyframes[Math.max(0, currentKeyframeIdx - 2)].target();
+                // Last is retrieved from the cache
                 Vector3f current = keyframes[currentKeyframeIdx].target();
-                Vector3f next = keyframes[nextKeyframeIdx].target();
-                Vector3f future = keyframes[Math.min(keyframes.length - 1, nextKeyframeIdx + 1)].target();
-                animationVecCache.set(Mth.catmullrom(keyframeDelta, old.x(), current.x(), next.x(), future.x()) * scale,
-                        Mth.catmullrom(keyframeDelta, old.y(), current.y(), next.y(), future.y()) * scale,
-                        Mth.catmullrom(keyframeDelta, old.z(), current.z(), next.z(), future.z()) * scale);
+                Vector3f future = keyframes[Math.min(keyframes.length - 1, currentKeyframeIdx + 1)].target();
+                animationVecCache.set(
+                        Mth.catmullrom(keyframeDelta, old.x(), cachedLastVec.x(), current.x(), future.x()) * scale,
+                        Mth.catmullrom(keyframeDelta, old.y(), cachedLastVec.y(), current.y(), future.y()) * scale,
+                        Mth.catmullrom(keyframeDelta, old.z(), cachedLastVec.z(), current.z(), future.z()) * scale);
             }
             case EASE_IN_SINE -> {
                 Vector3f current = keyframes[currentKeyframeIdx].target();
-                Vector3f next = keyframes[nextKeyframeIdx].target();
-                animationVecCache.set(
-                        Math.fma(next.x() - current.x, easeInSine(keyframeDelta), current.x),
-                        Math.fma(next.y() - current.y, easeInSine(keyframeDelta), current.y),
-                        Math.fma(next.z() - current.z, easeInSine(keyframeDelta), current.z)
-                );
+                cachedLastVec.lerp(current, easeInSine(keyframeDelta), animationVecCache).mul(scale);
             }
         }
     }
