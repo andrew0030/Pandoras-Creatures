@@ -17,7 +17,7 @@ public class PandorasCreaturesClient
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         modEventBus.addListener(PandorasCreaturesClient::setup);
-        modEventBus.addListener(PandorasCreaturesClient::registerEntityModels);
+        modEventBus.addListener(PandorasCreaturesClient::registerLayerDefinitions);
         modEventBus.addListener(PandorasCreaturesClient::registerEntityRenderers);
     }
 
@@ -29,7 +29,7 @@ public class PandorasCreaturesClient
     }
 
     // Registers the LayerDefinitions
-    public static void registerEntityModels(EntityRenderersEvent.RegisterLayerDefinitions event)
+    public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event)
     {
         event.registerLayerDefinition(HellhoundModel.LAYER, HellhoundModel::createBodyLayer);
         event.registerLayerDefinition(TestAnimationModel.LAYER, TestAnimationModel::createBodyLayer);}

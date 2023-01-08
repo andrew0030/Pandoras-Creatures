@@ -1,7 +1,7 @@
 package andrews.pandoras_creatures.animation.system.wrap;
 
-import andrews.pandoras_creatures.animation.system.custom.Animation;
-import andrews.pandoras_creatures.animation.system.custom.KeyframeGroup;
+import andrews.pandoras_creatures.animation.system.core.Animation;
+import andrews.pandoras_creatures.animation.system.core.KeyframeGroup;
 import com.google.common.collect.Maps;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.AnimationState;

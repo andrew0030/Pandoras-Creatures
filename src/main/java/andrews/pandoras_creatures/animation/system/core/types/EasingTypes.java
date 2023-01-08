@@ -1,14 +1,16 @@
-package andrews.pandoras_creatures.animation.system.custom.types;
+package andrews.pandoras_creatures.animation.system.core.types;
 
-import andrews.pandoras_creatures.animation.system.custom.AdvancedKeyframe;
-import andrews.pandoras_creatures.animation.system.custom.types.builder.EasingBuilder;
-import andrews.pandoras_creatures.animation.system.custom.types.builder.EasingType;
+import andrews.pandoras_creatures.animation.system.core.BasicKeyframe;
+import andrews.pandoras_creatures.animation.system.core.bulders.EasingBuilder;
+import andrews.pandoras_creatures.animation.system.core.types.util.EasingType;
 import net.minecraft.util.Mth;
 import org.joml.Vector3f;
 
 public class EasingTypes
 {
     private final EasingType easingType;
+    // Molang easing does nothing. Its simply a placeholder to prevent Null pointers
+    public static final EasingTypes MOLANG = EasingBuilder.type(EasingType.MOLANG).build();
     // Easing Types
     public static final EasingTypes LINEAR = EasingBuilder.type(EasingType.LINEAR).build();
     public static final EasingTypes CATMULLROM = EasingBuilder.type(EasingType.CATMULLROM).build();
@@ -16,10 +18,11 @@ public class EasingTypes
     // Optional values modified by the EasingBuilder if needed
     private final int steps;
 
-    public void storeEasedValues(Vector3f animationVecCache, float keyframeDelta, AdvancedKeyframe[] keyframes, Vector3f cachedLastVec, int currentKeyframeIdx, float scale)
+    public void storeEasedValues(Vector3f animationVecCache, float keyframeDelta, BasicKeyframe[] keyframes, Vector3f cachedLastVec, int currentKeyframeIdx, float scale)
     {
         switch (easingType)
         {
+            case MOLANG -> {}
             case LINEAR -> {
                 Vector3f current = keyframes[currentKeyframeIdx].target();
                 cachedLastVec.lerp(current, keyframeDelta, animationVecCache).mul(scale);

@@ -1,6 +1,7 @@
-package andrews.pandoras_creatures.animation.system.custom.types.builder;
+package andrews.pandoras_creatures.animation.system.core.bulders;
 
-import andrews.pandoras_creatures.animation.system.custom.types.EasingTypes;
+import andrews.pandoras_creatures.animation.system.core.types.EasingTypes;
+import andrews.pandoras_creatures.animation.system.core.types.util.EasingType;
 
 public class EasingBuilder
 {

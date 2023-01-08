@@ -1,4 +1,4 @@
-package andrews.pandoras_creatures.animation.system.custom.types;
+package andrews.pandoras_creatures.animation.system.core.types;
 
 import net.minecraft.client.model.geom.ModelPart;
 import org.joml.Vector3f;

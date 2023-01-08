@@ -1,13 +1,11 @@
-package andrews.pandoras_creatures.animation.system.custom;
+package andrews.pandoras_creatures.animation.system.core;
 
 import andrews.pandoras_creatures.animation.model.AdvancedModelPart;
 import andrews.pandoras_creatures.animation.model.AnimatedBlockEntityModel;
-import andrews.pandoras_creatures.animation.system.custom.AdvancedKeyframe;
-import andrews.pandoras_creatures.animation.system.custom.Animation;
-import andrews.pandoras_creatures.animation.system.custom.KeyframeGroup;
 import andrews.pandoras_creatures.animation.system.wrap.AdvancedAnimationState;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.AnimationState;
 import org.joml.Vector3f;
 
 import java.util.List;
@@ -31,9 +29,9 @@ public class AnimationHandler
             {
                 for(KeyframeGroup keyframeGroup : keyframeGroupList)
                 {
-                    AdvancedKeyframe[] keyframes = keyframeGroup.getKeyframes();
-                    if(!state.cachedIndex.containsKey(keyframeGroup))
-                        state.cachedIndex.put(keyframeGroup, 0);
+                    // We add the keyframeGroup to the caches if it hasn't been added
+                    AnimationHandler.preventNullPointer(keyframeGroup, state);
+                    BasicKeyframe[] keyframes = keyframeGroup.getKeyframes();
                     // We turn the Idx back to 0 on a loop of the Animation
                     if(state.getAccumulatedTime() >= animation.getLengthInSeconds() * 1000.0F && animation.isLooping())
                     {
@@ -49,20 +47,42 @@ public class AnimationHandler
                     }
 
                     int currentKeyframeIdx = state.cachedIndex.get(keyframeGroup);
-                    int lastKeyframeIdx = Math.max(0, currentKeyframeIdx - 1);
-                    AdvancedKeyframe currentKeyframe = keyframes[currentKeyframeIdx];
-                    AdvancedKeyframe lastKeyframe = keyframes[lastKeyframeIdx];
+                    BasicKeyframe currentKeyframe = keyframes[currentKeyframeIdx];
 
-                    float elapsedDelta = elapsedSeconds - lastKeyframe.timestamp();
-                    float keyframeDelta = Mth.clamp(elapsedDelta / (currentKeyframe.timestamp() - lastKeyframe.timestamp()), 0.0F, 1.0F);
-                    currentKeyframe.getEasingType().storeEasedValues(animationVecCache, keyframeDelta, keyframes, state.cachedLastVec.get(keyframeGroup), currentKeyframeIdx, scale);
+                    if(currentKeyframe instanceof MolangKeyframe molangKeyframe) {
+                        // We make sure the expression only gets applied until the end of an animation
+                        if(state.getAccumulatedTime() <= animation.getLengthInSeconds() * 1000.0F)
+                            molangKeyframe.getVectorFromExpression(animationVecCache, elapsedSeconds);
+                    } else {
+                        int lastKeyframeIdx = Math.max(0, currentKeyframeIdx - 1);
+                        BasicKeyframe lastKeyframe = keyframes[lastKeyframeIdx];
+
+                        if(lastKeyframe instanceof MolangKeyframe molangKeyframe)
+                        {
+                            Vector3f value = new Vector3f();
+                            molangKeyframe.getVectorFromExpression(value, elapsedSeconds);
+                            state.cachedLastVec.put(keyframeGroup, value);//TODO don't use the cache
+                        }
+
+                        float elapsedDelta = elapsedSeconds - lastKeyframe.timestamp();
+                        float keyframeDelta = Mth.clamp(elapsedDelta / (currentKeyframe.timestamp() - lastKeyframe.timestamp()), 0.0F, 1.0F);
+                        currentKeyframe.getEasingType().storeEasedValues(animationVecCache, keyframeDelta, keyframes, state.cachedLastVec.get(keyframeGroup), currentKeyframeIdx, scale);
+                    }
                     keyframeGroup.getTransformType().applyValues(modelPart, animationVecCache);
                 }
             }
         }
     }
 
-    public static float getElapsedSeconds(Animation animation, long accumulatedTime)
+    private static void preventNullPointer(KeyframeGroup keyframeGroup, AdvancedAnimationState state)
+    {
+        if(!state.cachedIndex.containsKey(keyframeGroup))
+            state.cachedIndex.put(keyframeGroup, 0);
+        if(!state.cachedLastVec.containsKey(keyframeGroup))
+            state.cachedLastVec.put(keyframeGroup, new Vector3f());
+    }
+
+    private static float getElapsedSeconds(Animation animation, long accumulatedTime)
     {
         float accumulatedSeconds = (float)accumulatedTime / 1000.0F;
         return animation.isLooping() ? accumulatedSeconds % animation.getLengthInSeconds() : accumulatedSeconds;
