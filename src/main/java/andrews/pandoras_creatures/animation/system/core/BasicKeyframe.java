@@ -16,17 +16,19 @@ public class BasicKeyframe
         this.easingType = easingType;
     }
 
-    /**
-     * This constructor is used by {@link MolangKeyframe} to skip setting the EasingType every time, as they all use the same
-     */
-    protected BasicKeyframe(float timestamp, Vector3f target)
-    {//TODO maybe set target to empty vector?
-        this(timestamp, target, EasingTypes.MOLANG);
+    public boolean isBasic()
+    {
+        return true;
     }
 
     public float timestamp()
     {
         return this.timestamp;
+    }
+
+    public Vector3f target(float elapsedSeconds)
+    {
+        return target();
     }
 
     public Vector3f target()

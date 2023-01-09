@@ -9,8 +9,6 @@ import org.joml.Vector3f;
 public class EasingTypes
 {
     private final EasingType easingType;
-    // Molang easing does nothing. Its simply a placeholder to prevent Null pointers
-    public static final EasingTypes MOLANG = EasingBuilder.type(EasingType.MOLANG).build();
     // Easing Types
     public static final EasingTypes LINEAR = EasingBuilder.type(EasingType.LINEAR).build();
     public static final EasingTypes CATMULLROM = EasingBuilder.type(EasingType.CATMULLROM).build();
@@ -18,28 +16,27 @@ public class EasingTypes
     // Optional values modified by the EasingBuilder if needed
     private final int steps;
 
-    public void storeEasedValues(Vector3f animationVecCache, float keyframeDelta, BasicKeyframe[] keyframes, Vector3f cachedLastVec, int currentKeyframeIdx, float scale)
+    public void storeEasedValues(Vector3f animationVecCache, float keyframeDelta, BasicKeyframe[] keyframes, Vector3f cachedLastVec, int currentKeyframeIdx, float elapsedSeconds)
     {
         switch (easingType)
         {
-            case MOLANG -> {}
             case LINEAR -> {
-                Vector3f current = keyframes[currentKeyframeIdx].target();
-                cachedLastVec.lerp(current, keyframeDelta, animationVecCache).mul(scale);
+                Vector3f current = keyframes[currentKeyframeIdx].target(elapsedSeconds);
+                cachedLastVec.lerp(current, keyframeDelta, animationVecCache);
             }
             case CATMULLROM -> {
-                Vector3f old = keyframes[Math.max(0, currentKeyframeIdx - 2)].target();
+                Vector3f old = keyframes[Math.max(0, currentKeyframeIdx - 2)].target(0.0F);//TODO deal with this
                 // Last is retrieved from the cache
-                Vector3f current = keyframes[currentKeyframeIdx].target();
-                Vector3f future = keyframes[Math.min(keyframes.length - 1, currentKeyframeIdx + 1)].target();
+                Vector3f current = keyframes[currentKeyframeIdx].target(0.0F);
+                Vector3f future = keyframes[Math.min(keyframes.length - 1, currentKeyframeIdx + 1)].target(0.0F);
                 animationVecCache.set(
-                        Mth.catmullrom(keyframeDelta, old.x(), cachedLastVec.x(), current.x(), future.x()) * scale,
-                        Mth.catmullrom(keyframeDelta, old.y(), cachedLastVec.y(), current.y(), future.y()) * scale,
-                        Mth.catmullrom(keyframeDelta, old.z(), cachedLastVec.z(), current.z(), future.z()) * scale);
+                        Mth.catmullrom(keyframeDelta, old.x(), cachedLastVec.x(), current.x(), future.x()),
+                        Mth.catmullrom(keyframeDelta, old.y(), cachedLastVec.y(), current.y(), future.y()),
+                        Mth.catmullrom(keyframeDelta, old.z(), cachedLastVec.z(), current.z(), future.z()));
             }
             case EASE_IN_SINE -> {
-                Vector3f current = keyframes[currentKeyframeIdx].target();
-                cachedLastVec.lerp(current, easeInSine(keyframeDelta), animationVecCache).mul(scale);
+                Vector3f current = keyframes[currentKeyframeIdx].target(elapsedSeconds);
+                cachedLastVec.lerp(current, easeInSine(keyframeDelta), animationVecCache);
             }
         }
     }

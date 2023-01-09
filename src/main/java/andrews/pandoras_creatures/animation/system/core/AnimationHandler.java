@@ -5,7 +5,6 @@ import andrews.pandoras_creatures.animation.model.AnimatedBlockEntityModel;
 import andrews.pandoras_creatures.animation.system.wrap.AdvancedAnimationState;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.AnimationState;
 import org.joml.Vector3f;
 
 import java.util.List;
@@ -14,7 +13,7 @@ import java.util.Optional;
 
 public class AnimationHandler
 {
-    public static void animate(AnimatedBlockEntityModel model, AdvancedAnimationState state, float scale, Vector3f animationVecCache)
+    public static void animate(AnimatedBlockEntityModel model, AdvancedAnimationState state, Vector3f animationVecCache)
     {
         Animation animation = state.getAnimation();
         float elapsedSeconds = getElapsedSeconds(animation, state.accumulatedTime);
@@ -25,7 +24,7 @@ public class AnimationHandler
             entries--; // We reduce entries by 1 for every loop iteration
             List<KeyframeGroup> keyframeGroupList = map.getValue();
             Optional<ModelPart> modelPartOptional = model.getAnyDescendantWithName(map.getKey());
-            if(modelPartOptional.isPresent() && modelPartOptional.get() instanceof AdvancedModelPart modelPart)
+            if(modelPartOptional.isPresent() && modelPartOptional.get() instanceof AdvancedModelPart modelPart)//TODO yeet this and use mixin to add a better performing check
             {
                 for(KeyframeGroup keyframeGroup : keyframeGroupList)
                 {
@@ -40,34 +39,23 @@ public class AnimationHandler
                             state.accumulatedTime -= animation.getLengthInSeconds() * 1000.0F;
                     }
                     // If enough time passed we increase the current Idx and cache the last Vec
-                    if(keyframes[state.cachedIndex.get(keyframeGroup)].timestamp() <= elapsedSeconds)
+                    if(keyframes[state.cachedIndex.get(keyframeGroup)].timestamp() <= elapsedSeconds)//TODO maybe optimize this by preventing its execution after executing once on last iteration
                     {
                         state.cachedLastVec.put(keyframeGroup, keyframes[state.cachedIndex.get(keyframeGroup)].target());
                         state.cachedIndex.put(keyframeGroup, Math.min(keyframes.length - 1, state.cachedIndex.get(keyframeGroup) + 1));
                     }
 
                     int currentKeyframeIdx = state.cachedIndex.get(keyframeGroup);
+                    int lastKeyframeIdx = Math.max(0, currentKeyframeIdx - 1);
                     BasicKeyframe currentKeyframe = keyframes[currentKeyframeIdx];
+                    BasicKeyframe lastKeyframe = keyframes[lastKeyframeIdx];
 
-                    if(currentKeyframe instanceof MolangKeyframe molangKeyframe) {
-                        // We make sure the expression only gets applied until the end of an animation
-                        if(state.getAccumulatedTime() <= animation.getLengthInSeconds() * 1000.0F)
-                            molangKeyframe.getVectorFromExpression(animationVecCache, elapsedSeconds);
-                    } else {
-                        int lastKeyframeIdx = Math.max(0, currentKeyframeIdx - 1);
-                        BasicKeyframe lastKeyframe = keyframes[lastKeyframeIdx];
+                    float elapsedDelta = elapsedSeconds - lastKeyframe.timestamp();
+                    float keyframeDelta = Mth.clamp(elapsedDelta / (currentKeyframe.timestamp() - lastKeyframe.timestamp()), 0.0F, 1.0F);
 
-                        if(lastKeyframe instanceof MolangKeyframe molangKeyframe)
-                        {
-                            Vector3f value = new Vector3f();
-                            molangKeyframe.getVectorFromExpression(value, elapsedSeconds);
-                            state.cachedLastVec.put(keyframeGroup, value);//TODO don't use the cache
-                        }
+                    Vector3f lastValue = lastKeyframe.isBasic() ? state.cachedLastVec.get(keyframeGroup) : lastKeyframe.target(elapsedSeconds);
 
-                        float elapsedDelta = elapsedSeconds - lastKeyframe.timestamp();
-                        float keyframeDelta = Mth.clamp(elapsedDelta / (currentKeyframe.timestamp() - lastKeyframe.timestamp()), 0.0F, 1.0F);
-                        currentKeyframe.getEasingType().storeEasedValues(animationVecCache, keyframeDelta, keyframes, state.cachedLastVec.get(keyframeGroup), currentKeyframeIdx, scale);
-                    }
+                    currentKeyframe.getEasingType().storeEasedValues(animationVecCache, keyframeDelta, keyframes, lastValue, currentKeyframeIdx, elapsedSeconds);
                     keyframeGroup.getTransformType().applyValues(modelPart, animationVecCache);
                 }
             }

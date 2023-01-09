@@ -27,7 +27,7 @@ public abstract class AnimatedBlockEntityModel extends Model
         // and that needs to be updated at all times.
         state.updateTime(ageInTicks, speed);
         if(state.isStarted())
-            AnimationHandler.animate(this, state, 1.0F, ANIMATION_VECTOR_CACHE);
+            AnimationHandler.animate(this, state, ANIMATION_VECTOR_CACHE);
     }
 
     public Optional<ModelPart> getAnyDescendantWithName(String name)

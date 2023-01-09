@@ -73,8 +73,9 @@ public class TestAnimationAnimations
 
     public static final Animation MY_ALT_ANIMATION = AnimationBuilder.withLength(3f).looping()
             .addAnimation("arm_bottom", new KeyframeGroup(TransformTypes.ROTATION,
-                    new MolangKeyframe(1.96f, "3*8"),
-                    new BasicKeyframe(2f, KeyframeAnimations.degreeVec(0f, 0f, 0f), EasingTypes.LINEAR)))
+                    new BasicKeyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f), EasingTypes.LINEAR),
+                    new MolangKeyframe(0.32f, "1", EasingTypes.LINEAR),
+                    new BasicKeyframe(3f, KeyframeAnimations.degreeVec(0f, 0f, 0f), EasingTypes.LINEAR)))
             .addAnimation("arm_top", new KeyframeGroup(TransformTypes.ROTATION,
                     new BasicKeyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f), EasingTypes.LINEAR),
                     new BasicKeyframe(1f, KeyframeAnimations.degreeVec(0f, 20f, 0f), EasingTypes.LINEAR),
