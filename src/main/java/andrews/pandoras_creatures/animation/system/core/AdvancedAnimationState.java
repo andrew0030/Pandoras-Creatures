@@ -1,4 +1,4 @@
-package andrews.pandoras_creatures.animation.system.wrap;
+package andrews.pandoras_creatures.animation.system.core;
 
 import andrews.pandoras_creatures.animation.system.core.Animation;
 import andrews.pandoras_creatures.animation.system.core.KeyframeGroup;

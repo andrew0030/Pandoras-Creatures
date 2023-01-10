@@ -1,7 +1,6 @@
 package andrews.pandoras_creatures.entities;
 
-import andrews.pandoras_creatures.animation.system.wrap.AdvancedAnimationState;
-import andrews.pandoras_creatures.entities.animations.HellhoundAnimation;
+import andrews.pandoras_creatures.animation.system.core.AdvancedAnimationState;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;

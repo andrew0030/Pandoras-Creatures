@@ -1,7 +1,7 @@
 package andrews.pandoras_creatures.block_entities;
 
 import andrews.pandoras_creatures.animation.system.base.AnimatedBlockEntity;
-import andrews.pandoras_creatures.animation.system.wrap.AdvancedAnimationState;
+import andrews.pandoras_creatures.animation.system.core.AdvancedAnimationState;
 import andrews.pandoras_creatures.block_entities.animations.TestAnimationAnimations;
 import andrews.pandoras_creatures.registry.PCBlockEntities;
 import net.minecraft.core.BlockPos;

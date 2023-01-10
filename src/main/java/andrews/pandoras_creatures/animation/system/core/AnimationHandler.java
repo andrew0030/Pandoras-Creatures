@@ -2,7 +2,6 @@ package andrews.pandoras_creatures.animation.system.core;
 
 import andrews.pandoras_creatures.animation.model.AdvancedModelPart;
 import andrews.pandoras_creatures.animation.model.AnimatedBlockEntityModel;
-import andrews.pandoras_creatures.animation.system.wrap.AdvancedAnimationState;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.util.Mth;
 import org.joml.Vector3f;

@@ -34,6 +34,7 @@ public class TestAnimationBlock extends BaseEntityBlock
         return properties;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit)
     {
@@ -65,6 +66,7 @@ public class TestAnimationBlock extends BaseEntityBlock
         return InteractionResult.SUCCESS;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public RenderShape getRenderShape(BlockState state)
     {

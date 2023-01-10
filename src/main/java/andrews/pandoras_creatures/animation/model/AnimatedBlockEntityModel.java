@@ -2,7 +2,7 @@ package andrews.pandoras_creatures.animation.model;
 
 import andrews.pandoras_creatures.animation.system.base.AnimatedBlockEntity;
 import andrews.pandoras_creatures.animation.system.core.AnimationHandler;
-import andrews.pandoras_creatures.animation.system.wrap.AdvancedAnimationState;
+import andrews.pandoras_creatures.animation.system.core.AdvancedAnimationState;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.RenderType;

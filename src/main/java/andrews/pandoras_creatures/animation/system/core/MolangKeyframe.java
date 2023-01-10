@@ -1,17 +1,22 @@
 package andrews.pandoras_creatures.animation.system.core;
 
 import andrews.pandoras_creatures.animation.system.core.types.EasingTypes;
+import andrews.pandoras_creatures.animation.system.core.util.DynamicExpression;
 import org.joml.Vector3f;
 
 public class MolangKeyframe extends BasicKeyframe
 {
-    private final Vector3f emptyVec = new Vector3f();
-    private final String expression;
+    private final Vector3f vec = new Vector3f();
+    private final DynamicExpression expressionX;
+    private final DynamicExpression expressionY;
+    private final DynamicExpression expressionZ;
 
-    public MolangKeyframe(float timestamp, String expression, EasingTypes easingType)
+    public MolangKeyframe(float timestamp, String rawX, String rawY, String rawZ, EasingTypes easingType)
     {
         super(timestamp, new Vector3f(), easingType);
-        this.expression = expression;
+        this.expressionX = new DynamicExpression(rawX);
+        this.expressionY =  new DynamicExpression(rawY);
+        this.expressionZ = new DynamicExpression(rawZ);
     }
 
     @Override
@@ -23,26 +28,20 @@ public class MolangKeyframe extends BasicKeyframe
     @Override
     public Vector3f target(float elapsedSeconds)
     {
-        Vector3f vec = new Vector3f();//TODO maybe make this a final
-        double x = degreeCos(elapsedSeconds * 400) * 15;
-        double y = 0.0;
-        double z = 0.0;
-        return vec.set(Math.toRadians(x), Math.toRadians(y), Math.toRadians(z));
+        // We update the necessary Queries
+        this.expressionX.updateVariable(DynamicExpression.QueryTypes.ANIM_TIME, elapsedSeconds);
+        this.expressionY.updateVariable(DynamicExpression.QueryTypes.ANIM_TIME, elapsedSeconds);
+        this.expressionZ.updateVariable(DynamicExpression.QueryTypes.ANIM_TIME, elapsedSeconds);
+        // We get the values
+        double x = this.expressionX.getValue();
+        double y = this.expressionY.getValue();
+        double z = this.expressionZ.getValue();
+        return this.vec.set(Math.toRadians(x), Math.toRadians(y), Math.toRadians(z));
     }
 
     @Override
     public Vector3f target()
     {
-        return this.emptyVec;
-    }
-
-    private double degreeSin(double elapsedSeconds)
-    {
-        return Math.sin(elapsedSeconds / 180 * Math.PI);
-    }
-
-    private double degreeCos(double elapsedSeconds)
-    {
-        return Math.cos(elapsedSeconds / 180 * Math.PI);
+        return this.vec.set(0, 0, 0);
     }
 }

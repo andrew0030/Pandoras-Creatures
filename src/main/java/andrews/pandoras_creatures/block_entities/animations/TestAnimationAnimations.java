@@ -1,9 +1,14 @@
 package andrews.pandoras_creatures.block_entities.animations;
 
-import andrews.pandoras_creatures.animation.system.core.*;
+import andrews.pandoras_creatures.animation.system.core.Animation;
+import andrews.pandoras_creatures.animation.system.core.BasicKeyframe;
+import andrews.pandoras_creatures.animation.system.core.KeyframeGroup;
+import andrews.pandoras_creatures.animation.system.core.MolangKeyframe;
 import andrews.pandoras_creatures.animation.system.core.bulders.AnimationBuilder;
+import andrews.pandoras_creatures.animation.system.core.bulders.EasingBuilder;
 import andrews.pandoras_creatures.animation.system.core.types.EasingTypes;
 import andrews.pandoras_creatures.animation.system.core.types.TransformTypes;
+import andrews.pandoras_creatures.animation.system.core.types.util.EasingType;
 import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.Keyframe;
@@ -74,7 +79,7 @@ public class TestAnimationAnimations
     public static final Animation MY_ALT_ANIMATION = AnimationBuilder.withLength(3f).looping()
             .addAnimation("arm_bottom", new KeyframeGroup(TransformTypes.ROTATION,
                     new BasicKeyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f), EasingTypes.LINEAR),
-                    new MolangKeyframe(0.32f, "1", EasingTypes.LINEAR),
+                    new MolangKeyframe(0.32f, "dcos(anim_time * 400) * 15", "0F", "0F", EasingTypes.LINEAR),
                     new BasicKeyframe(3f, KeyframeAnimations.degreeVec(0f, 0f, 0f), EasingTypes.LINEAR)))
             .addAnimation("arm_top", new KeyframeGroup(TransformTypes.ROTATION,
                     new BasicKeyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f), EasingTypes.LINEAR),

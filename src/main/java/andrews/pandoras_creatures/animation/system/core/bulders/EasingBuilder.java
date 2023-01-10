@@ -6,7 +6,7 @@ import andrews.pandoras_creatures.animation.system.core.types.util.EasingType;
 public class EasingBuilder
 {
     private final EasingType easingType;
-    private int steps;//TODO maybe add other "optional" values once I add more easing types, or replace step with something more generic
+    private int value;//TODO maybe add other "optional" values once I add more easing types, or replace step with something more generic
 
     private EasingBuilder(EasingType easingType)
     {
@@ -18,14 +18,14 @@ public class EasingBuilder
         return new EasingBuilder(easingType);
     }
 
-    public EasingBuilder steps(int steps)
+    public EasingBuilder argument(int value)
     {
-        this.steps = steps;
+        this.value = value;
         return this;
     }
 
     public EasingTypes build()
     {
-        return new EasingTypes(this.easingType, this.steps);
+        return new EasingTypes(this.easingType, this.value);
     }
 }
