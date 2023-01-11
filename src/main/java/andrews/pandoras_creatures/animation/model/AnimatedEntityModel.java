@@ -1,12 +1,14 @@
 package andrews.pandoras_creatures.animation.model;
 
-import net.minecraft.client.animation.AnimationDefinition;
+import andrews.pandoras_creatures.animation.system.core.AdvancedAnimationState;
+import andrews.pandoras_creatures.animation.system.core.AnimationHandler;
 import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.Entity;
 
+import java.util.Optional;
 import java.util.function.Function;
 
 public abstract class AnimatedEntityModel<E extends Entity> extends HierarchicalModel<E>
@@ -21,22 +23,23 @@ public abstract class AnimatedEntityModel<E extends Entity> extends Hierarchical
         super(renderType);
     }
 
-    @Override
-    protected void animate(AnimationState state, AnimationDefinition definition, float ageInTicks)
+    protected void animate(AdvancedAnimationState state, float ageInTicks, float speed)
     {
-        this.animate(state, definition, ageInTicks, 1.0F);
-    }
-
-    @Override
-    protected void animate(AnimationState state, AnimationDefinition definition, float ageInTicks, float speed)
-    {
-        // Not sure why vanilla has a call to this above the if check, as this method also checks for
-        // AnimationState#isStarted, but we need it because we run logic that happens before the super call,
+        // We need this because we run logic that happens before the super call,
         // and that needs to be updated at all times.
         state.updateTime(ageInTicks, speed);
         if(state.isStarted())
         {
-//            AnimationHandler.animate(this, definition, state.getAccumulatedTime(), 1.0F, ANIMATION_VECTOR_CACHE);//TODO replace this
+            AnimationHandler.animate(this, state, ANIMATION_VECTOR_CACHE);
         }
     }
+
+    public Optional<ModelPart> getAnyDescendantWithName(String name)
+    {
+        return name.equals(this.root().getName()) ? Optional.of(this.root()) : this.root().getAllParts().filter(
+                (part) -> part.hasChild(name)).findFirst().map(
+                (part1) -> part1.getChild(name));
+    }
+
+    public abstract AdvancedModelPart root();
 }

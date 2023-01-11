@@ -1,6 +1,7 @@
 package andrews.pandoras_creatures.entities;
 
 import andrews.pandoras_creatures.animation.system.core.AdvancedAnimationState;
+import andrews.pandoras_creatures.entities.animations.HellhoundAnimation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -12,7 +13,7 @@ import net.minecraft.world.level.Level;
 
 public class Hellhound extends Wolf
 {
-    public final AdvancedAnimationState walkKeyFrameState = new AdvancedAnimationState(null);//TODO replace null
+    public final AdvancedAnimationState walkKeyFrameState = new AdvancedAnimationState(HellhoundAnimation.HELLHOUND_WALK);//TODO replace null
     public final AdvancedAnimationState angleKeyFrameState = new AdvancedAnimationState(null);
 
     public Hellhound(EntityType<? extends Wolf> entityType, Level level)

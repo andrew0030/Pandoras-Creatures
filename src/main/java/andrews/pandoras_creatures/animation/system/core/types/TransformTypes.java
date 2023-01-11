@@ -6,14 +6,24 @@ import org.joml.Vector3f;
 public class TransformTypes
 {
     private final TransformType transformType;
+    private final int priority;
     // Transform Types
-    public static final TransformTypes POSITION = new TransformTypes(TransformType.POSITION);
-    public static final TransformTypes ROTATION = new TransformTypes(TransformType.ROTATION);
-    public static final TransformTypes SCALE = new TransformTypes(TransformType.SCALE);
+    public static final TransformTypes POSITION = new TransformTypes(TransformType.POSITION, 1);
+    public static final TransformTypes ROTATION = new TransformTypes(TransformType.ROTATION, 2);
+    public static final TransformTypes SCALE = new TransformTypes(TransformType.SCALE, 3);
 
-    private TransformTypes(TransformType transformType)
+    private TransformTypes(TransformType transformType, int priority)
     {
         this.transformType = transformType;
+        this.priority = priority;
+    }
+
+    /**
+     * @return The priority of the TransformType
+     */
+    public int getPriority()
+    {
+        return this.priority;
     }
 
     /**

@@ -63,7 +63,7 @@ public class TestAnimationModel extends AnimatedBlockEntityModel
     }
 
     @Override
-    public ModelPart root()
+    public AdvancedModelPart root()
     {
         return this.base;
     }

@@ -1,8 +1,8 @@
 package andrews.pandoras_creatures.animation.model;
 
 import andrews.pandoras_creatures.animation.system.base.AnimatedBlockEntity;
-import andrews.pandoras_creatures.animation.system.core.AnimationHandler;
 import andrews.pandoras_creatures.animation.system.core.AdvancedAnimationState;
+import andrews.pandoras_creatures.animation.system.core.AnimationHandler;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.RenderType;
@@ -32,7 +32,7 @@ public abstract class AnimatedBlockEntityModel extends Model
 
     public Optional<ModelPart> getAnyDescendantWithName(String name)
     {
-        return name.equals("root") ? Optional.of(this.root()) : this.root().getAllParts().filter(
+        return name.equals(this.root().getName()) ? Optional.of(this.root()) : this.root().getAllParts().filter(
                 (part) -> part.hasChild(name)).findFirst().map(
                         (part1) -> part1.getChild(name));
     }
@@ -44,5 +44,5 @@ public abstract class AnimatedBlockEntityModel extends Model
      */
     public abstract void updateAnimations(AnimatedBlockEntity blockEntity, float partialTick);
 
-    public abstract ModelPart root();
+    public abstract AdvancedModelPart root();
 }
