@@ -13,8 +13,8 @@ import net.minecraft.world.level.Level;
 
 public class Hellhound extends Wolf
 {
-    public final AdvancedAnimationState walkKeyFrameState = new AdvancedAnimationState(HellhoundAnimation.HELLHOUND_WALK);//TODO replace null
-    public final AdvancedAnimationState angleKeyFrameState = new AdvancedAnimationState(null);
+    public final AdvancedAnimationState walkState = new AdvancedAnimationState(HellhoundAnimation.HELLHOUND_WALK);
+    public final AdvancedAnimationState angleState = new AdvancedAnimationState(HellhoundAnimation.HELLHOUND_ANGEL);
 
     public Hellhound(EntityType<? extends Wolf> entityType, Level level)
     {
@@ -32,22 +32,22 @@ public class Hellhound extends Wolf
     {
         if(!player.isShiftKeyDown()) {
             if(player.getItemInHand(hand).is(Items.STICK))
-                if(this.walkKeyFrameState.isStarted())
+                if(this.walkState.isStarted())
                 {
-                    this.walkKeyFrameState.stop();
+                    this.walkState.stop();
                 } else {
-                    this.walkKeyFrameState.startIfStopped(tickCount);
+                    this.walkState.interpolateAndStart(0.5F, this.tickCount);
                 }
             if(player.getItemInHand(hand).is(Items.BLAZE_ROD))
-                if(this.angleKeyFrameState.isStarted())
+                if(this.angleState.isStarted())
                 {
-                    this.angleKeyFrameState.stop();
+                    this.angleState.stop();
                 } else {
-                    this.angleKeyFrameState.startLater(20);
+                    this.angleState.start(this.tickCount);
                 }
         } else {
-            this.walkKeyFrameState.stop();
-            this.angleKeyFrameState.stop();
+            this.walkState.stop();
+            this.angleState.stop();
         }
         return InteractionResult.PASS;
     }

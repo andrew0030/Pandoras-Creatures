@@ -59,7 +59,7 @@ public class TestAnimationBlock extends BaseEntityBlock
                 }
                 else
                 {
-                    blockEntity.altAnimationState.start(blockEntity.getTicksExisted());
+                    blockEntity.altAnimationState.interpolateAndStart(2F, blockEntity.getTicksExisted());
                 }
             }
         }
