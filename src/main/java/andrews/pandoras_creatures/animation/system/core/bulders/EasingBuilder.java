@@ -6,7 +6,7 @@ import andrews.pandoras_creatures.animation.system.core.types.util.EasingType;
 public class EasingBuilder
 {
     private final EasingType easingType;
-    private int value;//TODO maybe add other "optional" values once I add more easing types, or replace step with something more generic
+    private float value;
 
     private EasingBuilder(EasingType easingType)
     {
@@ -18,7 +18,7 @@ public class EasingBuilder
         return new EasingBuilder(easingType);
     }
 
-    public EasingBuilder argument(int value)
+    public EasingBuilder argument(float value)
     {
         this.value = value;
         return this;

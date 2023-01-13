@@ -46,11 +46,6 @@ public class AdvancedAnimationState extends AnimationState
         this.cachedLastVec.clear();
     }
 
-    public void setInterpolTime(float interpolTime)
-    {
-        this.interpolTime = interpolTime;
-    }
-
     public void resetInterpolTime()
     {
         this.interpolTime = 0F;

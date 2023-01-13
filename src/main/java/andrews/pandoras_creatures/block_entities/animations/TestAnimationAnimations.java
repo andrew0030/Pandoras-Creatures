@@ -61,5 +61,9 @@ public class TestAnimationAnimations
                     new BasicKeyframe(0F, KeyframeAnimations.degreeVec(0F, 0F, 0F), EasingTypes.LINEAR),
                     new BasicKeyframe(1F, KeyframeAnimations.degreeVec(0F, -50F, 0F), EasingTypes.LINEAR),
                     new BasicKeyframe(2F, KeyframeAnimations.degreeVec(0F, 30F, 0F), EasingTypes.LINEAR),
-                    new BasicKeyframe(3F, KeyframeAnimations.degreeVec(0F, 0F, 0F), EasingTypes.LINEAR))).build();
+                    new BasicKeyframe(3F, KeyframeAnimations.degreeVec(0F, 0F, 0F), EasingTypes.LINEAR)))
+            .addAnimation("plate", new KeyframeGroup(TransformTypes.POSITION,
+                    new BasicKeyframe(0F, KeyframeAnimations.posVec(0F, 0F, 0F), EasingTypes.LINEAR),
+                    new BasicKeyframe(1.6F, KeyframeAnimations.posVec(0F, 4F, 0F), EasingTypes.LINEAR),
+                    new BasicKeyframe(3F, KeyframeAnimations.posVec(0F, 0F, 0F), EasingTypes.LINEAR))).build();
 }
