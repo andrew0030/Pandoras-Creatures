@@ -1,5 +1,6 @@
 package andrews.pandoras_creatures.animation.system.core;
 
+import andrews.pandoras_creatures.animation.system.core.util.InterpolationType;
 import com.google.common.collect.Maps;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.AnimationState;
@@ -9,11 +10,14 @@ import java.util.Map;
 
 public class AdvancedAnimationState extends AnimationState
 {
-    private float interpolTime = 0;
     public Map<KeyframeGroup, Integer> cachedIndex = Maps.newHashMap();
     public Map<KeyframeGroup, Vector3f> cachedLastVec = Maps.newHashMap();
     private final Animation animation;
     private float tickDelay = 0;
+    // Interpolation
+    private float interpolTime = 0;
+    private InterpolationType interpolType;
+    private float prevElapsedTime = 0;
 
     public AdvancedAnimationState(Animation animation)
     {
@@ -35,31 +39,6 @@ public class AdvancedAnimationState extends AnimationState
             }
         }
         super.updateTime(ageInTicks, speed);
-    }
-
-    @Override
-    public void stop()
-    {
-        super.stop();
-        // When we stop an Animation we need to clear the caches
-        this.cachedIndex.clear();
-        this.cachedLastVec.clear();
-    }
-
-    public void resetInterpolTime()
-    {
-        this.interpolTime = 0F;
-    }
-
-    public float getInterpolTime()
-    {
-        return this.interpolTime;
-    }
-
-    public void interpolateAndStart(float interpolationLength, int ageInTicks)
-    {
-        this.interpolTime = interpolationLength;
-        this.start(ageInTicks);
     }
 
     /**
@@ -88,5 +67,54 @@ public class AdvancedAnimationState extends AnimationState
             return false;
         float deltaTime = this.animation.getLengthInSeconds() - AnimationHandler.getElapsedSeconds(this);
         return deltaTime <= 0.0F;
+    }
+
+    @Override
+    public void stop()
+    {
+        super.stop();
+        // When we stop an Animation we need to clear the caches
+        this.cachedIndex.clear();
+        this.cachedLastVec.clear();
+        this.interpolTime = 0;
+        this.prevElapsedTime = 0;
+        this.interpolType = null;
+    }
+
+    public void resetInterpolTime()
+    {
+        this.interpolTime = 0F;
+    }
+
+    public float getInterpolTime()
+    {
+        return this.interpolTime;
+    }
+
+    public void interpolateAndStart(float interpolationLength, int ageInTicks, InterpolationType type)
+    {
+        this.interpolTime = interpolationLength;
+        this.interpolType = type;
+        this.startIfStopped(ageInTicks);
+    }
+
+    public void interpolateAndStop(float interpolationLength, InterpolationType type)
+    {
+        if(this.isStarted())
+        {
+            this.prevElapsedTime = AnimationHandler.getElapsedSeconds(this);
+            this.interpolTime = interpolationLength;
+            this.interpolType = type;
+        }
+    }
+
+    public InterpolationType getInterpolType()
+    {
+        return this.interpolType;
+    }
+
+    public float getPrevElapsedTime()
+    {
+        return this.prevElapsedTime;
     }
 }

@@ -47,23 +47,27 @@ public class TestAnimationAnimations
                     new BasicKeyframe(2.5f, KeyframeAnimations.degreeVec(0f, 80f, 0f), EasingTypes.LINEAR),
                     new BasicKeyframe(3f, KeyframeAnimations.degreeVec(0f, 0f, 0f), EasingTypes.LINEAR))).build();
 
-    public static final Animation MY_ALT_ANIMATION = AnimationBuilder.withLength(3F).looping()
+//    public static final Animation MY_ALT_ANIMATION = AnimationBuilder.withLength(3F).looping()
+//            .addAnimation("arm_bottom", new KeyframeGroup(TransformTypes.ROTATION,
+//                    new BasicKeyframe(0F, KeyframeAnimations.degreeVec(0F, 0F, 0F), EasingTypes.LINEAR),
+//                    new MolangKeyframe(0.32F, 'r', "dcos(anim_time * 400) * 15", "0", "0", EasingTypes.LINEAR),
+//                    new BasicKeyframe(3F, KeyframeAnimations.degreeVec(0F, 0F, 0F), EasingTypes.LINEAR)))
+//            .addAnimation("arm_top", new KeyframeGroup(TransformTypes.ROTATION,
+//                    new BasicKeyframe(0F, KeyframeAnimations.degreeVec(0F, 0F, 0F), EasingTypes.LINEAR),
+//                    new BasicKeyframe(1F, KeyframeAnimations.degreeVec(0F, 20F, 0F), EasingTypes.LINEAR),
+//                    new BasicKeyframe(2F, KeyframeAnimations.degreeVec(0F, -30F, 0F), EasingTypes.LINEAR),
+//                    new BasicKeyframe(3F, KeyframeAnimations.degreeVec(0F, 0F, 0F), EasingTypes.LINEAR)))
+//            .addAnimation("top", new KeyframeGroup(TransformTypes.ROTATION,
+//                    new BasicKeyframe(0F, KeyframeAnimations.degreeVec(0F, 0F, 0F), EasingTypes.LINEAR),
+//                    new BasicKeyframe(1F, KeyframeAnimations.degreeVec(0F, -50F, 0F), EasingTypes.LINEAR),
+//                    new BasicKeyframe(2F, KeyframeAnimations.degreeVec(0F, 30F, 0F), EasingTypes.LINEAR),
+//                    new BasicKeyframe(3F, KeyframeAnimations.degreeVec(0F, 0F, 0F), EasingTypes.LINEAR)))
+//            .addAnimation("plate", new KeyframeGroup(TransformTypes.POSITION,
+//                    new BasicKeyframe(0F, KeyframeAnimations.posVec(0F, 0F, 0F), EasingTypes.LINEAR),
+//                    new BasicKeyframe(1.6F, KeyframeAnimations.posVec(0F, 4F, 0F), EasingTypes.EASE_IN_CIRC),
+//                    new BasicKeyframe(3F, KeyframeAnimations.posVec(0F, 0F, 0F), EasingTypes.EASE_IN_CIRC))).build();
+
+    public static final Animation MY_ALT_ANIMATION = AnimationBuilder.withLength(0F)
             .addAnimation("arm_bottom", new KeyframeGroup(TransformTypes.ROTATION,
-                    new BasicKeyframe(0F, KeyframeAnimations.degreeVec(0F, 0F, 0F), EasingTypes.LINEAR),
-                    new MolangKeyframe(0.32F, 'r', "dcos(anim_time * 400) * 15", "0", "0", EasingTypes.LINEAR),
-                    new BasicKeyframe(3F, KeyframeAnimations.degreeVec(0F, 0F, 0F), EasingTypes.LINEAR)))
-            .addAnimation("arm_top", new KeyframeGroup(TransformTypes.ROTATION,
-                    new BasicKeyframe(0F, KeyframeAnimations.degreeVec(0F, 0F, 0F), EasingTypes.LINEAR),
-                    new BasicKeyframe(1F, KeyframeAnimations.degreeVec(0F, 20F, 0F), EasingTypes.LINEAR),
-                    new BasicKeyframe(2F, KeyframeAnimations.degreeVec(0F, -30F, 0F), EasingTypes.LINEAR),
-                    new BasicKeyframe(3F, KeyframeAnimations.degreeVec(0F, 0F, 0F), EasingTypes.LINEAR)))
-            .addAnimation("top", new KeyframeGroup(TransformTypes.ROTATION,
-                    new BasicKeyframe(0F, KeyframeAnimations.degreeVec(0F, 0F, 0F), EasingTypes.LINEAR),
-                    new BasicKeyframe(1F, KeyframeAnimations.degreeVec(0F, -50F, 0F), EasingTypes.LINEAR),
-                    new BasicKeyframe(2F, KeyframeAnimations.degreeVec(0F, 30F, 0F), EasingTypes.LINEAR),
-                    new BasicKeyframe(3F, KeyframeAnimations.degreeVec(0F, 0F, 0F), EasingTypes.LINEAR)))
-            .addAnimation("plate", new KeyframeGroup(TransformTypes.POSITION,
-                    new BasicKeyframe(0F, KeyframeAnimations.posVec(0F, 0F, 0F), EasingTypes.LINEAR),
-                    new BasicKeyframe(1.6F, KeyframeAnimations.posVec(0F, 4F, 0F), EasingTypes.LINEAR),
-                    new BasicKeyframe(3F, KeyframeAnimations.posVec(0F, 0F, 0F), EasingTypes.LINEAR))).build();
+                    new MolangKeyframe(0.0F, 'r', "dcos(anim_time * 400) * 15", "0", "0", EasingTypes.LINEAR))).build();
 }

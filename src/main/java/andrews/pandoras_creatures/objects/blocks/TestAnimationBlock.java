@@ -1,6 +1,7 @@
 package andrews.pandoras_creatures.objects.blocks;
 
 import andrews.pandoras_creatures.animation.system.base.AnimatedBlockEntity;
+import andrews.pandoras_creatures.animation.system.core.util.InterpolationType;
 import andrews.pandoras_creatures.block_entities.TestAnimationBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -48,19 +49,23 @@ public class TestAnimationBlock extends BaseEntityBlock
                 }
                 else
                 {
-                    blockEntity.testAnimationState.start(blockEntity.getTicksExisted());
+                    blockEntity.testAnimationState.interpolateAndStart(1.0F, blockEntity.getTicksExisted(), InterpolationType.IN);
                 }
             }
             else if(player.getItemInHand(hand).is(Items.BLAZE_ROD))
             {
                 if (blockEntity.altAnimationState.isStarted())
                 {
-                    blockEntity.altAnimationState.stop();
+                    blockEntity.altAnimationState.interpolateAndStop(2.0F, InterpolationType.OUT);
                 }
                 else
                 {
-                    blockEntity.altAnimationState.start(blockEntity.getTicksExisted());
+                    blockEntity.altAnimationState.interpolateAndStart(2.0F, blockEntity.getTicksExisted(), InterpolationType.IN);
                 }
+            }
+            else
+            {
+                blockEntity.altAnimationState.stop();
             }
         }
         return InteractionResult.SUCCESS;
