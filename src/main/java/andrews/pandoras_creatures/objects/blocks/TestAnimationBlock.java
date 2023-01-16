@@ -56,11 +56,11 @@ public class TestAnimationBlock extends BaseEntityBlock
             {
                 if (blockEntity.altAnimationState.isStarted())
                 {
-                    blockEntity.altAnimationState.interpolateAndStop(2.0F, InterpolationType.OUT);
+                    blockEntity.altAnimationState.interpolateAndStop(1.0F, InterpolationType.OUT);
                 }
                 else
                 {
-                    blockEntity.altAnimationState.interpolateAndStart(2.0F, blockEntity.getTicksExisted(), InterpolationType.IN);
+                    blockEntity.altAnimationState.interpolateAndStart(1.0F, blockEntity.getTicksExisted(), InterpolationType.IN);
                 }
             }
             else

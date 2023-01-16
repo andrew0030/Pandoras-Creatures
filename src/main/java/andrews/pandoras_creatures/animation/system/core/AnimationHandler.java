@@ -14,7 +14,7 @@ public class AnimationHandler
 {
     public static void animate(IAnimatedModel model, AdvancedAnimationState state, Vector3f animationVecCache)
     {
-        Animation animation = state.getAnimation();
+        Animation animation = state.getAnimation(); //      V We need this for 0 length animations
         float elapsedSeconds = getElapsedSeconds(state) - state.getPrevElapsedTime();//TODO make sure this works on animations that have non 0 length
         // We need to keep track of the size of the map, so we can perform logic on its last iteration
         int entries = animation.getKeyframeGroups().entrySet().size();
@@ -31,7 +31,6 @@ public class AnimationHandler
                     float timestampModifier = AnimationHandler.timestampModifier(state);
                     // We add the keyframeGroup to the caches if it hasn't been added
                     AnimationHandler.preventNullPointer(keyframeGroup, state);
-                    //TODO clean this up and add support for external frame retrieval also move to method
                     BasicKeyframe[] keyframes = getKeyframeArray(state, keyframeGroup);
                     // We turn the Idx back to 0 on a loop of the Animation
                     if(state.getAccumulatedTime() >= (animation.getLengthInSeconds() + lengthModifier) * 1000.0F && animation.isLooping())
@@ -46,7 +45,6 @@ public class AnimationHandler
                                 state.resetInterpolTime();
                             }
                     }
-                    // TODO interpolating in shifts the cached index
                     // If enough time passed we increase the current Idx and cache the last Vec
                     if(keyframes[state.cachedIndex.get(keyframeGroup)].timestamp() + timestampModifier <= elapsedSeconds)//TODO maybe optimize this by preventing its execution after executing once on last iteration
                     {
@@ -62,25 +60,37 @@ public class AnimationHandler
                     float elapsedDelta = elapsedSeconds - (lastKeyframe.timestamp() + timestampModifier);
                     float keyframeDelta = Mth.clamp(elapsedDelta / ((currentKeyframe.timestamp() + timestampModifier) - (lastKeyframe.timestamp() + timestampModifier)), 0.0F, 1.0F);
 
-                    Vector3f lastValue = lastKeyframe.isBasic() ? state.cachedLastVec.get(keyframeGroup) : lastKeyframe.target(elapsedSeconds);
+                    Vector3f lastValue = state.cachedLastVec.get(keyframeGroup);
+                    if(!lastKeyframe.isBasic() || (state.getInterpolTime() != 0 && elapsedSeconds <= state.getInterpolTime()))
+                        lastValue = lastKeyframe.target(elapsedSeconds);
                     currentKeyframe.getEasingType().storeEasedValues(animationVecCache, keyframeDelta, keyframes, lastValue, currentKeyframeIdx, elapsedSeconds);
 
-                    float interpolFactor = 1.0F; //TODO maybe optimize this?
+                    float interpolFactor = 1.0F;
                     if(state.getInterpolTime() != 0 && state.getInterpolType() != null)
                     {
-                        interpolFactor = 1 - (1 - Math.min(state.getInterpolTime(), elapsedSeconds) / state.getInterpolTime());
+                        // We have to make sure getInterpolTime isn't 0, otherwise when it divides by 0 we get a 1 frame flicker due to it blowing up
+                        interpolFactor = state.getInterpolTime() != 0 ? 1 - (1 - Math.min(state.getInterpolTime(), elapsedSeconds) / state.getInterpolTime()) : 1.0F;
                         if (state.getInterpolType().equals(InterpolationType.OUT))
                             interpolFactor = 1.0F - interpolFactor;
                     }
                     keyframeGroup.getTransformType().applyValues(modelPart, animationVecCache.mul(interpolFactor));
 
-                    //TODO maybe clean this up??
+                    // Handles stopping animations after easing out is finished
                     if(state.getInterpolTime() != 0 && state.getInterpolType() != null)
                         if(state.getInterpolType().equals(InterpolationType.OUT))
                             if(interpolFactor == 0)
                                 if(entries <= 0)
                                     if(isLastTransformType(keyframeGroup, keyframeGroupList))
                                         state.stop();
+
+                    // Handles resetting interpolation time on 0 length animations
+                    if(animation.getLengthInSeconds() == 0)
+                        if(state.getInterpolTime() != 0 && state.getInterpolType() != null)
+                            if(state.getInterpolType().equals(InterpolationType.IN))
+                                if(interpolFactor == 1)
+                                    if(entries <= 0)
+                                        if(isLastTransformType(keyframeGroup, keyframeGroupList))
+                                            state.resetInterpolTime();
                 }
             }
         }
@@ -103,17 +113,17 @@ public class AnimationHandler
             {
                 case IN -> {
                     List<BasicKeyframe> keyframeList = new ArrayList<>(Arrays.asList(keyframes));
-                    //TODO add IN_LINEAR and force linear interpolation
-//                keyframeList.add(0, new BasicKeyframe(-state.getInterpolTime(), new Vector3f(0, 0, 0), EasingTypes.LINEAR));
-//            if(keyframes[0] instanceof MolangKeyframe molang)
-//                keyframeList.add(1, new BasicKeyframe(-0.01F, molang.target(state.getInterpolTime()), EasingTypes.LINEAR));
+
+                    // This handles linear force start
+//                    if(keyframes[0] instanceof MolangKeyframe molang)
+//                        keyframeList.set(0, new BasicKeyframe(molang.timestamp(), molang.target(state.getInterpolTime()), EasingTypes.LINEAR));
                     keyframes = keyframeList.toArray(new BasicKeyframe[0]);
                 }
                 case OUT -> {
                     List<BasicKeyframe> keyframeList = new ArrayList<>(Arrays.asList(keyframes));
-                    int lastKeyframeIdx = keyframes.length - 1; //TODO add OUT_LINEAR to force non molang interpolation        V state.getPrevElapsedTime()
+                    int lastKeyframeIdx = keyframes.length - 1; //TODO add OUT_LINEAR to force non molang interpolation        V state.getPrevElapsedTime() AnimationHandler.getElapsedSeconds(state)
                     if(keyframes[lastKeyframeIdx] instanceof MolangKeyframe molang)
-                        keyframeList.set(lastKeyframeIdx, new BasicKeyframe(molang.timestamp(), molang.target(AnimationHandler.getElapsedSeconds(state)), EasingTypes.LINEAR));
+                        keyframeList.set(lastKeyframeIdx, new BasicKeyframe(molang.timestamp(), molang.target(state.getPrevElapsedTime()), EasingTypes.LINEAR));
                     keyframes = keyframeList.toArray(new BasicKeyframe[0]);
                 }
             }
@@ -137,7 +147,7 @@ public class AnimationHandler
     {
         float accumulatedSeconds = state.accumulatedTime / 1000.0F;
         float lengthModifier = AnimationHandler.lengthModifier(state);
-        return state.getAnimation().isLooping() ? accumulatedSeconds % (state.getAnimation().getLengthInSeconds() - lengthModifier) : accumulatedSeconds;
+        return state.getAnimation().isLooping() ? accumulatedSeconds % (state.getAnimation().getLengthInSeconds() + lengthModifier) : accumulatedSeconds;
     }
 
     private static float lengthModifier(AdvancedAnimationState state)

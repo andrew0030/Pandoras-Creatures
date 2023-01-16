@@ -35,9 +35,9 @@ public class Hellhound extends Wolf
             if(player.getItemInHand(hand).is(Items.STICK))
                 if(this.walkState.isStarted())
                 {
-                    this.walkState.interpolateAndStop(3.5F, InterpolationType.OUT);
+                    this.walkState.interpolateAndStop(0.2F, InterpolationType.OUT);
                 } else {
-                    this.walkState.interpolateAndStart(3.5F, this.tickCount, InterpolationType.IN);
+                    this.walkState.interpolateAndStart(0.5F, this.tickCount, InterpolationType.IN);
                 }
             if(player.getItemInHand(hand).is(Items.BLAZE_ROD))
                 if(this.angleState.isStarted())
