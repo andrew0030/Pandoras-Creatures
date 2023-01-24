@@ -1,7 +1,6 @@
 package andrews.pandoras_creatures.entities;
 
 import andrews.pandoras_creatures.animation.system.core.AdvancedAnimationState;
-import andrews.pandoras_creatures.animation.system.core.util.InterpolationType;
 import andrews.pandoras_creatures.entities.animations.HellhoundAnimation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
@@ -35,16 +34,16 @@ public class Hellhound extends Wolf
             if(player.getItemInHand(hand).is(Items.STICK))
                 if(this.walkState.isStarted())
                 {
-                    this.walkState.interpolateAndStop(0.2F, InterpolationType.OUT);
+                    this.walkState.interpolateAndStop(0.2F);
                 } else {
-                    this.walkState.interpolateAndStart(0.5F, this.tickCount, InterpolationType.IN);
+                    this.walkState.interpolateAndStart(0.5F, this.tickCount);
                 }
             if(player.getItemInHand(hand).is(Items.BLAZE_ROD))
                 if(this.angleState.isStarted())
                 {
-                    this.angleState.interpolateAndStop(2.0F, InterpolationType.OUT);
+                    this.angleState.interpolateAndStop(2.0F);
                 } else {
-                    this.angleState.interpolateAndStart(2.0F, this.tickCount, InterpolationType.IN);
+                    this.angleState.interpolateAndStart(2.0F, this.tickCount);
                 }
         } else {
             this.walkState.stop();

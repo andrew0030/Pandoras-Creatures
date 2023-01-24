@@ -18,7 +18,8 @@ public class KeyframeGroup
         return this.transformType;
     }
 
-    public BasicKeyframe[] getKeyframes() {
+    public BasicKeyframe[] getKeyframes()
+    {
         return this.keyframes;
     }
 }
