@@ -51,6 +51,8 @@ public class TestAnimationModel extends AnimatedBlockEntityModel
         if(blockEntity instanceof TestAnimationBlockEntity animated)
         {
             this.base.getAllParts().forEach(ModelPart::resetPose);
+            animated.lingeringStates.removeIf(state -> !state.isStarted());
+            animated.lingeringStates.forEach(state -> this.animate(state, animated.getTicksExisted() + partialTick, 1.0F));
             this.animate(animated.testAnimationState, animated.getTicksExisted() + partialTick, 1.0F);
             this.animate(animated.altAnimationState, animated.getTicksExisted() + partialTick, 1.0F);
         }

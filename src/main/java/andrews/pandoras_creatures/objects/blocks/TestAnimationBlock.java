@@ -1,6 +1,7 @@
 package andrews.pandoras_creatures.objects.blocks;
 
 import andrews.pandoras_creatures.animation.system.base.AnimatedBlockEntity;
+import andrews.pandoras_creatures.animation.system.core.AdvancedAnimationState;
 import andrews.pandoras_creatures.block_entities.TestAnimationBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -45,6 +46,8 @@ public class TestAnimationBlock extends BaseEntityBlock
                 if (blockEntity.testAnimationState.isStarted())
                 {
                     blockEntity.testAnimationState.interpolateAndStop(1.0F);
+                    blockEntity.lingeringStates.add(new AdvancedAnimationState(blockEntity.testAnimationState));
+                    blockEntity.testAnimationState.stop();
                 }
                 else
                 {
@@ -56,6 +59,8 @@ public class TestAnimationBlock extends BaseEntityBlock
                 if (blockEntity.altAnimationState.isStarted())
                 {
                     blockEntity.altAnimationState.interpolateAndStop(1.0F);
+                    blockEntity.lingeringStates.add(new AdvancedAnimationState(blockEntity.altAnimationState));
+                    blockEntity.altAnimationState.stop();
                 }
                 else
                 {

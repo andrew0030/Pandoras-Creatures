@@ -4,6 +4,7 @@ import andrews.pandoras_creatures.animation.model.AdvancedMeshDefinition;
 import andrews.pandoras_creatures.animation.model.AdvancedModelPart;
 import andrews.pandoras_creatures.animation.model.AdvancedPartDefinition;
 import andrews.pandoras_creatures.animation.model.AnimatedEntityModel;
+import andrews.pandoras_creatures.animation.system.core.AdvancedAnimationState;
 import andrews.pandoras_creatures.entities.Hellhound;
 import andrews.pandoras_creatures.util.Reference;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -82,6 +83,8 @@ public class HellhoundModel<T extends Hellhound> extends AnimatedEntityModel<T>
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch)
     {
         this.root().getAllParts().forEach(ModelPart::resetPose);
+        entity.lingeringStates.removeIf(state -> !state.isStarted());
+        entity.lingeringStates.forEach(state -> this.animate(state, ageInTicks, 1.0F));
         this.animate(entity.walkState, ageInTicks, 1.0F);
         this.animate(entity.angleState, ageInTicks, 1.0F);
     }

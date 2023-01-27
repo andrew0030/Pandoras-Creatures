@@ -42,17 +42,20 @@ public class AnimationHandler
                     float timeStampMod = state.getInTime(); // We need this to shift timestamps
                     float elapsedDelta = elapsedSeconds - (lastKeyframe.timestamp() + timeStampMod);
                     float keyframeDelta = Mth.clamp(elapsedDelta / ((currentKeyframe.timestamp() + timeStampMod) - (lastKeyframe.timestamp() + timeStampMod)), 0.0F, 1.0F);
+                    if(Float.isNaN(keyframeDelta))
+                        keyframeDelta = 0.0F;
 
-                    currentKeyframe.getEasingType().storeEasedValues(animationVecCache, keyframeDelta, keyframes, lastKeyframe.target(state.getInTime()), currentKeyframeIdx, elapsedSeconds);
+                    float actualElapsed = AnimationHandler.getElapsedSeconds(state);
+                    currentKeyframe.getEasingType().storeEasedValues(animationVecCache, keyframeDelta, keyframes, lastKeyframe.target(actualElapsed), currentKeyframeIdx, actualElapsed);
 
                     float interpolFactor = 1.0F;
                     if(state.getInTime() != 0) {
                         float time = state.getInTime();
-                        interpolFactor = time != 0 ? 1 - (1 - Math.min(time, elapsedSeconds) / time) : 1.0F;
+                        interpolFactor = 1 - (1 - Math.min(time, elapsedSeconds) / time);
                     }
                     if(state.getOutTime() != 0) {
                         float time = state.getOutTime();
-                        interpolFactor *= 1 - (1 - (1 - Math.min(time, AnimationHandler.getElapsedSeconds(state) - elapsedSeconds) / time));
+                        interpolFactor *= 1 - (1 - (1 - Math.min(time, actualElapsed - elapsedSeconds) / time));
                     }
 
                     keyframeGroup.getTransformType().applyValues(modelPart, animationVecCache.mul(interpolFactor));

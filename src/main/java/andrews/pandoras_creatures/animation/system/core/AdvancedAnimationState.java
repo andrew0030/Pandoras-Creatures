@@ -19,6 +19,17 @@ public class AdvancedAnimationState extends AnimationState
         this.animation = animation;
     }
 
+    public AdvancedAnimationState(AdvancedAnimationState state)
+    {
+        this.lastTime = state.lastTime;
+        this.accumulatedTime = state.accumulatedTime;
+        this.cachedIndex.putAll(state.cachedIndex);
+        this.animation = state.getAnimation();
+        this.easeInTime = state.getInTime();
+        this.easeOutTime = state.getOutTime();
+        this.prevElapsedTime = state.prevElapsedTime;
+    }
+
     /**
      * @return The AnimationDefinition connected to this AnimationState
      */
@@ -58,7 +69,12 @@ public class AdvancedAnimationState extends AnimationState
     {
         if(this.isStarted())
         {
-            this.prevElapsedTime = AnimationHandler.getElapsedSeconds(this);
+            // If the Animation is easing in, the ease out time is set to the elapsed time
+            float elapsedSeconds = AnimationHandler.getElapsedSeconds(this);
+            if (this.getInTime() != 0 && elapsedSeconds < this.getInTime() && easeOutTime >= this.getInTime())
+                easeOutTime = elapsedSeconds;
+
+            this.prevElapsedTime = elapsedSeconds;
             this.easeOutTime = easeOutTime;
         }
     }
