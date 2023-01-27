@@ -13,6 +13,7 @@ public class AdvancedAnimationState extends AnimationState
     private float easeInTime = 0;
     private float easeOutTime = 0;
     private float prevElapsedTime = 0;
+    private boolean keepEasingIn = true;
 
     public AdvancedAnimationState(Animation animation)
     {
@@ -27,7 +28,8 @@ public class AdvancedAnimationState extends AnimationState
         this.animation = state.getAnimation();
         this.easeInTime = state.getInTime();
         this.easeOutTime = state.getOutTime();
-        this.prevElapsedTime = state.prevElapsedTime;
+        this.prevElapsedTime = state.getPrevElapsedTime();
+        this.keepEasingIn = state.keepEasingIn();
     }
 
     /**
@@ -54,13 +56,31 @@ public class AdvancedAnimationState extends AnimationState
         return this.easeInTime;
     }
 
+    public void resetInTime()
+    {
+        this.easeInTime = 0.0F;
+    }
+
     public float getOutTime()
     {
         return this.easeOutTime;
     }
 
+    public boolean keepEasingIn()
+    {
+        return this.keepEasingIn;
+    }
+
     public void interpolateAndStart(float easeInTime, int ageInTicks)
     {
+        keepEasingIn = true;
+        this.easeInTime = easeInTime;
+        this.startIfStopped(ageInTicks);
+    }
+
+    public void interpolateAndStart(float easeInTime, int ageInTicks, boolean keepEasingIn)
+    {
+        this.keepEasingIn = keepEasingIn;
         this.easeInTime = easeInTime;
         this.startIfStopped(ageInTicks);
     }

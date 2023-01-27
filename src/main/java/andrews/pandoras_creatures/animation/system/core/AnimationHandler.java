@@ -92,7 +92,12 @@ public class AnimationHandler
             if(entries <= 0)
                 //On loop if there are multiple Transform Types we need to do this on last, otherwise later don't get to reset
                 if(isLastTransformType(keyframeGroup, keyframeGroupList))
+                {
                     state.accumulatedTime -= animLength * 1000.0F;
+                    if(!state.keepEasingIn()) // If the animation should only ease in once we reset ease in time.
+                        if(state.getInTime() != 0)
+                            state.resetInTime();
+                }
         }
         // If enough time passed we increase the current Idx and cache the last Vec
         float timeStampMod = state.getInTime(); // We need this shift timestamps
