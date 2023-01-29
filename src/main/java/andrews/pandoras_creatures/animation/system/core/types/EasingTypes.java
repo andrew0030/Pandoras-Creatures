@@ -99,4 +99,14 @@ public class EasingTypes
         this.easingType = easingType;
         this.optionalValue = value;
     }
+
+    public EasingType getEasingType()
+    {
+        return this.easingType;
+    }
+
+    public float getOptionalValue()
+    {
+        return this.optionalValue;
+    }
 }

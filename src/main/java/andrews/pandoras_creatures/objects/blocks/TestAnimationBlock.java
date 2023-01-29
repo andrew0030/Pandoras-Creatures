@@ -2,6 +2,7 @@ package andrews.pandoras_creatures.objects.blocks;
 
 import andrews.pandoras_creatures.animation.system.base.AnimatedBlockEntity;
 import andrews.pandoras_creatures.animation.system.core.AdvancedAnimationState;
+import andrews.pandoras_creatures.animation.system.core.types.EasingTypes;
 import andrews.pandoras_creatures.block_entities.TestAnimationBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -45,26 +46,26 @@ public class TestAnimationBlock extends BaseEntityBlock
             {
                 if (blockEntity.testAnimationState.isStarted())
                 {
-                    blockEntity.testAnimationState.interpolateAndStop(1.0F);
+                    blockEntity.testAnimationState.interpolateAndStop(1.0F, EasingTypes.LINEAR, false);
                     blockEntity.lingeringStates.add(new AdvancedAnimationState(blockEntity.testAnimationState));
                     blockEntity.testAnimationState.stop();
                 }
                 else
                 {
-                    blockEntity.testAnimationState.interpolateAndStart(1.0F, blockEntity.getTicksExisted());
+                    blockEntity.testAnimationState.interpolateAndStart(1.0F, EasingTypes.LINEAR, false, blockEntity.getTicksExisted());
                 }
             }
             else if(player.getItemInHand(hand).is(Items.BLAZE_ROD))
             {
                 if (blockEntity.altAnimationState.isStarted())
                 {
-                    blockEntity.altAnimationState.interpolateAndStop(1.0F);
+                    blockEntity.altAnimationState.interpolateAndStop(1.0F, EasingTypes.LINEAR, false);
                     blockEntity.lingeringStates.add(new AdvancedAnimationState(blockEntity.altAnimationState));
                     blockEntity.altAnimationState.stop();
                 }
                 else
                 {
-                    blockEntity.altAnimationState.interpolateAndStart(1.0F, blockEntity.getTicksExisted());
+                    blockEntity.altAnimationState.interpolateAndStart(1.0F, EasingTypes.LINEAR, false, blockEntity.getTicksExisted());
                 }
             }
             else

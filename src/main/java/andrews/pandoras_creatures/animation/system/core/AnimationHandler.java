@@ -2,12 +2,15 @@ package andrews.pandoras_creatures.animation.system.core;
 
 import andrews.pandoras_creatures.animation.model.AdvancedModelPart;
 import andrews.pandoras_creatures.animation.model.IAnimatedModel;
+import andrews.pandoras_creatures.animation.system.core.types.EasingTypes;
 import andrews.pandoras_creatures.animation.system.core.types.util.EasingMath;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.util.Mth;
 import org.joml.Vector3f;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 public class AnimationHandler
 {
@@ -46,16 +49,25 @@ public class AnimationHandler
                         keyframeDelta = 0.0F;
 
                     float actualElapsed = AnimationHandler.getElapsedSeconds(state);
-                    currentKeyframe.getEasingType().storeEasedValues(animationVecCache, keyframeDelta, keyframes, lastKeyframe.target(actualElapsed), currentKeyframeIdx, actualElapsed);
+                    float targetTime = state.forceOutLinear() ? elapsedSeconds : actualElapsed;
+                    float lastTargetTime = AnimationHandler.getLastTargetTime(state, elapsedSeconds, actualElapsed);
+
+                    currentKeyframe.getEasingType().storeEasedValues(animationVecCache, keyframeDelta, keyframes, lastKeyframe.target(lastTargetTime), currentKeyframeIdx, targetTime);
 
                     float interpolFactor = 1.0F;
                     if(state.getInTime() != 0) {
                         float time = state.getInTime();
-                        interpolFactor = 1 - (1 - Math.min(time, elapsedSeconds) / time);
+                        float modifier = 1 - (1 - Math.min(time, elapsedSeconds) / time);
+                        if(state.getEaseInType() != null)
+                            modifier = applyEasing(state.getEaseInType(), modifier);
+                        interpolFactor = modifier;
                     }
                     if(state.getOutTime() != 0) {
                         float time = state.getOutTime();
-                        interpolFactor *= 1 - (1 - (1 - Math.min(time, actualElapsed - elapsedSeconds) / time));
+                        float modifier = 1 - (1 - (1 - Math.min(time, actualElapsed - elapsedSeconds) / time));
+                        if(state.getEaseOutType() != null)
+                            modifier = applyEasing(state.getEaseOutType(), modifier);
+                        interpolFactor *= modifier;
                     }
 
                     keyframeGroup.getTransformType().applyValues(modelPart, animationVecCache.mul(interpolFactor));
@@ -114,5 +126,61 @@ public class AnimationHandler
                 .max()
                 .orElse(0);
         return keyframeGroup.getTransformType().getPriority() == maxPriority;
+    }
+
+    private static float getLastTargetTime(AdvancedAnimationState state, float elapsedSeconds, float actualElapsed)
+    {
+        // In=true and Out=true
+        if (state.forceInLinear() && state.forceOutLinear()) {
+            return state.getInTime();
+        } // In=false and Out=true
+        else if (!state.forceInLinear() && state.forceOutLinear()) {
+            return state.getOutTime() != 0 ? elapsedSeconds : actualElapsed;
+        } // In=true and Out=false
+        else if (state.forceInLinear() && !state.forceOutLinear()) {
+            return state.getOutTime() != 0 ? actualElapsed - (elapsedSeconds - state.getInTime()) : state.getInTime();
+        } // In=false and Out=false
+        else {
+            return actualElapsed;
+        }
+    }
+
+    private static float applyEasing(EasingTypes type, float value)
+    {
+        return switch (type.getEasingType())
+        {
+            default -> value;
+            case STEPS -> EasingMath.easeSteps(value, type.getOptionalValue());
+            case EASE_IN_SINE -> EasingMath.easeInSine(value);
+            case EASE_OUT_SINE -> EasingMath.easeOutSine(value);
+            case EASE_IN_OUT_SINE -> EasingMath.easeInOutSine(value);
+            case EASE_IN_QUAD -> EasingMath.easeInQuad(value);
+            case EASE_OUT_QUAD -> EasingMath.easeOutQuad(value);
+            case EASE_IN_OUT_QUAD -> EasingMath.easeInOutQuad(value);
+            case EASE_IN_CUBIC -> EasingMath.easeInCubic(value);
+            case EASE_OUT_CUBIC -> EasingMath.easeOutCubic(value);
+            case EASE_IN_OUT_CUBIC -> EasingMath.easeInOutCubic(value);
+            case EASE_IN_QUART -> EasingMath.easeInQuart(value);
+            case EASE_OUT_QUART -> EasingMath.easeOutQuart(value);
+            case EASE_IN_OUT_QUART -> EasingMath.easeInOutQuart(value);
+            case EASE_IN_QUINT -> EasingMath.easeInQuint(value);
+            case EASE_OUT_QUINT -> EasingMath.easeOutQuint(value);
+            case EASE_IN_OUT_QUINT -> EasingMath.easeInOutQuint(value);
+            case EASE_IN_EXPO -> EasingMath.easeInExpo(value);
+            case EASE_OUT_EXPO -> EasingMath.easeOutExpo(value);
+            case EASE_IN_OUT_EXPO -> EasingMath.easeInOutExpo(value);
+            case EASE_IN_CIRC -> EasingMath.easeInCirc(value);
+            case EASE_OUT_CIRC -> EasingMath.easeOutCirc(value);
+            case EASE_IN_OUT_CIRC -> EasingMath.easeInOutCirc(value);
+            case EASE_IN_BACK -> EasingMath.easeInBack(value, type.getOptionalValue());
+            case EASE_OUT_BACK -> EasingMath.easeOutBack(value, type.getOptionalValue());
+            case EASE_IN_OUT_BACK -> EasingMath.easeInOutBack(value, type.getOptionalValue());
+            case EASE_IN_ELASTIC -> EasingMath.easeInElastic(value, type.getOptionalValue());
+            case EASE_OUT_ELASTIC -> EasingMath.easeOutElastic(value, type.getOptionalValue());
+            case EASE_IN_OUT_ELASTIC -> EasingMath.easeInOutElastic(value, type.getOptionalValue());
+            case EASE_IN_BOUNCE -> EasingMath.easeInBounce(value, type.getOptionalValue());
+            case EASE_OUT_BOUNCE -> EasingMath.easeOutBounce(value, type.getOptionalValue());
+            case EASE_IN_OUT_BOUNCE -> EasingMath.easeInOutBounce(value, type.getOptionalValue());
+        };
     }
 }

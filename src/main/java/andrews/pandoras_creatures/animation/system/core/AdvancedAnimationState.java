@@ -1,5 +1,6 @@
 package andrews.pandoras_creatures.animation.system.core;
 
+import andrews.pandoras_creatures.animation.system.core.types.EasingTypes;
 import com.google.common.collect.Maps;
 import net.minecraft.world.entity.AnimationState;
 
@@ -14,6 +15,10 @@ public class AdvancedAnimationState extends AnimationState
     private float easeOutTime = 0;
     private float prevElapsedTime = 0;
     private boolean keepEasingIn = true;
+    private EasingTypes easeInType = null;
+    private EasingTypes easeOutType = null;
+    private boolean forceInLinear = false;
+    private boolean forceOutLinear = false;
 
     public AdvancedAnimationState(Animation animation)
     {
@@ -30,6 +35,10 @@ public class AdvancedAnimationState extends AnimationState
         this.easeOutTime = state.getOutTime();
         this.prevElapsedTime = state.getPrevElapsedTime();
         this.keepEasingIn = state.keepEasingIn();
+        this.easeInType = state.getEaseInType();
+        this.easeOutType = state.getEaseOutType();
+        this.forceInLinear = state.forceInLinear();
+        this.forceOutLinear = state.forceOutLinear();
     }
 
     /**
@@ -71,24 +80,46 @@ public class AdvancedAnimationState extends AnimationState
         return this.keepEasingIn;
     }
 
-    public void interpolateAndStart(float easeInTime, int ageInTicks)
+    public EasingTypes getEaseInType()
     {
-        keepEasingIn = true;
-        this.easeInTime = easeInTime;
-        this.startIfStopped(ageInTicks);
+        return this.easeInType;
     }
 
-    public void interpolateAndStart(float easeInTime, int ageInTicks, boolean keepEasingIn)
+    public EasingTypes getEaseOutType()
+    {
+        return this.easeOutType;
+    }
+
+    public boolean forceInLinear()
+    {
+        return this.forceInLinear;
+    }
+
+    public boolean forceOutLinear()
+    {
+        return this.forceOutLinear;
+    }
+
+    public void interpolateAndStart(float easeInTime, EasingTypes easeInType, boolean forceInLinear, int ageInTicks)
+    {
+        this.interpolateAndStart(easeInTime, easeInType, forceInLinear, ageInTicks, true);
+    }
+
+    public void interpolateAndStart(float easeInTime, EasingTypes easeInType, boolean forceInLinear, int ageInTicks, boolean keepEasingIn)
     {
         this.keepEasingIn = keepEasingIn;
         this.easeInTime = easeInTime;
+        this.easeInType = easeInType;
+        this.forceInLinear = forceInLinear;
         this.startIfStopped(ageInTicks);
     }
 
-    public void interpolateAndStop(float easeOutTime)
+    public void interpolateAndStop(float easeOutTime, EasingTypes easeOutType, boolean forceOutLinear)
     {
         if(this.isStarted())
         {
+            this.easeOutType = easeOutType;
+            this.forceOutLinear = forceOutLinear;
             // If the Animation is easing in, the ease out time is set to the elapsed time
             float elapsedSeconds = AnimationHandler.getElapsedSeconds(this);
             if (this.getInTime() != 0 && elapsedSeconds < this.getInTime() && easeOutTime >= this.getInTime())
