@@ -68,6 +68,10 @@ public class TestAnimationAnimations
 //                    new BasicKeyframe(3F, KeyframeAnimations.posVec(0F, 0F, 0F), EasingTypes.EASE_IN_CIRC))).build();
 
     public static final Animation MY_ALT_ANIMATION = AnimationBuilder.withLength(0F)
+            .addAnimation("base", new KeyframeGroup(TransformTypes.POSITION,
+                    new MolangKeyframe(0F, 'p', "dsin(anim_time * 100) * 0.5", "2", "dcos(anim_time * 100) * 0.5", EasingTypes.LINEAR)))
+            .addAnimation("base", new KeyframeGroup(TransformTypes.ROTATION,
+                    new MolangKeyframe(0F, 'r', "-dsin(anim_time * 100) * 2", "0", "-dcos(anim_time * 100) * 2", EasingTypes.LINEAR)))
             .addAnimation("arm_bottom", new KeyframeGroup(TransformTypes.ROTATION,
                     new MolangKeyframe(0.0F, 'r', "dcos(anim_time * 400) * 15", "0", "0", EasingTypes.LINEAR))).build();
 }

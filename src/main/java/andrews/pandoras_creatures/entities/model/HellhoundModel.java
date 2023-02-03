@@ -4,7 +4,6 @@ import andrews.pandoras_creatures.animation.model.AdvancedMeshDefinition;
 import andrews.pandoras_creatures.animation.model.AdvancedModelPart;
 import andrews.pandoras_creatures.animation.model.AdvancedPartDefinition;
 import andrews.pandoras_creatures.animation.model.AnimatedEntityModel;
-import andrews.pandoras_creatures.animation.system.core.AdvancedAnimationState;
 import andrews.pandoras_creatures.entities.Hellhound;
 import andrews.pandoras_creatures.util.Reference;
 import net.minecraft.client.model.geom.ModelLayerLocation;
